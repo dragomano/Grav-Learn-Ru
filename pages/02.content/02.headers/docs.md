@@ -430,7 +430,7 @@ author:
 </section>
 [/prism]
 
-## Мета-заголоки
+## Мета-заголовки
 
 Мета-заголовки позволяют вам установить [стандартный набор тегов HTML **<meta>**](https://www.w3schools.com/tags/tag_meta.asp) для каждой страницы, а также [OpenGraph](https://ogp.me/), [Facebook](https://developers.facebook.com/docs/sharing/best-practices) и [Twitter](https://dev.twitter.com/cards/overview)
 
