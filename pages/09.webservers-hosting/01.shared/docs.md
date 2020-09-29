@@ -1,5 +1,5 @@
 ---
-menu: Shared Hosting
-redirect: '/webservers-hosting/shared/rochen'
+menu: Виртуальный хостинг
+redirect: '/webservers-hosting/shared/beget'
 class: subtitle
 ---
