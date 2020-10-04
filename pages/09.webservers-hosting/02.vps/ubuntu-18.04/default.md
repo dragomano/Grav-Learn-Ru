@@ -1,73 +1,73 @@
 ---
-title: Ubuntu 18.04 VPS Installation
+title: Установка VPS на Ubuntu 18.04
 ---
 {% set ssh_port = page.header.ssh_port %}
 
-### Update and Upgrade Packages
+### Пакеты обновлений
 
-At this point, you might want to either setup a local `/etc/hosts` entry to give the IP provided a nice friendly name such as `{{ page.header.localname }}`.  That way you can more easily SSH to your server with `ssh root@{{ page.header.localname }}{% if ssh_port %} -p{{ ssh_port }}{% endif %}`.
+На этом этапе вы можете либо настроить локальную запись `/etc/hosts`, чтобы дать IP-адресу удобное понятное имя, такое как `{{ page.header.localname }}`. Так вам будет проще подключиться к серверу по SSH с помощью `ssh root@{{ page.header.localname }}{% if ssh_port %} -p{{ ssh_port }}{% endif %}`.
 
 {% if ssh_port %}
 !!! The `-p{{ ssh_port}}` configuration option is required in order to be able to the non-standard SSH port
 {% endif %}
 
-After successfully SSH'ing to your server as **root**, the first thing you will want to do is update and upgrade all the installed packages.  This will ensure you are running the _latest-and-greatest_:
+После успешного подключения по SSH к вашему серверу как **root** первое, что вам нужно сделать, это обновить и обновить все установленные пакеты. Это гарантирует, что вы используете _самую свежую версию_:
 
 [prism classes="language-bash command-line"]
 # apt update
 # apt upgrade
 [/prism]
 
-Just answer `Y` if prompted.
+Просто ответьте `Y`, если будет предложено.
 
-Before we go any further, let's remove **Apache2** which we will replace with **Nginx**:
+Прежде чем идти дальше, удалим **Apache2**, который мы заменим **Nginx**:
 
 [prism classes="language-bash command-line"]
 # apt remove apache2*
 # apt autoremove
 [/prism]
 
-!! NOTE: You might not have this installed.  But better safe than sorry!
+!! ПРИМЕЧАНИЕ. Возможно, это не установлено. Но лучше перестраховаться!
 
-Next you will want to install some essential packages:
+Далее вам нужно будет установить несколько важных пакетов:
 
 [prism classes="language-bash command-line"]
 # apt install vim zip unzip nginx git php-fpm php-cli php-gd php-curl php-mbstring php-xml php-zip php-apcu
 [/prism]
 
-This will install the complete VIM editor (rather than the mini version that ships with Ubuntu), Nginx web server, GIT commands, and **PHP 7.2**.
+Это установит полный редактор VIM (а не мини-версию, которая поставляется с Ubuntu), веб-сервер Nginx, команды GIT и **PHP 7.2**.
 
-### Configure PHP7.2 FPM
-Once php-fpm is installed, there is a slight configuration change that needs to take place for a more secure setup.
+### Конфигурация PHP7.2 FPM
+После установки php-fpm необходимо внести небольшое изменение в конфигурацию для более безопасной установки.
 
 
 [prism classes="language-bash command-line"]
 # vim /etc/php/7.2/fpm/php.ini
 [/prism]
 
-Search for `cgi.fix_pathinfo`. This will be commented out by default and set to '1'.
+Найдите `cgi.fix_pathinfo`. По умолчанию это будет закомментировано и установлено значение «1».
 
-This is an extremely insecure setting because it tells PHP to attempt to execute the closest file it can find if the requested PHP file cannot be found. This basically would allow users to craft PHP requests in a way that would allow them to execute scripts that they shouldn't be allowed to execute.
+Это крайне небезопасный параметр, поскольку он сообщает PHP, что нужно попытаться выполнить ближайший файл, который он может найти, если запрошенный файл PHP не может быть найден. Это в основном позволит пользователям создавать PHP-запросы таким образом, чтобы они могли выполнять скрипты, которые им не разрешалось выполнять.
 
-Uncomment this line and change '1' to '0' so it looks like this
+Раскомментируйте эту строку и измените «1» на «0», чтобы она выглядела так
 
 
 [prism classes="language-bash command-line"]
 cgi.fix_pathinfo=0
 [/prism]
 
-Save and close the file, and then restart the service.
+Сохраните и закройте файл, а затем перезапустите службу.
 
 
 [prism classes="language-bash command-line"]
-# systemctl restart php7.2-fpm 
+# systemctl restart php7.2-fpm
 [/prism]
 
-### Configure Nginx Connection Pool
+### Настройка пула подключений Nginx
 
-Nginx has already been installed, but you should configure is so that it uses a user-specific PHP connection pool.  This will ensure you are secure and avoid any potential file permissions when working on the files as your user account, and via the web server.
+Nginx уже установлен, но вы должны настроить его так, чтобы он использовал пул соединений PHP для конкретного пользователя. Это обеспечит вашу безопасность и позволит избежать любых потенциальных разрешений на файлы при работе с файлами в качестве учетной записи пользователя и через веб-сервер.
 
-Navigate to the pool directory and create a new `grav` configuration:
+Перейдите в каталог пула и создайте новую конфигурацию `grav`:
 
 
 [prism classes="language-bash command-line"]
@@ -76,7 +76,7 @@ Navigate to the pool directory and create a new `grav` configuration:
 # vim grav.conf
 [/prism]
 
-In Vim, you can paste the following pool configuration:
+В Vim вы можете вставить следующую конфигурацию пула:
 
 [prism classes="language-apache line-numbers"]
 [grav]
@@ -98,15 +98,15 @@ pm.max_spare_servers = 3
 chdir = /
 [/prism]
 
-The key things here are the `user` and `group` being set to a user called `grav`, and the listen socket having a unique name from the standard socket.  Save and exit this file.
+Ключевыми вещами здесь являются `user` и `group`, устанавливаемые для пользователя с именем `grav`, и сокет прослушивания, имеющий уникальное имя из стандартного сокета. Сохраните и выйдите из этого файла.
 
-We need to create the dedicated `grav` user now:
+Теперь нам нужно создать специального пользователя `grav`:
 
 [prism classes="language-bash command-line"]
 # adduser grav
 [/prism]
 
-Provide a strong password, and leave the other values as default. We need to next create an appropriate location for Nginx to serve files from, so let's switch user and create those folder, and create a couple of test files:
+Задайте надежный пароль и оставьте другие значения по умолчанию. Затем нам нужно создать подходящее место для Nginx для обслуживания файлов, поэтому давайте сменим пользователя и создадим эту папку, а также создадим пару тестовых файлов:
 
 [prism classes="language-bash command-line"]
 # su - grav
@@ -114,19 +114,19 @@ $ mkdir -p www/html
 $ cd www/html
 [/prism]
 
-Create a simple `index.html` with the contents of:
+Создайте простой `index.html` с содержимым:
 
 [prism classes="language-html"]
  <h1>Working!</h1>
 [/prism]
 
-..and a file called `info.php` with the contents of:
+..и файл с именем `info.php` с содержимым:
 
 [prism classes="language-php"]
 <?php phpinfo();
 [/prism]
 
-Now we can exit out of this user and return to root in order to setup the Nginx server configuration:
+Теперь мы можем выйти из этого пользователя и вернуться к root, чтобы настроить конфигурацию сервера Nginx:
 
 [prism classes="language-bash command-line"]
 $ exit
@@ -134,7 +134,7 @@ $ exit
 # vim grav
 [/prism]
 
-Then simply paste in this configuration:
+Затем просто вставьте эту конфигурацию:
 
 [prism classes="language-nginx line-numbers"]
 server {
@@ -182,7 +182,7 @@ server {
 }
 [/prism]
 
-This is the stock `nginx.conf` file that comes with Grav with 2 changes. 1) the `root` has been adapted to our user/folder we just created and the `fastcgi_pass` option has been set to the socket we defined in our `grav` pool. Now we just need to link this file appropriately so that it's **enabled**:
+Это стандартный файл `nginx.conf`, который поставляется с Grav с двумя изменениями. 1) `root` был адаптирован к нашему пользователю/папке, которую мы только что создали, а опция fastcgi_pass была установлена ​​на сокет, который мы определили в нашем пуле `grav`. Теперь нам просто нужно правильно связать этот файл, чтобы он **был включен**:
 
 [prism classes="language-bash command-line"]
 # cd ../sites-enabled
@@ -190,27 +190,27 @@ This is the stock `nginx.conf` file that comes with Grav with 2 changes. 1) the 
 # rm default
 [/prism]
 
-You can test the configuration with the command `nginx -t`. It should return the following.
+Вы можете проверить конфигурацию с помощью команды `nginx -t`. Он должен вернуть следующее.
 
 [prism classes="language-bash command-line"]
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 [/prism]
 
-Now all we have to do is restart Nginx and the php7-fpm process and test to ensure we have configured Nginx and the PHP connection pool correctly:
+Теперь все, что нам нужно сделать, это перезапустить Nginx и процесс php7-fpm и протестировать, чтобы убедиться, что мы правильно настроили Nginx и пул соединений PHP:
 
 [prism classes="language-bash command-line"]
-# systemctl restart nginx 
+# systemctl restart nginx
 # systemctl restart php7.2-fpm
 [/prism]
 
-Now point your browser at your server: `http://{{ page.header.localname }}` and you should see the text: **Working!**
+Теперь укажите в браузере свой сервер: `http://{{page.header.localname}}`, и вы должны увидеть текст: **Working!**
 
-You can also test to ensure that PHP is installed and working correctly by pointing your browser to: `http://{{ page.header.localname }}/info.php`.  You should see a standard PHP info page with APCu, Opcache, etc listed.
+Вы также можете проверить, что PHP установлен и правильно работает, указав в браузере: `http://{{page.header.localname}}/info.php`. Вы должны увидеть стандартную информационную страницу PHP с перечисленными APCu, Opcache и т. д.
 
-### Installing Grav
+### Установка Grav
 
-This is the easy part!  First we need to jump back over to the Grav user, so either SSH as `grav@{{ page.header.localname }}` or `su - grav` from the root login. then follow these steps:
+Это легкая часть! Сначала нам нужно вернуться к пользователю Grav, поэтому либо SSH как `grav@{{page.header.localname}}`, либо `su - grav` от имени пользователя root. затем выполните следующие действия:
 
 [prism classes="language-bash command-line"]
 $ cd ~/www
@@ -220,9 +220,9 @@ $ rm -Rf html
 $ mv grav html
 [/prism]
 
-Now That's done you can confirm Grav is installed by pointing your browser to `http://{{ page.header.localname }}` and you should be greeted with the **Grav is Running!** page.
+Теперь, когда все готово, вы можете подтвердить установку Grav, указав в браузере ссылку `http://{{page.header.localname}}`, и вы должны увидеть страницу **Grav is Running!**.
 
-Because you have followed these instructions diligently, you will also be able to use the [Grav CLI](../../advanced/grav-cli) and [Grav GPM](../../advanced/grav-gpm) commands such as:
+Поскольку вы тщательно следовали этим инструкциям, вы также сможете использовать [Grav CLI](../../advanced/grav-cli) и [Grav GPM](../../advanced/grav-gpm ) такие команды, как:
 
 [prism classes="language-bash command-line"]
 $ cd ~/www/html
@@ -236,7 +236,7 @@ Cleared:  cache/compiled/*
 Touched: /home/grav/www/html/user/config/system.yaml
 [/prism]
 
-and GPM commands:
+и команды GPM:
 
 [prism classes="language-bash command-line"]
 $ bin/gpm index
