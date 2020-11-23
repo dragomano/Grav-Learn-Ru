@@ -1,5 +1,5 @@
 ---
-title: Основное руководство
+title: Базовое руководство
 taxonomy:
     category: docs
 ---
