@@ -470,7 +470,7 @@ class CustomTemplatesPlugin extends Plugin
 
 ### Как мне внедрить HTML в конечный результат?
 
-Последний раз вы можете ввести HTML и все еще кэшировать свои выходные данные во время события `onOutputGenerated`. Вы можете просто захватить и изменить `$this->grav->output`.
+Последний раз вы можете ввести HTML и всё ещё кэшировать свои выходные данные во время события `onOutputGenerated`. Вы можете просто захватить и изменить `$this->grav->output`.
 
   * Многие распространенные задачи могут быть выполнены с помощью [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core) infrastructure.
   * Плагины [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed) и [Tablesorter](https://github.com/Perlkonig/grav-plugin-tablesorter) используют более грубый подход.

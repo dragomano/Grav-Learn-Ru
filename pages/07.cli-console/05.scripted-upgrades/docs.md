@@ -72,13 +72,13 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 [/prism]
 
-При локальной установке composer запускается через `composer.phar`, а не просто `composer`. Теперь, все еще находясь в папке `public_html/deployer/`, запустите следующее, чтобы установить [Deployer](https://deployer.org/docs/installation):
+При локальной установке composer запускается через `composer.phar`, а не просто `composer`. Теперь, всё ещё находясь в папке `public_html/deployer/`, запустите следующее, чтобы установить [Deployer](https://deployer.org/docs/installation):
 
 [prism classes="language-bash command-line"]
 composer require deployer/deployer
 [/prism]
 
-Теперь, все еще в той же папке, создайте файл с именем `deploy.php`. Мы будем использовать это для запуска каждой задачи с помощью Deployer. Скопируйте и вставьте в файл следующее:
+Теперь, всё ещё в той же папке, создайте файл с именем `deploy.php`. Мы будем использовать это для запуска каждой задачи с помощью Deployer. Скопируйте и вставьте в файл следующее:
 
 [prism classes="language-php line-numbers"]
 <?php
