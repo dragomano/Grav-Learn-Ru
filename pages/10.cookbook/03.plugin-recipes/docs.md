@@ -463,7 +463,7 @@ class CustomTemplatesPlugin extends Plugin
 
 ### Как я могу ввести Markdown на страницу?
 
-В соответствии с [жизненным циклом гравитации](https://learn.getgrav.org/plugins/grav-lifecycle), последний крючок события, в который вы можете ввести необработанный Markdown, - это `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, портит его, а затем записать его обратно с `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
+В соответствии с [жизненным циклом гравитации](https://learn.getgrav.org/plugins/grav-lifecycle), последний хук события, в который вы можете ввести необработанный Markdown, - это `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, портит его, а затем записать его обратно с `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
 
   * [Page Inject](https://github.com/getgrav/grav-plugin-page-inject)
   * [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
