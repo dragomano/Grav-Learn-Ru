@@ -87,7 +87,7 @@ markdown:
     1. Запускаем обработчик Initialize
         1. Начинаем буферизацию вывода
         1. Инициализируем the timezone
-        1. Инициализируем `$grav['session']` если `system.session.initialize` имеет значение `true`
+        1. Инициализируем `$grav['session']`, если `system.session.initialize` имеет значение `true`
         1. Инициализируем `$grav['uri']`
             1. Добавляем `$grav['base_url_absolute']`
             1. Добавляем `$grav['base_url_relative']`

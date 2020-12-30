@@ -12,7 +12,7 @@ taxonomy:
 
 ! Поскольку уже существует подключаемый модуль, выполняющий эту работу с именем `Random`, мы назовем этот тестовый модуль `Randomizer`.
 
-Эта функция недоступна **из коробки**, но **легко** предоставляется через плагин. Как и в случае со многими аспектами Grav, для этого не существует _единого_ пути. Вместо этого у вас есть много вариантов. Мы рассмотрим только один подход ...
+Эта функция недоступна **из коробки**, но **легко** предоставляется через плагин. Как и в случае со многими аспектами Grav, для этого не существует _единого_ пути. Вместо этого у вас есть много вариантов. Мы рассмотрим только один подход...
 
 ## Обзор плагина Randomizer
 
@@ -31,7 +31,7 @@ taxonomy:
 
 !! Предыдущие версии этого руководства требовали создания плагина вручную. Весь этот процесс можно пропустить благодаря нашему новому **плагину DevTools**
 
-Первый шаг в создании нового плагина - это **установить плагин DevTools**. Это можно сделать двумя способами.
+Первый шаг в создании нового плагина — это **установить плагин DevTools**. Это можно сделать двумя способами.
 
 #### Установить через CLI GPM
 
@@ -69,7 +69,11 @@ Enter Developer Email: contact@acme.co
 SUCCESS plugin Randomizer -> Created Successfully
 
 Path: /www/user/plugins/randomizer
+
+Make sure to run `composer update` to initialize the autoloader
 [/prism]
+
+! На этом этапе вам **нужно запустить** `composer update` во вновь созданной папке плагина.
 
 Команда DevTools сообщает вам, где был создан этот новый плагин. Созданный плагин полностью функционален, но не будет автоматически иметь логику для выполнения желаемой функции. Нам придется изменить его в соответствии с нашими потребностями.
 
@@ -136,6 +140,7 @@ filters:
 <?php
 namespace Grav\Plugin;
 
+use Composer\Autoload\ClassLoader;
 use Grav\Common\Plugin;
 use RocketTheme\Toolbox\Event\Event;
 
@@ -145,7 +150,15 @@ use RocketTheme\Toolbox\Event\Event;
  */
 class RandomizerPlugin extends Plugin
 {
- ...
+    /**
+     * Composer autoload.
+     *
+     * @return ClassLoader
+     */
+    public function autoload(): ClassLoader
+    {
+        return require __DIR__ . '/vendor/autoload.php';
+    }
 }
 [/prism]
 
@@ -154,6 +167,7 @@ class RandomizerPlugin extends Plugin
 Измените операторы `use`, чтобы они выглядели так:
 
 [prism classes="language-php line-numbers"]
+use Composer\Autoload\ClassLoader;
 use Grav\Common\Plugin;
 use Grav\Common\Page\Collection;
 use Grav\Common\Uri;
@@ -170,15 +184,20 @@ use Grav\Common\Taxonomy;
 Grav использует сложную систему событий, и для обеспечения оптимальной производительности все плагины проверяются Grav, чтобы определить, на какие события плагин подписан.
 
 [prism classes="language-php line-numbers"]
-public static function getSubscribedEvents()
+public static function getSubscribedEvents(): array
 {
     return [
-        'onPluginsInitialized' => ['onPluginsInitialized', 0]
+        'onPluginsInitialized' => [
+            ['autoload', 100000], // TODO: Remove when plugin requires Grav >=1.7
+            ['onPluginsInitialized', 0]
+        ]
     ];
 }
 [/prism]
 
 В этом плагине мы собираемся сообщить Grav, что мы подписываемся на событие `onPluginsInitialized`. Таким образом, мы можем использовать это событие (которое является первым событием, доступным для плагинов), чтобы определить, следует ли нам подписываться на другие события.
+
+!!! **Примечание:** Первый прослушиватель событий `autoload` нужен только в Grav 1.6. Grav 1.7 автоматически вызывает этот метод.
 
 ## Шаг 7 - Определите, следует ли запускать плагин
 
@@ -186,16 +205,18 @@ public static function getSubscribedEvents()
 
 
 [prism classes="language-php line-numbers"]
-public function onPluginsInitialized()
+public function onPluginsInitialized(): void
 {
     // Don't proceed if we are in the admin plugin
     if ($this->isAdmin()) {
         return;
     }
 
+    /** @var Uri $uri */
     $uri = $this->grav['uri'];
-    $route = $this->config->get('plugins.randomizer.route');
+    $config = $this->config();
 
+    $route = $config['route'] ?? null;
     if ($route && $route == $uri->path()) {
         $this->enable([
             'onPageInitialized' => ['onPageInitialized', 0]
@@ -220,17 +241,19 @@ public function onPluginsInitialized()
 /**
  * Send user to a random page
  */
-public function onPageInitialized()
+public function onPageInitialized(): void
 {
+    /** @var Taxonomy $uri */
     $taxonomy_map = $this->grav['taxonomy'];
+    $config = $this->config();
 
-    $filters = (array) $this->config->get('plugins.randomizer.filters');
-    $operator = $this->config->get('plugins.randomizer.filter_combinator', 'and');
+    $filters = (array)($config['filters'] ?? []);
+    $operator = $config['filter_combinator'] ?? 'and';
 
-    if (count($filters)) {
+    if (count($filters) > 0) {
         $collection = new Collection();
         $collection->append($taxonomy_map->findTaxonomy($filters, $operator)->toArray());
-        if (count($collection)) {
+        if (count($collection) > 0) {
             unset($this->grav['page']);
             $this->grav['page'] = $collection->random()->current();
         }
@@ -265,6 +288,7 @@ public function onPageInitialized()
 <?php
 namespace Grav\Plugin;
 
+use Composer\Autoload\ClassLoader;
 use Grav\Common\Plugin;
 use Grav\Common\Page\Collection;
 use Grav\Common\Uri;
@@ -286,26 +310,38 @@ class RandomizerPlugin extends Plugin
      *     callable (or function) as well as the priority. The
      *     higher the number the higher the priority.
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 0]
-        ];
+    return [
+        'onPluginsInitialized' => [
+            ['autoload', 100000], // TODO: Remove when plugin requires Grav >=1.7
+            ['onPluginsInitialized', 0]
+        ]
+    ];
     }
 
     /**
-     * Initialize the plugin
+     * Composer autoload.
+     *
+     * @return ClassLoader
      */
-    public function onPluginsInitialized()
+    public function autoload(): ClassLoader
+    {
+        return require __DIR__ . '/vendor/autoload.php';
+    }
+
+    public function onPluginsInitialized(): void
     {
         // Don't proceed if we are in the admin plugin
         if ($this->isAdmin()) {
             return;
         }
 
+        /** @var Uri $uri */
         $uri = $this->grav['uri'];
-        $route = $this->config->get('plugins.randomizer.route');
+        $config = $this->config();
 
+        $route = $config['route'] ?? null;
         if ($route && $route == $uri->path()) {
             $this->enable([
                 'onPageInitialized' => ['onPageInitialized', 0]
@@ -316,17 +352,19 @@ class RandomizerPlugin extends Plugin
     /**
      * Send user to a random page
      */
-    public function onPageInitialized()
+    public function onPageInitialized(): void
     {
+        /** @var Taxonomy $uri */
         $taxonomy_map = $this->grav['taxonomy'];
+        $config = $this->config();
 
-        $filters = (array) $this->config->get('plugins.randomizer.filters');
-        $operator = $this->config->get('plugins.randomizer.filter_combinator', 'and');
+        $filters = (array)($config['filters'] ?? []);
+        $operator = $config['filter_combinator'] ?? 'and';
 
-        if (count($filters)) {
+        if (count($filters) > 0) {
             $collection = new Collection();
             $collection->append($taxonomy_map->findTaxonomy($filters, $operator)->toArray());
-            if (count($collection)) {
+            if (count($collection) > 0) {
                 unset($this->grav['page']);
                 $this->grav['page'] = $collection->random()->current();
             }
