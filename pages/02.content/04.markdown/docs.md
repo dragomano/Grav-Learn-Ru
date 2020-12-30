@@ -24,7 +24,6 @@ taxonomy:
 > Основная цель разработки синтаксиса форматирования Markdown - сделать его максимально читаемым. Идея состоит в том, что отформатированный с помощью Markdown документ должен быть опубликован как есть, как обычный текст, не выглядя так, как будто он размечен тегами или инструкциями по форматированию. Несмотря на то, что на синтаксис Markdown влияют несколько существующих фильтров преобразования текста в HTML, единственным основным источником вдохновения для синтаксиса Markdown является формат простой текстовой электронной почты.
 > -- <cite>Джон Грубер</cite>
 
-
 Grav поставляется со встроенной поддержкой [Markdown](https://daringfireball.net/projects/markdown/) и [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/). Вы должны включить **Markdown Extra** в конфигурационном файле `system.yaml`.
 
 Давайте рассмотрим основные элементы Markdown и то, как выглядит полученный HTML:
@@ -64,8 +63,6 @@ HTML:
 <h6>Заголовок h6</h6>
 [/prism]
 
-
-
 ## Комментарии
 
 Комментарии должны быть совместимы с HTML
@@ -75,13 +72,12 @@ HTML:
 Это комментарий
 -->
 [/prism]
+
 Комментарий ниже **не должен** быть виден:
 
 <!--
 Это комментарий
 -->
-
-
 
 ## Горизонтальные линии
 
@@ -99,10 +95,6 @@ ___
 
 ***
 
-
-
-
-
 ## Обычный текст
 
 Обычный текст будет заключен в теги `<p> </p>` в обработанном HTML.
@@ -112,6 +104,7 @@ ___
 [prism classes="language-markdown"]
 Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.
 [/prism]
+
 преобразуется в такой HTML:
 
 [prism classes="language-html"]
@@ -119,10 +112,6 @@ Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et l
 [/prism]
 
 **Разрыв строки** может быть выполнен с 2 пробелами, за которыми следует 1 перенос строки.
-
-
-
-
 
 ## Встроенный HTML
 
@@ -138,13 +127,10 @@ Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et l
 Абзац в Markdown.
 [/prism]
 
-
-
-
-
 ## Акцент
 
 ### Жирный
+
 Для выделения фрагмента текста с большим весом шрифта.
 
 Следующий фрагмент текста **выделен жирным шрифтом**.
@@ -152,6 +138,7 @@ Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et l
 [prism classes="language-markdown"]
 **преобразуется в жирный текст**
 [/prism]
+
 преобразуется в:
 
 **преобразуется в жирный текст**
@@ -163,6 +150,7 @@ Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et l
 [/prism]
 
 ### Курсив
+
 Для выделения фрагмента текста курсивом.
 
 Следующий фрагмент текста _представлен как курсив_.
@@ -181,13 +169,14 @@ _преобразуется в курсив_
 <em>преобразуется в курсив</em>
 [/prism]
 
-
 ### Зачеркнутый
+
 В GFM (GitHub Flavored Markdown) вы можете делать зачеркивания.
 
 [prism classes="language-markdown"]
 ~~Зачеркни этот текст.~~
 [/prism]
+
 Преобразуется в:
 
 ~~Зачеркни этот текст.~~
@@ -198,10 +187,8 @@ HTML:
 <del>Зачеркни этот текст.</del>
 [/prism]
 
-
-
-
 ## Цитаты
+
 Для цитирования блоков контента из другого источника в вашем документе.
 
 Добавьте `>` перед любым текстом, который вы хотите процитировать.
@@ -238,18 +225,14 @@ Nunc augue augue, aliquam non hendrerit ac, commodo vel nisi.
 >> Sed adipiscing elit vitae augue consectetur a gravida nunc vehicula. Donec auctor
 odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac eu diam.
 
-
-
-
 ## Уведомления
 
 ! Старый механизм уведомлений, отменяющий синтаксис блочных кавычек (`>>>`), устарел. Уведомления теперь обрабатываются через специальный плагин под названием [Markdown Notices](https://github.com/getgrav/grav-plugin-markdown-notices)
 
-
-
 ## Списки
 
 ### Неупорядоченный
+
 Список элементов, в котором порядок явно не имеет значения.
 
 Вы можете использовать любой из следующих символов для обозначения маркеров для каждого элемента списка:
@@ -379,13 +362,10 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 7. Aenean sit amet erat nunc
 8. Eget porttitor lorem
 
-
-
-
-
 ## Код
 
 ### Встроенный код
+
 Оберните встроенные фрагменты кода в `` ` ``.
 
 [prism classes="language-markdown"]
@@ -434,7 +414,6 @@ HTML:
   </code>
 </pre>
 [/prism]
-
 
 ### Блок кода с «заборчиками»
 
@@ -506,13 +485,9 @@ grunt.initConfig({
 
 !!! Чтобы подсветка синтаксиса работала, нужно установить и включить [плагин Highlight](https://github.com/getgrav/grav-plugin-highlight). Он, в свою очередь, использует плагин jquery, поэтому jquery также необходимо загрузить в вашу тему.
 
-
-
-
-
 ## Таблицы
-Таблицы создаются путем добавления вертикальных черточек в качестве разделителей между каждой ячейкой и добавления линий тире (также разделенных полосами) под заголовком. Обратите внимание, что вертикальные черточки не нужно выравнивать по вертикали.
 
+Таблицы создаются путем добавления вертикальных черточек в качестве разделителей между каждой ячейкой и добавления линий тире (также разделенных полосами) под заголовком. Обратите внимание, что вертикальные черточки не нужно выравнивать по вертикали.
 
 [prism classes="language-markdown"]
 | Параметр | Описание |
@@ -579,10 +554,6 @@ grunt.initConfig({
 | ext    | расширение, которое будет использоваться для файлов назначения. |
 [/div]
 
-
-
-
-
 ## Ссылки
 
 ### Обычная ссылка
@@ -600,7 +571,6 @@ HTML:
 [prism classes="language-html"]
 <a href="https://assemble.io">Assemble</a>
 [/prism]
-
 
 ### Добавление подсказки при наведении
 
@@ -628,6 +598,7 @@ HTML:
   * [Chapter 2](#chapter-2)
   * [Chapter 3](#chapter-3)
 [/prism]
+
 ведёт к соответствующим заголовкам на странице:
 
 [prism classes="language-markdown"]
@@ -643,11 +614,8 @@ Content for chapter one.
 
 **ПРИМЕЧАНИЕ** конкретное размещение тега привязки кажется произвольным. Они размещены здесь встроенными, так как это кажется ненавязчивым, и это работает.
 
-
-
-
-
 ## Изображения
+
 Изображения имеют синтаксис, аналогичный ссылкам, но содержат предшествующий восклицательный знак.
 
 [prism classes="language-markdown"]

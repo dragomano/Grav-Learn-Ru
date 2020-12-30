@@ -282,7 +282,7 @@ redirect: 'http://someexternalsite.com'
 redirect: '/some/custom/route[303]'
 ```
 
-### Routes
+### Маршрутизация
 
 ```yaml
 routes:
@@ -521,10 +521,6 @@ metadata:
 Чтобы получить полную информацию обо всех метатегах Twitter, которые можно использовать, обратитесь к [официальной документации](https://dev.twitter.com/cards/overview).
 
 Это действительно обеспечивает большую гибкость и мощность.
-
-## Заголовки коллекции
-
-Вся [информация о заголовках коллекции](../collections) теперь находится в [отдельной главе](../collections).
 
 ## Frontmatter.yaml
 

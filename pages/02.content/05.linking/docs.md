@@ -132,7 +132,7 @@ Grav не ограничивает ваши внутренние ссылки к
 <a href="/your/pages/some-page" class="button big">Большая кнопка</a>
 ```
 
-##### ID Attribute
+##### Атрибут ID
 
 ```markdown
 [Уникальная кнопка](../some-page?id=important-button)
@@ -144,7 +144,7 @@ Grav не ограничивает ваши внутренние ссылки к
 <a href="/your/pages/some-page" id="important-button">Уникальная кнопка</a>
 ```
 
-##### Rel Attribute
+##### Атрибут Rel
 
 ```markdown
 [Ссылка с NoFollow](../some-page?rel=nofollow)
