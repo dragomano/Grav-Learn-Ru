@@ -9,7 +9,7 @@ taxonomy:
     category: docs
 ---
 
-Хотя Twig уже предоставляет обширный список [фильтров, функций и тегов](http://twig.sensiolabs.org/documentation), Grav также предоставляет выбор полезных дополнений,чтобы облегчить процесс тематизации.
+Хотя Twig уже предоставляет обширный список [фильтров, функций и тегов](https://twig.sensiolabs.org/documentation), Grav также предоставляет выбор полезных дополнений,чтобы облегчить процесс тематизации.
 
 !! Для получения информации о разработке собственных фильтров Twig, ознакомьтесь с примером [Свои фильтр/функция Twig](/cookbook/twig-recipes/#custom-twig-filter-function) в разделе **Рецепты Twig** в главе **Поваренная книга**.
 
@@ -62,7 +62,7 @@ taxonomy:
 
 `'send_email'|camelize` <i class="fa fa-long-arrow-right"></i> **{{ 'send_email'|camelize }}**
 
-[version=16]
+[version=16,17]
 #### Chunk Split
 
 Разбивает строку на более мелкие куски определенного размера.
@@ -128,7 +128,7 @@ PHP 7 получает более строгие проверки типов, а
 `'field.name|fieldName`
 
 
-[version=16]
+[version=16,17]
 #### Get Type
 
 Получает тип переменной:
@@ -152,7 +152,17 @@ PHP 7 получает более строгие проверки типов, а
 
 Вы можете декодировать JSON, просто применив этот фильтр:
 
-`{"first_name": "Guido", "last_name":"Rossum"}|json_decode`
+`array|json_decode` {% verbatim %}
+[prism classes="language-twig line-numbers"]
+{% set array = '{"first_name": "Guido", "last_name":"Rossum"}'|json_decode %}
+{{ print_r(array) }}
+[/prism]
+{% endverbatim %}
+
+{% set array = '{"first_name": "Guido", "last_name":"Rossum"}'|json_decode %}
+[prism classes="language-text"]
+{{ print_r(array) }}
+[/prism]
 
 #### Ksort
 
@@ -178,9 +188,35 @@ PHP 7 получает более строгие проверки типов, а
 
 #### Markdown
 
-Возьмите произвольную строку, содержащую разметку, и конвертируйте ее в HTML, используя парсер Markdown Grav
+Возьмите произвольную строку, содержащую разметку, и конвертируйте её в HTML, используя парсер Markdown Grav. Необязательный `boolean`-параметр:
 
-`'something with **markdown** and [a link](http://www.cnn.com)'|markdown` <i class="fa fa-long-arrow-right"></i> something with **markdown** and [a link](http://www.cnn.com)
+* `true` (по умолчанию): обрабатывать как блок (текстовый режим, содержимое будет заключено в теги `<p>`)
+* `false`: обрабатывать как строку (содержимое не будет обернуто никакими тегами)
+
+```
+string|markdown($is_block)
+```
+
+{% verbatim %}
+[prism classes="language-twig line-numbers"]
+<div class="div">
+{{ 'A paragraph with **markdown** and [a link](http://www.cnn.com)'|markdown }}
+</div>
+
+<p class="paragraph">{{'A line with **markdown** and [a link](http://www.cnn.com)'|markdown(false) }}</p>
+[/prism]
+{% endverbatim %}
+
+{% set var %}
+<div class="div">
+{{ 'A paragraph with **markdown** and [a link](http://www.cnn.com)'|markdown }}
+</div>
+
+<p class="paragraph">{{'A line with **markdown** and [a link](http://www.cnn.com)'|markdown(false) }}</p>
+{% endset %}
+[prism classes="language-text"]
+{{ var|e }}
+[/prism]
 
 #### MD5
 
@@ -200,7 +236,7 @@ PHP 7 получает более строгие проверки типов, а
 
 `'181'|monthize` <i class="fa fa-long-arrow-right"></i> **{{ '181'|monthize }}**
 
-[version=16]
+[version=16,17]
 #### NiceCron
 
 Получает читаемый человеком выходной сигнал для синтаксиса cron
@@ -226,7 +262,7 @@ PHP 7 получает более строгие проверки типов, а
 
 `page.date|nicetime(false)` <i class="fa fa-long-arrow-right"></i> **{{ page.date|nicetime(false) }}**
 
-[version=16]
+[version=16,17]
 #### Of Type
 
 Проверяет тип переменной на параметр:
@@ -264,7 +300,7 @@ PHP 7 получает более строгие проверки типов, а
 Обертка для PHP [preg_split()](https://www.php.net/manual/ru/function.preg-split.php), которая расщепляет текст по шаблону, заданному в качестве регулярного выражения.
 [/version]
 
-[version=16]
+[version=16,17]
 #### Print Variable
 
 Печатает читабельную информацию о переменной
@@ -330,7 +366,7 @@ PHP 7 получает более строгие проверки типов, а
 
 #### Сортировка по ключу
 
-Сортировать карту массива по определенному ключу
+Можно сортировать массив по определенному ключу
 
 `array|sort_by_key` {% verbatim %}
 [prism classes="language-twig line-numbers"]
@@ -349,6 +385,7 @@ PHP 7 получает более строгие проверки типов, а
 Берет иглу и стог сена и определяет, начинается ли стог сена с иглы. Также теперь работает с массивом игл и вернет `true`, если **ни** стог сена начинается с иглы.
 
 `'the quick brown fox'|starts_with('the')` <i class="fa fa-long-arrow-right"></i> {{  'the quick brown fox'|starts_with('the') ? 'true' : 'false' }}
+
 
 #### Titleize
 
@@ -421,15 +458,21 @@ PHP 7 получает более строгие проверки типов, а
 
 `'CamelCased'|underscorize` <i class="fa fa-long-arrow-right"></i> **{{ 'CamelCased'|underscorize }}**
 
-[version=16]
+[version=16,17]
 #### Yaml Encode
 
 Дамп/кодирование переменной в синтаксис YAML
 
-`{foo: [0,1,2,3], baz: 'qux' }|yaml_encode`
+{% verbatim %}
+[prism classes="language-twig line-numbers"]
+{% set array = {foo: [0, 1, 2, 3], baz: 'qux' } %}
+{{ array|yaml_encode }}
+[/prism]
+{% endverbatim %}
 
-[prism classes="language-twig"]
-{{ {foo: [0,1,2,3], baz: 'qux' }|yaml_encode }}
+{% set array = {foo: [0, 1, 2, 3], baz: 'qux' } %}
+[prism classes="language-yaml"]
+{{ array|yaml_encode|e }}
 [/prism]
 
 #### Yaml Decode
@@ -437,17 +480,17 @@ PHP 7 получает более строгие проверки типов, а
 Декодирование/парсинг переменной из синтаксиса YAML
 
 {% verbatim %}
-`{% set yaml = "foo: [0, 1, 2, 3]\nbaz: qux" %}`
-
-`yaml|yaml_decode`
+[prism classes="language-twig line-numbers"]
+{% set yaml = "foo: [0, 1, 2, 3]\nbaz: qux" %}
+{{ yaml|yaml_decode|var_dump }}
+[/prism]
 {% endverbatim %}
 
 {% set yaml = "foo: [0, 1, 2, 3]\nbaz: qux" %}
-[prism classes="language-twig"]
-{{ yaml|yaml_decode|var_dump}}
+[prism]
+{{ yaml|yaml_decode|var_dump }}
 [/prism]
 [/version]
-
 
 ## Twig-функции Grav
 
@@ -457,7 +500,21 @@ PHP 7 получает более строгие проверки типов, а
 
 Привести значение к массиву
 
-`array(value)`
+{% verbatim %}
+[prism classes="language-twig line-numbers"]
+{% set value = array(value) %}
+[/prism]
+{% endverbatim %}
+
+#### Array Difference
+
+Вычисляет разницу массивов.
+
+{% verbatim %}
+[prism classes="language-twig line-numbers"]
+{% set diff = array_diff(array1, array2...) %}
+[/prism]
+{% endverbatim %}
 
 #### Array Key Value
 
@@ -518,7 +575,7 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 
 `authorize(['admin.statistics', 'admin.super'])`
 
-[version=16]
+[version=16,17]
 #### Body Class
 
 Берет массив классов, и если они не установлены на `body_classes`, посмотрим, установлены ли они в текущей конфигурации темы.
@@ -572,14 +629,14 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 
 Это позволило бы записать в камеру значение `MaxApertureValue`, например, "40/10". Вы всегда можете использовать `{% verbatim %}{{dump(exif)}}{% endverbatim %}` для отображения всех доступных данных в отладчике.
 
-#### Get Cookie
+#### Получение куки-файла
 
 Восстановление значения куки-файла с помощью этой функции:
 
 `get_cookie('your_cookie_key')`
 
-[version=16]
-#### Get Type Function
+[version=16,17]
+#### Функция получения типа переменной
 
 Получает тип переменной:
 
@@ -592,13 +649,12 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 
 `gist('bc448ff158df4bc56217')` <i class="fa fa-long-arrow-right"></i> {{ gist('bc448ff158df4bc56217')}}
 
-[version=16]
-#### HTTP Response Code
+[version=16,17]
+#### Код ответа HTTP
 
 Если предоставлен код response_code, то будет возвращен предыдущий код статуса. Если код response_code не предоставлен, то будет возвращен код текущего состояния. Оба эти значения по умолчанию будут иметь код состояния 200, если они используются в среде веб-сервера.
 
 `http_response_code(404)`
-
 [/version]
 
 #### Is Ajax Request
@@ -606,7 +662,7 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 Функция `isajaxrequest()` может быть использована для проверки, установлена ли опция заголовка `HTTP_X_REQUESTED_WITH`:
 
 
-#### JSON Decode Function
+#### Функция декодирования JSON
 
 Вы можете декодировать JSON, просто применив этот фильтр:
 
@@ -618,7 +674,7 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 
 `media_directory('theme://images')['some-image.jpg'].cropResize(200,200).html`
 
-[version=16]
+[version=16,17]
 #### NiceFilesize Function
 
 Выводите размер файла в удобочитаемом для человека формате.
@@ -644,7 +700,7 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 
 `nonce_field('action')` <i class="fa fa-long-arrow-right"></i> **{{ nonce_field('action')|e }}**
 
-[version=16]
+[version=16,17]
 #### Of Type Function
 
 Проверяет тип переменной на параметр:
@@ -667,8 +723,8 @@ outputs: **{{ print_r(array_intersect(array_1, array_2)) }}**
 
 outputs: **{{ print_r(parts) }}**
 
-[version=16]
-#### Print Variable Function
+[version=16,17]
+#### Функция вывода переменной
 
 Печатает переменную в читаемом формате
 
@@ -680,7 +736,7 @@ outputs: **{{ print_r(parts) }}**
 
 [/version]
 
-#### Random String Generation
+#### Генерация случайной строки
 
 Сгенерирует произвольную строку из требуемого количества символов.  Особенно полезно при создании уникального идентификатора или ключа.
 
@@ -692,7 +748,7 @@ outputs: **{{ print_r(parts) }}**
 
 `range(25, 300, 50)` <i class="fa fa-long-arrow-right"></i> **{{ print_r(range(25, 300, 50)) }}**
 
-[version=16]
+[version=16,17]
 #### Read File
 
 Простая функция для чтения файла на основе пути к файлу и его вывода.
@@ -713,25 +769,29 @@ outputs: **{{ print_r(parts) }}**
 
 `redirect_me('http://google.com', 304)`
 
-[version=16]
-#### Regex Filter Function
+[version=16,17]
+#### Функция фильтра регулярных выражений
 
 Выполняет `preg_grep` на массиве с регрессионным паттерном.
 
 `regex_filter(['pasta', 'fish', 'steak', 'potatoes'], "/p.*/")`
 
-[prism classes="language-twig"]
-{{ var_dump(regex_filter(['pasta', 'fish', 'steak', 'potatoes'], "/p.*/")) }}
+{% set var = regex_filter(['pasta', 'fish', 'steak', 'potatoes'], "/p.*/") %}
+[prism classes="language-text"]
+{{ print_r(var) }}
 [/prism]
 
-#### Regex Replace Function
+#### Функция замены регулярного выражения
 
 Полезная обертка для PHP-функции [preg_replace()](https://php.net/manual/ru/function.preg-replace.php), с помощью этого фильтра вы можете выполнять сложные regex-замены текста:
 
+{% verbatim %}
 `regex_replace('The quick brown fox jumps over the lazy dog.', ['/quick/','/brown/','/fox/','/dog/'], ['slow','black','bear','turtle'])`
+{% endverbatim %}
 
-[prism classes="language-twig"]
-{{ regex_replace('The quick brown fox jumps over the lazy dog.', ['/quick/','/brown/','/fox/','/dog/'], ['slow','black','bear','turtle']) }}
+{% set var = regex_replace('The quick brown fox jumps over the lazy dog.', ['/quick/','/brown/','/fox/','/dog/'], ['slow','black','bear','turtle']) %}
+[prism classes="language-text"]
+{{var }}
 [/prism]
 
 [/version]
@@ -746,10 +806,26 @@ outputs: **{{ print_r(parts) }}**
 
 Возвращает строку из значения. Если значение является массивом, верните его в кодировке json
 
-`string(23)` => `"23"`
-`string(['test' => 'x'])` => `{"test":"x"}`
+`string(23)` => **"23"**
 
-[version=16]
+`string(['test' => 'x'])` => **{"test":"x"}**
+
+[version=17]
+#### Изображение SVG
+
+Возвращает содержимое SVG-изображения и добавляет дополнительные классы по мере необходимости. Обеспечивает преимущества встроенного svg без необходимости вставлять код непосредственно на страницу. Полезно для многократно используемых изображений, таких как значки социальных сетей.
+
+{% verbatim %}
+`{{ svg_image(path, classes, strip_style) }}`
+{% endverbatim %}
+
+strip_style = удалить встроенный стиль SVG - полезно для стилизации с помощью CSS-классов.
+
+пример: `{{ svg_image('theme://images/something.svg', 'my-class-here mb-10', true/false) }}`
+
+[/version]
+
+[version=16,17]
 #### Переменная темы
 
 Получите переменную темы из заголовка страницы, если она существует, в противном случае используйте конфигурацию темы:
@@ -759,7 +835,6 @@ outputs: **{{ print_r(parts) }}**
 Сначала попробуйте `page.header.grid_size`, если это не установлено, попробуйте `theme.grid_size` из файла конфигурации темы:
 
 `theme_var('grid_size', 1024)`
-
 [/version]
 
 #### Функция перевода строки
@@ -791,14 +866,17 @@ outputs: **{{ print_r(parts) }}**
 {% verbatim %}
 [prism classes="language-twig line-numbers"]
 {% set my_array = {foo: 'bar', baz: 'qux'} %}
-{{ vardump(my_array)}}
+{{ vardump(my_array) }}
 [/prism]
 {% endverbatim %}
 
 {% set my_array = {foo: 'bar', baz: 'qux'} %}
-{{ vardump(my_array)}}
 
-[version=16]
+[prism classes="language-twig"]
+{{ vardump(my_array) }}
+[/prism]
+
+[version=16,17]
 #### XSS
 
 Разрешить ручную проверку строки на наличие уязвимостей XSS

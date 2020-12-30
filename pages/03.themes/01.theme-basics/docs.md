@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-Темы в Grav довольно простые и очень гибкие, потому что они созданы с помощью мощного [движка шаблонов Twig](https://twig.sensiolabs.org/). Каждая тема создается с помощью комбинации файлов Twig (смесь PHP-кода и HTML), называемых шаблонами, и CSS. Обычно мы используем [расширение CSS Sass](http://sass-lang.com) для создания наших файлов CSS, но ничто не мешает вам использовать [Less](http://lesscss.org/), или даже обычный CSS. Всё сводится к вашим личным предпочтениям.
+Темы в Grav довольно простые и очень гибкие, потому что они созданы с помощью мощного [движка шаблонов Twig](https://twig.sensiolabs.org/). Каждая тема создается с помощью комбинации файлов Twig (смесь PHP-кода и HTML), называемых шаблонами, и CSS. Обычно мы используем [расширение CSS Sass](https://sass-lang.com) для создания наших файлов CSS, но ничто не мешает вам использовать [Less](http://lesscss.org/), или даже обычный CSS. Всё сводится к вашим личным предпочтениям.
 
 ## Страницы контента и шаблоны Twig
 
@@ -14,7 +14,7 @@ taxonomy:
 
 Давайте рассмотрим простой пример. Если вы установили пакет [**Grav Base**](.../.../basics/installation), вы заметите, что в папке `user/pages/01.home` у вас есть файл с именем `default.md`, который содержит содержимое страницы, основанное на разметке. Имя этого файла, т. е. `default` сообщает Grav, что эта страница должна отрисовываться с помощью шаблона Twig под названием `default.html.twig`, который находится в папке `templates/` темы.
 
-!! Имена шаблонов страниц должны быть строчными, например "default", "blog" и т. д.
+!! Имена шаблонов страниц должны быть строчными, например «default», «blog» и т. д.
 
 Если бы у вас был файл страницы под названием `blog.md`, Grav попыталась бы отрисовать его с помощью шаблона Twig: `<your_theme>/templates/blog.html.twig`.
 
@@ -42,6 +42,9 @@ demo: https://demo.getgrav.org/blog-skeleton
 keywords: antimatter, theme, core, modern, fast, responsive, html5, css3
 bugs: https://github.com/getgrav/grav-theme-antimatter/issues
 license: MIT
+
+dependencies:
+    - { name: grav, version: '>=1.6.0' }
 
 form:
   validation: loose

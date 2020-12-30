@@ -83,6 +83,7 @@ brew install wellington
 4. Скопируйте все параметры из файла YAML темы, который вы наследуете (или из папки `user/config/themes`, если вы ее настроили), вверху вновь созданного файла конфигурации YAML вашей темы: `/ user/themes/mytheme/mytheme.yaml`.
 5. Скопируйте раздел `form` из `/user/themes/quark/blueprints.yaml' в `/user/themes/mytheme/blueprints.yaml` для того, чтобы включить настраиваемые элементы темы в админке. (Или просто замените файл и отредактируйте его содержимое.)
 6. Измените тему по умолчанию, чтобы использовать новую **mytheme**, отредактировав параметр `pages: theme:` в вашем файле конфигурации `user/config/system.yaml`:
+
    [prism classes="language-yaml line-numbers"]
    pages:
      theme: mytheme
@@ -94,6 +95,7 @@ brew install wellington
 
 1. Создайте новую папку: `user/themes/mytheme` для размещения вашей новой темы.
 2. Скопируйте файл YAML темы из темы, которую вы наследуете (или из папки `user/config/themes`, если вы её настроили), в `/user/themes/mytheme/mytheme.yaml` и добавьте следующий контент. (заменив `user/themes/quark` названием темы, которую вы наследуете):
+
    [prism classes="language-yaml line-numbers"]
    streams:
      schemes:
@@ -104,15 +106,18 @@ brew install wellington
              - user/themes/mytheme
              - user/themes/quark
    [/prism]
+
 3. Скопируйте файл `/user/themes/quark/blueprints.yaml` в `/user/themes/mytheme/blueprints.yaml`, чтобы включить настраиваемые элементы темы в админку.
 
 4. Измените тему по умолчанию, чтобы использовать новую **mytheme**, отредактировав параметр `pages: theme:` в вашем файле конфигурации `user/config/system.yaml`:
+
    [prism classes="language-yaml line-numbers"]
    pages:
      theme: mytheme
    [/prism]
 
 5. Создайте новый файл класса темы, который можно использовать для добавления расширенной функциональности, управляемой событиями. Создайте файл `user/themes/mytheme/mytheme.php`:
+
    [prism classes="language-php line-numbers"]
    <?php
    namespace Grav\Theme;
