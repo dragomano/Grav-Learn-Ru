@@ -20,23 +20,6 @@ bin/grav list
 
 Это должно отображать что-то вроде:
 
-[version=15]
-[prism classes="language-text"]
-Доступные команды:
-  backup       Создает резервную копию экземпляра Grav
-  clean        Запустить очистку
-  clear-cache  [clearcache] Очищает кэш
-  composer     Обновляет зависимости поставщика composer, необходимые Grav.
-  help         Отображает справку по команде
-  install      Устанавливает зависимости Grav. При желании можно создать символические ссылки
-  list         Перечисляет команды
-  new-project  [newproject] Создает новый проект Grav со всеми установленными зависимостями
-  sandbox      Настройка базовой системы Grav в вашем webroot, хорошо подходит для разработки, игры или начала новой работы
-  security     Способен выполнять различные проверки безопасности
-[/prism]
-[/version]
-
-[version=16]
 [prism classes="language-text"]
 Доступные команды:
   backup       Создает резервную копию экземпляра Grav
@@ -52,7 +35,6 @@ bin/grav list
   scheduler    Запустить планировщик Grav. Лучше всего при интеграции с системой cron
   security     Способен выполнять различные проверки безопасности
 [/prism]
-[/version]
 
 Чтобы получить справку для конкретной команды, вы можете добавить перед ней `help`:
 
@@ -62,20 +44,6 @@ bin/grav help install
 
 ## Резервные копии
 
-[version=15]
-Резервное копирование вашего проекта - это не что иное, как создание архива _ROOT_ Grav. Никакой базы данных, никаких осложнений.
-
-Конечно, вы можете упростить это еще больше, просто используя GRAV CLI. Предположим, что у нас есть наш проект `~/workspace/portfolio` и мы хотим создать его резервную копию, вот что мы сделаем:
-
-[prism classes="language-bash command-line"]
-cd ~/workspace/portfolio
-bin/grav backup
-[/prism]
-
-В папке проекта будет создан новый файл резервной копии `portfolio-20140812174352.zip`. Длинное число после имени - это просто дата в формате _год месяц день час минута секунда_.
-
-[/version]
-[version=16]
 Система резервного копирования Grav была полностью переработана в Grav 1.6 для поддержки нескольких профилей резервного копирования. Эти профили настраиваются в файле `user/config/backups.aml`. Если у вас нет специального файла конфигурации, Grav будет использовать файл по умолчанию, указанный в `system/config/backups.yaml`.
 
 Если Grav обнаруживает несколько профилей резервного копирования, команда CLI предложит вам выбрать тот, который вы хотите сохранить, с помощью команды CLI.
@@ -104,7 +72,6 @@ Archiving 36 files [===================================================] 100% < 
 [/prism]
 
 Более подробную информацию о функциях резервного копирования можно найти в разделе [Дополнительно -> Резервные копии](/advanced/backups).
-[/version]
 
 ## Очистка
 
@@ -120,26 +87,6 @@ bin/grav clean
 
 Эквивалентная команда CLI:
 
-[version=15]
-[prism classes="language-bash command-line"]
-$ cd ~/webroot/my-grav-project
-bin/grav clear-cache
-[/prism]
-
-Для совместимости существует несколько псевдонимов (`clear-cache`, `clearcache`, `clear`).
-
-Опцией по умолчанию является стандартный процесс очистки кэша, однако вы можете управлять этим с помощью следующих опций:
-
-[prism classes="language-text"]
---all             Если задано, удалит всё, включая скомпилированные файлы, twig, кэши doctrine
---assets-only     Если задано, удалит только assets/*
---images-only     Если задано, удалит только images/*
---cache-only      Если задано, удалит только cache/*
---tmp-only        Если задано, удалит только tmp/*
-[/prism]
-[/version]
-
-[version=16]
 [prism classes="language-bash command-line"]
 $ cd ~/webroot/my-grav-project
 bin/grav cache
@@ -157,7 +104,6 @@ bin/grav cache
 --cache-only      Если задано, удалит только cache/*
 --tmp-only        Если задано, удалит только tmp/*
 [/prism]
-[/version]
 
 ## Composer
 
@@ -195,7 +141,6 @@ bin/grav install
 * `~/webroot/my-grav-project/user/plugins/problems`
 * `~/webroot/my-grav-project/user/themes/antimatter`
 
-[version=16]
 ## Просмотр журнала
 
 В рамках Grav 1.6 была создана новая команда CLI logviewer, позволяющая быстро просматривать журналы Grav.
@@ -230,7 +175,6 @@ viewing last 4 entries in grav.log
 2019-02-27 12:05:10 [NOTICE] Backup Created: /Users/joe/my-grav-project/backup/pages_backup--20190227120510.zip
 2019-02-27 12:26:00 [NOTICE] Backup Created: /Users/joe/my-grav-project/backup/pages_backup--20190227122600.zip
 [/prism]
-[/version]
 
 И подробный вывод с трассировкой стека:
 
@@ -289,7 +233,6 @@ bin/grav sandbox -s ../copy
 
 Из текущей Grav-папки создается родственная папка с именем `copy`, где следующие папки являются виртуальными копиями: '/bin, / system, /vendor, /webserver-configs`, а также стандартные файлы, которые обычно находятся в корневой папке Grav. Все содержимое в /user будет копией под копирку, а не виртуальным, поэтому вы можете легко начать настройку новой установки, не создавая накладных расходов из основных файлов.
 
-[version=16]
 ## Планировщик
 
 Как описано в разделе [Advanced - > Scheduler](/advanced/scheduler), планировщик можно контролировать с помощью команды CLI.
@@ -322,7 +265,6 @@ Running Scheduled Jobs
 [/prism]
 
 Пожалуйста, обратитесь к разделу [Advanced -> Scheduler](/advanced/scheduler) для получения более подробной информации об этих параметрах.
-[/version]
 
 ## Безопасность
 
