@@ -39,6 +39,8 @@ public function onAdminTwigTemplatePaths($event)
 
 Важно помнить, что тема, используемая в плагине админки, чувствительна к доступным шаблонам. Как правило, вам следует изменять шаблоны только со *слабым воздействием*, то есть вносить изменения, которые не нарушат интерфейс для любого пользователя, устанавливающего ваш плагин. В этом смысле лучше переопределить `nav-user-avatar.html.twig`, чем `nav.html.twig`, поскольку последний содержит гораздо больше функций, но использует `{% include 'partials/nav-user-details.html.twig' %}`, чтобы включить первый.
 
+! **СОВЕТ:** В файлах шаблонов админки включено автоматическое экранирование. Вам не нужно добавлять фильтр `|e` для экранирования HTML-содержимого, но требуется добавлять `|raw` при вводе HTML.
+
 ### Добавление пользовательского поля
 
 Чтобы создать пользовательское поле, мы добавим его в `PLUGIN_TEMPLATES/forms/fields/myfield`. В папке *myfield* нам нужен шаблон Twig, который объявляет, как будет работать поле. Самый простой способ добавить поле — найти аналогичное поле в `ADMIN_TEMPLATES/forms/fields` и скопировать его, чтобы увидеть, как они структурированы. Например, чтобы добавить слайдер диапазона HTML, мы создаем `PLUGIN_TEMPLATES/forms/fields/range/range.html.twig`. В этом файле мы добавляем:
@@ -104,6 +106,8 @@ form:
 
 Таким образом, мы добавляем тег `<output>`, который будет содержать выбранное значение, и добавляем к нему и самому полю простой стиль для их правильного выравнивания. Мы также добавляем в поле атрибут `oninput`, чтобы при изменении значений автоматически обновлялся тег `<output>` со значением. Для этого требуется, чтобы каждое поле, использующее ползунок диапазона, имело уникальное свойство `id`, например, `id: radius`, которое мы объявили выше, которое должно быть чем-то вроде `id: myadminplugin_radius`, чтобы избежать конфликтов.
 
+!!Если этот новый шаблон будет доступен для фронтенда и панели админки (например, при использовании папки `PLUGIN_TEMPLATES`), вам нужно экранировать все переменные с помощью `|e`. В качестве альтернативы вы можете просто перейти к параметру `Настройка` > `Система` > `Шаблонизация Twig` > `Экранирование переменных` и включить его.
+
 ### Создание пользовательских шаблонов страниц
 
 Как упоминалось в [Основах тем](themes/theme-basics#content-pages-twig-templates), существует прямая связь между **страницами** в Grav и **файлами шаблонов Twig**, предоставленными в плагине/теме.
@@ -128,26 +132,25 @@ form:
 Темы автоматически находят файлы шаблонов в папке `templates` темы. Если шаблон добавляется через плагин, вам нужно добавить шаблон через событие`onTwigTemplatePaths`:
 
 [prism classes="language-twig line-numbers"]
-    public function onPluginsInitialized()
-    {
-        // If in an Admin page.
-        if ($this->isAdmin()) {
-            return;
-        }
-        // If not in an Admin page.
-        $this->enable([
-            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1],
-        ]);
+public function onPluginsInitialized()
+{
+    // If in an Admin page.
+    if ($this->isAdmin()) {
+        return;
     }
+    // If not in an Admin page.
+    $this->enable([
+        'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1],
+    ]);
+}
 
-    /**
-     * Add templates directory to twig lookup paths.
-     */
-    public function onTwigTemplatePaths()
-    {
-        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
-    }
-
+/**
+    * Add templates directory to twig lookup paths.
+    */
+public function onTwigTemplatePaths()
+{
+    $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
+}
 [/prism]
 
 
@@ -181,35 +184,34 @@ form:
 Подобно папке `templates`, тема автоматически добавит все yaml-файлы чертежей, найденные в папке `blueprints`. Если чертеж добавляется через плагин, вам нужно добавить чертеж через событие `onGetPageTemplates`:
 
 [prism classes="language-twig line-numbers"]
-    public function onPluginsInitialized()
-    {
-        // If in an Admin page.
-        if ($this->isAdmin()) {
-            $this->enable([
-                'onGetPageBlueprints' => ['onGetPageBlueprints', 0],
-                'onGetPageTemplates' => ['onGetPageTemplates', 0],
-            ]);
-            return;
-        }
-
-    /**
-     * Add blueprint directory.
-     */
-    public function onGetPageBlueprints(Event $event)
-    {
-        $types = $event->types;
-        $types->scanBlueprints('plugin://' . $this->name . '/blueprints');
+public function onPluginsInitialized()
+{
+    // If in an Admin page.
+    if ($this->isAdmin()) {
+        $this->enable([
+            'onGetPageBlueprints' => ['onGetPageBlueprints', 0],
+            'onGetPageTemplates' => ['onGetPageTemplates', 0],
+        ]);
+        return;
     }
 
-    /**
-     * Add templates directory.
-     */
-    public function onGetPageTemplates(Event $event)
-    {
-        $types = $event->types;
-        $types->scanTemplates('plugin://' . $this->name . '/templates');
-    }
+/**
+    * Add blueprint directory.
+    */
+public function onGetPageBlueprints(Event $event)
+{
+    $types = $event->types;
+    $types->scanBlueprints('plugin://' . $this->name . '/blueprints');
+}
 
+/**
+    * Add templates directory.
+    */
+public function onGetPageTemplates(Event $event)
+{
+    $types = $event->types;
+    $types->scanTemplates('plugin://' . $this->name . '/templates');
+}
 [/prism]
 
 #### Создание новой страницы
