@@ -48,11 +48,58 @@ form:
 
 На этой же странице нам нужно разместить немного HTML и JavaScript:
 
+[ui-tabs]
+
+[ui-tab title="Vanilla JS"]
 [prism classes="language-twig line-numbers"]
 <div id="form-result"></div>
 
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#ajax-test-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const result = document.querySelector('#form-result');
+        const action = form.getAttribute('action');
+        const method = form.getAttribute('method');
+
+        fetch(action, {
+            method: method,
+            body: new FormData(form)
+        })
+        .then(function(response) {
+            if (response.ok) {
+                return response.text();
+            } else {
+                return response.json();
+            }
+        })
+        .then(function(output) {
+            if (result) {
+                result.innerHTML = output;
+            }
+        })
+        .catch(function(error) {
+            if (result) {
+                result.innerHTML = 'Error: ' + error;
+            }
+
+            throw new Error(error);
+        });
+    });
+});
+</script>
+[/prism]
+[/ui-tab]
+
+[ui-tab title="jQuery"]
+[prism classes="language-twig line-numbers"]
+<div id="form-result"></div>
+
+<script>
+$(document).ready(function(){
+
     var form = $('#ajax-test-form');
     form.submit(function(e) {
         // prevent form submission
@@ -73,6 +120,9 @@ $(document).ready(function() {
 });
 </script>
 [/prism]
+[/ui-tab]
+
+[/ui-tabs]
 
 Сначала мы определяем заполнитель div с идентификатором `#form-result`, чтобы использовать его в качестве места для вставки результатов формы.
 

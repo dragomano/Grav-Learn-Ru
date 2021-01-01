@@ -835,6 +835,7 @@ home.alias:
     size: medium
     classes: fancy
     label: PLUGIN_ADMIN.HOME_PAGE
+    start_route: '/some_page'
     show_all: false
     show_modular: false
     show_root: false
@@ -844,9 +845,10 @@ home.alias:
 [div class="table table-keycol"]
 | Атрибут        | Описание                                       |
 | :-----         | :-----                                         |
-| `show_all`     | Показывает все страницы                        |
-| `show_modular` | Показывает все страницы                        |
-| `show_root`    | Показывает все страницы                        |
+| `start_route`  | Выбрать корневой маршрут для списка            |
+| `show_all`     | Показать все страницы                          |
+| `show_modular` | Показать модульные страницы                    |
+| `show_root`    | Показать корневые страницы                     |
 | `options`      | Необязательный список дополнительных вариантов |
 | `multiple`     | Выбрать несколько страниц                      |
 | `selectize`    |                                                |

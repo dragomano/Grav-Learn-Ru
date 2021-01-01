@@ -100,6 +100,23 @@ form:
           context: blueprints://
 [/prism]
 
+Хотя YAML не позволяет использовать один и тот же ключ `import@` несколько раз, вы все равно можете импортировать несколько чертежей, добавив уникальный номер после `@`, например `import@1`,`import@2` и так далее. Число не имеет другого значения, кроме предотвращения ошибок парсера YAML:
+
+[prism classes="language-yaml line-numbers"]
+form:
+  fields:
+    images:
+        type: section
+        title: Images
+        underline: true
+        import@1:
+          type: partials/gallery
+          context: blueprints://
+        import@2:
+          type: partials/another-gallery
+          context: blueprints://
+[/prism]
+
 ## Удаление полей / свойств (unset-*@)
 
 Если вы хотите удалить поле, вы можете добавить в него `unset@: true`.

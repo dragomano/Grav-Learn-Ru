@@ -24,6 +24,7 @@ taxonomy:
 | `id`                | устанавливает идентификатор поля. Также устанавливает атрибут `for` для тега `label`                                                                                                                                                  |
 | `label`             | устанавливает метку поля                                                                                                                                                                                           |
 | `display_label`     | принимает `true` или `false`                                                                                                                                                                                           |
+| `labelclasses`      | принимает строку с одним или несколькими классами CSS для добавления                                                                                                                                                            |
 | `name`              | устанавливает имя поля                                                                                                                                                                                            |
 | `novalidate`        | устанавливает состояние novalidate поля                                                                                                                                                                                |
 | `outerclasses`      | классы, добавленные в div, включающий тег `label` и поле                                                                                                                                                |
@@ -375,13 +376,21 @@ test:
 Тип поля `email` используется для представления текстового поля ввода, которое принимает электронную почту, используя [HTML5-ввод электронной почты](https://html5doctor.com/html5-forms-input-types/#input-email).
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 header.email:
   type: email
   autofocus: true
   label: Email
 [/prism]
+
+[div class="table table-keycol"]
+| Атрибут | Описание                                       |
+| :-----    | :-----                                            |
+| `minlength` | минимальная длина текста |
+| `maxlength`  | максимальная длина текста  |
+| `validate.min` | то же, что и минимальная длина |
+| `validate.max`  | то же, что и максимальная длина  |
+[/div]
 
 [div class="table"]
 | Разрешены общие атрибуты                       |
@@ -427,7 +436,6 @@ my_files:
 | `multiple`    | Может быть `true` или `false`, если установлено значение **true**, можно выбрать несколько файлов одновременно time                                                                                                                                                                                                                                                                                                                                                                                          |
 | `destination` | Может быть **@self**, **@page:/route**, или **local/rel/path/**. <br>Если установлено **@self**, файлы будут загружены туда, где была объявлена ​​форма (current .md). <br>При использовании **@page:/route** файлы будут загружаться по указанному маршруту страницы, если существует (например, **@page:/blog/a-blog-post**). <br>Если установлено **'local/rel/path'**, файлы будут загружены в указанное местоположение. Например, `user/data/files`. Если путь не существует, он будет создан, поэтому убедитесь, что он доступен для записи. |
 | `accept`      | Принимает массив разрешенных типов MIME. Например, чтобы разрешить только файлы gif и mp4: `accept: ['image/gif', 'video/mp4']`                                                                                                                                                                                                                                                                                                                                                       |
-
 [/div]
 
 !!! Поле `file` в админке немного отличается, что позволяет также удалить файл, загруженный в форму, потому что в админке вариант использования заключается в том, чтобы загрузить, а затем связать файл с полем.
@@ -509,7 +517,6 @@ content:
 Тип поля `number` используется для представления поля ввода текста, которое принимает только числа, с использованием [number HTML5 input](http://html5doctor.com/html5-forms-input-types/#input-number).
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 header.count:
   type: number
@@ -557,7 +564,6 @@ header.count:
 Тип поля `password` используется для представления поля ввода текста пароля.
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 password:
   type: password
@@ -595,7 +601,6 @@ password:
 Тип поля `radio` используется для представления набора радиополей.
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 my_choice:
   type: radio
@@ -676,7 +681,6 @@ header.choose_a_number_in_range:
 Тип поля `select` используется для представления поля выбора.
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 pages.order.by:
     type: select
@@ -729,7 +733,6 @@ pages.order.by:
 Тип поля `select_optgroup` используется для представления поля выбора с группировками.
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 header.newField:
     type: select_optgroup
@@ -777,6 +780,7 @@ header.newField:
 Тип поля `spacer` используется для добавления текста, заголовка или тега hr
 
 Пример:
+
 
 [prism classes="language-yaml line-numbers"]
 test:
@@ -841,12 +845,20 @@ tabs:
 Тип поля `tel` используется для представления поля ввода текста, которое принимает телефонный номер, используя [tel HTML5 input](https://html5doctor.com/html5-forms-input-types/#input-tel).
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 header.phone:
   type: tel
   label: 'Your Phone Number'
 [/prism]
+
+[div class="table table-keycol"]
+| Атрибут | Описание                                       |
+| :-----    | :-----                                            |
+| `minlength` | минимальная длина текста |
+| `maxlength`  | максимальная длина текста  |
+| `validate.min` | то же, что и минимальная длина |
+| `validate.max`  | то же, что и максимальная длина  |
+[/div]
 
 [div class="table"]
 | Разрешены общие атрибуты                       |
@@ -879,12 +891,13 @@ header.phone:
 Поле `text` используется для представления поля ввода текста.
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 header.title:
   type: text
   autofocus: true
   label: PLUGIN_ADMIN.TITLE
+  minlength: 10
+  maxlength: 255
 [/prism]
 
 [div class="table table-keycol"]
@@ -892,6 +905,10 @@ header.title:
 | :-----    | :-----                                |
 | `prepend` | добавить текст или HTML в начало поля |
 | `append`  | добавить текст или HTML в конец поля  |
+| `minlength` | минимальная длина текста |
+| `maxlength`  | максимальная длина текста  |
+| `validate.min` | то же, что и минимальная длина |
+| `validate.max`  | то же, что и максимальная длина  |
 [/div]
 
 [div class="table"]
@@ -931,6 +948,8 @@ header.content:
   type: textarea
   autofocus: true
   label: PLUGIN_ADMIN.CONTENT
+  minlength: 10
+  maxlength: 255
 [/prism]
 
 [div class="table table-keycol"]
@@ -938,7 +957,13 @@ header.content:
 | :-----    | :-----                                 |
 | `rows`    | Добавляет заданное количество строк    |
 | `cols`    | Добавляет заданное количество столбцов |
+| `minlength` | минимальная длина текста |
+| `maxlength`  | максимальная длина текста  |
+| `validate.min` | то же, что и минимальная длина |
+| `validate.max`  | то же, что и максимальная длина  |
+[/div]
 
+[div class="table"]
 | Разрешены общие атрибуты                       |
 | :-----                                         |
 | [autofocus](#common-fields-attributes)         |
@@ -958,6 +983,7 @@ header.content:
 | [validate.required](#common-fields-attributes) |
 | [validate.pattern](#common-fields-attributes)  |
 | [validate.message](#common-fields-attributes)  |
+[/div]
 
 ---
 
@@ -988,7 +1014,9 @@ summary.enabled:
 | :-----      | :-----                                                      |
 | `highlight` | Клавиша опции для выделения (при выборе становится зеленым) |
 | `options`   | Список параметров «ключ-значение»                           |
+[/div]
 
+[div class="table"]
 | Разрешены общие атрибуты                       |
 | :-----                                         |
 | [default](#common-fields-attributes)           |
@@ -1000,6 +1028,7 @@ summary.enabled:
 | [validate.required](#common-fields-attributes) |
 | [validate.type](#common-fields-attributes)     |
 | [disabled](#common-fields-attributes)          |
+[/div]
 
 ---
 
@@ -1008,12 +1037,20 @@ summary.enabled:
 Тип поля `url` используется для представления поля ввода текста, которое принимает URL-адрес, используя [url HTML5 input](https://html5doctor.com/html5-forms-input-types/#input-url).
 
 Пример:
-
 [prism classes="language-yaml line-numbers"]
 header.phone:
   type: url
   label: 'Your Phone Number'
 [/prism]
+
+[div class="table table-keycol"]
+| Атрибут | Описание                                       |
+| :-----    | :-----                                            |
+| `minlength` | минимальная длина текста |
+| `maxlength`  | максимальная длина текста  |
+| `validate.min` | то же, что и минимальная длина |
+| `validate.max`  | то же, что и максимальная длина  |
+[/div]
 
 [div class="table"]
 | Разрешены общие атрибуты                       |

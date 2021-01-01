@@ -91,6 +91,44 @@ form:
     client_side_validation: false
 [/prism]
 
+[version=17]
+### Проверка XSS
+
+По умолчанию Grav 1.7 и более поздние версии включают различные проверки XSS во всех формах. Настройки по умолчанию можно найти в разделе [Настройка > Безопасность](/basics/grav-configuration#security). Однако вы можете переопределить эти настройки для каждой формы или для каждого поля, например, вы можете отключить проверки XSS во всей форме:
+
+[prism classes="language-yaml line-numbers"]
+form:
+    xss_check: false
+[/prism]
+
+!! **ПРЕДУПРЕЖДЕНИЕ** Не рекомендуется отключать все проверки XSS, но рекомендуется переопределить определенные правила для каждого поля. Все приведенные здесь примеры также будут работать внутри поля формы.
+
+Вы можете включить или отключить отдельные правила, переопределив основную конфигурацию. Правила, которые не отменяются, вернутся к использованию конфигурации безопасности:
+
+[prism classes="language-yaml line-numbers"]
+form:
+    xss_check:
+        enabled_rules:
+            on_events: false
+            invalid_protocols: false
+            moz_binding: false
+            html_inline_styles: false
+            dangerous_tags: false
+[/prism]
+
+Более того, вы также можете разрешить определенные протоколы и теги:
+
+[prism classes="language-yaml line-numbers"]
+form:
+    xss_check:
+        safe_protocols:
+            - javascript
+        safe_tags:
+            - iframe
+[/prism]
+
+[/version]
+
 ### Keep Alive
 
 Вы можете гарантировать, что ваши формы не будут отправлены по истечении вашего сеанса, включив опцию `keep_alive` в форме. Включив это, запрос AJAX будет отправлен в Grav до истечения вашего сеанса, чтобы он оставался «свежим»:
@@ -100,7 +138,7 @@ form:
     keep_alive: true
 [/prism]
 
-### Fieldsets
+### Наборы полей
 
 Вы можете установить теги `<fieldset></fieldset>` для полей в вашей форме, используя обозначение `fieldset:` в форме.
 
