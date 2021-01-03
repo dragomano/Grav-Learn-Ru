@@ -502,7 +502,7 @@ class CustomTemplatesPlugin extends Plugin
 
 Самый простой способ - следовать примеру [Custom Twig Filter/Function](/cookbook/twig-recipes/#custom-twig-filter-function) в разделе **Рецепты Twig**.
 
-Также [прочтите документацию Twig](http://twig.sensiolabs.org/doc/advanced.html) и разработайте свое расширение. Затем посмотрите на плагин [TwigPCRE](https://github.com/kesslernetworks/grav-plugin-twigpcre), чтобы узнать, как включить его в Grav.
+Также [прочтите документацию Twig](https://twig.sensiolabs.org/doc/advanced.html) и разработайте свое расширение. Затем посмотрите на плагин [TwigPCRE](https://github.com/kesslernetworks/grav-plugin-twigpcre), чтобы узнать, как включить его в Grav.
 
 ### Как мне взаимодействовать с внешними API?
 
