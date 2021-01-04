@@ -8,7 +8,7 @@ taxonomy:
 
 Одним из основных преимуществ использования планировщика для обработки задач является то, что они могут выполняться без какого-либо взаимодействия с пользователем и независимо от внешнего интерфейса. Такие задачи, как периодическая очистка кэша, резервное копирование, синхронизация, поисковое индексирование и т. д., являются основными кандидатами на выполнение запланированных заданий.
 
-## Монтаж
+## Установка
 
 Первым шагом на пути к настройке планировщика и его готовности к выполнению задач является добавление команды `bin/grav scheduler` в службу cron. Самый простой подход - использовать саму команду CLI для вывода соответствующей команды для запуска для установки:
 
@@ -25,13 +25,15 @@ Install Scheduler
  (crontab -l; echo "* * * * * cd /Users/andym/grav;/usr/local/bin/php bin/grav scheduler 1>> /dev/null 2>&1") | crontab -
 [/prism]
 
-В системе Mac отображается полная требуемая команда, поэтому все, что вам нужно сделать, это скопировать и вставить все, а затем в свой терминал и нажать return.
+В системе Mac отображается полная требуемая команда, поэтому всё, что вам нужно сделать, это скопировать и вставить команду в терминал и нажать return.
+
+!! Вам необходимо войти в оболочку под тем же пользователем, что и ваш веб-сервер. Это необходимо для того, чтобы пользователь, выполняющий команды schdeduler, соответствовал пользователю веб-сервера, которому необходимо взаимодействовать с этими файлами. Если вы устанавливаете запись crontab с другим пользователем (например, `root`), любые созданные файлы будут создаваться от имени этого пользователя `root`, а не пользователя `webserver`, что может привести к проблемам.
 
 [prism classes="language-bash command-line"]
 (crontab -l; echo "* * * * * cd /Users/andym/grav;/usr/local/bin/php bin/grav scheduler 1>> /dev/null 2>&1") | crontab -
 [/prism]
 
-Вы не получите ответа, но и ошибок получить не должно. После этого вы можете убедиться, что всё в порядке, повторно запустив команду `bin/grav scheduler -i`:
+Вы не получите ответа, но и ошибок получить не должны. После этого можно убедиться, что всё в порядке, повторно запустив команду `bin/grav scheduler -i`:
 
 [prism classes="language-bash command-line" cl-output="2-10"]
 bin/grav scheduler -i
@@ -175,12 +177,14 @@ custom_jobs:
 Первым делом ваш плагин должен подписаться на событие `onSchedulerInitialized()`. А затем создайте метод в своем файле плагина, который может добавлять настраиваемое задание при вызове:
 
 [prism classes="language-bash line-numbers"]
-public function onSchedulerInitialized(Event $e)
+public function onSchedulerInitialized(Event $e): void
 {
-    if ($this->config->get('plugins.tntsearch.scheduled_index.enabled')) {
+    $config = $this->config();
+
+    if (!empty($config['scheduled_index']['enabled']))) {
         $scheduler = $e['scheduler'];
-        $at = $this->config->get('plugins.tntsearch.scheduled_index.at');
-        $logs = $this->config->get('plugins.tntsearch.scheduled_index.logs');
+        $at = $config['scheduled_index']['at'] ?? '* * * * *';
+        $logs = $config['scheduled_index']['logs'] ?? '';
         $job = $scheduler->addFunction('Grav\Plugin\TNTSearchPlugin::indexJob', [], 'tntsearch-index');
         $job->at($at);
         $job->output($logs);
