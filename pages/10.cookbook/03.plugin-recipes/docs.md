@@ -118,14 +118,11 @@ enabled: true
 {% set taxlist = taxonomylist.get() %}
 
 {% if taxlist %}
-
-<span class="tags">
-    {% for tax,value in taxlist[taxonomy] %}
-
-        <a href="{{ base_url }}/{{ taxonomy }}{{ config.system.param_sep }}{{ tax|e('url') }}">{{ tax }}</a>
-
-    {% endfor %}
-</span>
+    <span class="tags">
+        {% for tax,value in taxlist[taxonomy] %}
+            <a href="{{ base_url }}/{{ taxonomy }}{{ config.system.param_sep }}{{ tax|e('url') }}">{{ tax }}</a>
+        {% endfor %}
+    </span>
 {% endif %}
 [/prism]
 
@@ -133,18 +130,20 @@ enabled: true
 
 [prism classes="language-twig line-numbers"]
 {% set taxlist = taxonomylist.get %}
-    {% if taxlist %}
-        <span class="tags">
-            {% if filter %}
-                {% for tax,value in taxlist[taxonomy]|slice(filterstart,filterend) %}
-                    <a href="{{ base_url }}/{{ taxonomy }}{{ config.system.param_sep }}{{ tax|e('url') }}">{{ tax }}</a>
-                {% endfor %}
-            {% else %}
-                {% for tax,value in taxlist[taxonomy] %}
-                    <a href="{{ base_url }}/{{ taxonomy }}{{ config.system.param_sep }}{{ tax|e('url') }}">{{ tax }}</a>
-                {% endfor %}
-            {% endif %}
-        </span>
+
+{% if taxlist %}
+    {% set taxlist_taxonomy = taxlist[taxonomy] %}
+
+    {% if filter %}
+        {% set taxlist_taxonomy = taxlist_taxonomy|slice(filterstart,filterend) %}
+    {% endif %}
+
+    <span class="tags">
+        {% for tax,value in taxlist_taxonomy %}
+            <a href="{{ base_url }}/{{ taxonomy }}{{ config.system.param_sep }}{{ tax|e('url') }}">{{ tax }}</a>
+        {% endfor %}
+    </span>
+{% endif %}
 [/prism]
 
 Здесь файл сначала проверяет, установлен ли `filter` в значение `true`. Если это так, цикл for выполняется так же, как и в исходном файле `taxonomylist.html.twig`, но на этот раз он использует фильтр Twig `slice`. Этот `filter`, в нашем случае, извлечет подмножество массива от начального индекса (в нашем случае `filterstart`) до конечного индекса (в нашем случае `filterend -1`).

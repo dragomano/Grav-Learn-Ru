@@ -1,5 +1,5 @@
 ---
-title: Рецепты Grav Admin
+title: Рецепты админки
 page-toc:
   active: true
   depth: 1

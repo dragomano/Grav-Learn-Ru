@@ -43,7 +43,7 @@ register_global = On
 
 ### ThreadStackSize в Windows
 
-Если ваш сервер работает под управлением Windows, вы можете получить внутреннюю ошибку сервера 500 из-за того, что размер **ThreadStackSize** слишком мал  Просто добавьте этот код в нижнюю часть вашего файла `httpd.conf`:
+Если ваш сервер работает под управлением Windows, вы можете получить внутреннюю ошибку сервера 500 из-за того, что размер **ThreadStackSize** слишком мал. Просто добавьте этот код в конец вашего файла `httpd.conf`:
 
 [prism classes="language-apacheconf line-numbers"]
 <IfModule mpm_winnt_module>

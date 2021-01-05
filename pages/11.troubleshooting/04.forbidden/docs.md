@@ -22,7 +22,7 @@ param_sep: ';'
 
 ## 403 проблема в админке
 
-Если у вас установлен `mod_security`, у нас были сообщения о правиле [350147](http://wiki.atomicorp.com/wiki/index.php/WAF_350147), вызывающем ложное срабатывание. Добавьте это правило в белый список или попросите поддержку у своего хостинг-провайдера.
+Если у вас установлен `mod_security`, у нас были сообщения о правиле [350147](https://wiki.atomicorp.com/wiki/index.php/WAF_350147), вызывающем ложное срабатывание. Добавьте это правило в белый список или попросите поддержку у своего хостинг-провайдера.
 
 [prism classes="language-yaml line-numbers"]
 ModSecurity: [file "/etc/httpd/conf/modsecurity.d/rules/tortix/modsec/50_plesk_basic_asl_rules.conf"] [line "308"] [id "350147"] [rev "143"] [msg "Protected by Atomicorp.com Basic Non-Realtime WAF Rules: Potentially Untrusted Web Content Detected"] [data ""] [severity "CRITICAL"] Access denied with code 403 (phase 2). Match of "rx ((?:submit(?:\\+| )?(request)?(?:\\+| )?>+|<<(?:\\+| )remove|(?:sign ?in|log ?(?:in|out)|next|modifier|envoyer|add|continue|weiter|account|results|select)?(?:\\+| )?>+)$|^< ?\\??(?: |\\+)?xml|^<samlp|^>> ?$)" against "ARGS:notifications" required. [hostname "mydomain"] [uri "/grav/admin/notifications.json/task:processNotifications"] [unique_id "WXoYHcpkEKz0qCI66845gQAAAAo"], referer: http://mydomain/grav/admin/tools

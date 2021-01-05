@@ -210,7 +210,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 ### Установка Grav
 
-Это легкая часть! Сначала нам нужно вернуться к пользователю Grav, поэтому либо SSH как `grav@{{page.header.localname}}`, либо `su - grav` от имени пользователя root. затем выполните следующие действия:
+Это легкая часть! Сначала нам нужно вернуться к пользователю Grav, поэтому либо SSH как `grav@{{page.header.localname}}`, либо `su - grav` от имени пользователя root, затем выполните следующие действия:
 
 [prism classes="language-bash command-line"]
 $ cd ~/www

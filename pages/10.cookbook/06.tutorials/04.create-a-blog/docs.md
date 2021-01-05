@@ -75,7 +75,7 @@ content:
 
 ### Узнать больше
 
-- Коллекции: [https://learn.getgrav.org/content/collections](https://learn.getgrav.org/content/collections)
-- Страница-листинг: [https://learn.getgrav.org/content/content-pages#listing-page](https://learn.getgrav.org/content/content-pages#listing-page)
-- Папки: [https://learn.getgrav.org/content/content-pages#folders](https://learn.getgrav.org/content/content-pages#folders)
-- Таксономия: [https://learn.getgrav.org/content/taxonomy#taxonomy-example](https://learn.getgrav.org/content/taxonomy#taxonomy-example)
+- [Коллекции](/content/collections)
+- [Страница-листинг](/content/content-pages#listing-page)
+- [Папки](/content/content-pages#folders)
+- [Таксономия](/content/taxonomy#taxonomy-example)

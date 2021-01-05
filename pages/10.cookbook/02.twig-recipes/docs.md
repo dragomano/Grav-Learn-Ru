@@ -38,6 +38,27 @@ process:
 [/prism]
 
 
+## Добавление немодульных навигационных ссылок
+
+##### Проблема:
+
+Вы хотите отображать навигационные ссылки с немодульных страниц.
+
+##### Решение
+
+[prism classes="language-twig line-numbers"]
+<div class="desktop-nav__navigation">
+    {% for page in pages.children %}
+        {% if page.visible %}
+            {% set current_page = (page.active or page.activeChild) ? 'active' : '' %}
+            <a class="desktop-nav__nav-link {{ current_page }}" href="{{ page.url }}">
+                {{ page.menu }}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+[/prism]
+
 ## Перечисление постов в блоге за год
 
 ##### Проблема:

@@ -67,7 +67,7 @@ wget https://getgrav.org/download/core/grav/latest
 unzip grav-v{{ grav_version }}.zip
 ```
 
-Теперь вы должны иметь возможность указать в браузере `http://yourlogin.beget.tech/grav`.
+Теперь вы должны иметь возможность указать в браузере `https://yourlogin.beget.tech/grav`.
 
 Поскольку вы тщательно следовали этим инструкциям, вы также сможете использовать такие команды [Grav CLI](../../advanced/grav-cli) и [Grav GPM](../../advanced/grav-gpm), как:
 

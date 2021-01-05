@@ -641,7 +641,7 @@
 
 | Видимость | Функция |
 |:-----------|:---------|
-| public | <strong>__call(</strong><em>mixed</em> <strong>$method</strong>, <em>mixed</em> <strong>$args</strong>)</strong> : <em>void</em><br /><em>Magic Catch All Function Used to call closures. Source: http://stackoverflow.com/questions/419804/closures-as-class-members</em> |
+| public | <strong>__call(</strong><em>mixed</em> <strong>$method</strong>, <em>mixed</em> <strong>$args</strong>)</strong> : <em>void</em><br /><em>Magic Catch All Function Used to call closures. Source: https://stackoverflow.com/questions/419804/closures-as-class-members</em> |
 | public | <strong>fallbackUrl(</strong><em>string</em> <strong>$path</strong>)</strong> : <em>void</em><br /><em>This attempts to find media, other files, and download them</em> |
 | public | <strong>fireEvent(</strong><em>string</em> <strong>$eventName</strong>, <em>\RocketTheme\Toolbox\Event\Event</em> <strong>$event=null</strong>)</strong> : <em>\RocketTheme\Toolbox\Event\Event</em><br /><em>Fires an event with optional parameters.</em> |
 | public | <strong>header(</strong><em>\Grav\Common\ResponseInterface/null/\Psr\Http\Message\ResponseInterface</em> <strong>$response=null</strong>)</strong> : <em>void</em><br /><em>Set response header.</em> |
