@@ -62,7 +62,7 @@ extends@:
 
 ### Понимание свойств типа и контекста
 
-В приведенных выше примерах `type` ссылается на файл, а `context` — на путь. Свойство `context` использует [Streams](https://learn.getgrav.org/advanced/multisite-setup#streams), что означает, что оно разрешается в физическое местоположение.
+В приведенных выше примерах `type` ссылается на файл, а `context` — на путь. Свойство `context` использует [Streams](/advanced/multisite-setup#streams), что означает, что оно разрешается в физическое местоположение.
 
 `context: blueprints://` по умолчанию будет давать `/user/plugins/admin/blueprints`, папку чертежей администратора. `type: default` при поиске файлов даст `default.yaml`. Поскольку эти два свойства используются вместе, они дают полный путь, понятный Grav: `/user/plugins/admin/blueprints/default.yaml`.
 

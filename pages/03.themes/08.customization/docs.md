@@ -76,10 +76,10 @@ brew install wellington
 
 ### Наследование с использованием CLI
 
-Как описано в [Theme Turotial](https://learn.getgrav.org/16/themes/theme-tutorial), вы можете создать новую тему, используя плагин DevTools. Но вы также можете наследовать существующую тему. Процедура проста.
+Как описано в [Theme Turotial](/16/themes/theme-tutorial), вы можете создать новую тему, используя плагин DevTools. Но вы также можете наследовать существующую тему. Процедура проста.
 
-1. Установите [плагин DevTools](https://learn.getgrav.org/16/themes/theme-tutorial#step-1-install-devtools-plugin), если это ещё не сделано.
-2. Затем следуйте процедуре [создания базовой темы](https://learn.getgrav.org/16/themes/theme-tutorial#step-2-create-base-theme), но когда скрипт предложит выбрать тип шаблона (`Please choose a template type`), введите `inheritance` («наследование»). Если Quark единственная тема, она будет отображаться как `0`. Поэтому введите `0`, чтобы наследовать от Quark. Будет создана ваша новая унаследованная тема.
+1. Установите [плагин DevTools](/16/themes/theme-tutorial#step-1-install-devtools-plugin), если это ещё не сделано.
+2. Затем следуйте процедуре [создания базовой темы](/16/themes/theme-tutorial#step-2-create-base-theme), но когда скрипт предложит выбрать тип шаблона (`Please choose a template type`), введите `inheritance` («наследование»). Если Quark единственная тема, она будет отображаться как `0`. Поэтому введите `0`, чтобы наследовать от Quark. Будет создана ваша новая унаследованная тема.
 4. Скопируйте все параметры из файла YAML темы, который вы наследуете (или из папки `user/config/themes`, если вы ее настроили), вверху вновь созданного файла конфигурации YAML вашей темы: `/ user/themes/mytheme/mytheme.yaml`.
 5. Скопируйте раздел `form` из `/user/themes/quark/blueprints.yaml' в `/user/themes/mytheme/blueprints.yaml` для того, чтобы включить настраиваемые элементы темы в админке. (Или просто замените файл и отредактируйте его содержимое.)
 6. Измените тему по умолчанию, чтобы использовать новую **mytheme**, отредактировав параметр `pages: theme:` в вашем файле конфигурации `user/config/system.yaml`:

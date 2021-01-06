@@ -423,7 +423,7 @@ class CustomTemplatesPlugin extends Plugin
 
 Учитывая обилие доступных в настоящее время плагинов, есть вероятность, что вы найдете свои ответы где-то в их исходном коде. Проблема в том, чтобы знать, на какие из них смотреть. Эта страница пытается перечислить общие проблемы плагинов, а затем перечисляет конкретные плагины, которые демонстрируют, как их решать.
 
-Прежде чем продолжить, убедитесь, что вы ознакомились с [основной документацией](https://learn.getgrav.org/plugins), особенно [жизненный цикл гравитации](https://learn.getgrav.org/plugins/grav-lifecycle)!
+Прежде чем продолжить, убедитесь, что вы ознакомились с [основной документацией](/plugins), особенно [жизненный цикл гравитации](/plugins/grav-lifecycle)!
 
 ### Как я могу читать и записывать данные в файловую систему?
 
@@ -431,7 +431,7 @@ class CustomTemplatesPlugin extends Plugin
 
   * Если вам просто нужен доступ для чтения к данным YAML, проверьте плагин [Import plugin](https://github.com/Deester4x4jr/grav-plugin-import).
 
-  * Предпочтительный интерфейс-через встроенный интерфейс [RocketTheme\Toolbox\File](https://learn.getgrav.org/api#class-RocketThemeToolboxFile).
+  * Предпочтительный интерфейс-через встроенный интерфейс [RocketTheme\Toolbox\File](/api#class-RocketThemeToolboxFile).
 
   * Ничто не мешает вам использовать [SQLite](https://sqlite.org/).
 
@@ -462,7 +462,7 @@ class CustomTemplatesPlugin extends Plugin
 
 ### Как я могу ввести Markdown на страницу?
 
-В соответствии с [жизненным циклом гравитации](https://learn.getgrav.org/plugins/grav-lifecycle), последний хук события, в который вы можете ввести необработанный Markdown, - это `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, портит его, а затем записать его обратно с `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
+В соответствии с [жизненным циклом гравитации](/plugins/grav-lifecycle), последний хук события, в который вы можете ввести необработанный Markdown, - это `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, портит его, а затем записать его обратно с `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
 
   * [Page Inject](https://github.com/getgrav/grav-plugin-page-inject)
   * [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
@@ -476,7 +476,7 @@ class CustomTemplatesPlugin extends Plugin
 
 ### Как мне внедрить такие ресурсы, как файлы JavaScript и CSS?
 
-Это делается через интерфейс [Grav\Common\Assets](https://learn.getgrav.org/api#class-gravcommonassets).
+Это делается через интерфейс [Grav\Common\Assets](/api#class-gravcommonassets).
 
   * [Google Analytics](https://github.com/escopecz/grav-ganalytics)
   * [Bootstrapper](https://github.com/getgrav/grav-plugin-bootstrapper)
@@ -505,7 +505,7 @@ class CustomTemplatesPlugin extends Plugin
 
 ### Как мне взаимодействовать с внешними API?
 
-Grav предоставляет объект [Grav\Common\GPM\Response](https://learn.getgrav.org/api#class-grav-common-gpm-response), но ничто не мешает вам сделать это напрямую, если вы того пожелаете.
+Grav предоставляет объект [Grav\Common\GPM\Response](/api#class-grav-common-gpm-response), но ничто не мешает вам сделать это напрямую, если вы того пожелаете.
 
   * [ipLocate](https://github.com/Perlkonig/grav-plugin-iplocate)
   * [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed)

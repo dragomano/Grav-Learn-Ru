@@ -1099,7 +1099,7 @@
 | protected | <strong>loadFile(</strong><em>string</em> <strong>$name</strong>)</strong> : <em>[\Grav\Common\Data\Blueprint](#class-gravcommondatablueprint)</em><br /><em>Load blueprint file.</em> |
 
 <hr /><a id="interface-gravcommondatadatainterface"></a>
-### Interface: \Grav\Common\Data\DataInterface
+### Интерфейс: \Grav\Common\Data\DataInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -1111,7 +1111,7 @@
 | public | <strong>save()</strong> : <em>void</em><br /><em>Save data into the file.</em> |
 | public | <strong>validate()</strong> : <em>void</em><br /><em>Validate by blueprints.</em> |
 | public | <strong>value(</strong><em>string</em> <strong>$name</strong>, <em>mixed</em> <strong>$default=null</strong>, <em>string</em> <strong>$separator=`'.'`</strong>)</strong> : <em>mixed Value.</em><br /><em>Get value by using dot notation for nested arrays/objects.</em> |
-###### Examples of DataInterface::value()
+###### Примеры DataInterface::value()
 ```
 $value = $data->value('this.is.my.nested.variable');
 ```
@@ -1166,23 +1166,23 @@ $value = $data->value('this.is.my.nested.variable');
 | public | <strong>undef(</strong><em>string</em> <strong>$name</strong>, <em>string</em> <strong>$separator=null</strong>)</strong> : <em>\Grav\Common\Data\$this</em><br /><em>Unset value by using dot notation for nested arrays/objects.</em> |
 | public | <strong>validate()</strong> : <em>\Grav\Common\Data\$this</em><br /><em>Validate by blueprints.</em> |
 | public | <strong>value(</strong><em>string</em> <strong>$name</strong>, <em>mixed</em> <strong>$default=null</strong>, <em>string</em> <strong>$separator=`'.'`</strong>)</strong> : <em>mixed Value.</em><br /><em>Get value by using dot notation for nested arrays/objects.</em> |
-###### Examples of Data::def()
+###### Примеры Data::def()
 ```
 $data->def('this.is.my.nested.variable', 'default');
 ```
-###### Examples of Data::get()
+###### Примеры Data::get()
 ```
 $value = $this->get('this.is.my.nested.variable');
 ```
-###### Examples of Data::set()
+###### Примеры Data::set()
 ```
 $data->set('this.is.my.nested.variable', $value);
 ```
-###### Examples of Data::undef()
+###### Примеры Data::undef()
 ```
 $data->undef('this.is.my.nested.variable');
 ```
-###### Examples of Data::value()
+###### Примеры Data::value()
 ```
 $value = $data->value('this.is.my.nested.variable');
 ```
@@ -1894,7 +1894,7 @@ $value = $data->value('this.is.my.nested.variable');
 *Этот класс наследует \ParsedownExtra*
 
 <hr /><a id="interface-gravcommonmediainterfacesmediaobjectinterface"></a>
-### Interface: \Grav\Common\Media\Interfaces\MediaObjectInterface
+### Интерфейс: \Grav\Common\Media\Interfaces\MediaObjectInterface
 
 > Class implements media object interface.
 
@@ -1904,7 +1904,7 @@ $value = $data->value('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Framework\Media\Interfaces\MediaObjectInterface](#interface-gravframeworkmediainterfacesmediaobjectinterface)*
 
 <hr /><a id="interface-gravcommonmediainterfacesmediainterface"></a>
-### Interface: \Grav\Common\Media\Interfaces\MediaInterface
+### Интерфейс: \Grav\Common\Media\Interfaces\MediaInterface
 
 > Class implements media interface.
 
@@ -1914,7 +1914,7 @@ $value = $data->value('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Framework\Media\Interfaces\MediaInterface](#interface-gravframeworkmediainterfacesmediainterface)*
 
 <hr /><a id="interface-gravcommonmediainterfacesmediacollectioninterface"></a>
-### Interface: \Grav\Common\Media\Interfaces\MediaCollectionInterface
+### Интерфейс: \Grav\Common\Media\Interfaces\MediaCollectionInterface
 
 > Class implements media collection interface.
 
@@ -1938,19 +1938,19 @@ $value = $data->value('this.is.my.nested.variable');
 | public | <strong>offsetUnset(</strong><em>mixed</em> <strong>$offset</strong>)</strong> : <em>void</em><br /><em>Unsets variable at specified offset.</em> |
 | public | <strong>set(</strong><em>string</em> <strong>$name</strong>, <em>mixed</em> <strong>$value</strong>, <em>string</em> <strong>$separator=null</strong>)</strong> : <em>\Grav\Common\Page\$this</em><br /><em>Set value by using dot notation for nested arrays/objects.</em> |
 | public | <strong>undef(</strong><em>string</em> <strong>$name</strong>, <em>string</em> <strong>$separator=null</strong>)</strong> : <em>\Grav\Common\Page\$this</em><br /><em>Unset value by using dot notation for nested arrays/objects.</em> |
-###### Examples of Header::def()
+###### Примеры Header::def()
 ```
 $data->def('this.is.my.nested.variable', 'default');
 ```
-###### Examples of Header::get()
+###### Примеры Header::get()
 ```
 $value = $this->get('this.is.my.nested.variable');
 ```
-###### Examples of Header::set()
+###### Примеры Header::set()
 ```
 $data->set('this.is.my.nested.variable', $value);
 ```
-###### Examples of Header::undef()
+###### Примеры Header::undef()
 ```
 $data->undef('this.is.my.nested.variable');
 ```
@@ -2230,7 +2230,7 @@ $data->undef('this.is.my.nested.variable');
 | protected | <strong>recurse(</strong><em>string</em> <strong>$directory</strong>, <em>[\Grav\Common\Page\Page](#class-gravcommonpagepage)Interface/null/[\Grav\Common\Page\Interfaces\PageInterface](#interface-gravcommonpageinterfacespageinterface)</em> <strong>$parent=null</strong>)</strong> : <em>[\Grav\Common\Page\Interfaces\PageInterface](#interface-gravcommonpageinterfacespageinterface)</em><br /><em>Recursive function to load & build page relationships.</em> |
 
 <hr /><a id="interface-gravcommonpageinterfacespageroutableinterface"></a>
-### Interface: \Grav\Common\Page\Interfaces\PageRoutableInterface
+### Интерфейс: \Grav\Common\Page\Interfaces\PageRoutableInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -2258,7 +2258,7 @@ $data->undef('this.is.my.nested.variable');
 | public | <strong>urlExtension()</strong> : <em>string The extension of this page. For example `.html`</em><br /><em>Returns the page extension, got from the page `url_extension` config and falls back to the system config `system.pages.append_url_extension`.</em> |
 
 <hr /><a id="interface-gravcommonpageinterfacespageinterface"></a>
-### Interface: \Grav\Common\Page\Interfaces\PageInterface
+### Интерфейс: \Grav\Common\Page\Interfaces\PageInterface
 
 > Class implements page interface.
 
@@ -2268,7 +2268,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Common\Page\Interfaces\PageContentInterface](#interface-gravcommonpageinterfacespagecontentinterface), [\Grav\Common\Page\Interfaces\PageRoutableInterface](#interface-gravcommonpageinterfacespageroutableinterface), [\Grav\Common\Page\Interfaces\PageTranslateInterface](#interface-gravcommonpageinterfacespagetranslateinterface), [\Grav\Common\Media\Interfaces\MediaInterface](#interface-gravcommonmediainterfacesmediainterface), [\Grav\Framework\Media\Interfaces\MediaInterface](#interface-gravframeworkmediainterfacesmediainterface), [\Grav\Common\Page\Interfaces\PageLegacyInterface](#interface-gravcommonpageinterfacespagelegacyinterface)*
 
 <hr /><a id="interface-gravcommonpageinterfacespagelegacyinterface"></a>
-### Interface: \Grav\Common\Page\Interfaces\PageLegacyInterface
+### Интерфейс: \Grav\Common\Page\Interfaces\PageLegacyInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -2334,7 +2334,7 @@ $data->undef('this.is.my.nested.variable');
 | public | <strong>validate()</strong> : <em>void</em><br /><em>Validate page header.</em> |
 
 <hr /><a id="interface-gravcommonpageinterfacespagecontentinterface"></a>
-### Interface: \Grav\Common\Page\Interfaces\PageContentInterface
+### Интерфейс: \Grav\Common\Page\Interfaces\PageContentInterface
 
 > Methods currently implemented in Flex Page emulation layer.
 
@@ -2370,7 +2370,7 @@ $data->undef('this.is.my.nested.variable');
 | public | <strong>visible(</strong><em>bool</em> <strong>$var=null</strong>)</strong> : <em>bool true if the page is visible</em><br /><em>Gets and Sets whether or not this Page is visible for navigation</em> |
 
 <hr /><a id="interface-gravcommonpageinterfacespagetranslateinterface"></a>
-### Interface: \Grav\Common\Page\Interfaces\PageTranslateInterface
+### Интерфейс: \Grav\Common\Page\Interfaces\PageTranslateInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -2534,7 +2534,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Framework\Media\Interfaces\MediaObjectInterface](#interface-gravframeworkmediainterfacesmediaobjectinterface), [\Grav\Common\Media\Interfaces\MediaObjectInterface](#interface-gravcommonmediainterfacesmediaobjectinterface), [\Grav\Common\Page\Medium\RenderableInterface](#interface-gravcommonpagemediumrenderableinterface), [\Grav\Common\Data\DataInterface](#interface-gravcommondatadatainterface), \ArrayAccess, \Countable, \JsonSerializable, \RocketTheme\Toolbox\ArrayTraits\ExportInterface*
 
 <hr /><a id="interface-gravcommonpagemediumrenderableinterface"></a>
-### Interface: \Grav\Common\Page\Medium\RenderableInterface
+### Интерфейс: \Grav\Common\Page\Medium\RenderableInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -2787,7 +2787,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует \Psr\Http\Server\MiddlewareInterface, [\Grav\Common\Processors\ProcessorInterface](#interface-gravcommonprocessorsprocessorinterface)*
 
 <hr /><a id="interface-gravcommonprocessorsprocessorinterface"></a>
-### Interface: \Grav\Common\Processors\ProcessorInterface
+### Интерфейс: \Grav\Common\Processors\ProcessorInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -3154,7 +3154,7 @@ $data->undef('this.is.my.nested.variable');
 | public | <strong>xssFunc(</strong><em>string/array</em> <strong>$data</strong>)</strong> : <em>bool/string/array</em><br /><em>Allow quick check of a string for XSS Vulnerabilities</em> |
 | public | <strong>yamlDecodeFilter(</strong><em>string</em> <strong>$data</strong>)</strong> : <em>array</em><br /><em>Decode/Parse data from YAML format</em> |
 | public | <strong>yamlEncodeFilter(</strong><em>array</em> <strong>$data</strong>, <em>int</em> <strong>$inline=10</strong>)</strong> : <em>string</em><br /><em>Dump/Encode data into YAML format</em> |
-###### Examples of TwigExtension::urlFunc()
+###### Примеры TwigExtension::urlFunc()
 ```
 {{ url('theme://images/logo.png')|default('http://www.placehold.it/150x100/f4f4f4') }}
 ```
@@ -3517,19 +3517,19 @@ $data->undef('this.is.my.nested.variable');
 | protected | <strong>setAuthorizeRule(</strong><em>\string</em> <strong>$authorize</strong>)</strong> : <em>void</em> |
 | protected | <strong>setMedia(</strong><em>[\Grav\Common\Media\Interfaces\MediaCollectionInterface](#interface-gravcommonmediainterfacesmediacollectioninterface)</em> <strong>$media</strong>)</strong> : <em>\Grav\Common\User\FlexUser\$this</em><br /><em>Sets the associated media collection.</em> |
 | protected | <strong>setUpdatedMedia(</strong><em>array</em> <strong>$files</strong>)</strong> : <em>void</em> |
-###### Examples of User::def()
+###### Примеры User::def()
 ```
 $data->def('this.is.my.nested.variable', 'default');
 ```
-###### Examples of User::get()
+###### Примеры User::get()
 ```
 $value = $this->get('this.is.my.nested.variable');
 ```
-###### Examples of User::set()
+###### Примеры User::set()
 ```
 $data->set('this.is.my.nested.variable', $value);
 ```
-###### Examples of User::undef()
+###### Примеры User::undef()
 ```
 $data->undef('this.is.my.nested.variable');
 ```
@@ -3588,7 +3588,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Framework\Flex\Interfaces\FlexStorageInterface](#interface-gravframeworkflexinterfacesflexstorageinterface)*
 
 <hr /><a id="interface-gravcommonuserinterfacesuserinterface"></a>
-### Interface: \Grav\Common\User\Interfaces\UserInterface
+### Интерфейс: \Grav\Common\User\Interfaces\UserInterface
 
 > Interface UserInterface
 
@@ -3610,19 +3610,19 @@ $data->undef('this.is.my.nested.variable');
 | public | <strong>setDefaults(</strong><em>array</em> <strong>$data</strong>)</strong> : <em>\Grav\Common\User\Interfaces\$this</em><br /><em>Set default values to the configuration if variables were not set.</em> |
 | public | <strong>undef(</strong><em>string</em> <strong>$name</strong>, <em>string</em> <strong>$separator=null</strong>)</strong> : <em>\Grav\Common\User\Interfaces\$this</em><br /><em>Unset value by using dot notation for nested arrays/objects.</em> |
 | public | <strong>update(</strong><em>array</em> <strong>$data</strong>, <em>array</em> <strong>$files=array()</strong>)</strong> : <em>\Grav\Common\User\Interfaces\$this</em><br /><em>Update object with data</em> |
-###### Examples of UserInterface::def()
+###### Примеры UserInterface::def()
 ```
 $data->def('this.is.my.nested.variable', 'default');
 ```
-###### Examples of UserInterface::get()
+###### Примеры UserInterface::get()
 ```
 $value = $this->get('this.is.my.nested.variable');
 ```
-###### Examples of UserInterface::set()
+###### Примеры UserInterface::set()
 ```
 $data->set('this.is.my.nested.variable', $value);
 ```
-###### Examples of UserInterface::undef()
+###### Примеры UserInterface::undef()
 ```
 $data->undef('this.is.my.nested.variable');
 ```
@@ -3630,7 +3630,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Common\Data\DataInterface](#interface-gravcommondatadatainterface), [\Grav\Common\Media\Interfaces\MediaInterface](#interface-gravcommonmediainterfacesmediainterface), [\Grav\Framework\Media\Interfaces\MediaInterface](#interface-gravframeworkmediainterfacesmediainterface), \ArrayAccess, \JsonSerializable, \RocketTheme\Toolbox\ArrayTraits\ExportInterface*
 
 <hr /><a id="interface-gravcommonuserinterfacesusercollectioninterface"></a>
-### Interface: \Grav\Common\User\Interfaces\UserCollectionInterface
+### Интерфейс: \Grav\Common\User\Interfaces\UserCollectionInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -3905,7 +3905,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Framework\Cache\CacheInterface](#interface-gravframeworkcachecacheinterface), \Psr\SimpleCache\CacheInterface*
 
 <hr /><a id="interface-gravframeworkcachecacheinterface"></a>
-### Interface: \Grav\Framework\Cache\CacheInterface
+### Интерфейс: \Grav\Framework\Cache\CacheInterface
 
 > PSR-16 compatible "Simple Cache" interface.
 
@@ -4087,7 +4087,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует \Throwable, \Psr\SimpleCache\CacheException*
 
 <hr /><a id="interface-gravframeworkcollectionfilecollectioninterface"></a>
-### Interface: \Grav\Framework\Collection\FileCollectionInterface
+### Интерфейс: \Grav\Framework\Collection\FileCollectionInterface
 
 > Collection of objects stored into a filesystem.
 
@@ -4215,7 +4215,7 @@ $data->undef('this.is.my.nested.variable');
 *Этот класс реализует [\Grav\Framework\Collection\CollectionInterface](#interface-gravframeworkcollectioncollectioninterface), \JsonSerializable, \Countable, \IteratorAggregate, \Traversable, \ArrayAccess, \Doctrine\Common\Collections\Collection*
 
 <hr /><a id="interface-gravframeworkcollectioncollectioninterface"></a>
-### Interface: \Grav\Framework\Collection\CollectionInterface
+### Интерфейс: \Grav\Framework\Collection\CollectionInterface
 
 > Collection Interface.
 
@@ -4271,7 +4271,7 @@ $data->undef('this.is.my.nested.variable');
 | protected | <strong>getAssetsInLocation(</strong><em>string</em> <strong>$type</strong>, <em>string</em> <strong>$location</strong>)</strong> : <em>array</em> |
 | protected | <strong>sortAssets(</strong><em>array</em> <strong>$array</strong>)</strong> : <em>void</em> |
 | protected | <strong>sortAssetsInLocation(</strong><em>array</em> <strong>$items</strong>)</strong> : <em>void</em> |
-###### Examples of HtmlBlock::addStyle()
+###### Примеры HtmlBlock::addStyle()
 ```
 $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js', 'media' => 'screen']);
 ```
@@ -4281,7 +4281,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует \Serializable, [\Grav\Framework\ContentBlock\ContentBlockInterface](#interface-gravframeworkcontentblockcontentblockinterface), [\Grav\Framework\ContentBlock\HtmlBlockInterface](#interface-gravframeworkcontentblockhtmlblockinterface)*
 
 <hr /><a id="interface-gravframeworkcontentblockhtmlblockinterface"></a>
-### Interface: \Grav\Framework\ContentBlock\HtmlBlockInterface
+### Интерфейс: \Grav\Framework\ContentBlock\HtmlBlockInterface
 
 > Interface HtmlBlockInterface
 
@@ -4298,7 +4298,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 | public | <strong>getHtml(</strong><em>string</em> <strong>$location=`'bottom'`</strong>)</strong> : <em>array</em> |
 | public | <strong>getScripts(</strong><em>string</em> <strong>$location=`'head'`</strong>)</strong> : <em>array</em> |
 | public | <strong>getStyles(</strong><em>string</em> <strong>$location=`'head'`</strong>)</strong> : <em>array</em> |
-###### Examples of HtmlBlockInterface::addStyle()
+###### Примеры HtmlBlockInterface::addStyle()
 ```
 $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js', 'media' => 'screen']);
 ```
@@ -4306,7 +4306,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\ContentBlock\ContentBlockInterface](#interface-gravframeworkcontentblockcontentblockinterface), \Serializable*
 
 <hr /><a id="interface-gravframeworkcontentblockcontentblockinterface"></a>
-### Interface: \Grav\Framework\ContentBlock\ContentBlockInterface
+### Интерфейс: \Grav\Framework\ContentBlock\ContentBlockInterface
 
 > ContentBlock Interface
 
@@ -4620,7 +4620,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует \Serializable, [\Grav\Framework\File\Interfaces\FileFormatterInterface](#interface-gravframeworkfileinterfacesfileformatterinterface)*
 
 <hr /><a id="interface-gravframeworkfileinterfacesfileinterface"></a>
-### Interface: \Grav\Framework\File\Interfaces\FileInterface
+### Интерфейс: \Grav\Framework\File\Interfaces\FileInterface
 
 > Defines common interface for all file readers. File readers allow you to read and optionally write files of various file formats, such as:
 
@@ -4647,7 +4647,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует \Serializable*
 
 <hr /><a id="interface-gravframeworkfileinterfacesfileformatterinterface"></a>
-### Interface: \Grav\Framework\File\Interfaces\FileFormatterInterface
+### Интерфейс: \Grav\Framework\File\Interfaces\FileFormatterInterface
 
 > Defines common interface for all file formatters. File formatters allow you to read and optionally write various file formats, such as:
 
@@ -4683,7 +4683,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\Filesystem\Interfaces\FilesystemInterface](#interface-gravframeworkfilesysteminterfacesfilesysteminterface)*
 
 <hr /><a id="interface-gravframeworkfilesysteminterfacesfilesysteminterface"></a>
-### Interface: \Grav\Framework\Filesystem\Interfaces\FilesystemInterface
+### Интерфейс: \Grav\Framework\Filesystem\Interfaces\FilesystemInterface
 
 > Defines several stream-save filesystem actions.
 
@@ -5041,7 +5041,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\Flex\Interfaces\FlexObjectInterface](#interface-gravframeworkflexinterfacesflexobjectinterface), \ArrayAccess, [\Grav\Framework\Object\Interfaces\ObjectInterface](#interface-gravframeworkobjectinterfacesobjectinterface), \JsonSerializable, \Serializable, [\Grav\Framework\Object\Interfaces\NestedObjectInterface](#interface-gravframeworkobjectinterfacesnestedobjectinterface), [\Grav\Framework\Interfaces\RenderInterface](#interface-gravframeworkinterfacesrenderinterface), [\Grav\Framework\Flex\Interfaces\FlexCommonInterface](#interface-gravframeworkflexinterfacesflexcommoninterface), [\Grav\Framework\Flex\Interfaces\FlexAuthorizeInterface](#interface-gravframeworkflexinterfacesflexauthorizeinterface)*
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexcollectioninterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexCollectionInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexCollectionInterface
 
 > Defines a collection of Flex Objects.
 
@@ -5061,7 +5061,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\Flex\Interfaces\FlexCommonInterface](#interface-gravframeworkflexinterfacesflexcommoninterface), [\Grav\Framework\Interfaces\RenderInterface](#interface-gravframeworkinterfacesrenderinterface), [\Grav\Framework\Object\Interfaces\ObjectCollectionInterface](#interface-gravframeworkobjectinterfacesobjectcollectioninterface), \Serializable, [\Grav\Framework\Object\Interfaces\ObjectInterface](#interface-gravframeworkobjectinterfacesobjectinterface), \Doctrine\Common\Collections\Selectable, \Doctrine\Common\Collections\Collection, \ArrayAccess, \Traversable, \IteratorAggregate, \Countable, \JsonSerializable, [\Grav\Framework\Collection\CollectionInterface](#interface-gravframeworkcollectioncollectioninterface), [\Grav\Framework\Object\Interfaces\NestedObjectInterface](#interface-gravframeworkobjectinterfacesnestedobjectinterface)*
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexauthorizeinterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexAuthorizeInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexAuthorizeInterface
 
 > Defines authorization checks for Flex Objects.
 
@@ -5070,7 +5070,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 | public | <strong>isAuthorized(</strong><em>\string</em> <strong>$action</strong>, <em>\string</em> <strong>$scope=null</strong>, <em>\Grav\Framework\Flex\Interfaces\UserInterface/null/[\Grav\Common\User\Interfaces\UserInterface](#interface-gravcommonuserinterfacesuserinterface)</em> <strong>$user=null</strong>)</strong> : <em>bool Returns `true` if user is authorized to perform action, `false` otherwise.</em><br /><em>Check if user is authorized to perform an action for the object.</em> |
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexforminterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexFormInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexFormInterface
 
 > Defines Forms for Flex Objects.
 
@@ -5084,7 +5084,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует \Serializable, [\Grav\Framework\Form\Interfaces\FormInterface](#interface-gravframeworkforminterfacesforminterface), [\Grav\Framework\Interfaces\RenderInterface](#interface-gravframeworkinterfacesrenderinterface)*
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexstorageinterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexStorageInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexStorageInterface
 
 > Defines Flex Storage layer.
 
@@ -5105,7 +5105,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 | public | <strong>updateRows(</strong><em>array</em> <strong>$rows</strong>)</strong> : <em>array Returns updated rows. Note that non-existing rows will not be saved and have `null` as their value.</em><br /><em>Update existing rows in the storage.</em> |
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexobjectinterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexObjectInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexObjectInterface
 
 > Defines Flex Objects.
 
@@ -5131,7 +5131,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\Flex\Interfaces\FlexCommonInterface](#interface-gravframeworkflexinterfacesflexcommoninterface), [\Grav\Framework\Interfaces\RenderInterface](#interface-gravframeworkinterfacesrenderinterface), [\Grav\Framework\Object\Interfaces\NestedObjectInterface](#interface-gravframeworkobjectinterfacesnestedobjectinterface), \Serializable, \JsonSerializable, [\Grav\Framework\Object\Interfaces\ObjectInterface](#interface-gravframeworkobjectinterfacesobjectinterface), \ArrayAccess*
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexcommoninterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexCommonInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexCommonInterface
 
 > Defines common interface shared with both Flex Objects and Collections.
 
@@ -5146,7 +5146,7 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\Interfaces\RenderInterface](#interface-gravframeworkinterfacesrenderinterface)*
 
 <hr /><a id="interface-gravframeworkflexinterfacesflexindexinterface"></a>
-### Interface: \Grav\Framework\Flex\Interfaces\FlexIndexInterface
+### Интерфейс: \Grav\Framework\Flex\Interfaces\FlexIndexInterface
 
 > Defines Indexes for Flex Objects. Flex indexes are similar to database indexes, they contain indexed fields which can be used to quickly look up or find the objects without loading them.
 
@@ -5312,14 +5312,14 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует \Psr\Http\Message\UploadedFileInterface, \JsonSerializable*
 
 <hr /><a id="interface-gravframeworkforminterfacesformfactoryinterface"></a>
-### Interface: \Grav\Framework\Form\Interfaces\FormFactoryInterface
+### Интерфейс: \Grav\Framework\Form\Interfaces\FormFactoryInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
 | public | <strike><strong>createPageForm(</strong><em>[\Grav\Common\Page\Page](#class-gravcommonpagepage)</em> <strong>$page</strong>, <em>\string</em> <strong>$name</strong>, <em>array</em> <strong>$form</strong>)</strong> : <em>[\Grav\Framework\Form\Interfaces\FormInterface](#interface-gravframeworkforminterfacesforminterface)/null</em></strike><br /><em>DEPRECATED - 1.6 Use FormFactory::createFormByPage() instead.</em> |
 
 <hr /><a id="interface-gravframeworkforminterfacesforminterface"></a>
-### Interface: \Grav\Framework\Form\Interfaces\FormInterface
+### Интерфейс: \Grav\Framework\Form\Interfaces\FormInterface
 
 > Interface FormInterface
 
@@ -5352,20 +5352,20 @@ $block->addStyle('assets/js/my.js');$block->addStyle(['href' => 'assets/js/my.js
 *Этот класс реализует [\Grav\Framework\Interfaces\RenderInterface](#interface-gravframeworkinterfacesrenderinterface), \Serializable*
 
 <hr /><a id="interface-gravframeworkinterfacesrenderinterface"></a>
-### Interface: \Grav\Framework\Interfaces\RenderInterface
+### Интерфейс: \Grav\Framework\Interfaces\RenderInterface
 
 > Defines common interface to render any object.
 
 | Видимость | Функция |
 |:-----------|:---------|
 | public | <strong>render(</strong><em>\string</em> <strong>$layout=null</strong>, <em>array/array/null/array</em> <strong>$context=array()</strong>)</strong> : <em>\Grav\Framework\Interfaces\ContentBlockInterface/HtmlBlock Returns `HtmlBlock` containing the rendered output.</em><br /><em>Renders the object.</em> |
-###### Examples of RenderInterface::render()
+###### Примеры RenderInterface::render()
 ```
 $block = $object->render('custom', ['variable' => 'value']);{% render object layout 'custom' with { variable: 'value' } %}
 ```
 
 <hr /><a id="interface-gravframeworkmediainterfacesmediaobjectinterface"></a>
-### Interface: \Grav\Framework\Media\Interfaces\MediaObjectInterface
+### Интерфейс: \Grav\Framework\Media\Interfaces\MediaObjectInterface
 
 > Class implements media object interface.
 
@@ -5373,7 +5373,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 |:-----------|:---------|
 
 <hr /><a id="interface-gravframeworkmediainterfacesmediamanipulationinterface"></a>
-### Interface: \Grav\Framework\Media\Interfaces\MediaManipulationInterface
+### Интерфейс: \Grav\Framework\Media\Interfaces\MediaManipulationInterface
 
 > Interface MediaManipulationInterface
 
@@ -5385,7 +5385,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс реализует [\Grav\Common\Media\Interfaces\MediaInterface](#interface-gravcommonmediainterfacesmediainterface), [\Grav\Framework\Media\Interfaces\MediaInterface](#interface-gravframeworkmediainterfacesmediainterface)*
 
 <hr /><a id="interface-gravframeworkmediainterfacesmediainterface"></a>
-### Interface: \Grav\Framework\Media\Interfaces\MediaInterface
+### Интерфейс: \Grav\Framework\Media\Interfaces\MediaInterface
 
 > Class implements media interface.
 
@@ -5396,7 +5396,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 | public | <strong>getMediaOrder()</strong> : <em>array Empty array means default ordering.</em><br /><em>Get display order for the associated media.</em> |
 
 <hr /><a id="interface-gravframeworkmediainterfacesmediacollectioninterface"></a>
-### Interface: \Grav\Framework\Media\Interfaces\MediaCollectionInterface
+### Интерфейс: \Grav\Framework\Media\Interfaces\MediaCollectionInterface
 
 > Class implements media collection interface.
 
@@ -5657,7 +5657,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс наследует \Doctrine\Common\Collections\Expr\ClosureExpressionVisitor*
 
 <hr /><a id="interface-gravframeworkobjectinterfacesnestedobjectinterface"></a>
-### Interface: \Grav\Framework\Object\Interfaces\NestedObjectInterface
+### Интерфейс: \Grav\Framework\Object\Interfaces\NestedObjectInterface
 
 > Common Interface for both Objects and Collections
 
@@ -5672,7 +5672,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс реализует [\Grav\Framework\Object\Interfaces\ObjectInterface](#interface-gravframeworkobjectinterfacesobjectinterface), \JsonSerializable, \Serializable*
 
 <hr /><a id="interface-gravframeworkobjectinterfacesobjectcollectioninterface"></a>
-### Interface: \Grav\Framework\Object\Interfaces\ObjectCollectionInterface
+### Интерфейс: \Grav\Framework\Object\Interfaces\ObjectCollectionInterface
 
 > ObjectCollection Interface
 
@@ -5690,7 +5690,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс реализует [\Grav\Framework\Collection\CollectionInterface](#interface-gravframeworkcollectioncollectioninterface), \JsonSerializable, \Countable, \IteratorAggregate, \Traversable, \ArrayAccess, \Doctrine\Common\Collections\Collection, \Doctrine\Common\Collections\Selectable, [\Grav\Framework\Object\Interfaces\ObjectInterface](#interface-gravframeworkobjectinterfacesobjectinterface), \Serializable*
 
 <hr /><a id="interface-gravframeworkobjectinterfacesobjectinterface"></a>
-### Interface: \Grav\Framework\Object\Interfaces\ObjectInterface
+### Интерфейс: \Grav\Framework\Object\Interfaces\ObjectInterface
 
 > Object Interface
 
@@ -5780,7 +5780,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс реализует [\Grav\Framework\Pagination\Interfaces\PaginationInterface](#interface-gravframeworkpaginationinterfacespaginationinterface), \Traversable, \IteratorAggregate, \Countable*
 
 <hr /><a id="interface-gravframeworkpaginationinterfacespaginationinterface"></a>
-### Interface: \Grav\Framework\Pagination\Interfaces\PaginationInterface
+### Интерфейс: \Grav\Framework\Pagination\Interfaces\PaginationInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -5802,7 +5802,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс реализует \Countable, \IteratorAggregate, \Traversable*
 
 <hr /><a id="interface-gravframeworkpaginationinterfacespaginationpageinterface"></a>
-### Interface: \Grav\Framework\Pagination\Interfaces\PaginationPageInterface
+### Интерфейс: \Grav\Framework\Pagination\Interfaces\PaginationPageInterface
 
 | Видимость | Функция |
 |:-----------|:---------|
@@ -6221,7 +6221,7 @@ $block = $object->render('custom', ['variable' => 'value']);{% render object lay
 *Этот класс реализует [\Grav\Framework\Session\SessionInterface](#interface-gravframeworksessionsessioninterface), \Traversable, \IteratorAggregate*
 
 <hr /><a id="interface-gravframeworksessionsessioninterface"></a>
-### Interface: \Grav\Framework\Session\SessionInterface
+### Интерфейс: \Grav\Framework\Session\SessionInterface
 
 > Class Session
 

@@ -88,7 +88,7 @@ Some sample page content
 
 !!! Убедитесь, что вы настроили адреса электронной почты в плагине Email.
 
-!! В этом примере используется Google reCAPTCHA через [поле captcha](https://learn.getgrav.org/forms/forms/fields-available#captcha-field), и вы должны настроить ваши `site_key` и `secret_key` в плагине Form, чтобы это работало. Если вы не хотите использовать Google reCaptcha, просто удалите поле `g-recaptcha-response` и строчку `captcha: true` из секции `process`.
+!! В этом примере используется Google reCAPTCHA через [поле captcha](/forms/forms/fields-available#captcha-field), и вы должны настроить ваши `site_key` и `secret_key` в плагине Form, чтобы это работало. Если вы не хотите использовать Google reCaptcha, просто удалите поле `g-recaptcha-response` и строчку `captcha: true` из секции `process`.
 
 Теперь внутри папки страницы создайте подпапку с именем `thankyou /`, создайте новый файл с именем `formdata.md`. И вставьте в файл следующий код:
 
@@ -105,7 +105,7 @@ process:
 
 Вот и всё!
 
-!!! Модульные страницы немного отличаются. В этом случае также см. [использование форм на модульных страницах](https://learn.getgrav.org/forms/forms/how-to-forms-in-modular-pages)
+!!! Модульные страницы немного отличаются. В этом случае также см. [использование форм на модульных страницах](/forms/forms/how-to-forms-in-modular-pages)
 
 Когда пользователи отправят форму, плагин отправит вам электронное письмо (как установлено в настройках `form` плагина Email) и сохранит введенные данные в папке `data/`.
 

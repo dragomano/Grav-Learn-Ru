@@ -4,7 +4,7 @@ taxonomy:
   category: docs
 ---
 
-!! См. [ЧаВо по админке](https://learn.getgrav.org/admin-panel/faq#adding-and-managing-users), чтобы узнать,как управлять пользователями
+!! См. [ЧаВо по админке](/admin-panel/faq#adding-and-managing-users), чтобы узнать,как управлять пользователями
 
 ## Определение групп
 
@@ -95,4 +95,4 @@ access:
 
 в файл yaml пользователя.
 
-!! См. [ЧаВо по админке](https://learn.getgrav.org/16/admin-panel/faq#managing-acl), чтобы узнать больше о доступных уровнях доступа
+!! См. [ЧаВо по админке](/16/admin-panel/faq#managing-acl), чтобы узнать больше о доступных уровнях доступа

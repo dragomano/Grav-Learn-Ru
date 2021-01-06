@@ -45,7 +45,7 @@ body_classes: title-center title-h1h2
 
 Congratulations! You have installed the **Base Grav Package** that provides a **simple page** and the default **Quark** theme to get you started.
 
-!! If you see a **404 Error** when you click `Typography` in the menu, please refer to the [troubleshooting guide](https://learn.getgrav.org/troubleshooting/page-not-found).
+!! If you see a **404 Error** when you click `Typography` in the menu, please refer to the [troubleshooting guide](/troubleshooting/page-not-found).
 [/prism]
 [/div]
 
@@ -72,7 +72,7 @@ Congratulations! You have installed the **Base Grav Package** that provides a **
 Это простой абзац, который был бы завернут в обычные теги `<p>` при преобразовании в HTML. Маркеры `**` обозначают жирный текст или `<strong>`, ранее `<b>`, в HTML. Курсивный текст обозначается маркерами `_`.
 
 [prism classes="language-markdown line-numbers"]
-!! If you see a **404 Error** when you click `Typography` in the menu, please refer to the [troubleshooting guide](https://learn.getgrav.org/troubleshooting/page-not-found).
+!! If you see a **404 Error** when you click `Typography` in the menu, please refer to the [troubleshooting guide](/troubleshooting/page-not-found).
 [/prism]
 
 В этом разделе используется пользовательская функция markdown, которая предоставляется включенным плагином `markdown-notices`. Он позволяет создавать простые уведомления, добавляя разное количество восклицательных знаков `!` перед текстом (от `!` до `!!!!`).
@@ -85,7 +85,7 @@ Congratulations! You have installed the **Base Grav Package** that provides a **
 
 Создать новую страницу в **Grav** очень просто. Просто следуйте этим простым шагам:
 
-1. Перейдите к папке с вашими страницами: `user/pages/` и создайте новую папку. В этом примере мы будем использовать [явный порядок по умолчанию](https://learn.getgrav.org/content/content-pages) и назовем папку `03.mypage`.
+1. Перейдите к папке с вашими страницами: `user/pages/` и создайте новую папку. В этом примере мы будем использовать [явный порядок по умолчанию](/content/content-pages) и назовем папку `03.mypage`.
 2. Запустите текстовый редактор, создайте новый файл и вставьте следующий пример кода:
 
 [div class="no-margin-bottom"]

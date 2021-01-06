@@ -1,5 +1,5 @@
 ---
-menu: Подсказки и советы
+menu: Лайфхаки
 redirect: '/hints-tips/blogging/metadata'
 class: subtitle
 ---
