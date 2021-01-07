@@ -9,16 +9,16 @@ taxonomy:
 
 В предыдущей [главе](../plugin-tutorial), вы, возможно, заметили, что наша логика плагина была заключена в двух методах. Каждый из этих методов `onPluginsInitialized` и `onPageInitialized` соответствуют **хукам событий**, которые доступны на протяжении всего жизненного цикла Grav.
 
-Чтобы полностью использовать мощь плагинов Grav, вам нужно знать, какие хуки событий доступны, в каком порядке вызываются и что доступно во время этих вызовов. **Хуки событий** имеют прямое отношение к общему [жизненному циклу Grav](../../plugins/grav-lifecycle).
+Чтобы полностью использовать мощь плагинов Grav, вам нужно знать, какие хуки событий доступны, в каком порядке вызываются и что доступно во время этих вызовов. **Хуки событий** имеют прямое отношение к общему [жизненному циклу Grav](/plugins/grav-lifecycle).
 
 ## Порядок событий
 
 Большинство событий в Grav происходят в определенном порядке, и важно понимать этот порядок, если вы создаете плагины:
 
-1. [onFatalException](../event-hooks#onFatalException) _(нет порядка, может произойти в любое время)_
+1. [onFatalException](#onFatalException) _(нет порядка, может произойти в любое время)_
 1. `PluginsLoadedEvent` class (1.7)
 1. `PluginsLoadedEvent` class (1.7)
-1. [onPluginsInitialized](../event-hooks#onPluginsInitialized)
+1. [onPluginsInitialized](#onPluginsInitialized)
 1. `FlexRegisterEvent` class (1.7)
 1. onThemeInitialized
 1. onRequestHandlerInit (1.6)
@@ -28,44 +28,44 @@ taxonomy:
   1. onAction.{action} (1.6)
 1. onBackupsInitialized
 1. onSchedulerInitialized (1.6)
-1. [onAssetsInitialized](../event-hooks#onAssetsInitialized)
-1. [onTwigTemplatePaths](../event-hooks#onTwigTemplatePaths)
-1. [onTwigLoader](../event-hooks#onTwigLoader)
-1. [onTwigInitialized](../event-hooks#onTwigInitialized)
-1. [onTwigExtensions](../event-hooks#onTwigExtensions)
-1. [onBuildPagesInitialized](../event-hooks#onBuildPagesInitialized) _(один раз при повторной обработке страниц)_
-  1. [onPageProcessed](../event-hooks#onPageProcessed) _(каждая страница, ещё не кэшированная)_
+1. [onAssetsInitialized](#onAssetsInitialized)
+1. [onTwigTemplatePaths](#onTwigTemplatePaths)
+1. [onTwigLoader](#onTwigLoader)
+1. [onTwigInitialized](#onTwigInitialized)
+1. [onTwigExtensions](#onTwigExtensions)
+1. [onBuildPagesInitialized](#onBuildPagesInitialized) _(один раз при повторной обработке страниц)_
+  1. [onPageProcessed](#onPageProcessed) _(каждая страница, ещё не кэшированная)_
   1. onFormPageHeaderProcessed (1.6) _(каждая страница, ещё не кэшированная)_
-  1. [onFolderProcessed](../event-hooks#onFolderProcessed) _(для каждой найденной папки)_
-1. [onPagesInitialized](../event-hooks#onPagesInitialized)
-1. [onPageInitialized](../event-hooks#onPageInitialized)
-  1. [onPageContentRaw](../event-hooks#onPageContentRaw) _(каждая страница, ещё не кэшированная)_
-  1. [onMarkdownInitialized](../event-hooks#onMarkdownInitialized)
-  1. [onPageContentProcessed](../event-hooks#onPageContentProcessed) _(каждая страница, ещё не кэшированная)_
+  1. [onFolderProcessed](#onFolderProcessed) _(для каждой найденной папки)_
+1. [onPagesInitialized](#onPagesInitialized)
+1. [onPageInitialized](#onPageInitialized)
+  1. [onPageContentRaw](#onPageContentRaw) _(каждая страница, ещё не кэшированная)_
+  1. [onMarkdownInitialized](#onMarkdownInitialized)
+  1. [onPageContentProcessed](#onPageContentProcessed) _(каждая страница, ещё не кэшированная)_
   1. onPageContent _(вызывается при первом вызове Page::content() даже при кэшировании.)_
-1. [onPageNotFound](../event-hooks#onPageNotFound)
+1. [onPageNotFound](#onPageNotFound)
 1. onPageAction (1.6)
   1. onPageAction.{action} (1.6)
 1. onPageTask (1.6)
   1. onPageTask.{task} (1.6)
-1. [onTwigPageVariables](../event-hooks#onTwigPageVariables) _(каждая страница, ещё не кэшированная)_
+1. [onTwigPageVariables](#onTwigPageVariables) _(каждая страница, ещё не кэшированная)_
 1. onHttpPostFilter (1.5.2)
-1. [onTwigSiteVariables](../event-hooks#onTwigSiteVariables)
-1. [onCollectionProcessed](../event-hooks#onCollectionProcessed) _(по запросу коллекции)_
-1. [onOutputGenerated](../event-hooks#onOutputGenerated)
-1. [onOutputRendered](../event-hooks#onOutputRendered)
-1. [onShutdown](../event-hooks#onShutdown)
+1. [onTwigSiteVariables](#onTwigSiteVariables)
+1. [onCollectionProcessed](#onCollectionProcessed) _(по запросу коллекции)_
+1. [onOutputGenerated](#onOutputGenerated)
+1. [onOutputRendered](#onOutputRendered)
+1. [onShutdown](#onShutdown)
 
 Разные события:
 
-1. [onBlueprintCreated](../event-hooks#onBlueprintCreated)
+1. [onBlueprintCreated](#onBlueprintCreated)
 1. onTwigTemplateVariables
 1. onTwigStringVariables
-1. [onBeforeDownload](../event-hooks#onBeforeDownload)
-1. [onPageFallBackUrl](../event-hooks#onPageFallBackUrl)
-1. [onMediaLocate](../event-hooks#onMediaLocate)
-1. [onGetPageBlueprints](../event-hooks#onGetPageBlueprints)
-1. [onGetPageTemplates](../event-hooks#onGetPageTemplates)
+1. [onBeforeDownload](#onBeforeDownload)
+1. [onPageFallBackUrl](#onPageFallBackUrl)
+1. [onMediaLocate](#onMediaLocate)
+1. [onGetPageBlueprints](#onGetPageBlueprints)
+1. [onGetPageTemplates](#onGetPageTemplates)
 1. onFlexObjectRender (1.6)
 1. onFlexCollectionRender (1.6)
 1. onBeforeCacheClear

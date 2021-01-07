@@ -188,7 +188,7 @@ return [];
 
 #### Расширенная конфигурация (для экспертов)
 
-После создания `setup.php` получите доступ к двум важным переменным: (i) `$container`, который является еще не инициализированным должным образом [экземпляр Grav](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Grav.php) и (ii) `$self`, который является экземпляром [класса ConfigServiceProvider](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Service/ConfigServiceProvider.php).
+После создания `setup.php` получите доступ к двум важным переменным: (i) `$container`, который является ещё не инициализированным должным образом [экземпляр Grav](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Grav.php) и (ii) `$self`, который является экземпляром [класса ConfigServiceProvider](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Service/ConfigServiceProvider.php).
 
 Внутри этого скрипта вы можете делать что угодно, но имейте в виду, что файл `setup.php` вызывается каждый раз, когда пользователь запрашивает страницу. Это означает, что критические для памяти или требующие много времени операции инициализации приводят к замедлению работы всей системы, и поэтому их следует избегать.
 

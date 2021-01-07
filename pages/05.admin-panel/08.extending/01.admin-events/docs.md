@@ -9,14 +9,14 @@ process:
 Плагин админки имеет несколько обработчиков событий, которые можно использовать во время [жизненного цикла Grav](/plugins/grav-lifecycle). См. общую документацию плагина для использования обработчиков событий в главе [Плагины](/plugins).
 
 ## Доступные хуки событий админки
-* [onAdminTaskExecute](../admin-events#onAdminTaskExecute)
-* [onAdminCreatePageFrontmatter](../admin-events#onAdminCreatePageFrontmatter)
-* [onAdminSave](../admin-events#onAdminSave)
-* [onAdminAfterSave](../admin-events#onAdminAfterSave)
-* [onAdminAfterSaveAs](../admin-events#onAdminAfterSaveAs)
-* [onAdminAfterDelete](../admin-events#onAdminAfterDelete)
-* [onAdminAfterAddMedia](../admin-events#onAdminAfterAddMedia)
-* [onAdminAfterDelMedia](../admin-events#onAdminAfterDelMedia)
+* [onAdminTaskExecute](#onAdminTaskExecute)
+* [onAdminCreatePageFrontmatter](#onAdminCreatePageFrontmatter)
+* [onAdminSave](#onAdminSave)
+* [onAdminAfterSave](#onAdminAfterSave)
+* [onAdminAfterSaveAs](#onAdminAfterSaveAs)
+* [onAdminAfterDelete](#onAdminAfterDelete)
+* [onAdminAfterAddMedia](#onAdminAfterAddMedia)
+* [onAdminAfterDelMedia](#onAdminAfterDelMedia)
 
 
 ## Включение хука событий админки

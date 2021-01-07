@@ -1,5 +1,5 @@
 ---
-title: Конфигурация (система)
+title: Настройка (система)
 taxonomy:
     category: docs
 routes:
@@ -11,7 +11,7 @@ process:
 
 ![Конфигурация админки](configuration.png?width=2530&classes=shadow)
 
-Страница **Конфигурация** дает вам доступ к настройкам конфигурации **Система** и **Сайт** вашего сайта. Кроме того, вы можете просмотреть разбивку свойств вашего сервера по ряду областей, включая PHP, серверную среду и другие различные компоненты, которые определяют работу вашего сайта.
+Страница **Настройка** дает вам доступ к настройкам конфигурации **Система** и **Сайт** вашего сайта. Кроме того, вы можете просмотреть разбивку свойств вашего сервера по ряду областей, включая PHP, серверную среду и другие различные компоненты, которые определяют работу вашего сайта.
 
 !! Конфигурация требует уровня доступа `access.admin.super` или `access.admin.configuration`.
 
@@ -209,6 +209,6 @@ process:
 [div class="table table-striped table-keycol"]
 | Параметр                | Описание                                                                |
 | :-----                  | :-----                                                                     |
-| **Absolute URLs**       | Absolute or relative URLs for `base_url`.                                  |
-| **Parameter Separator** | Separater for passed parameters that can be changed for Apache on Windows. |
+| **Абсолютный путь**       | Absolute or relative URLs for `base_url`.                                  |
+| **Разделитель параметров** | Separater for passed parameters that can be changed for Apache on Windows. |
 [/div]

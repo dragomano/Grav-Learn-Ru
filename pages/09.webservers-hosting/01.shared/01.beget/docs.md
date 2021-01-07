@@ -69,7 +69,7 @@ unzip grav-v{{ grav_version }}.zip
 
 Теперь вы должны иметь возможность указать в браузере `https://yourlogin.beget.tech/grav`.
 
-Поскольку вы тщательно следовали этим инструкциям, вы также сможете использовать такие команды [Grav CLI](../../advanced/grav-cli) и [Grav GPM](../../advanced/grav-gpm), как:
+Поскольку вы тщательно следовали этим инструкциям, вы также сможете использовать такие команды [Grav CLI](/cli-console/grav-cli) и [Grav GPM](/cli-console/grav-gpm), как:
 
 ```
 cd ~/public_html/grav

@@ -76,6 +76,6 @@ content:
 ### Узнать больше
 
 - [Коллекции](/content/collections)
-- [Страница-листинг](/content/content-pages#listing-page)
-- [Папки](/content/content-pages#folders)
-- [Таксономия](/content/taxonomy#taxonomy-example)
+- [Страница-листинг](/content/content-pages#листинг)
+- [Папки](/content/content-pages#папки)
+- [Таксономия](/content/taxonomy#пример-таксономии)

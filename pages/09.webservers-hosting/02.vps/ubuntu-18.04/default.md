@@ -222,7 +222,7 @@ $ mv grav html
 
 Теперь, когда все готово, вы можете подтвердить установку Grav, указав в браузере ссылку `http://{{page.header.localname}}`, и вы должны увидеть страницу **Grav is Running!**.
 
-Поскольку вы тщательно следовали этим инструкциям, вы также сможете использовать [Grav CLI](../../advanced/grav-cli) и [Grav GPM](../../advanced/grav-gpm ) такие команды, как:
+Поскольку вы тщательно следовали этим инструкциям, вы также сможете использовать [Grav CLI](/cli-console/grav-cli) и [Grav GPM](/cli-console/grav-gpm ) такие команды, как:
 
 [prism classes="language-bash command-line"]
 $ cd ~/www/html

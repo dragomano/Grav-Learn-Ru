@@ -13,7 +13,7 @@ date: 17-06-2017
 
 Резюме. Например: "REST-API is publicly exposed without authentication required."
 
-Заголовок "PROJECT_FULL: LEVEL, TARGET, ID", например: `Grav Core: Less Critical, Access Bypass, CORE-2017-001`, где ID "ID: PROJECT_SHORT-YEAR-INT(3)", например: `CORE-2017-001`. ID должен быть увеличен после предыдущего отчета в рамках проекта, года. Дата должна быть в формате [Grav-parsable](/content/headers#date).
+Заголовок "PROJECT_FULL: LEVEL, TARGET, ID", например: `Grav Core: Less Critical, Access Bypass, CORE-2017-001`, где ID "ID: PROJECT_SHORT-YEAR-INT(3)", например: `CORE-2017-001`. ID должен быть увеличен после предыдущего отчёта в рамках проекта, года. Дата должна быть в формате [Grav-parsable](/content/headers#date).
 
 ### Рекомендация
 
