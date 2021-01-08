@@ -9,15 +9,11 @@ process:
     twig: true
 ---
 
-![Вкладка «Совместимость»](accounts-configuration.png?width=2030&classes=shadow)
-
 [div class="table table-striped table-keycol"]
 | Параметр                      | Описание |
 | :-----                        | :----- |
 | **Совместимость событий администратора** | Включает события `onAdminSave` и `onAdminSaveAfter` для плагинов. Включено по умолчанию. |
 [/div]
-
-![Вкладка «Кэширование»](accounts-configuration.png?width=2030&classes=shadow)
 
 Дополнительные сведения см. в разделе «Объекты Flex».
 

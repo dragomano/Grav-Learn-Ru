@@ -389,3 +389,48 @@ ER27XV3O|CCDPRJK5|IVSDME6D|6OT6QHK5
 [prism classes="language-twig line-numbers"]
 {{ chunker("ER27XV3OCCDPRJK5IVSDME6D6OT6QHK5", 8, '|') }}
 [/prism]
+
+## Расширение базового шаблона унаследованной темы
+
+##### Проблема
+
+Иногда нужно расширить сам базовый шаблон. Это может произойти, когда нет простого и очевидного способа расширить блоки, уже присутствующие в шаблоне. Давайте использовать Quark в качестве примера для родительской темы, и вы хотите расширить файл `themes/quark/templates/partials/base.html.twig` вашей темой `myTheme`.
+
+##### Решение
+
+Вы можете добавить Quark в качестве пространства имен Twig, используя тему `my-theme.php` для прослушивания события `onTwigLoader` и добавления каталога шаблона Quark. Содержание класса должно быть примерно таким:
+
+[prism classes="language-php line-numbers"]
+    <?php
+    namespace Grav\Theme;
+
+    use Grav\Common\Grav;
+    use Grav\Common\Theme;
+
+    class MyTheme extends Quark {
+        public static function getSubscribedEvents() {
+            return [
+                'onTwigLoader' => ['onTwigLoader', 10]
+            ];
+        }
+
+        public function onTwigLoader() {
+            parent::onTwigLoader();
+
+            // add quark theme as namespace to twig
+            $quark_path = Grav::instance()['locator']->findResource('themes://quark');
+            $this->grav['twig']->addPath($quark_path . DIRECTORY_SEPARATOR . 'templates', 'quark');
+        }
+    }
+[/prism]
+
+
+Теперь в файле `themes/my-theme/templates/partials/base.html.twig` можно расширить базовый шаблон Quark следующим образом:
+
+[prism classes="language-twig line-numbers"]
+    {% extends '@quark/partials/base.html.twig' %}
+
+    {% block header %}
+    This is a new extended header.
+    {% endblock %}
+[/prism]

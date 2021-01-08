@@ -288,18 +288,6 @@ string|markdown($is_block)
 
 `'person'|pluralize` <i class="fa fa-long-arrow-right"></i> **{{ 'person'|pluralize }}**
 
-[version=17]
-#### Preg Match
-
-Обертка для PHP [preg_match()](https://www.php.net/manual/ru/function.preg-match.php), которая соответствует тексту по шаблону, заданному в качестве регулярного выражения. Возвращает соответствующие значения, если есть хотя бы одно соответствие или `false`, если нет.
-[/version]
-
-[version=17]
-#### Preg Split
-
-Обертка для PHP [preg_split()](https://www.php.net/manual/ru/function.preg-split.php), которая расщепляет текст по шаблону, заданному в качестве регулярного выражения.
-[/version]
-
 [version=16,17]
 #### Print Variable
 
@@ -426,29 +414,32 @@ string|markdown($is_block)
 
 Вы можете легко создать сокращенную, усеченную версию строки, используя этот фильтр. Единственное обязательное поле - это количество символов, но есть и другие параметры:
 
-`'one sentence. two sentences'|truncate(5)` <i class="fa fa-long-arrow-right"></i> {{ 'one sentence. two sentences'|truncate(5) }}
+`'одно предложение. два предложения'|truncate(5)|raw` <i class="fa fa-long-arrow-right"></i> {{ 'одно предложение. два предложения'|truncate(5)|raw }}
 
 Просто обрезается до 5 символов.
 
-`'one sentence. two sentences'|truncate(5, true)` <i class="fa fa-long-arrow-right"></i> {{ 'one sentence. two sentences'|truncate(5, true) }}
+`'одно предложение. два предложения'|truncate(5, true)|raw` <i class="fa fa-long-arrow-right"></i> {{ 'одно предложение. два предложения'|truncate(5, true)|raw }}
+
+!! Фильтр `|raw` следует использовать с элементом заполнения по умолчанию `&helip;` (многоточие), чтобы он отображался с автоматическим экранированием Twig
 
 Обрезается до ближайшего конца предложения после 5 символов.
 
-Вы также можете обрезать текст HTML, но сначала следует использовать фильтр `striptags`, чтобы удалить любое форматирование HTML, которое может быть нарушено, если вы остановитесь между тегами:
+Вы также можете обрезать текст HTML, но сначала следует использовать фильтр `|striptags`, чтобы удалить любое форматирование HTML, которое может быть нарушено, если вы остановитесь между тегами:
 
-`'<p>one <strong>sentence<strong>. two sentences</p>'|striptags|truncate(5)` <i class="fa fa-long-arrow-right"></i> {{ '<p>one <strong>sentence<strong>. two sentences</p>'|striptags|truncate(5) }}
+`'<span>одно <strong>предложение</strong>. два предложения</span>'
+|raw|striptags|truncate(25)` <i class="fa fa-long-arrow-right"></i> **{{ '<span>одно <strong>предложение</strong>. два предложения</span>'|raw|striptags|truncate(25) }}**
 
 ##### Специализированные версии:
 
-**|safe_truncate**
+`|safe_truncate`
 
 Обрезать текст по количеству символов, делая текст «безопаснее».
 
-**|truncate_html**
+`|truncate_html`
 
 Обрезать HTML по количеству символов, не делая текст «безопаснее»!
 
-**|safe_truncate_html**
+`|safe_truncate_html`
 
 Обрезать HTML по количеству символов, делая текст «безопаснее».
 
@@ -821,7 +812,11 @@ outputs: **{{ print_r(parts) }}**
 
 strip_style = удалить встроенный стиль SVG - полезно для стилизации с помощью CSS-классов.
 
-пример: `{{ svg_image('theme://images/something.svg', 'my-class-here mb-10', true/false) }}`
+пример:
+
+{% verbatim %}
+`{{ svg_image('theme://images/something.svg', 'my-class-here mb-10', true) }}`
+{% endverbatim %}
 
 [/version]
 

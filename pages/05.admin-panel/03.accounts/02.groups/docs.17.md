@@ -9,15 +9,11 @@ process:
     twig: true
 ---
 
-![Список групп](accounts-groups1.png?width=2030&classes=shadow)
-
 **Группы пользователей** определяют общие роли для пользователей. Это предпочтительный способ установить разрешения для пользователей, поскольку управлять ролями проще, чем изменять правила индивидуально для каждой **учётной записи**.
 
 После создания группы пользователей вы можете назначить её учётным записям пользователей на [вкладке «Доступ»](/admin-panel/accounts/users#access-tab).
 
 ## Группа пользователей
-
-![Edit Group](accounts-groups1.png?width=2030&classes=shadow)
 
 [div class="table table-striped table-keycol"]
 | Параметр                      | Описание    |
@@ -38,8 +34,6 @@ process:
 
 #### Сайт
 
-![Site Permissions](accounts-groups1.png?width=2030&classes=shadow)
-
 [div class="table table-striped table-keycol"]
 | Параметр                              | Значение                      | Описание                                                          |
 | :-----                                | :-----                        | :-----                                                            |
@@ -47,8 +41,6 @@ process:
 [/div]
 
 #### Админка
-
-![Разрешения админки](accounts-groups1.png?width=2030&classes=shadow)
 
 [div class="table table-striped table-keycol"]
 | Параметр                              | Значение                      | Описание                                                          |
