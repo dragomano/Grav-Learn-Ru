@@ -9,8 +9,6 @@ process:
     twig: true
 ---
 
-![Разрешения учётных записей](accounts-permissions.png?width=2030&classes=shadow)
-
 Разрешения пользователя и группы для управления информацией, связанной с учётной записью:
 
 [div class="table table-striped table-keycol"]
