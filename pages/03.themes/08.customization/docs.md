@@ -52,7 +52,7 @@ body {
 
 ## Wellington SCSS
 
-[Wellington](https://github.com/wellington/wellington) это собственная оболочка для [libsass](http://libsass.org/), доступная как для Linux, так и для MacOS. Он обеспечивает гораздо более быстрое решение для компиляции SCSS, чем компилятор scss по умолчанию на основе Ruby. Под «быстрее» мы подразумеваем примерно **в 20 раз быстрее!**. Очень просто установить (через brew):
+[Wellington](https://github.com/wellington/wellington) это собственная оболочка для [libsass](https://libsass.org/), доступная как для Linux, так и для MacOS. Он обеспечивает гораздо более быстрое решение для компиляции SCSS, чем компилятор scss по умолчанию на основе Ruby. Под «быстрее» мы подразумеваем примерно **в 20 раз быстрее!**. Очень просто установить (через brew):
 
 [prism classes="language-bash command-line"]
 brew install wellington
@@ -76,10 +76,10 @@ brew install wellington
 
 ### Наследование с использованием CLI
 
-Как описано в [Theme Turotial](/16/themes/theme-tutorial), вы можете создать новую тему, используя плагин DevTools. Но вы также можете наследовать существующую тему. Процедура проста.
+Как описано в [Theme Turotial](/themes/theme-tutorial), вы можете создать новую тему, используя плагин DevTools. Но вы также можете наследовать существующую тему. Процедура проста.
 
-1. Установите [плагин DevTools](/16/themes/theme-tutorial#step-1-install-devtools-plugin), если это ещё не сделано.
-2. Затем следуйте процедуре [создания базовой темы](/16/themes/theme-tutorial#step-2-create-base-theme), но когда скрипт предложит выбрать тип шаблона (`Please choose a template type`), введите `inheritance` («наследование»). Если Quark единственная тема, она будет отображаться как `0`. Поэтому введите `0`, чтобы наследовать от Quark. Будет создана ваша новая унаследованная тема.
+1. Установите [плагин DevTools](/themes/theme-tutorial#shag-1-ustanovka-plagina-devtools), если это ещё не сделано.
+2. Затем следуйте процедуре [создания базовой темы](/themes/theme-tutorial#shag-2-sozdayte-bazovuyu-temu), но когда скрипт предложит выбрать тип шаблона (`Please choose a template type`), введите `inheritance` («наследование»). Если Quark единственная тема, она будет отображаться как `0`. Поэтому введите `0`, чтобы наследовать от Quark. Будет создана ваша новая унаследованная тема.
 4. Скопируйте все параметры из файла YAML темы, который вы наследуете (или из папки `user/config/themes`, если вы ее настроили), вверху вновь созданного файла конфигурации YAML вашей темы: `/ user/themes/mytheme/mytheme.yaml`.
 5. Скопируйте раздел `form` из `/user/themes/quark/blueprints.yaml' в `/user/themes/mytheme/blueprints.yaml` для того, чтобы включить настраиваемые элементы темы в админке. (Или просто замените файл и отредактируйте его содержимое.)
 6. Измените тему по умолчанию, чтобы использовать новую **mytheme**, отредактировав параметр `pages: theme:` в вашем файле конфигурации `user/config/system.yaml`:
