@@ -17,10 +17,10 @@ title: Подсистема Windows для Linux
 Для получения дополнительной информации смотрите: [Документация по подсистеме Windows для Linux](https://docs.microsoft.com/en-us/windows/wsl/about)
 
 ## Установка подсистемы Windows для Linux
-Установка *подсистемы Windows для Linux* хорошо описана в собственном документе Microsoft [Установить подсистему Windows для Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10?target=_blank ).
+Установка *подсистемы Windows для Linux* хорошо описана в статье Microsoft [Установить подсистему Windows для Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10?target=_blank ).
 Вместо стандартного дистрибутива Ubuntu, упомянутого в руководстве по установке, найдите и выберите последнюю версию Ubuntu 18.04 LTS.
 
-Чтобы инициализировать и обновить установку Ubuntu, выполните [Инициализация вновь установленного дистрибутива](https://docs.microsoft.com/en-us/windows/wsl/initialize-distro?target=_blank).
+Чтобы инициализировать и обновить установку Ubuntu, выполните [Инициализацию вновь установленного дистрибутива](https://docs.microsoft.com/en-us/windows/wsl/initialize-distro?target=_blank).
 Этот шаг можно пропустить, если вы уже инициализировали дистрибутив Ubuntu на предыдущем шаге.
 
 ! Важным аспектом WSL является то, что **инструменты Windows** **не** могут получить доступ к файлам, хранящимся внутри Ubuntu. Однако Ubuntu может (почти) свободно читать/записывать файловую систему Windows. Следовательно, файлы, к которым требуется доступ для инструментов Windows (например, ваша IDE, резервное копирование), должны храниться в файловой системе Windows.
