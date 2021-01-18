@@ -83,7 +83,7 @@ process:
 username:
    type: text
    label: Username
-  validate:
+   validate:
      required: true
      message: My custom message when validation fails!
 [/prism]

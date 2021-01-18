@@ -233,6 +233,8 @@ my_field:
 | [validate.message](#common-fields-attributes)  |
 [/div]
 
+!! ПРИМЕЧАНИЕ: Поле флажков не поддерживает действие процесса `remember`.
+
 ---
 ### Условное поле
 
@@ -670,6 +672,34 @@ header.choose_a_number_in_range:
 | [validate.required](#common-fields-attributes) |
 | [validate.pattern](#common-fields-attributes)  |
 | [validate.message](#common-fields-attributes)  |
+[/div]
+
+---
+
+### Поле Section
+
+Тип поля `Section` используется для разделения страницы настроек на разделы.
+
+Пример:
+
+[prism classes="language-yaml line-numbers"]
+content:
+    type: section
+    title: PLUGIN_ADMIN.DEFAULTS
+    underline: true
+
+    fields:
+
+        #..... subfields
+[/prism]
+
+[div class="table table-keycol"]
+| Атрибут       | Описание                                                                       |
+| :-----        | :-----                                                                         |
+| `title`       | Заголовок                                                                      |
+| `text`        | Текст для отображения внизу                                                    |
+| `security`    | Массив учётных данных, необходимых пользователю для визуализации этого раздела |
+| `title_level` | Установить собственный тег заголовка. По умолчанию: `h3`                       |
 [/div]
 
 ---

@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-!! Загрузите и установите локально скелет сайта блога из [https://getgrav.org/downloads/skeletons](https://getgrav.org/downloads/skeletons), или, по крайней мере, следите за репозиторием [https://github.com/getgrav/grav-skeleton-blog-site](https://github.com/getgrav/grav-skeleton-blog-site). Это пример сайта, который использует тему Antimatter. Наличие запущенного сайта Grav, который уже работает со структурой блога, несомненно, поможет вам, если вы застряли или не понимаете, что делать дальше.
+!! Загрузите и установите локально скелет блога из [https://getgrav.org/downloads/skeletons](https://getgrav.org/downloads/skeletons), или, по крайней мере, следите за репозиторием [https://github.com/getgrav/grav-skeleton-blog-site](https://github.com/getgrav/grav-skeleton-blog-site). Это пример сайта, который использует тему Antimatter. Наличие запущенного сайта Grav, который уже работает со структурой блога, несомненно, поможет вам, если вы застряли или не понимаете, что делать дальше.
 
 ## Проверьте, что ваша тема предоставляет шаблоны страниц блога и элементов
 
