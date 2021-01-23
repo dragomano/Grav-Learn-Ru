@@ -1,5 +1,7 @@
 ---
 title: Резервные копии
+metadata:
+    description: 'Создание резервных копий сайта на Grav CMS.'
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,7 @@
 ---
 title: Хуки событий
+metadata:
+    description: 'Используемые хуки событий в Grav CMS.'
 page-toc:
   active: true
   depth: 3

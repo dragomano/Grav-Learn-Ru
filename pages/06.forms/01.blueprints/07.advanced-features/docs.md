@@ -1,5 +1,7 @@
 ---
 title: Расширенные возможности чертежей
+metadata:
+    description: 'Знакомимся с расширенными возможностями чертежей в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

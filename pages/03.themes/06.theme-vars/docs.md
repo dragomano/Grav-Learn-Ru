@@ -1,5 +1,7 @@
 ---
 title: Переменные темы
+metadata:
+    description: 'Список используемых переменных в шаблонах тем в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

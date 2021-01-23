@@ -1,5 +1,7 @@
 ---
 title: Хуки событий админки
+metadata:
+    description: 'Список доступных хуков админки Grav CMS.'
 taxonomy:
     category: docs
 process:
@@ -20,7 +22,7 @@ process:
 
 
 ## Включение хука событий админки
-Перехватчики событий админки вызываются [таким же образом](/plugins/plugin-tutorial#step-6-define-if-the-plugin-should-run), что и основные перехватчики событий.
+Перехватчики событий админки вызываются [таким же образом](/plugins/plugin-tutorial#step-6-define-if-the-plugin-should-run), как и основные перехватчики событий.
 
 
 * * *

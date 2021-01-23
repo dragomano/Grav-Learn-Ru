@@ -1,5 +1,7 @@
 ---
 title: Двухфакторная аутентификация
+metadata:
+    description: 'Настраиваем двухфакторную аутентификацию в Grav CMS.'
 taxonomy:
     category: docs
 routes:

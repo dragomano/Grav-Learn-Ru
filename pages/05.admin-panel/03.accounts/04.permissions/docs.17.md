@@ -1,5 +1,7 @@
 ---
 title: Разрешения
+metadata:
+    description: 'Конфигурация пользовательских разрешений в Grav CMS.'
 taxonomy:
     category: docs
 routes:

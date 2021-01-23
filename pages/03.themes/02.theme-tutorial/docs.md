@@ -1,5 +1,7 @@
 ---
 title: Учебник по темам
+metadata:
+    description: 'Как создать собственную тему для Grav CMS. Базовое руководство.'
 page-toc:
   active: true
 taxonomy:

@@ -1,5 +1,7 @@
 ---
 title: Рецепты админки
+metadata:
+    description: 'Инструкция по доработке админки Grav CMS.'
 page-toc:
   active: true
   depth: 1

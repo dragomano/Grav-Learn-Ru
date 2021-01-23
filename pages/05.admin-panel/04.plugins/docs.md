@@ -1,5 +1,7 @@
 ---
 title: Плагины
+metadata:
+    description: 'Обзор раздела админки для управления плагинами Grav CMS.'
 taxonomy:
     category: docs
 process:

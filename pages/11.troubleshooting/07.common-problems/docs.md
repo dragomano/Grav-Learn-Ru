@@ -1,5 +1,7 @@
 ---
 title: Общие проблемы
+metadata:
+    description: 'Список общих проблем, которые могут возникнуть в процессе использования Grav CMS.'
 page-toc:
   active: true
   depth: 1

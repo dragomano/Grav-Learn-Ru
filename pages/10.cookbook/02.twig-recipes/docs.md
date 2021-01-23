@@ -1,5 +1,7 @@
 ---
 title: Рецепты Twig
+metadata:
+    description: 'Различные трюки при работе с Twig в Grav CMS.'
 page-toc:
   active: true
   depth: 1

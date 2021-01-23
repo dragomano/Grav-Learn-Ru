@@ -1,5 +1,7 @@
 ---
 title: Разрешения
+metadata:
+    description: 'Проблема, связанная с отсутствием прав на запись на файлы и папки, при использовании Grav CMS.'
 taxonomy:
     category: docs
 ---

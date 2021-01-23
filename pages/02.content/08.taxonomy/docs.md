@@ -1,5 +1,7 @@
 ---
 title: Таксономия
+metadata:
+    description: 'Знакомимся с понятием таксономии в Grav CMS. Изучаем коллекции таксономий.'
 taxonomy:
     category: docs
 ---

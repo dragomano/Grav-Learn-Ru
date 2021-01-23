@@ -1,5 +1,7 @@
 ---
 title: Чертёж
+metadata:
+    description: 'Руководство по созданию чертежей Flex в Grav CMS.'
 taxonomy:
     category: docs
 ---

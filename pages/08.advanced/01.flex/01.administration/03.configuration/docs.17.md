@@ -1,5 +1,7 @@
 ---
 title: Настройка
+metadata:
+    description: 'Управление настройками Flex-каталогов в Grav CMS.'
 taxonomy:
     category: docs
 process:

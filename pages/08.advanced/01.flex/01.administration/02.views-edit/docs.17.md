@@ -1,5 +1,7 @@
 ---
 title: Редактор контента
+metadata:
+    description: 'Знакомство с редактором контента в Grav CMS.'
 taxonomy:
     category: docs
 ---

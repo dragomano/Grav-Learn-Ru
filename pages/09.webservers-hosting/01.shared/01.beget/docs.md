@@ -1,5 +1,7 @@
 ---
 title: Веб-хостинг Beget
+metadata:
+    description: 'На правах рекламы — о хостинге Beget (Бегет). Установка и тестирование Grav CMS.'
 menu: Beget
 visible: true
 twig_first: true

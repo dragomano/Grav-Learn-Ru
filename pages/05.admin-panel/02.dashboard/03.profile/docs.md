@@ -1,5 +1,7 @@
 ---
 title: Профиль
+metadata:
+    description: 'Использование и настройка профиля пользователя в Grav CMS.'
 taxonomy:
     category: docs
 routes:

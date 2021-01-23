@@ -1,5 +1,7 @@
 ---
 title: 'Как сделать отправку через Ajax'
+metadata:
+    description: 'Инструкция об использовании Ajax для отправки форм в Grav CMS.'
 taxonomy:
     category: docs
 ---

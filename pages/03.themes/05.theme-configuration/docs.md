@@ -1,5 +1,7 @@
 ---
 title: Конфигурация темы
+metadata:
+    description: 'Как настроить используемую тему оформления в Grav CMS.'
 taxonomy:
     category: docs
 ---

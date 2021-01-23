@@ -1,5 +1,7 @@
 ---
 title: Установка плагинов
+metadata:
+    description: 'Как установить плагин в Grav CMS — вручную, через админку, через GPM.'
 taxonomy:
     category: docs
 ---

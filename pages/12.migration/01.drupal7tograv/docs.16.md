@@ -1,5 +1,7 @@
 ---
 title: 'Переезд с Drupal 7 на Grav'
+metadata:
+    description: 'Как мигрировать с Drupal 7 на Grav.'
 taxonomy:
     category:
         - docs

@@ -1,5 +1,7 @@
 ---
 title: 'Пример: чертежи конфигурации'
+metadata:
+    description: 'Как добавить свои поля в интерфейс настроек админки.'
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,7 @@
 ---
 title: Плагины
+metadata:
+    description: 'Глава 4 — знакомимся с плагинами в Grav CMS.'
 taxonomy:
     category: docs
 ---

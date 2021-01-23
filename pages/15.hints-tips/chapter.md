@@ -1,5 +1,7 @@
 ---
 title: Лайфхаки
+metadata:
+    description: 'Глава 15 — список полезных советов от пользователей Grav CMS.'
 taxonomy:
     category: docs
 ---

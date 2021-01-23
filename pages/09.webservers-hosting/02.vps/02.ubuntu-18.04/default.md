@@ -1,5 +1,7 @@
 ---
 title: Установка VPS на Ubuntu 18.04
+metadata:
+    description: 'Руководство по установке VPS на Ubuntu.'
 ---
 {% set ssh_port = page.header.ssh_port %}
 

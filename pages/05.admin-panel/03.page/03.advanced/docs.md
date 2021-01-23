@@ -1,5 +1,7 @@
 ---
 title: Редактор (экспертный)
+metadata:
+    description: 'Расширенные параметры редактора страниц в админке Grav CMS.'
 taxonomy:
     category: docs
 routes:

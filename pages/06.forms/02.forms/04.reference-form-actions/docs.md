@@ -1,5 +1,7 @@
 ---
 title: 'Ссылка: действия формы'
+metadata:
+    description: 'Список доступных действий с формами в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

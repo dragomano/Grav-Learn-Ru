@@ -1,5 +1,7 @@
 ---
 title: Сервис
+metadata:
+    description: 'Обзор страницы для ручной установки пакетов Grav через админку.'
 taxonomy:
     category: docs
 process:

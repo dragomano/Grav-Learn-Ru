@@ -1,5 +1,7 @@
 ---
 title: Flex
+metadata:
+    description: 'Список общих методов для работы с Flex-объектами в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

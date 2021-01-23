@@ -1,5 +1,7 @@
 ---
 title: Настройка
+metadata:
+    description: 'Как настроить Grav CMS — описание доступных параметров на русском языке.'
 page-toc:
   active: true
 taxonomy:

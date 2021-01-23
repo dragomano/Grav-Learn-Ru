@@ -1,5 +1,7 @@
 ---
 title: Требования
+metadata:
+    description: 'Минимальные и рекомендуемые требования Grav CMS, права доступа, инструменты для работы.'
 taxonomy:
     category: docs
 ---

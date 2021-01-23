@@ -1,5 +1,7 @@
 ---
 title: Nginx
+metadata:
+    description: 'Настройка сервера Nginx. Конфигурация сайта Grav CMS.'
 routes:
     aliases:
         - '/webservers-hosting/local/nginx'

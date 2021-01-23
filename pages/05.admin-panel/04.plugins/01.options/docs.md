@@ -1,5 +1,7 @@
 ---
 title: Параметры
+metadata:
+    description: 'Обзор настроек плагина админки Grav CMS.'
 taxonomy:
     category: docs
 routes:

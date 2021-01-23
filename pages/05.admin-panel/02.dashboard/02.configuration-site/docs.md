@@ -1,5 +1,7 @@
 ---
 title: Настройка (сайт)
+metadata:
+    description: 'Конфигурация основных параметров сайта в Grav CMS.'
 taxonomy:
     category: docs
 routes:

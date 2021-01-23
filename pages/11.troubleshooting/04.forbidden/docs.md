@@ -1,5 +1,7 @@
 ---
 title: 403 Forbidden
+metadata:
+    description: 'Описание ошибки 403 Forbidden в Grav CMS. Причины возникновения.'
 taxonomy:
     category: docs
 ---

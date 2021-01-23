@@ -1,5 +1,7 @@
 ---
 title: Настройка (система)
+metadata:
+    description: 'Конфигурация основных системных параметров Grav CMS.'
 taxonomy:
     category: docs
 routes:

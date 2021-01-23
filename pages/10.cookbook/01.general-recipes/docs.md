@@ -1,5 +1,7 @@
 ---
 title: Общие рецепты
+metadata:
+    description: 'Решение различных проблем при работе с Grav CMS. Создание простой галереи и слайдера изображений.'
 page-toc:
   active: true
   depth: 1

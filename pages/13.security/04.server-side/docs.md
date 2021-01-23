@@ -1,5 +1,7 @@
 ---
 title: На стороне сервера
+metadata:
+    description: 'О конфигурации PHP и веб-сервера при использовании Grav CMS.'
 taxonomy:
     category: docs
 ---

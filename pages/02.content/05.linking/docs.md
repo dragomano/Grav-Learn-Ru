@@ -1,5 +1,7 @@
 ---
-title: Ссылки на страницу
+title: Ссылки на страницы
+metadata:
+    description: 'Учимся использовать ссылки на страницах Grav CMS. Знакомимся с понятием слага. Изучаем атрибуты ссылок.'
 taxonomy:
     category: docs
 ---
@@ -230,16 +232,16 @@ Grav не ограничивает ваши внутренние ссылки к
 <a href="/your/pages/some-page?rel=nofollow&classes=underline">Пропуск всех атрибутов</a>
 ```
 
-##### Пропустить определенные атрибуты
+##### Пропуск определенных атрибутов
 
 ```markdown
-[Пропустить определенные атрибуты](../some-page?id=myvariable&classes=underline&target=_blank&noprocess=id,classes)
+[Пропускаем определенные атрибуты](../some-page?id=myvariable&classes=underline&target=_blank&noprocess=id,classes)
 ```
 
 что приведет к HTML, подобному:
 
 ```html
-<a href="/your/pages/some-page?id=myvariable&classes=underline" target="_blank">Пропустить определенные атрибуты</a>
+<a href="/your/pages/some-page?id=myvariable&classes=underline" target="_blank">Пропускаем определенные атрибуты</a>
 ```
 
 Это полезно при попытке пропустить один или несколько конкретных атрибутов, не затрагивая другие.

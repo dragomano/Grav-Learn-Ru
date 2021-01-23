@@ -1,5 +1,7 @@
 ---
 title: Заголовки / Frontmatter
+metadata:
+    description: 'Настраиваем заголовки страниц в Grav CMS. Знакомимся с Frontmatter.'
 page-toc:
   active: true
 taxonomy:

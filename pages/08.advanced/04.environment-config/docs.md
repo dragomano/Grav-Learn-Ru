@@ -1,5 +1,7 @@
 ---
 title: Конфигурация окружения
+metadata:
+    description: 'Как настроить среду (окружение) при разработке, постановке и производстве Grav CMS.'
 taxonomy:
     category: docs
 ---

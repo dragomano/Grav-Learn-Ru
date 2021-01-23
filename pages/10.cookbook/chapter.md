@@ -1,5 +1,7 @@
 ---
 title: Сборник рецептов
+metadata:
+    description: 'Глава 10 — о решении наиболее часто встречающихся проблем при работе с Grav CMS.'
 taxonomy:
     category: docs
 ---

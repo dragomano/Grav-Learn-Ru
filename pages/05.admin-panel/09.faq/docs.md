@@ -1,5 +1,7 @@
 ---
 title: ЧаВо
+metadata:
+    description: 'Список частых вопросов и ответов по использованию админки Grav CMS.'
 taxonomy:
     category: docs
 process:

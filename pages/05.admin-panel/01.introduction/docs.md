@@ -1,5 +1,7 @@
 ---
 title: Введение
+metadata:
+    description: 'Установка и использование плагина админки для Grav CMS.'
 taxonomy:
     category: docs
 twig_first: true

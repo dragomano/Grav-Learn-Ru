@@ -1,5 +1,7 @@
 ---
 title: Основы плагинов
+metadata:
+    description: 'Коротко о плагинах в Grav CMS. Использование параметров плагинов.'
 taxonomy:
     category: docs
 ---

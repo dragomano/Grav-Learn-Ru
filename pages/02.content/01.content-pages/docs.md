@@ -1,5 +1,7 @@
 ---
 title: Страницы
+metadata:
+    description: 'Знакомимся с типами страниц Grav. Управление порядком страниц.'
 taxonomy:
     category: docs
 process:

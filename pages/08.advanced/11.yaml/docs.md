@@ -1,5 +1,7 @@
 ---
 title: Синтаксис YAML
+metadata:
+    description: 'Знакомимся с синтаксисом YAML в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

@@ -1,5 +1,7 @@
 ---
 title: Теги, фильтры и функции Twig
+metadata:
+    description: 'Краткая информация о тегах, фильтрах и функциях Twig в Grav CMS.'
 process:
     twig: true
 taxonomy:

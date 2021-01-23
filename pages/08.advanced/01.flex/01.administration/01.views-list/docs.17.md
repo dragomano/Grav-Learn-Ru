@@ -1,5 +1,7 @@
 ---
 title: Список контента
+metadata:
+    description: 'Знакомство со списком контента в Grav CMS.'
 taxonomy:
     category: docs
 ---

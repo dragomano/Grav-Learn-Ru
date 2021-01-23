@@ -1,5 +1,7 @@
 ---
 title: Метаданные блогов
+metadata:
+    description: 'Как добавить микроразметку Open Graph для страниц блога на базе Grav CMS без плагинов.'
 visible: true
 twig_first: true
 process:

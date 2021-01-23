@@ -1,5 +1,7 @@
 ---
 title: Настройка
+metadata:
+    description: 'Список доступных параметров аккаунтов в Grav CMS.'
 taxonomy:
     category: docs
 routes:
@@ -15,7 +17,7 @@ process:
 | **Совместимость событий администратора** | Включает события `onAdminSave` и `onAdminSaveAfter` для плагинов. Включено по умолчанию. |
 [/div]
 
-Дополнительные сведения см. в разделе «Объекты Flex».
+Дополнительные сведения см. в разделе [Объекты Flex](/advanced/flex).
 
 [div class="table table-striped table-keycol"]
 | Параметр                      | Описание |

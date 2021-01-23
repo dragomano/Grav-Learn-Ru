@@ -1,5 +1,7 @@
 ---
 title: Темы
+metadata:
+    description: 'Обзор раздела админки для управления темами Grav CMS.'
 taxonomy:
     category: docs
 process:

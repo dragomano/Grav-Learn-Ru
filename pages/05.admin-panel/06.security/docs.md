@@ -1,5 +1,7 @@
 ---
 title: Безопасность
+metadata:
+    description: 'В этом разделе вы узнаете, как защитить админку Grav CMS от внешних атак.'
 taxonomy:
     category: docs
 process:

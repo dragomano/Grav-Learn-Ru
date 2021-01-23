@@ -1,10 +1,12 @@
 ---
 title: Группы и разрешения
+metadata:
+    description: 'Как управлять группами и разрешениями в Grav CMS.'
 taxonomy:
   category: docs
 ---
 
-!! См. [ЧаВо по админке](/admin-panel/faq#adding-and-managing-users), чтобы узнать,как управлять пользователями
+!! См. [ЧаВо по админке](/admin-panel/faq#adding-and-managing-users), чтобы узнать, как управлять пользователями
 
 ## Определение групп
 

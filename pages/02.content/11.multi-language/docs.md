@@ -1,5 +1,7 @@
 ---
 title: Мультиязычность
+metadata:
+    description: 'Использование нескольких языков в Grav CMS. Создание мультиязычного сайта.'
 page-toc:
   active: true
 taxonomy:

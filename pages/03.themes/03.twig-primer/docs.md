@@ -1,5 +1,7 @@
 ---
 title: Шаблонизатор Twig
+metadata:
+    description: 'Grav CMS. Изучаем синтаксис Twig.'
 taxonomy:
     category: docs
 ---

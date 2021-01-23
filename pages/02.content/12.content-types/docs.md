@@ -1,5 +1,7 @@
 ---
 title: Типы контента
+metadata:
+    description: 'Доступные типы контента в Grav CMS. Пользовательские типы.'
 taxonomy:
     category: docs
 ---

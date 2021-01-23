@@ -1,5 +1,7 @@
 ---
 title: Переезд с других движков
+metadata:
+    description: 'Глава 12 — инструкции по перемещению пользовательских данных в Grav из других CMS.'
 taxonomy:
     category: docs
 ---

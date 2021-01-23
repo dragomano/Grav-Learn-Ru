@@ -1,5 +1,7 @@
 ---
 title: Установка
+metadata:
+    description: 'Как установить Grav CMS — из архива, через Composer, с GitHub. Возможные проблемы с установкой и настройкой.'
 taxonomy:
     category: docs
 ---
@@ -44,7 +46,7 @@ composer create-project getgrav/grav ~/webroot/grav
 composer create-project getgrav/grav ~/webroot/grav 1.x-dev
 [/prism]
 
-## Вариант 3: Установка с GitHub
+## Вариант 3: установка с GitHub
 
 Другой способ — клонировать Grav из репозитория GitHub, а затем запустить простой скрипт установки зависимостей:
 

@@ -1,5 +1,7 @@
 ---
 title: 'Ссылка: параметры формы'
+metadata:
+    description: 'Список доступных параметров форм в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

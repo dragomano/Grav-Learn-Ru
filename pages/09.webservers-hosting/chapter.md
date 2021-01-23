@@ -1,5 +1,7 @@
 ---
 title: Веб-серверы и хостинг
+metadata:
+    description: 'Глава 9 — о серверах и хостингах.'
 taxonomy:
     category: docs
 ---

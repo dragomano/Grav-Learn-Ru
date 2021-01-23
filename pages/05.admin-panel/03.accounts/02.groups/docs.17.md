@@ -1,5 +1,7 @@
 ---
 title: Группы пользователей
+metadata:
+    description: 'Изучаем группы пользователей в Grav CMS.'
 taxonomy:
     category: docs
 routes:

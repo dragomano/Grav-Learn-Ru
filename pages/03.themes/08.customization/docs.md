@@ -1,5 +1,7 @@
 ---
 title: Кастомизация
+metadata:
+    description: 'Узнаем, как настроить тему оформления в Grav CMS «под себя».'
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,7 @@
 ---
 title: Каталог Flex
+metadata:
+    description: 'Список методов для работы с Flex-каталогами в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

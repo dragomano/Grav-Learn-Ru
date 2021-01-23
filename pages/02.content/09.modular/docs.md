@@ -1,5 +1,7 @@
 ---
 title: Модульные страницы
+metadata:
+    description: 'Изучаем модульные страницы в Grav CMS.'
 taxonomy:
     category: docs
 process:

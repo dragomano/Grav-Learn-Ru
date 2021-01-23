@@ -1,5 +1,7 @@
 ---
 title: Коллекция Flex
+metadata:
+    description: 'Список методов для работы с Flex-коллекциями в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

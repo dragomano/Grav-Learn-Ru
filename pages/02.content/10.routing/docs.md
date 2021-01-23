@@ -1,5 +1,7 @@
 ---
 title: Маршрутизация
+metadata:
+    description: 'Что такое маршруты и переадресация в Grav CMS. Псевдонимы.'
 taxonomy:
     category: docs
 ---

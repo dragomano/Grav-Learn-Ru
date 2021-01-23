@@ -1,5 +1,7 @@
 ---
 title: Команды плагинов
+metadata:
+    description: 'Список доступных командов для работы с плагинами в Grav CLI.'
 page-toc:
   active: true
 taxonomy:
@@ -164,4 +166,4 @@ class HelloCommand extends ConsoleCommand
 
 ![](grav-plugin-hello.png)
 
-! Еще один хороший простой пример можно найти в [Плагине ошибок (LogCommand.php)](https://github.com/getgrav/grav-plugin-error/blob/develop/cli/LogCommand.php), если вы ищете для более сложного примера вам следует взглянуть на [Плагин входа в систему (NewUserCommand.php)](https://github.com/getgrav/grav-plugin-login/blob/develop/cli/NewUserCommand.php)
+! Ещё один хороший простой пример можно найти в плагине [Error (LogCommand.php)](https://github.com/getgrav/grav-plugin-error/blob/develop/cli/LogCommand.php). Если вы ищете пример посложнее — посмотрите плагин [Login (NewUserCommand.php)](https://github.com/getgrav/grav-plugin-login/blob/develop/cli/NewUserCommand.php)

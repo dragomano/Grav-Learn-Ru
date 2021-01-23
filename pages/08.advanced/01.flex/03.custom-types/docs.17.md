@@ -1,5 +1,7 @@
 ---
 title: Пользовательские типы каталогов
+metadata:
+    description: 'Краткая ремарка о пользовательских типах каталогов в Grav CMS.'
 taxonomy:
     category: docs
 ---

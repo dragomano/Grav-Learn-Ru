@@ -1,5 +1,7 @@
 ---
 title: Учётные записи
+metadata:
+    description: 'Изучаем учётные записи пользователей в Grav CMS.'
 taxonomy:
     category: docs
 routes:

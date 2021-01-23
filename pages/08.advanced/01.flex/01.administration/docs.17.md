@@ -1,5 +1,7 @@
 ---
 title: Управление
+metadata:
+    description: 'Управление каталогами Flex в Grav CMS. Элементы управления.'
 taxonomy:
     category: docs
 ---

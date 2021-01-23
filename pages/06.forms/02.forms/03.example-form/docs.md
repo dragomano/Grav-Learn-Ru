@@ -1,5 +1,7 @@
 ---
 title: 'Пример: контактная форма'
+metadata:
+    description: 'Инструкция по созданию простой контактной формы в Grav CMS.'
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,7 @@
 ---
 title: Введение
+metadata:
+    description: 'Инструкция по включению существующего Flex-каталога в Grav CMS.'
 taxonomy:
     category: docs
 ---

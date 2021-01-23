@@ -1,5 +1,7 @@
 ---
 title: Проблемы с прокси
+metadata:
+    description: 'Описание ошибки, связанной с выполнением команд GPM через прокси, в Grav CMS.'
 taxonomy:
     category: docs
 ---

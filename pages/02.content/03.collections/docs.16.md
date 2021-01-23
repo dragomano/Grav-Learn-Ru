@@ -1,5 +1,7 @@
 ---
 title: Коллекции страниц
+metadata:
+    description: 'Рассматриваем коллекции страниц в Grav CMS, учимся с ними работать с помощью специальных методов.'
 page-toc:
   active: true
 taxonomy:

@@ -1,5 +1,7 @@
 ---
 title: Обновление Grav и плагинов
+metadata:
+    description: 'Как обновить Grav CMS, а также используемые плагины и темы.'
 taxonomy:
     category: docs
 ---

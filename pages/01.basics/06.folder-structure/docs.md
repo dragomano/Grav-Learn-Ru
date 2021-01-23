@@ -1,5 +1,7 @@
 ---
 title: Структура папок
+metadata:
+    description: 'Разбираемся, для чего предназначена каждая директория в CMS Grav.'
 taxonomy:
     category: docs
 ---

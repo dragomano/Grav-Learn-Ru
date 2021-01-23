@@ -1,5 +1,7 @@
 ---
 title: Менеджер активов
+metadata:
+    description: 'Управление подключением стилей и скриптов в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

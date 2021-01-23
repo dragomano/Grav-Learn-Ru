@@ -1,5 +1,7 @@
 ---
 title: Фронтенд-формы
+metadata:
+    description: 'Учимся создавать простые и модульные формы в Grav CMS.'
 taxonomy:
     category: docs
 ---

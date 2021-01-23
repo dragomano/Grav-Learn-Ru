@@ -1,5 +1,7 @@
 ---
 title: Что такое Grav?
+metadata:
+    description: 'Знакомимся с Grav CMS — история названия, архитектура, сравнение с другими движками. Делимся логотипами.'
 taxonomy:
     category: docs
 ---

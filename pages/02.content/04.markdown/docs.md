@@ -1,5 +1,7 @@
 ---
 title: Синтаксис Markdown
+metadata:
+    description: 'Небольшая памятка об основах синтаксиса Markdown, используемого в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

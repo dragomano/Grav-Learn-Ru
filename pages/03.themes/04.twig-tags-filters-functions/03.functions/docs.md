@@ -1,5 +1,7 @@
 ---
 title: Функции Twig
+metadata:
+    description: 'Используемые функции Twig в Grav CMS.'
 body_classes: twig__headers
 page-toc:
   active: true
@@ -287,7 +289,7 @@ taxonomy:
 `redirect_me('http://google.com', 304)`
 
 [version=16,17]
-### `regex_filter
+### `regex_filter`
 
 Выполняет `preg_grep` на массиве с регрессионным паттерном.
 

@@ -1,5 +1,7 @@
 ---
 title: Руководство по обновлению до Grav 1.6
+metadata:
+    description: 'Как обновить Grav CMS до версии 1.6.'
 taxonomy:
     category: docs
 ---

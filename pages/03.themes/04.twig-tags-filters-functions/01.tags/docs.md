@@ -1,5 +1,7 @@
 ---
 title: Теги Twig
+metadata:
+    description: 'Используемые теги Twig в Grav CMS.'
 body_classes: twig__headers
 page-toc:
   active: true

@@ -1,5 +1,7 @@
 ---
 title: Дополнительно
+metadata:
+    description: 'Глава 8 — знакомимся с дополнительными возможностями Grav CMS.'
 taxonomy:
     category: docs
 ---

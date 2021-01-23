@@ -1,5 +1,7 @@
 ---
 title: Объекты Flex
+metadata:
+    description: 'Знакомство с понятием объектов Flex в Grav CMS. Текущие ограничения.'
 taxonomy:
     category: docs
 ---

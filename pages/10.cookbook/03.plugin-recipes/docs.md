@@ -1,5 +1,7 @@
 ---
 title: Рецепты плагинов
+metadata:
+    description: 'Список проблем и решений, связанных с плагинами Grav CMS.'
 page-toc:
   active: true
 taxonomy:
@@ -423,7 +425,7 @@ class CustomTemplatesPlugin extends Plugin
 
 Учитывая обилие доступных в настоящее время плагинов, есть вероятность, что вы найдете свои ответы где-то в их исходном коде. Проблема в том, чтобы знать, на какие из них смотреть. Эта страница пытается перечислить общие проблемы плагинов, а затем перечисляет конкретные плагины, которые демонстрируют, как их решать.
 
-Прежде чем продолжить, убедитесь, что вы ознакомились с [основной документацией](/plugins), особенно [жизненный цикл гравитации](/plugins/grav-lifecycle)!
+Прежде чем продолжить, убедитесь, что вы ознакомились с [основной документацией](/plugins), особенно с главой [Жизненный цикл Grav](/plugins/grav-lifecycle)!
 
 ### Как я могу читать и записывать данные в файловую систему?
 
@@ -462,7 +464,7 @@ class CustomTemplatesPlugin extends Plugin
 
 ### Как я могу ввести Markdown на страницу?
 
-В соответствии с [жизненным циклом гравитации](/plugins/grav-lifecycle), последний хук события, в который вы можете ввести необработанный Markdown, - это `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, портит его, а затем записать его обратно с `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
+В соответствии с [жизненным циклом Grav](/plugins/grav-lifecycle), последний хук события, в который вы можете ввести необработанный Markdown, — `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, изменить его, а затем записать обратно с помощью `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
 
   * [Page Inject](https://github.com/getgrav/grav-plugin-page-inject)
   * [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)

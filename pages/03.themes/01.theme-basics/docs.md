@@ -1,5 +1,7 @@
 ---
 title: Основы тем
+metadata:
+    description: 'Базовое понятие темы в Grav CMS, структура папки и конфигурация.'
 taxonomy:
     category: docs
 ---

@@ -1,5 +1,7 @@
 ---
 title: Разрешения страницы
+metadata:
+    description: 'Настраиваем разрешения пользователя или группы к управлению страницами в админке Grav CMS.'
 menu: Разрешения
 taxonomy:
     category: docs

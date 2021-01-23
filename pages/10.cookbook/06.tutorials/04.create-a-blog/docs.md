@@ -1,5 +1,7 @@
 ---
 title: Создание блога
+metadata:
+    description: 'Как создать простой блог с помощью Grav CMS.'
 taxonomy:
     category: docs
 ---

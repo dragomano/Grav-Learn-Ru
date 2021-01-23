@@ -1,5 +1,7 @@
 ---
 title: Фильтры Twig
+metadata:
+    description: 'Используемые фильтры Twig в Grav CMS.'
 body_classes: twig__headers
 page-toc:
   active: true

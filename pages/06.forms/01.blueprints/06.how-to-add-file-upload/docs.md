@@ -1,5 +1,7 @@
 ---
 title: 'Как добавить поле для загрузки файлов'
+metadata:
+    description: 'Небольшое руководство по добавлению поля для загрузки файлов в Grav CMS.'
 taxonomy:
     category: docs
 ---

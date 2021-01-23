@@ -1,5 +1,7 @@
 ---
 title: 'Как разместить формы на модульных страницах'
+metadata:
+    description: 'Использование форм на модульных страницах в Grav CMS.'
 taxonomy:
     category: docs
 ---

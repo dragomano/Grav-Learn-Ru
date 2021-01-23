@@ -1,5 +1,7 @@
 ---
 title: Дашборд
+metadata:
+    description: 'Краткий обзор информационной панели на главной странице админки Grav CMS.'
 taxonomy:
     category: docs
 process:

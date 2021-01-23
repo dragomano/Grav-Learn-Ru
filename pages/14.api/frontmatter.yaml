@@ -1,6 +1,5 @@
 title: Grav API
 metadata:
-    description: Все классы Grav в одном месте для удобства
-    keywords: "grav api, api, classes"
+    description: "Структурированный список всех классов Grav, с описанием."
 shortcode-core:
   active: false

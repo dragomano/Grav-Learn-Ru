@@ -1,5 +1,7 @@
 ---
 title: Темы
+metadata:
+    description: 'Глава 3 — всё о темах, использовании Twig и кастомизации.'
 taxonomy:
     category: docs
 ---

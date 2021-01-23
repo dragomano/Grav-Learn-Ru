@@ -1,5 +1,7 @@
 ---
 title: Производительность и кэширование
+metadata:
+    description: 'Настройка кэширования в Grav CMS. Улучшение производительности.'
 taxonomy:
     category: docs
 ---

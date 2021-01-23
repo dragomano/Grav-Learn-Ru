@@ -1,5 +1,7 @@
 ---
 title: Чертежи
+metadata:
+    description: 'Знакомимся с понятием чертежей в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

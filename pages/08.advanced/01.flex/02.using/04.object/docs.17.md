@@ -1,5 +1,7 @@
 ---
 title: Объект Flex
+metadata:
+    description: 'Список методов для работы с Flex-объектами в Grav CMS.'
 page-toc:
   active: true
 taxonomy:

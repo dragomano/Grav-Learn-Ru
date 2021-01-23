@@ -1,5 +1,7 @@
 ---
 title: Редактор (содержание)
+metadata:
+    description: 'О редакторе страниц в админке Grav CMS. Управление вложениями.'
 taxonomy:
     category: docs
 routes:

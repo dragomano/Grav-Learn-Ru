@@ -1,5 +1,7 @@
 ---
 title: Отладка и ведение журнала
+metadata:
+    description: 'Разбираемся с отладкой при разработке тем и плагинов для Grav CMS.'
 process:
     twig: true
 taxonomy:
