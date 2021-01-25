@@ -59,14 +59,11 @@ taxonomy:
 
 `'send_email'|camelize` <i class="fa fa-long-arrow-right"></i> **{{ 'send_email'|camelize }}**
 
-[version=16,17]
-
 #### `chunk_split`
 
 Разбивает строку на более мелкие куски определенного размера.
 
 `'ONXW2ZJAOZQXE2LBMJWGKIDIMVZGKA'|chunk_split(6, '-')` <i class="fa fa-long-arrow-right"></i> **{{ 'ONXW2ZJAOZQXE2LBMJWGKIDIMVZGKA'|chunk_split(6, '-') }}**
-[/version]
 
 #### `contains`
 
@@ -112,7 +109,6 @@ PHP 7 получает более строгие проверки типов, а
 
 `'/etc/sudoers.d'|dirname` <i class="fa fa-long-arrow-right"></i> **{{ '/etc/sudoers.d'|dirname }}**
 
-
 ### `ends_width`
 
 Берет иголку и стог сена и определяет, заканчивается ли стог иглой. Также теперь работает с массивом игл и будет возвращать `true`, если **любой** стог сена заканчивается иглой.
@@ -125,15 +121,11 @@ PHP 7 получает более строгие проверки типов, а
 
 `'field.name|fieldName`
 
-
-[version=16,17]
-
 ### `get_type`
 
 Получает тип переменной:
 
 `page|get_type` <i class="fa fa-long-arrow-right"></i> **{{ page|get_type }}**
-[/version]
 
 ### `humanize`
 
@@ -235,8 +227,6 @@ string|markdown($is_block)
 
 `'181'|monthize` <i class="fa fa-long-arrow-right"></i> **{{ '181'|monthize }}**
 
-[version=16,17]
-
 ### `nicecron`
 
 Получает читаемый человеком выходной сигнал для синтаксиса cron
@@ -254,7 +244,6 @@ string|markdown($is_block)
 Вывод числа в удобочитаемом для человека формате красивых чисел.
 
 `12430|nicenumber` <i class="fa fa-long-arrow-right"></i> **{{ 12430|nicenumber }}**
-[/version]
 
 ### `nicetime`
 
@@ -262,14 +251,11 @@ string|markdown($is_block)
 
 `page.date|nicetime(false)` <i class="fa fa-long-arrow-right"></i> **{{ page.date|nicetime(false) }}**
 
-[version=16,17]
-
 ### `of_type`
 
 Проверяет тип переменной на параметр:
 
 `page|of_type('string')` <i class="fa fa-long-arrow-right"></i> **{{ page|of_type('string') ? 'true' : 'false' }}**
-[/version]
 
 ### `ordinalize`
 
@@ -289,8 +275,6 @@ string|markdown($is_block)
 
 `'person'|pluralize` <i class="fa fa-long-arrow-right"></i> **{{ 'person'|pluralize }}**
 
-[version=16,17]
-
 ### `print_r`
 
 Печатает читабельную информацию о переменной
@@ -300,7 +284,6 @@ string|markdown($is_block)
 [prism classes="language-text"]
 {{ page.header|print_r }}
 [/prism]
-[/version]
 
 ### `randomize`
 
@@ -450,7 +433,6 @@ string|markdown($is_block)
 
 `'CamelCased'|underscorize` <i class="fa fa-long-arrow-right"></i> **{{ 'CamelCased'|underscorize }}**
 
-[version=16,17]
 ### `yaml_encode`
 
 Дамп/кодирование переменной в синтаксис YAML
@@ -482,4 +464,3 @@ string|markdown($is_block)
 [prism]
 {{ yaml|yaml_decode|var_dump }}
 [/prism]
-[/version]

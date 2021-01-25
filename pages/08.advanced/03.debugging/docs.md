@@ -14,15 +14,6 @@ taxonomy:
 
 Grav поставляется с отличным инструментом, облегчающим эту задачу, который вызывается через **панель отладки**. Эта функция **отключена** по умолчанию, но может быть включена либо глобально, либо для вашей [среды разработки](../environment-config) только через файл конфигурации `system.yaml`:
 
-[version=16]
-[prism classes="language-yaml line-numbers"]
-debugger:
-  enabled: true                        # Включить отладчик Grav и следующие настройки
-  shutdown:
-    close_connection: true             # Закрывать соединение перед вызовом onShutdown(). `false` для отладки
-[/prism]
-[/version]
-[version=17]
 [prism classes="language-yaml line-numbers"]
 debugger:
   enabled: true                        # Включить отладчик Grav и следующие настройки
@@ -30,7 +21,6 @@ debugger:
   shutdown:
     close_connection: true             # Закрывать соединение перед вызовом onShutdown(). `false` для отладки
 [/prism]
-[/version]
 
 ![](config.png)
 

@@ -8,9 +8,7 @@ taxonomy:
 
 Grav теперь имеет возможность расширять [мощные возможности конфигурации](/basics/grav-configuration) для различных сред, чтобы поддерживать различные конфигурации для сценариев **разработки**, **постановки** и **производства**.
 
-[version=17]
 !! Среды до Grav 1.6 хранились в папке `user/`. Grav 1.7 перемещает среду в `user/env/`, чтобы упростить обслуживание среды. Настоятельно рекомендуется переместить все среды в это новое место на существующих сайтах.
-[/version]
 
 ### Автоматическая настройка окружения
 
@@ -24,16 +22,9 @@ user/config/system.yaml
 
 Этого можно легко добиться, переопределив этот параметр в файле:
 
-[version=16]
-[prism classes="language-bash command-line"]
-user/localhost/config/system.yaml
-[/prism]
-[/version]
-[version=17]
 [prism classes="language-bash command-line"]
 user/env/localhost/config/system.yaml
 [/prism]
-[/version]
 
 где `localhost` - это имя хоста среды (это хост, который вы вводите в браузере, например, `http://localhost/your-site`), а ваш файл конфигурации содержит:
 
@@ -43,7 +34,7 @@ debugger:
 [/prism]
 
 Точно так же вы можете включить конвейерную обработку ресурсов CSS и JS (объединение + минификация) только для вашего рабочего сайта
-([version=16]`user/www.mysite.com/config/system.yaml`[/version][version=17]`user/env/www.mysite.com/config/system.yaml`[/version]):
+(`user/env/www.mysite.com/config/system.yaml`):
 
 [prism classes="language-yaml line-numbers"]
 assets:
@@ -51,8 +42,7 @@ assets:
   js_pipeline: true
 [/prism]
 
-Если к вашему производственному серверу можно получить доступ через `http://www.mysite.com`, вы также можете указать конфигурацию, специфичную для этого производственного сайта, с помощью файла, расположенного по адресу
-[version=16]`user/www.mysite.com/config/system.yaml`[/version][version=17]`user/env/www.mysite.com/config/system.yaml`[/version].
+Если к вашему производственному серверу можно получить доступ через `http://www.mysite.com`, вы также можете указать конфигурацию, специфичную для этого производственного сайта, с помощью файла, расположенного по адресу `user/env/www.mysite.com/config/system.yaml`.
 
 Конечно, вы не ограничены изменениями в `system.yaml`, вы можете фактически переопределить **любую** настройку Grav в` site.yaml` или даже в любой [конфигурации плагина](/plugins/plugin-basics)!
 
@@ -68,16 +58,9 @@ user/config/plugins/email.yaml
 
 Затем вы можете переопределить это с помощью параметра, который отменяет только определенные параметры, которые вы хотите использовать для локального тестирования:
 
-[version=16]
-[prism classes="language-bash command-line"]
-user/localhost/config/plugins/email.yaml
-[/prism]
-[/version]
-[version=17]
 [prism classes="language-bash command-line"]
 user/env/localhost/config/plugins/email.yaml
 [/prism]
-[/version]
 
 С конфигурацией:
 
@@ -102,12 +85,6 @@ user/config/themes/antimatter/antimatter.yaml
 
 Может быть переопределено для любой среды, скажем, на каком-то производственном сайте (`http://www.mysite.com`):
 
-[version=16]
-[prism classes="language-bash command-line"]
-user/www.mysite.com/config/themes/antimatter/antimatter.yaml
-[/prism]
-[/version]
-[version=17]
 [prism classes="language-bash command-line"]
 user/env/www.mysite.com/config/themes/antimatter/antimatter.yaml
 [/prism]

@@ -28,7 +28,6 @@ This is **bold** and this _underlined_
 {% endmarkdown %}
 [/prism]
 
-[version=17]
 ### `script`
 
 Тег `script` - это действительно удобный тег, который делает ваш Twig более читабельным по сравнению с обычным подходом `{% do assets...%}`. Это чисто альтернативный способ написания вещей.
@@ -62,7 +61,6 @@ This is **bold** and this _underlined_
     a { color: red; }
 {% endstyle %}
 [/prism]
-[/version]
 
 ### `switch`
 
@@ -79,7 +77,6 @@ This is **bold** and this _underlined_
 {% endswitch %}
 [/prism]
 
-[version=16,17]
 ### `deferred`
 
 Большой новой особенностью Grav 1.6 является мощность отложенных блоков. С традиционными блоками, после того, как блок отрисован, им нельзя манипулировать. Возьмем пример `{% block scripts %}`, который может содержать некоторые записи для JavaScript включает в себя. Если у вас есть дочерний шаблон Twig, и вы расширяете базовый шаблон, где определяется этот блок, вы можете расширить блок, и добавить свои собственные записи JavaScript. Тем не менее, шаблоны частичных веток, которые включены в эту страницу, не могут достигать блока или взаимодействовать с ним.
@@ -130,4 +127,3 @@ This is **bold** and this _underlined_
 {% render collection layout: 'list' %}
 {% render object layout: 'default' with { variable: 'value' } %}
 [/prism]
-[/version]

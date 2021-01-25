@@ -6,7 +6,7 @@ taxonomy:
     category: docs
 ---
 
-!! В Grav есть поддержка нескольких сайтов. Однако команды интерфейса командной строки, а также подключаемый плагин админки по-прежнему нуждаются в обновлении для полной поддержки многосайтовых конфигураций. Мы продолжим работать над этим в следующих выпусках Grav.
+!!  В Grav есть поддержка нескольких сайтов. Однако плагин админки по-прежнему нуждается в обновлении для полной поддержки многосайтовых конфигураций. Мы продолжим работать над этим в следующих выпусках Grav.
 
 ### Что такое многосайтовая установка?
 
@@ -33,14 +33,14 @@ Grav имеет встроенную поддержку нескольких с�
 Приведенные ниже фрагменты настраивают вашу установку Grav таким образом, чтобы запрос вроде
 
 [prism classes="language-text"]
-http://<subsite>.example.com   -->   user/sites/<subsite>.example.com
+https://<subsite>.example.com   -->   user/sites/<subsite>.example.com
 [/prism]
 или
 [prism classes="language-text"]
-http://example.com/<subsite>   -->   user/sites/<subsite>
+https://example.com/<subsite>   -->   user/sites/<subsite>
 [/prism]
 
-будет использовать каталог `user/sites` в качестве базового пути для "user" вместо каталога `user`.
+будет использовать каталог `user/env` в качестве базового пути для «user» вместо каталога `user`.
 
 Если вы выбираете подкаталоги или URL-адреса на основе пути для дочерних сайтов, то единственное, что вам нужно, это создать каталог для каждого дочернего сайта в каталоге `user/sites`, содержащий как минимум необходимые папки `config`, `pages`, `plugins` и `themes`.
 
@@ -71,7 +71,7 @@ $environment = isset($_SERVER['HTTP_HOST'])
     : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost');
 // Remove port from HTTP_HOST generated $environment
 $environment = strtolower(Utils::substrToString($environment, ':'));
-$folder = "sites/{$environment}";
+$folder = "env/{$environment}";
 
 if ($environment === 'localhost' || !is_dir(ROOT_DIR . "user/{$folder}")) {
     return [];
@@ -111,7 +111,7 @@ $path = isset($_SERVER['PATH_INFO'])
 
 // Extract name of subsite from path
 $name = Folder::shift($path);
-$folder = "sites/{$name}";
+$folder = "env/{$name}";
 $prefix = "/{$name}";
 
 if (!$name || !is_dir(ROOT_DIR . "user/{$folder}")) {
@@ -227,7 +227,7 @@ return [
 
 #### Потоки
 
-В Grav потоки - это объекты, отображающие набор физических каталогов системы на логическое устройство. Они классифицируются с помощью атрибута `type`. Для потоков, доступных только для чтения, это тип `ReadOnlyStream`, а для потоков с возможностью чтения и записи - это тип Stream. Вы можете зарегистрировать любой настраиваемый тип потока и указывать на него, если он является экземпляром класса интерфейса [StreamInterface](https://github.com/rockettheme/toolbox/blob/develop/StreamWrapper/src/StreamInterface.php).
+Grav использует URI-подобные потоки для определения всех путей к файлам в Grav. Использование потоков позволяет очень легко настроить пути поиска для любого файла.
 
 По умолчанию потоки были настроены следующим образом:
 
@@ -250,41 +250,198 @@ return [
 * `backup://` - папка резервных копий, например `backups/`
 * `tmp://` - папка временных файлов, например `tmp/`
 
-Сопоставление физических каталогов с логическим устройством может быть выполнено двумя способами: путем установки «путей» или «префиксов». Первый можно понимать как сопоставление 1 к 1, тогда как последний (как следует из названия) позволяет объединить несколько физических путей в один логический поток. Допустим, вы хотите зарегистрировать поток с именем «изображение». Затем с помощью потока `images://` можно перечислить
+При настройке нескольких сайтов некоторые из этих параметров по умолчанию могут быть не теми, которые вам нужны. Grav обеспечивает простой способ, чтобы настроить потоки от конфигурации среды, используя `config/streams.yaml`. Кроме того, вы можете создавать и использовать свои собственные потоки, когда это необходимо.
 
-[prism classes="language-php line-numbers"]
-'image' => [
-    'type' => 'ReadOnlyStream',
-    'paths' => [
-        'user/images',
-        'system/images'
-    ]
-];
+Сопоставление физических каталогов с логическим устройством может быть выполнено путем настройки префиксов. Вот пример, где мы отделяем страницы, изображения, учетные записи, данные, кэш и журналы от остальных сайтов, но заставляем все остальное искать в местоположении по умолчанию:
+
+`user/env/domain.com/config/streams.yaml`:
+
+[prism classes="language-yaml line-numbers"]
+schemes:
+  account:
+    type: ReadOnlyStream
+    prefixes:
+      '': ['environment://accounts']
+  page:
+    type: ReadOnlyStream
+    prefixes:
+      '': ['environment://user']
+  image:
+    type: Stream
+    prefixes:
+      '': ['environment://images', 'system://images/']
+  'user-data':
+    type: Stream
+    prefixes:
+      '': ['environment://data']
+  cache:
+    type: Stream
+    prefixes:
+      '': ['cache/domain.com']
+      images: ['images/domain.com']
+  log:
+    type: Stream
+    prefixes:
+      '': ['logs/domain.com']
 [/prism]
 
-все изображения, находящиеся в папках `user/images` и `system/images`. Для **префиксов** рассмотрим пример
+In Grav streams are objects, mapping a set of physical directories of the system to a logical device. They are classified via their `type` attribute. For read-only streams that's the `ReadOnlyStream` type and for read-writeable streams that's the `Stream` type.
 
-[prism classes="language-php line-numbers"]
-'cache' => [
-    'type' => 'Stream',
-    'prefixes' => [
-        '' => ['cache'],
-        'images' => ['images']
+For example, if you use `image://mountain.jpg` stream, Grav looks up `environment://images` (`user/env/domain.com/images`) and `system://images` (`system/images`). This means that streams can be used to define other streams.
+
+
+Prefixes allows you to combine several physical paths into one logical stream. If you look carefully at `cache` stream definition, it is a bit different. In this case `cache://` resolves to `cache`, but `cache://images` resolves to `images`.
+
+### Серверная многосайтовая конфигурация
+
+Grav 1.7 добавляет поддержку настройки начальной среды из конфигурации вашего сервера.
+
+Эта функция удобна, если вы хотите использовать, например, контейнеры docker и хотите сделать их независимыми от домена, который вы используете. Или если вы не хотите хранить секреты в конфигурации, но хранить их в настройках Вашего сервера.
+
+Следующие переменные среды можно использовать для настройки путей по умолчанию, которые Grav использует для настройки среды. После инициализации потоки могут указывать на другое местоположение.
+
+!!! **Примечание:** Вы можете использовать либо переменные среды, либо константы PHP, но они должны быть установлены перед запуском Grav.
+
+[div class="table-keycol"]
+| Переменная | Значение по умолчанию | Описание |
+| -------- | ------- | ----------- |
+| **GRAV_SETUP_PATH** | AUTO DETECT | Пользовательский путь к `setup.php`, включая имя файла. По умолчанию Grav просматривает файл из `GRAV_ROOT/setup.php` и `GRAV_ROOT/GRAV_USER_PATH/setup.php`. |
+| **GRAV_USER_PATH** | `user` | Относительный путь для потока `user://`. |
+| **GRAV_CACHE_PATH** | `cache` | Относительный путь для потока `cache://`. |
+| **GRAV_LOG_PATH** | `logs` | Относительный путь для потока `log://`. |
+| **GRAV_TMP_PATH** | `tmp` | Относительный путь для потока `tmp://`. |
+| **GRAV_BACKUP_PATH** | `backup` | Относительный путь для потока `backup://`. |
+[/div]
+
+Кроме того, есть переменные для настройки окружения. Лучшую документацию по ним можно найти в разделе [Конфигурация среды на основе сервера](/advanced/environment-config#server-based-environment-configuration).
+
+!!! **Примечание:** Они также работают из файла `setup.php`. Вы можете сделать их константами, используя `define()`, или переменные среды с `putenv()`. Константы предпочтительнее переменных среды.
+
+[div class="table-keycol"]
+| Переменная | Значение по умолчанию | Описание |
+| -------- | ------- | ----------- |
+| **GRAV_ENVIRONMENT** | DOMAIN NAME | Имя среды. Может использоваться, например, в контейнерах докеров для установки настраиваемой среды, которая не зависит от имени домена, например `production` и `develop`. |
+| **GRAV_ENVIRONMENTS_PATH** | `user://env` | Путь поиска для всех сред, если вы предпочитаете что-то вроде `user://sites`. Может быть потоком или относительным путем от `GRAV_ROOT`. |
+| **GRAV_ENVIRONMENT_PATH** | `user://env/ENVIRONMENT` | Иногда может быть полезно указать настраиваемое местоположение для вашей среды. |
+[/div]
+
+#### Переопределения конфигурации на основе сервера
+
+Если вы не хотите хранить секретные учетные данные внутри конфигурации, вы также можете предоставить их, используя переменные среды с вашего сервера.
+
+Поскольку переменные среды имеют строгие требования к именованию (они могут содержать только A-Z, a-z, 0-9 и _), необходимы некоторые уловки, чтобы заставить работать переопределения конфигурации.
+
+Вот пример простого переопределения конфигурации с использованием формата YAML для презентации:
+
+```yaml
+GRAV_CONFIG: true                           # If false, the configuration here will be ignored.
+GRAV_CONFIG_ALIAS__GITHUB: plugins.github   # Create alias GITHUB='plugins.github' to shorten the variable names below
+GRAV_CONFIG__GITHUB__auth__method: api      # Override config.plugins.github.auth.method = api
+GRAV_CONFIG__GITHUB__auth__token: xxxxxxxx  # Override config.plugins.github.auth.token = xxxxxxxx
+```
+
+В приведенном выше примере `__` (двойное подчеркивание) представляет вложенную переменную, которая в Twig представлена ​​с помощью точки (`.`).
+
+Вы также можете использовать переменные среды в `setup.php`. Это позволяет, например, хранить секреты вне конфигурации:
+
+`user/setup.php`:
+```php
+<?php
+
+// Use following environment variables in your server configuration:
+//
+// DYNAMODB_SESSION_KEY: DynamoDb server key for the PHP session storage
+// DYNAMODB_SESSION_SECRET: DynamoDb server secret
+// DYNAMODB_SESSION_REGION: DynamoDb server region
+// GOOGLE_MAPS_KEY: Google Maps secret key
+
+return [
+    'plugins' => [
+        // This plugin does not exist
+        'dynamodb_session' => [
+            'credentials' => [
+                'key' => getenv('DYNAMODB_SESSION_KEY') ?: null,
+                'secret' => getenv('DYNAMODB_SESSION_SECRET') ?: null
+            ],
+            'region' => getenv('DYNAMODB_SESSION_REGION') ?: null
+        ],
+        // This plugin does not exist
+        'google_maps' => [
+            'key' => getenv('GOOGLE_MAPS_KEY') ?: null
+        ]
     ]
 ];
+```
+
+!! **ПРЕДУПРЕЖДЕНИЕ:** `setup.php` используется для установки начальной конфигурации. Если плагин или ваша конфигурация позже переопределят эти настройки, исходные значения будут потеряны.
+
+После определения переменных в `setup.php` вы можете установить их на своем сервере:
+
+[ui-tabs]
+[ui-tab title="Apache 2"]
+[prism classes="language-apacheconf line-numbers"]
+<VirtualHost 127.0.0.1:80>
+    ...
+
+    SetEnv GRAV_SETUP_PATH         user/setup.php
+    SetEnv GRAV_ENVIRONMENT        production
+    SetEnv DYNAMODB_SESSION_KEY    JBGARDQ06UNJV00DL0R9
+    SetEnv DYNAMODB_SESSION_SECRET CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
+    SetEnv DYNAMODB_SESSION_REGION us-east-1
+    SetEnv GOOGLE_MAPS_KEY         XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
+</VirtualHost>
 [/prism]
+[/ui-tab]
+[ui-tab title="NGINX php-fpm"]
+[prism classes="language-nginx line-numbers"]
+location / {
+    ...
 
-В этом случае `cache://` преобразуется в `cache`, а `cache://images` преобразуется в `images`.
+    fastcgi_param GRAV_SETUP_PATH         user/setup.php;
+    fastcgi_param GRAV_ENVIRONMENT        production;
+    fastcgi_param DYNAMODB_SESSION_KEY    JBGARDQ06UNJV00DL0R9;
+    fastcgi_param DYNAMODB_SESSION_SECRET CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7;
+    fastcgi_param DYNAMODB_SESSION_REGION us-east-1;
+    fastcgi_param GOOGLE_MAPS_KEY         XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp;
+}
+[/prism]
+[/ui-tab]
+[ui-tab title="NGINX php-cgi"]
+[prism classes="language-nginx line-numbers"]
+location / {
+...
 
-И последнее, но не менее важное: потоки можно использовать в других потоках. Например, при наличии потока «пользователь» и потока «система» вышеуказанный поток «изображений» также может быть записан как
-
+    env[GRAV_SETUP_PATH]          = user/setup.php
+    env[GRAV_ENVIRONMENT]         = production
+    env[DYNAMODB_SESSION_KEY]     = JBGARDQ06UNJV00DL0R9
+    env[DYNAMODB_SESSION_SECRET]  = CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
+    env[GDYNAMODB_SESSION_REGION] = us-east-1
+    env[GGOOGLE_MAPS_KEY]         = XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
+}
+[/prism]
+[/ui-tab]
+[ui-tab title="Docker"]
+[prism classes="language-yaml line-numbers"]
+web:
+  environment:
+    - GRAV_SETUP_PATH=user/setup.php
+    - GRAV_ENVIRONMENT=production
+    - DYNAMODB_SESSION_KEY=JBGARDQ06UNJV00DL0R9
+    - DYNAMODB_SESSION_SECRET=CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
+    - DYNAMODB_SESSION_REGION=us-east-1
+    - GOOGLE_MAPS_KEY=XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
+[/prism]
+[/ui-tab]
+[ui-tab title="PHP"]
 [prism classes="language-php line-numbers"]
-'image' => [
-    'type' => 'ReadOnlyStream',
-    'paths' => [
-        'user://images',
-        'system://images'
-    ]
-];
-
+putenv('GRAV_SETUP_PATH', 'user/setup.php');
+putenv('GRAV_ENVIRONMENT', 'production');
+putenv('DYNAMODB_SESSION_KEY', 'JBGARDQ06UNJV00DL0R9');
+putenv('DYNAMODB_SESSION_SECRET', 'CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7');
+putenv('DYNAMODB_SESSION_REGION', 'us-east-1');
+putenv('GOOGLE_MAPS_KEY', 'XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp');
 [/prism]
+[/ui-tab]
+[/ui-tabs]
+
+В этом примере сервер также будет использовать среду `production`, хранящуюся в папке `user/env/production`.

@@ -62,7 +62,6 @@ taxonomy:
 
 `{{ language_codes }} возвращает список доступных языков сайта.
 
-[version=16,17]
 ### assets object
 
 **Менеджер активов** добавляет простой способ управления CSS и JavaScript на вашем сайте.
@@ -77,7 +76,6 @@ taxonomy:
 Подробнее о [менеджере активов](/themes/asset-manager).
 
 ! **СОВЕТ:** Рекомендуется использовать **[тег style](/themes/twig-tags#css-styles)** и **[тег script](/themes/twig-tags#scripts)**.
-[/version]
 
 ### Объект config
 
