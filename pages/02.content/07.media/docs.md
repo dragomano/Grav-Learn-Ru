@@ -288,6 +288,7 @@ Grav использует паттерн **Строитель** при рабо�
 
 ![Sample Image](sample-image.jpg?thumbnail=default&display=thumbnail)
 
+
 ## Действия с изображениями
 
 #### resize
@@ -756,6 +757,35 @@ Grav использует паттерн **Строитель** при рабо�
 [/ui-tab]
 [/ui-tabs]
 
+
+#### loading
+
+Атрибут `loading` на изображениях дает авторам контроль над тем, когда браузер должен начать загрузку ресурса. Значение этого атрибута может быть одним из следующих `auto` (по умолчанию), `lazy`, `eager`.
+Значение может быть установлено в `system.images.defaults.load` в качестве значения по умолчанию, или в качестве значения для изображения в разметке Markdown с помощью параметра `?loading=lazy`
+Когда выбрано значение `auto`, атрибут `loading` не добавляется и браузер определит, какую стратегию использовать.
+
+[ui-tabs]
+[ui-tab title="Markdown"]
+```markdown
+![Sample Image](sample-image.jpg?loading=lazy)
+```
+[/ui-tab]
+[ui-tab title="Twig"]
+{% verbatim %}
+```twig
+{# Using default value as defined in 'config.system.images.defaults.loading' #}
+{{ page.media['sample-image.jpg'].loading.html('Sample Image')|raw }}
+{# Using explicit value #}
+{{ page.media['sample-image.jpg'].loading('lazy').html('Sample Image')|raw }}
+```
+{% endverbatim %}
+[/ui-tab]
+[ui-tab title="HTML Code"]
+```html
+<img loading="lazy" title="Sample Image"  src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
+```
+[/ui-tab]
+[/ui-tabs]
 
 ## Анимированные/векторизованные действия
 

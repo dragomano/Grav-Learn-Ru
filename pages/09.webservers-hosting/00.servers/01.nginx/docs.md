@@ -250,3 +250,32 @@ nginx -s reload
 [/prism]
 
 <!-- TODO: ### Using a Let's Encrypt SSL certificate -->
+
+# Заголовки Nginx Cache для активов
+
+Рекомендуется к включению на продакшене. 'expires' определяет время истечения срока действия кэша, в данном случае 30 дней. Пожалуйста, ознакомьтесь с [полной документацией о http-заголовках для Nginx](http://nginx.org/en/docs/http/ngx_http_headers_module.html).
+
+
+[prism classes="language-nginx line-numbers"]
+        location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+                expires 30d;
+                add_header Vary Accept-Encoding;
+                log_not_found off;
+        }
+
+        location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|html|xml|otf|ttf|eot|woff|woff2|svg)$ {
+                access_log off;
+                expires 30d;
+                add_header Cache-Control public;
+
+## No need to bleed constant updates. Send the all shebang in one
+## fell swoop.
+                tcp_nodelay off;
+
+## Set the OS file cache.
+                open_file_cache max=3000 inactive=120s;
+                open_file_cache_valid 45s;
+                open_file_cache_min_uses 2;
+                open_file_cache_errors off;
+        }
+[/prism]
