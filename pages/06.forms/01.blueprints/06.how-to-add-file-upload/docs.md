@@ -17,7 +17,7 @@ custom_file:
   name: myfile
   type: file
   label: A Label
-  destination: 'user/plugins/my-plugin/assets'
+  destination: 'plugins://my-plugin/assets'
   multiple: true
   autofocus: false
   accept:
@@ -56,30 +56,30 @@ multiple: false # [false | true]
 #### `destination`
 
 ``` yaml
-destination: 'self@' # [<path> | self@ | page@:<path> | theme@:<path>]
+destination: 'self@' # [<path> | <stream> | self@ | page@:<path>]
 ```
 
-Место назначения - это место, где должны храниться загруженные файлы. Это может быть обычный `path` (относительно корня Grav),`self@` или один из специальных префиксов `page@:` и `theme@:`.
+Место назначения — это место, где должны храниться загруженные файлы. Это может быть обычный `path` (относительно корня Grav), `stream` (такой, как `theme://images`), `self@`, или специальный префикс `page@:`.
 
-!! `self@` не допускается за пределами области страниц, будет выдана ошибка. Если вы используете поле файла вне страницы, вы всегда должны изменять настройку `destination`.
+!! `self@` не допускается за пределами области страниц или объектов Flex, будет выдана ошибка. Если вы используете поле файла вне страницы или объекта Flex, вы всегда должны изменять настройку `destination`.
 
 ##### Примеры
 
 1. Если нужно загрузить файлы в папку плагина `testing` (`user/plugins/testing`), местом назначения будет:
 
   [prism classes="language-yaml"]
-  destination: 'user/plugins/testing'
+  destination: 'plugins://testing'
   [/prism]
 
-2. Предполагая, что у нас есть элемент блога на маршруте `/blog/ajax-upload` (физическое местоположение - `user/pages/02.blog/ajax-upload`), с префиксом `page@:` адресатом будет:
+2. Предполагая, что у нас есть элемент блога на маршруте `/blog/ajax-upload` (физическое местоположение — `user/pages/02.blog/ajax-upload`), с префиксом `page@:` адресатом будет:
 
   [prism classes="language-yaml"]
   destination: 'page@:/blog/ajax-upload'
   [/prism]
-3. Предположим, что текущая тема - это `antimatter`, и мы хотим загрузить в папку с ресурсами (физическое местоположение - `user/themes/antimatter/assets`), с префиксом `theme@:` место назначения будет:
+3. Предположим, что текущая тема — это `antimatter`, и мы хотим загрузить в папку с ресурсами (физическое местоположение — `user/themes/antimatter/assets`), с потоком `theme` место назначения будет:
 
    [prism classes="language-yaml"]
-   destination: 'theme@:/assets'
+   destination: 'theme://assets'
    [/prism]
 
 #### `random_name`
@@ -176,7 +176,7 @@ accept:
      name: myfile
      type: file
      label: A Label
-     destination: 'user/plugins/my-plugin/assets'
+     destination: 'plugins://my-plugin/assets'
      filesize: 5
      accept:
        - image/*
@@ -187,7 +187,7 @@ accept:
    files:
      multiple: false
      limit: 10
-     destination: '@self'
+     destination: 'self@'
      avoid_overwriting: false
      random_name: false
      filesize: 5

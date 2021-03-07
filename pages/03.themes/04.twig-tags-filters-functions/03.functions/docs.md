@@ -293,9 +293,38 @@ taxonomy:
 {{var }}
 [/prism]
 
+[/version]
+
+[version=17]
+### `regex_match`
+
+Полезная обертка для PHP-метода [preg_match()](https://php.net/manual/en/function.preg-math.php), с помощью этого фильтра можно выполнить сложное сопоставление регулярных выражений с текстом:
+
+{% verbatim %}
+`regex_match('http://www.php.net/index.html', '@^(?:http://)?([^/]+)@i')`
+{% endverbatim %}
+
+{% set var = regex_match('http://www.php.net/index.html', '@^(?:http://)?([^/]+)@i') %}
+[prism classes="language-text"]
+{{ print_r(var) }}
+[/prism]
+
+### `regex_split`
+
+Полезная обертка для PHP-метода [preg_split()](https://php.net/manual/en/function.preg-split.php). Разбиение строки регулярным выражением на текст с помощью этого фильтра:
+
+{% verbatim %}
+`regex_split('hypertext language, programming', '/\\s*,\\s*/u')`
+{% endverbatim %}
+
+{% set var = regex_split('hypertext language    ,    programming', '/\\s*,\\s*/u') %}
+[prism classes="language-text"]
+{{ print_r(var) }}
+[/prism]
+
 ### `repeat`
 
-Будет повторять все, что передано, определенное количество раз.
+Будет повторять всё, что передано, определенное количество раз.
 
 `repeat('blah ', 10)` <i class="fa fa-long-arrow-right"></i> **{{ repeat('blah ', 10) }}**
 

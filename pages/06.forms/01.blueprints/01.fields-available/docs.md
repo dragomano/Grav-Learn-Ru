@@ -563,7 +563,7 @@ header.fieldset:
 custom_logo_login_screen:
   type: file
   label: Custom Logo Login Screen
-  destination: 'user/plugins/admin-pro/assets'
+  destination: 'plugins://admin/assets'
   accept:
     - image/*
 [/prism]
@@ -572,7 +572,7 @@ custom_logo_login_screen:
 custom_file:
   type: file
   label: A Label
-  destination: 'user/themes/my-theme/assets'
+  destination: 'theme://assets'
   multiple: true
   limit: 5
   filesize: 1
@@ -583,7 +583,7 @@ custom_file:
 [div class="table table-keycol"]
 | Атрибут             | Описание                                                                                                   |
 | :-----              | :-----                                                                                                     |
-| `destination`       | Папка, в которой будут храниться файлы, относительно корня Grav. Например. `user/plugins/my-plugin/assets` |
+| `destination`       | Папка, в которой будут храниться файлы, с помощью потока или относительно корня Grav. Например: `plugins://my-plugin/assets` |
 | `multiple`          | Разрешить или запретить использование более одного файла для каждого поля                                  |
 | `limit`             | Когда включен параметр `multiple`, можно ограничить количество файлов, разрешенных для загрузки.           |
 | `filesize`          | Максимально допустимый размер каждого файла в МБ                                                           |
@@ -619,7 +619,7 @@ custom_file:
 [prism classes="language-yaml line-numbers"]
 picked_image:
   type: filepicker
-  folder: 'theme@:/images/pages'
+  folder: 'theme://images/pages'
   label: Select a file
   preview_images: true
   accept:
@@ -630,7 +630,7 @@ picked_image:
 [prism classes="language-yaml line-numbers"]
 header.a_file:
   type: filepicker
-  folder: '@self'
+  folder: 'self@'
   preview_images: true
   label: Select a file
 [/prism]
@@ -638,7 +638,7 @@ header.a_file:
 [div class="table table-keycol"]
 | Атрибут          | Описание                                                                         |
 | :-----           | :-----                                                                           |
-| `folder`         | Папка, в которой будут выполняться поиск файлов относительно корня Grav. Принимает любое значение в [формате места назначения поля файла](/forms/blueprints/how-to-add-file-upload#destination). |
+| `folder`         | Папка, в которой будут выполняться поиск файлов, с помощью потока или относительно корня Grav. Принимает любое значение в [формате места назначения поля файла](/forms/blueprints/how-to-add-file-upload#destination). |
 | `accept`         | Список допустимых расширений файлов                                              |
 | `preview_images` | Если включено, файлы изображений будут иметь небольшой предварительный просмотр. |
 | `on_demand`      | Если этот параметр включен, файлы и изображения будут загружаться только тогда, когда инструмент выбора файлов находится в фокусе. Это полезно для сокращения времени загрузки страницы редактирования администратора, когда есть большие медиафайлы или много полей для выбора файлов. |
