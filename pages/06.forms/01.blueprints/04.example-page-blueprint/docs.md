@@ -94,10 +94,10 @@ form:
 title: Gallery
 
 form:
-  fields:
-    tabs:
-      type: tabs
-      active: 1
+fields:
+tabs:
+type: tabs
+active: 1
 
       fields:
         gallery:
@@ -123,15 +123,13 @@ form:
                 three: Three
 
             route:
-              type: select
+              type: parents
               label: PLUGIN_ADMIN.PARENT
               classes: fancy
-              '@data-options': '\Grav\Common\Page\Pages::parents'
-              '@data-default': '\Grav\Plugin\admin::route'
-              options:
-                '/': PLUGIN_ADMIN.DEFAULT_OPTION_ROOT
 
 [/prism]
+
+!! **ПРЕДУПРЕЖДЕНИЕ:** поле `route` изменилось в Grav 1.7. Пожалуйста, обновите существующие чертежи для использования нового `type: parents`.
 
 ### Примечание для экспертного режима
 
@@ -139,7 +137,7 @@ form:
 
 ### Где разместить чертежи страницы
 
-Для того, чтобы плагин админки собирал чертежи и, таким образом, отображал новые типы страниц, вам необходимо разместить чертежи в правильном месте.
+Чтобы плагин админки собирал чертежи и, таким образом, отображал новые типы страниц, вам необходимо разместить чертежи в правильном месте.
 
 #### В пользовательской папке Blueprints
 

@@ -63,9 +63,9 @@ taxonomy:
 
 ### Тестовый скрипт .htaccess
 
-Чтобы помочь изолировать проблемы с `.htaccess` и **rewrite**, вы можете загрузить этот [htaccess_tester.php](https://gist.githubusercontent.com/rhukster/a727fb70d9341536d49980d1239bd97e/raw/a3078da16b894ba86c48cf9d000bdx) и файл поместите его в корневой каталог Grav.
+Чтобы помочь изолировать проблемы с `.htaccess` и **rewrite**, вы можете загрузить файл [htaccess_tester.php](https://gist.githubusercontent.com/rhukster/a727fb70d9341536d49980d1239bd97e/raw/a3078da16b894ba86c48cf9d000bdx) и поместить его в корневой каталог Grav.
 
-Затем укажите в браузере `http://yoursite.com/htaccess_tester.php`. Вы должны получить сообщение об успешном выполнении и отобразить копию файла Grav `.htaccess`.
+Затем перейдите в браузере по адресу `http://yoursite.com/htaccess_tester.php`. Вы должны получить сообщение об успешном выполнении и увидеть содержимое файла `.htaccess`.
 
 ![](htaccess_tester.png?classes=shadow)
 

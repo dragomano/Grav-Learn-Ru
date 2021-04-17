@@ -431,7 +431,7 @@ header.email:
 my_files:
   type: file
   multiple: false
-  destination: '@self'
+  destination: 'self@'
   accept:
     - image/*
 [/prism]

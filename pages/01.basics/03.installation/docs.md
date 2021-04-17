@@ -30,6 +30,16 @@ Zend Engine v3.2.0, Copyright (c) 1998-2018 Zend Technologies
 
 !!! Можно воспользоваться [каркасами](https://getgrav.org/downloads/skeletons) — это пакеты, которые включают в себя Grav, примеры страниц, плагины и конфигурацию. Просто выберите понравившийся пакет и выполните шаги, описанные выше.
 
+Вы также можете скачать любой из [готовых релизов](https://github.com/getgrav/grav/tags) с getgrav.org. Используйте формат `https://getgrav.org/download/TYPE/PACKAGE/VERSION`.
+
+- [getgrav.org/download/core/grav/1.7.0](https://getgrav.org/download/core/grav/1.7.0) загрузка базового пакета Grav v1.7.0
+- [getgrav.org/download/core/grav/1.7.0-rc.10?testing=true](https://getgrav.org/download/core/grav/1.7.0-rc.10?testing=true) загрузка базового пакета Grav v1.7.0-rc.10, тестовый релиз
+- [getgrav.org/download/core/grav-admin/1.7.0](https://getgrav.org/download/core/grav-admin/1.7.0) загрузка базового пакета Grav v1.7.0 с плагином админки
+- [getgrav.org/download/core/grav-admin/1.7.0-rc.10?testing=true](https://getgrav.org/download/core/grav-admin/1.7.0-rc.10?testing=true) загрузка базового пакета Grav v1.7.0-rc.10 с плагином админки, тестовый релиз
+- [getgrav.org/download/core/grav-update/1.7.0](https://getgrav.org/download/core/grav-update/1.7.0) загрузка пакета обновления для Grav
+- [getgrav.org/download/plugins/flex-objects-json/0.1.0](https://getgrav.org/download/plugins/flex-objects-json/0.1.0) загрузка плагина Flex Objects JSON v0.1.0
+- [getgrav.org/download/themes/quark/2.0.3](https://getgrav.org/download/themes/quark/2.0.3) загрузка темы Quark v2.0.3
+
 !!!! Если вы загрузили ZIP-файл, а затем планируете переместить его в корень сайта, переместите **ВСЁ СОДЕРЖИМОЕ ПАПКИ**, поскольку без некоторых скрытых файлов (таких как `.htaccess`) Grav не сможет работать нормально.
 
 ## Вариант 2: установка через Composer
