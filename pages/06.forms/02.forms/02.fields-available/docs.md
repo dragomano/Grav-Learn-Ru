@@ -453,7 +453,6 @@ my_files:
 | [label](#common-fields-attributes)             |
 | [name](#common-fields-attributes)              |
 | [outerclasses](#common-fields-attributes)      |
-| [validate.required](#common-fields-attributes) |
 [/div]
 
 По умолчанию в админке поле типа `file` будет перезаписывать загруженный файл с тем же именем, что и более новый, содержащийся в той же папке, в которую вы хотите его загрузить, если только вы не установите для параметра `avoid_overwriting` значение `true` в определении поля.

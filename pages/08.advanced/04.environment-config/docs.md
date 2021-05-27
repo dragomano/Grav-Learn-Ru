@@ -80,13 +80,13 @@ mailer:
 Вы можете переопределить темы примерно таким же образом:
 
 [prism classes="language-bash command-line"]
-user/config/themes/antimatter/antimatter.yaml
+user/config/themes/antimatter.yaml
 [/prism]
 
 Может быть переопределено для любой среды, скажем, на каком-то производственном сайте (`http://www.mysite.com`):
 
 [prism classes="language-bash command-line"]
-user/env/www.mysite.com/config/themes/antimatter/antimatter.yaml
+user/env/www.mysite.com/config/themes/antimatter.yaml
 [/prism]
 
 ### Конфигурация среды на основе сервера
