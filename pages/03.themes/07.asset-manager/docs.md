@@ -275,7 +275,7 @@ Renders JavaScript assets that have been added to an Asset Manager's group (defa
 
 Каждый актив отображается либо как ссылка таблицы стилей, либо как встроенный, в зависимости от параметра `loading` актива и от того, используется ли для рендеринга этой группы параметр `{'loading': `inline'}`. Обратите внимание, что единственный способ встроить конвейер JS — это использовать встроенную загрузку в качестве опции метода `js()`. JS, добавленный с помощью `addInlineJs()`, по умолчанию будет отображаться в позиции `after`, но вы можете настроить его для рендеринга перед конвейерным выводом с помощью `position: before`
 
-## Именованные активы
+## Именованные активы и коллекции
 
 Теперь у Grav есть мощная функция **named assets**, которая позволяет вам регистрировать коллекцию CSS и JavaScript ресурсов по имени. Затем вы можете просто **добавить** эти активы в менеджер активов через имя, под которым вы зарегистрировали коллекцию. Grav поставляется с предварительно настроенным **jQuery**, но имеет возможность определять собственные коллекции в файле `system.yaml`, которые будут использоваться любой темой или плагином:
 
@@ -301,6 +301,32 @@ $assets->add('bootstrap', 100);
 [/prism]
 
 Пример этого действия можно найти в плагине [**bootstrapper**](https://github.com/getgrav/grav-plugin-bootstrapper/blob/develop/bootstrapper.php#L51-L71).
+
+#### Коллекции с атрибутами
+Иногда может потребоваться указать пользовательские и/или другие атрибуты для определенных элементов коллекции, например, если вы загружаете ресурсы с удаленного CDN и хотите включить проверку целостности (SRI). Это возможно, если рассматривать значение именованного актива как массив, где ключом является местоположение актива, а значением — список дополнительных атрибутов. Например:
+
+[prism classes="language-yaml line-numbers"]
+assets:
+  collections:
+    jquery_and_ui:
+        https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js:
+            integrity: 'sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=='
+            group: 'bottom'
+        https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js:
+            integrity: 'sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=='
+            group: 'bottom'
+[/prism]
+
+Затем, после того как вы добавите JS в свой twig через `{% do assets.addJs('jquery_and_ui', { defer: true }) %}`, активы будут загружаться как:
+
+[prism classes="language-html"]
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer="1" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer="1" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="></script>
+[/prism]
+
+Обратите внимание, что атрибут `defer` был определен на уровне twig и применен ко всем активам в коллекции. Это связано с тем, что Grav объединит атрибуты как из twig, так и из определения yaml, отдавая приоритет тем, которые указаны в определении yaml.
+
+Если бы актив `jquery-ui.min.js` также включал атрибут `defer: null`, тогда этот атрибут имел бы приоритет над `defer: 1`.
 
 ## Сгруппированные активы
 

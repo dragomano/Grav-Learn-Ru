@@ -336,7 +336,7 @@ assets:
 | **js_minify:** | Минимизировать JS во время конвейеризации. Может иметь значение `true` или `false` |
 | **enable_asset_timestamp:** | Включить метки времени активов. Может иметь значение `true` или `false` |
 | **enable_asset_sri:** | Включить актив SRI. Может иметь значение `true` или `false` |
-| **collections:** | Содержит коллекции, обозначенные как подпункты. Например: `jquery: system://assets/jquery/jquery-3.x.min.js` |
+| **collections:** | Содержит коллекции, обозначенные как подпункты. Например: `jquery: system://assets/jquery/jquery-3.x.min.js`. [Подробности](/themes/asset-manager#коллекции-с-атрибутами) |
 [/div]
 
 ### Ошибки
