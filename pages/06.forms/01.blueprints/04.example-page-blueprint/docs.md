@@ -94,10 +94,10 @@ form:
 title: Gallery
 
 form:
-fields:
-tabs:
-type: tabs
-active: 1
+  fields:
+    tabs:
+      type: tabs
+      active: 1
 
       fields:
         gallery:
