@@ -17,7 +17,7 @@ taxonomy:
 
 #### `absolute_url`
 
-Возьмите относительный путь и преобразуйте его в абсолютный формат URL, включая имя хоста
+Принимает фрагмент HTML, содержащий атрибут `src` или `href`, который использует относительный путь. Преобразует строку пути в абсолютный формат URL, включая имя хоста.
 
 `'<img src="/some/path/to/image.jpg" />'|absolute_url` <i class="fa fa-long-arrow-right"></i> `{{ '<img src="/some/path/to/image.jpg" />'|absolute_url }}`
 
@@ -251,6 +251,10 @@ string|markdown($is_block)
 
 `page.date|nicetime(false)` <i class="fa fa-long-arrow-right"></i> **{{ page.date|nicetime(false) }}**
 
+Первый аргумент указывает, следует ли использовать описание даты в полном формате. По умолчанию это `true`.
+
+Вы можете указать второй аргумент `false`, если хотите удалить относительный дескриптор времени (например, «назад» или «с этого момента» на вашем языке) из результата.
+
 ### `of_type`
 
 Проверяет тип переменной на параметр:
@@ -274,6 +278,14 @@ string|markdown($is_block)
 Преобразовывает строку в английскую множественную версию
 
 `'person'|pluralize` <i class="fa fa-long-arrow-right"></i> **{{ 'person'|pluralize }}**
+
+`pluralize` также принимает необязательный числовой параметр, который можно ввести, если заранее неизвестно, на сколько элементов будет ссылаться существительное. Значение по умолчанию равно 2, поэтому при опущении будет указана форма множественного числа. Например:
+
+{% verbatim %}
+[prism classes="language-twig "]
+<p>We have {{ num_vacancies }} {{ 'vacancy'|pluralize(num_vacancies) }} right now.</p>
+[/prism]
+{% endverbatim %}
 
 ### `print_r`
 

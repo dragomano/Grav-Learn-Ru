@@ -141,9 +141,9 @@ My name is {{ name }} and I love cookies.
 
 ## Ресурсы
 
-* [Официальная документация Twig](https://twig.sensiolabs.org/documentation)
-* [Twig для дизайнеров шаблонов](https://twig.sensiolabs.org/doc/templates.html)
-* [Twig для разработчиков](https://twig.sensiolabs.org/doc/api.html)
+* [Официальная документация Twig](https://twig.symfony.com/doc/1.x/)
+* [Twig для дизайнеров шаблонов](https://twig.symfony.com/doc/1.x/templates.html)
+* [Twig для разработчиков](https://twig.symfony.com/doc/1.x/api.html)
 * [6-минутное введение в Twig](https://www.dev-metal.com/6min-video-introduction-twig-php-templating-engine/)
 * [Введение в Twig](http://www.slideshare.net/markstory/introduction-to-twig)
 * [Twig: Основы (бесплатное вступление к платному курсу)](https://knpuniversity.com/screencast/twig/basics)
