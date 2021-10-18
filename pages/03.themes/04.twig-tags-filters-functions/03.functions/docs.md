@@ -245,6 +245,14 @@ taxonomy:
 
 `random_string(10)` <i class="fa fa-long-arrow-right"></i> **{{ random_string(10) }}**
 
+### `unique_id`
+
+Генерирует случайную строку с настраиваемой длиной, префиксом и суффиксом. В отличие от встроенной функции PHP `uniqid()` и утилиты `random_string`, эта строка будет сгенерирована действительно уникальной.
+
+`unique_id(9)` <i class="fa fa-long-arrow-right"></i> **{{ unique_id(9) }}**
+`unique_id(11, { prefix: 'user_' })` <i class="fa fa-long-arrow-right"></i> **unique_id(11, { prefix: 'user_' }) }}**
+`unique_id(13, { suffix: '.json' })` <i class="fa fa-long-arrow-right"></i> **unique_id(13, { suffix: '.json' }) }}**
+
 ### `range`
 
 Генерирует массив, содержащий ряд элементов, опционально ступенчатых
