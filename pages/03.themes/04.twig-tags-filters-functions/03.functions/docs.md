@@ -406,7 +406,10 @@ strip_style = удалить встроенный стиль SVG - полезн�
 {% set my_array = {foo: 'bar', baz: 'qux'} %}
 
 [prism classes="language-twig"]
-{{ vardump(my_array) }}
+[
+  "foo" => "bar"
+  "baz" => "qux"
+]
 [/prism]
 
 ### `xss`
