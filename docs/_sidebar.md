@@ -4,7 +4,7 @@
     * [Установка](01.basics/03.installation/index)
     * [Базовое руководство](01.basics/04.basic-tutorial/index)
     * [Настройка](01.basics/05.grav-configuration/index)
-    * [Структура папок](01.basics/06;folder-structure/index)
+    * [Структура папок](01.basics/06.folder-structure/index)
     * [Получение справки](01.basics/07.getting-help/index)
     * [Обновление Grav и плагинов](01.basics/08.updates/index)
 
