@@ -129,7 +129,7 @@
         * [Nginx](09.webservers-hosting/00.servers/01.nginx/index)
         * [Встроенный веб-сервер Grav](09.webservers-hosting/00.servers/02.grav-built-in/index)
     * [Хостинг VPS](09.webservers-hosting/02.vps/index)
-        * [Универсальная установка VPS](09.webservers-hosting/02.vps//01.generic/index)
+        * [Универсальная установка VPS](09.webservers-hosting/02.vps/01.generic/index)
         * [Установка VPS на Ubuntu 18.04](09.webservers-hosting/02.vps/02.ubuntu-18.04/index)
     * [Локальная разработка с ddev](09.webservers-hosting/04.local-development-with-ddev/index)
     * [Подсистема Windows для Linux](09.webservers-hosting/05.windows-subsystem-for-linux/index)
@@ -140,7 +140,7 @@
     * [Рецепты плагинов](10.cookbook/03.plugin-recipes/index)
     * [Рецепты админки](10.cookbook/04.admin-recipes/index)
     * [Руководства](10.cookbook/06.tutorials/index)
-        * [Создание блога](10.cookbook/06.tutorials//04.create-a-blog/index)
+        * [Создание блога](10.cookbook/06.tutorials/04.create-a-blog/index)
 
 * [Решение проблем](11.troubleshooting/index)
     * [404 Not Found](11.troubleshooting/01.page-not-found/index)
