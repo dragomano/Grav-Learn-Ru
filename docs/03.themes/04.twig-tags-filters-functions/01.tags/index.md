@@ -27,7 +27,13 @@ This is **bold** and this _underlined_
 {% script 'theme://js/something.js' in 'bottom' priority: 20 with { defer: true, async: true } %}
 ```
 
-#### Inline
+В Grav 1.7.28 также добавлена поддержка модулей:
+
+```twig
+{% script module 'theme://js/module.mjs' %}
+```
+
+#### Внутренний JS
 
 ```twig
 {% script in 'bottom' priority: 20 %}
@@ -43,12 +49,19 @@ This is **bold** and this _underlined_
 {% style 'theme://css/foo.css' priority: 20 %}
 ```
 
-#### Inline
+#### Внутренний CSS
 
 ```twig
 {% style priority: 20 with { media: 'screen' } %}
     a { color: red; }
 {% endstyle %}
+```
+
+### `link`
+
+```twig
+{% link icon 'theme://images/favicon.png' priority: 20 with { type: 'image/png' } %}
+{% link modulepreload 'plugin://grav-plugin/build/js/vendor.js' %}
 ```
 
 ### `switch`
@@ -116,3 +129,15 @@ This is **bold** and this _underlined_
 {% render collection layout: 'list' %}
 {% render object layout: 'default' with { variable: 'value' } %}
 ```
+
+### `cache`
+
+Иногда вам может понадобиться кэшировать части страницы, которые требуют много времени для рендеринга. Это можно сделать с помощью тега `cache`.
+
+```twig
+{% cache 600 %}
+  {{ some_complex_work() }}
+{% endcache %}
+```
+
+В примере `600` - это необязательное время жизни в секундах. Если параметр не передан, будет использоваться время жизни кэша по умолчанию.

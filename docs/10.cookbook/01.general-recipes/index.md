@@ -605,23 +605,23 @@ body_classes: featurepost
 
 Таблицы стилей требуют немного большего внимания, так как есть конвейер ресурсов, который мы захотим включить в какой-то момент, поэтому мы перемещаем их в блок таблиц стилей в теге `<head>`.
 
-Example:
+Пример:
 ```twig
-    {% block stylesheets %}
-        {% do assets.addCss('theme://css/styles.min.css', 100) %}
-    {% endblock %}
-    {{ assets.css() }}
+{% block stylesheets %}
+    {% do assets.addCss('theme://css/styles.min.css', 100) %}
+{% endblock %}
+{{ assets.css()|raw }}
 ```
 
 То же самое относится и к файлам JavaScript с дополнительным требованием, чтобы часть JS загружалась в нижний колонтитул.
 
-Example:
+Пример:
 ```twig
-    {% block javascripts %}
-        {% do assets.addJs('theme://js/custom.js') %}
-        {% do assets.addJs('jquery', 101) %}
-    {% endblock %}
-    {{ assets.js() }}
+{% block javascripts %}
+    {% do assets.addJs('theme://js/custom.js') %}
+    {% do assets.addJs('jquery', 101) %}
+{% endblock %}
+{{ assets.js()|raw }}
 ```
 
 Изменения страницы теперь должны отображаться в вашем браузере. Если нет, убедитесь, что кэш страниц и кэш Twig отключены в настройках конфигурации системы Grav.
@@ -653,9 +653,9 @@ Example:
 
 ```twig
 {% block javascripts %}
-{% do assets.addJs('theme://js/jquery.js', 91) %}
+    {% do assets.addJs('theme://js/jquery.js', 91) %}
 {% endblock %}
-{{ assets.js() }}
+{{ assets.js()|raw }}
 ```
 
 Чтобы добавить свой актив, вы должны расширить этот блок в своем шаблоне и вызвать `{{parent ()}}`, который получит активы, уже добавленные в ваш базовый шаблон.
@@ -664,8 +664,8 @@ Example:
 
 ```twig
 {% block javascripts %}
-     {% do assets.addJs('theme://js/gallery.js', 100) %}
-     {{ parent() }}
+    {% do assets.addJs('theme://js/gallery.js', 100) %}
+    {{ parent() }}
 {% endblock %}
 ```
 

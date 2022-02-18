@@ -295,6 +295,9 @@ assets:
   js_pipeline: false
   js_pipeline_include_externals: true
   js_pipeline_before_excludes: true
+  js_module_pipeline: false
+  js_module_pipeline_include_externals: true
+  js_module_pipeline_before_excludes: true
   js_minify: true
   enable_asset_timestamp: false
   enable_asset_sri: false
@@ -315,6 +318,9 @@ assets:
 | **js_pipeline:** | JS-конвейер — это объединение нескольких JS-ресурсов в один файл. Может иметь значение `true` или `false` |
 | **js_pipeline_include_externals:** | Включать внешние URL-адреса в JS-конвейер по умолчанию. Может иметь значение `true` или `false` |
 | **js_pipeline_before_excludes:** | Визуализировать JS-конвейер перед любыми исключенными файлами. Может иметь значение `true` или `false` |
+| **js_module_pipeline** | Конвейер JS-модулей - это объединение нескольких ресурсов JS-модулей в один файл. Может иметь значение `true` или `false` |
+| **js_module_pipeline_include_externals** | Включать внешние URL-адреса в конвейер по умолчанию. Может иметь значение `true` или `false` |
+| **js_module_pipeline_before_excludes** | Рендеринг конвейера перед любыми исключенными файлами. Может иметь значение `true` или `false` |
 | **js_minify:** | Минимизировать JS во время конвейеризации. Может иметь значение `true` или `false` |
 | **enable_asset_timestamp:** | Включить метки времени активов. Может иметь значение `true` или `false` |
 | **enable_asset_sri:** | Включить актив SRI. Может иметь значение `true` или `false` |

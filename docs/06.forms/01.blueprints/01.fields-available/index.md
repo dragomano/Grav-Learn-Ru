@@ -24,6 +24,7 @@
 | **[Dateformat](#Поле-формата-даты)**               | специальный выбор, который отображает текущую дату/время в переданных форматах                                                                                                                                   |
 | **[Datetime](#Поле-даты-и-времени)**                   | поле выбора даты и времени                                                                                                                                                                             |
 | **[Editor](#Поле-редактора)**                       | показать редактор Markdown                                                                                                                                                                                      |
+| **[Elements](#Поле-elements)** | условное и организационное поле для показа/скрытия потомков в зависимости от выбранного значения «триггера». Это чрезвычайно полезно для уменьшения беспорядка, когда есть много вариантов для отображения |
 | **[Fieldset](#Поле-fieldset)**                   | сгруппируйте набор полей внутри складного аккордеона                                                                                                                                                        |
 | **[File](#Поле-файла)**                           | в админке **File** специализирован для использования в конфигурациях плагинов и тем (чертежах). Обрабатывает загрузку файла в определенное место и его удаление, а также удаление его из конфигурации темы/плагина |
 | **[Filepicker](#Поле-filepicker)**               | **Filepicker** позволяет выбирать файлы из расположения в файловой системе веб-сервера.                                                                                                                         |
@@ -465,6 +466,52 @@ frontmatter:
 | [placeholder](#Общие-атрибуты-полей)       |
 | [readonly](#Общие-атрибуты-полей)          |
 
+
+### Поле Elements
+
+![Elements](elements_field.gif)
+
+Это поле является только организационным и позволяет группировать элементы в рамках названной группы, которая будет показана только в том случае, если значение выбранного элемента соответствует группе.
+
+Пример:
+
+```yaml
+header.elements-demo:
+  type: elements
+  label: 'Elements Demo'
+  size: small
+  default: gelato
+  options:
+    gelato: Gelato Flavors
+    color: Color
+    planets: Planets
+  fields:
+    gelato:
+      type: element
+      fields:
+        .items:
+          type: array
+          default:
+            pistacchio: Pistacchio
+            vanilla: Vanilla
+            chocolate: Chocolate
+            stracciatella: Stracciatella
+    color:
+      type: element
+      fields:
+        .items:
+          type: textarea
+          rows: 10
+          default: Color (American English) or colour (Commonwealth English) is the visual perceptual property corresponding in humans to the categories called blue, green, red, etc. Color derives from the spectrum of light (distribution of light power versus wavelength) interacting in the eye with the spectral sensitivities of the light receptors. Color categories and physical specifications of color are also associated with objects or materials based on their physical properties such as light absorption, reflection, or emission spectra. By defining a color space colors can be identified numerically by their coordinates.
+    planets:
+      type: element
+      fields:
+        .items:
+          type: text
+          placeholder: What are your favorite planets?
+          markdown: true
+          description: 'Find a list of planets from [Wikipedia](https://en.wikipedia.org/wiki/Planet)'
+```
 
 ### Поле Fieldset
 

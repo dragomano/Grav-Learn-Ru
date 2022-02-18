@@ -713,13 +713,13 @@ pages.order.by:
     type: select
     size: long
     classes: fancy
-    label: 'Default Ordering'
-    help: 'Pages in a list will render using this order unless it is overridden'
+    label: 'Порядок по умолчанию'
+    help: 'Страницы в списке будут отображаться в этом порядке, если он не переопределен'
     options:
-        default: 'Default - based on folder name'
-        folder: 'Folder - based on prefix-less folder name'
-        title: 'Title - based on title field in header'
-        date: 'Date - based on date field in header'
+        default: 'По умолчанию - на основе имени папки'
+        folder: 'Папка - на основе имени папки без префикса'
+        title: 'Заголовок - на основе поля Title в заголовке'
+        date: 'Дата - на основе поля Date в заголовке'
 ```
 
 
@@ -729,7 +729,13 @@ pages.order.by:
 | `multiple` | Разрешить форме принимать несколько значений.                                 |
 
 
-Если вы установите для `multiple` значение true, вам нужно добавить `validate.type: array`. В противном случае массив выбранных значений не будет сохранен правильно.
+Если вы установите для `multiple` значение true, вам нужно добавить
+```yaml
+pages.order.by:
+  validate:
+    type: array
+```
+В противном случае массив выбранных значений не будет сохранен корректно.
 
 
 | Разрешены общие атрибуты                       |
