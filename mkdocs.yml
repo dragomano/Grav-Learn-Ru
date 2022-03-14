@@ -1,6 +1,7 @@
 # Project information
 site_name: Документация Grav CMS на русском
 site_author: Bugo
+site_url: https://grav-docs.ru/
 
 # Repository
 repo_url: https://github.com/dragomano/Grav-Learn-Ru
