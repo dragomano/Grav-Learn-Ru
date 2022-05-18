@@ -36,6 +36,23 @@ description: Список доступных полей и их атрибуто
 | `validate.pattern`  | устанавливает шаблон валидации                                                                                                                                                                                      |
 | `validate.message`  | устанавливает сообщение, отображаемое в случае сбоя валидации                                                                                                                                                                 |
 
+Чтобы добавить пользовательские атрибуты, вы можете использовать:
+```
+attributes:
+  key: value
+```
+
+Чтобы добавить пользовательские значения data-*, вы можете использовать:
+```
+datasets:
+  key: value
+```
+
+Указанные выше определения `атрибутов` и `наборов данных` приводят к следующему определению поля:
+```
+<input name="data[name]" value="" type="text" class="form-input " key="value" data-key="value">
+```
+
 
 !!! note ""
 
@@ -252,25 +269,25 @@ my_field:
 Если ваше условное выражение уже возвращает `true` или `false`, вы можете просто использовать этот упрощенный формат:
 
 ```yaml
-header.field_condition:
+my_conditional:
   type: conditional
   condition: config.plugins.yourplugin.enabled
   fields: # The field(s) below will be displayed only if the plugin named yourplugin is enabled
     header.mytextfield:
-    type: text
-    label: A text field
+      type: text
+      label: A text field
 ```
 
 Однако, если вам требуются более сложные условия, вы можете выполнить некоторую логику, которая возвращает `true` или `false` в виде строк, и поле это тоже поймет.
 
 ```yaml
-header.field_condition:
+my_conditional:
   type: conditional
-  condition: "config.plugins.yourplugin.enabled ? 'true' : 'false'"
-  fields: # The field(s) below will be displayed only if the plugin named yourplugin is enabled
+  condition: "config.site.something == 'custom'"
+  fields: # The field(s) below will be displayed only if the `site` configuration option `something` equals `custom`
     header.mytextfield:
-    type: text
-    label: A text field
+      type: text
+      label: A text field
 ```
 
 
@@ -446,7 +463,7 @@ my_files:
 | Атрибут     | Описание                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | :-----        | :-----                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `multiple`    | Может быть `true` или `false`, если установлено значение **true**, можно выбрать несколько файлов одновременно time                                                                                                                                                                                                                                                                                                                                                                                          |
-| `destination` | Может быть **@self**, **@page:/route**, или **local/rel/path/**. <br>Если установлено **@self**, файлы будут загружены туда, где была объявлена ​​форма (current .md). <br>При использовании **@page:/route** файлы будут загружаться по указанному маршруту страницы, если существует (например, **@page:/blog/a-blog-post**). <br>Если установлено **'local/rel/path'**, файлы будут загружены в указанное местоположение. Например, `user/data/files`. Если путь не существует, он будет создан, поэтому убедитесь, что он доступен для записи. |
+| `destination` | Может быть **@self**, **@page:/route**, **local/rel/path/**, или поток PHP.<br> Если установлено **@self**, файлы будут загружены туда, где была объявлена ​​форма (current .md).<br> При использовании **@page:/route** файлы будут загружаться по указанному маршруту страницы, если существует (например, **@page:/blog/a-blog-post**).<br> Если установлено **'local/rel/path'**, файлы будут загружены в указанное местоположение. Например, `user/images/uploads`. Если путь не существует, он будет создан, поэтому убедитесь, что он доступен для записи.<br> Вы также можете установить в качестве значения любой допустимый поток PHP, распознаваемый Grav, например `user-data://my-form` или `theme://media/uploads`. |
 | `accept`      | Принимает массив разрешенных типов MIME. Например, чтобы разрешить только файлы gif и mp4: `accept: ['image/gif', 'video/mp4']`                                                                                                                                                                                                                                                                                                                                                       |
 
 
@@ -721,7 +738,7 @@ content:
 
 Тип поля `select` используется для представления поля выбора.
 
-Пример:
+Пример 1:
 ```yaml
 pages.order.by:
     type: select
@@ -736,10 +753,28 @@ pages.order.by:
         date: 'Дата - на основе поля Date в заголовке'
 ```
 
+Пример 2 - Отключение отдельных опций:
+```yaml
+my_element:
+    type: select
+    size: long
+    classes: fancy
+    label: 'Мой элемент Select'
+    help: 'Используйте ключ:значение disabled для отображения, с отключением определенной опции'
+    options:
+        option1:
+          value: 'Вариант 1'
+        option2:
+          value: 'Вариант 2'
+        option3:
+          disabled: true
+          value: 'Вариант 3'
+```
+
 
 | Атрибут    | Описание                                                                      |
 | :-----     | :-----                                                                        |
-| `options`  | Массив разрешенных параметров «ключ-значение». Ключ будет отправлен по форме. |
+| `options`  | Массив разрешенных параметров «ключ-значение». Ключ будет отправлен формой.   |
 | `multiple` | Разрешить форме принимать несколько значений.                                 |
 
 

@@ -225,7 +225,7 @@ folder:
 
 ![Array](array_field_bp.gif)
 
-Тип поля `array` используется для создания простого списка объектов `ключ-значение`.
+Тип поля `array` используется для создания простого списка объектов `ключ-значение`, или просто список значений, если вы используете опцию `value_only`.
 
 Пример:
 
@@ -244,7 +244,7 @@ metadata:
 | :-----              | :-----      |
 | `placeholder_key`   |             |
 | `placeholder_value` |             |
-| `value_only`        |             |
+| `value_only`        | Не требуйте и не храните ключи массива, просто храните простой массив значений. |
 
 
 
@@ -477,7 +477,7 @@ frontmatter:
 Пример:
 
 ```yaml
-header.elements-demo:
+header.elements-demo.type:
   type: elements
   label: 'Elements Demo'
   size: small
@@ -490,7 +490,7 @@ header.elements-demo:
     gelato:
       type: element
       fields:
-        .items:
+        .flavours:
           type: array
           default:
             pistacchio: Pistacchio
@@ -500,14 +500,14 @@ header.elements-demo:
     color:
       type: element
       fields:
-        .items:
+        .description:
           type: textarea
           rows: 10
           default: Color (American English) or colour (Commonwealth English) is the visual perceptual property corresponding in humans to the categories called blue, green, red, etc. Color derives from the spectrum of light (distribution of light power versus wavelength) interacting in the eye with the spectral sensitivities of the light receptors. Color categories and physical specifications of color are also associated with objects or materials based on their physical properties such as light absorption, reflection, or emission spectra. By defining a color space colors can be identified numerically by their coordinates.
     planets:
       type: element
       fields:
-        .items:
+        .favorites:
           type: text
           placeholder: What are your favorite planets?
           markdown: true

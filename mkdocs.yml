@@ -235,6 +235,7 @@ nav:
     - Универсальная установка VPS: webservers-hosting/vps/generic/index.md
     - Установка VPS на Ubuntu 18.04: webservers-hosting/vps/ubuntu-18.04/index.md
     - Локальная разработка с ddev: webservers-hosting/local-development-with-ddev/index.md
+    - Развёртывание с помощью Git: webservers-hosting/deploying-with-git/index.md
     - Подсистема Windows для Linux: webservers-hosting/windows-subsystem-for-linux/index.md
   - Сборник рецептов:
     - cookbook/general-recipes/index.md
