@@ -272,11 +272,12 @@ metadata:
 color:
    type: colorpicker
    label: Choose a color
+   default: '#FFFFFF'
 ```
 
 
-| Разрешены общие атрибуты                   |
-| :-----                                     |
+| Разрешены общие атрибуты                      |
+| :-----                                        |
 | [autocomplete](#obshchie-atributy-polei)      |
 | [autofocus](#obshchie-atributy-polei)         |
 | [classes](#obshchie-atributy-polei)           |
