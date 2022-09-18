@@ -50,6 +50,7 @@ description: Используемые хуки событий в Grav CMS.
 1. [onTwigSiteVariables](#ontwigsitevariables)
 1. [onCollectionProcessed](#oncollectionprocessed) _(по запросу коллекции)_
 1. [onOutputGenerated](#onoutputgenerated)
+1. [onPageHeaders](#onPageHeaders)
 1. [onOutputRendered](#onoutputrendered)
 1. [onShutdown](#onshutdown)
 
@@ -112,6 +113,10 @@ description: Используемые хуки событий в Grav CMS.
 ### onOutputGenerated
 
 Вывод был обработан **механизмом создания шаблонов Twig** и теперь представляет собой всего лишь строку HTML.
+
+### onPageHeaders
+
+Позволяет манипулировать объектом заголовков страницы.
 
 ### onOutputRendered
 

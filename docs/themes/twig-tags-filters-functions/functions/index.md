@@ -167,7 +167,7 @@ title: Home
 ---
 ```
 
-`header_var('title')` :fontawesome-solid-arrow-right: **About**
+`header_var('title')` :fontawesome-solid-arrow-right: **Home**
 
 ### `http_response_code`
 
