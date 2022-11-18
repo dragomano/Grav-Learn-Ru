@@ -2,7 +2,7 @@
 description: Список доступных полей и их атрибутов в формах Grav CMS.
 ---
 
-# Ссылка: индекс поля формы
+# Ссылка: указатель полей формы
 
 ## Общие атрибуты полей
 
@@ -62,7 +62,138 @@ datasets:
 
 ## Доступные поля
 
-### Поле Captcha
+### Поле Basic-Captcha
+
+Добавлено в Forms `7.0.0` в качестве локальной альтернативы полю Google ReCaptcha. Это поле особенно удобно при работе со СПАМом в контактных формах, когда вы не хотите иметь дело с хлопотами или, возможно, ограничениями GPDR, которые приходят с предложением Google. В нем используются **OCR-устойчивые** шрифты для предотвращения атак, и его можно настроить с помощью кодов для копирования или простых математических вопросов.
+
+![Basic-Captcha](basic-captcha_field.gif)
+
+тип поля `basic-captcha` полностью настраивается через конфигурацию `forms`, но поставляется с разумными значениями по умолчанию. Общая конфигурация Basic-Captcha задается в вашем глобальном файле конфигурации формы (обычно `user/config/plugins/form.yaml`). По умолчанию установлены следующие параметры:
+
+```yaml
+basic_captcha:
+  type: characters            # options: [characters | math]
+  chars:
+    length: 6                 # number of chars to output
+    font: zxx-noise.ttf       # options: [zxx-noise.ttf | zxx-camo.ttf | zxx-xed.ttf | zxx-sans.ttf]
+    bg: '#cccccc'             # 6-char hex color
+    text: '#333333'           # 6-char hex color
+    size: 24                  # font size in px
+    start_x: 5                # start position in x direction in px
+    start_y: 30               # start position in y direction in px
+    box_width: 135            # box width in px
+    box_height: 40            # box height in px
+  math:
+    min: 1                    # smallest digit
+    max: 12                   # largest digit
+    operators: ['+','-','*']  # operators that can be used in math
+```
+
+Пример:
+
+```yaml
+basic-captcha:
+    type: basic-captcha
+    placeholder: скопируйте 6 символов
+    label: Вы человек?
+```
+
+Для этого также требуется соответствующий элемент `process:`, чтобы обеспечить правильную проверку формы.
+
+!!! info ""
+
+  Это должна быть первая запись в разделе `process:` формы, чтобы гарантировать, что форма не будет обработана, если проверка каптчи не прошла.
+
+Пример:
+
+```yaml
+process:
+    basic-captcha:
+        message: Проверка на человечность не прошла, попробуйте ещё раз...
+```
+
+### Поле Turnstile Captcha (Cloudflare)
+
+Начиная с версии Form `v7.1.0`, Grav добавляет поддержку нового поля Cloudflare Turnstile. Это поле — новый способ предотвращения СПАМа в формах, и это отличная альтернатива полю Google ReCaptcha и ограничениям **GPDR**, предлагаемым Google. Это поле особенно удобно при работе со СПАМом в контактных формах. [Подробнее о Turnstile](https://blog.cloudflare.com/turnstile-private-captcha-alternative/?target=_blank).
+
+#### Преимущества по сравнению с Google ReCaptcha
+
+1. Соответствие требованиям GDPR и ориентация на защиту частной жизни пользователей
+2. Чрезвычайно быстрая проверка вызовов
+3. Очень простая реализация как в Cloudflare, так и в Grav, никаких сложных пользовательских интерфейсов или параметров для настройки.
+4. Никаких причудливых обходных путей для асинхронной отправки форм (ajax), это просто работает!
+4. Исключительный пользовательский опыт по сравнению с ReCaptcha, больше никаких подсчётов машин, светофоров и прочей ерунды
+5. Построен на основе машинного обучения, со временем становится лучше и адаптируется к новым векторам атак.
+6. Исчерпывающая аналитика эффективности задачи, [см. скриншот](https://blog.cloudflare.com/content/images/2022/09/image1-64.png?target=_blank)
+
+#### Интеграция
+
+Прежде чем интегрировать Grav Forms с Turnstile, вы должны сначала [создать новый сайт Turnstile](https://dash.cloudflare.com/?to=/:account/turnstile?target=_blank), к примеру, с помощью [официальной инструкции "get started"](https://developers.cloudflare.com/turnstile/get-started/?target=_blank).
+Здесь вы также можете выбрать тип виджета, который вы хотите использовать, это может быть `управляемый`, `неинтерактивный` или `невидимый`. Важно отметить, что тип виджета можно изменить только в Cloudflare, вы не сможете настроить его через Grav. Однако, если вас не устраивает один из вариантов, вы сможете изменить его позже, если возникнет необходимость. [Подробнее о различных типах виджетов](https://developers.cloudflare.com/turnstile/reference/widget-types/?target=_blank).
+
+!!! info ""
+
+  Убедитесь, что вы добавили все домены, на которых вам может понадобиться использовать поле Turnstile Captcha, включая вашу локальную среду.
+
+После создания сайта вам будут предоставлены `site_key` и `site_secret`, которые нужно будет задать в файле конфигурации формы (обычно `user/config/plugins/form.yaml`). Вы можете игнорировать предложенный тег сценария, так как Grav позаботится об этом за вас.
+
+По умолчанию установлены следующие параметры:
+
+```yaml
+turnstile:
+  theme: light
+  site_key: <Your Turnstile Site Key>
+  secret_key: <Your Turnstile Secret Key>
+```
+
+Наконец, вам также потребуется соответствующий элемент `process:` для обеспечения правильной проверки формы.
+
+!!! info ""
+
+  Это должна быть первая запись в разделе `process:` формы, чтобы гарантировать, что форма не будет обработана, если проверка captcha не прошла.
+
+#### Пример
+
+Типичный пример контактной формы выглядит следующим образом.
+
+```yaml
+form:
+  name: contact
+  fields:
+    name:
+      label: Name
+      type: text
+      validate:
+        required: true
+    email:
+      label: Email
+      type: email
+      validate:
+        required: true
+    message:
+      label: Message
+      type: textarea
+      validate:
+        required: true
+    captcha:
+        type: turnstile
+        theme: light
+  buttons:
+    submit:
+      type: submit
+      value: Submit
+  process:
+    turnstile: true
+    email:
+      subject: "[Acme] {{ form.value.name|e }}"
+      reply_to: "{{ form.value.name|e }} <{{ form.value.email }}>"
+    message: Thanks for contacting us!
+    reset: true
+    display: '/'
+```
+
+
+### Поле Google Captcha (ReCaptcha)
 
 Тип поля `captcha` используется для добавления элемента Google reCAPTCHA в вашу форму. В отличие от других элементов, его можно использовать в форме только один раз.
 
@@ -70,7 +201,7 @@ datasets:
 
 	Вы должны настроить конфигурации Google reCAPTCHA в [консоли администратора reCAPTCHA](https://www.google.com/recaptcha/admin)
 
-Начиная с версии 3.0, поле поддерживает 3 варианта reCAPTCHA. Общую конфигурацию reCAPTCHA лучше всего настраивать в файле конфигурации глобальной формы (обычно `user/config/plugins/form.aml`). Параметры по умолчанию:
+Начиная с версии `3.0`, поле поддерживает 3 варианта reCAPTCHA. Общая конфигурация reCAPTCHA лучше всего задается в глобальном файле конфигурации формы (обычно `user/config/plugins/form.yaml`). По умолчанию установлены следующие параметры:
 
 ```yaml
 recaptcha:
@@ -113,7 +244,7 @@ g-recaptcha-response:
   type: captcha
   label: Captcha
   recaptcha_site_key: ENTER_YOUR_CAPTCHA_PUBLIC_KEY
-  recaptcha_not_validated: 'Captcha not valid!'
+  recaptcha_not_validated: 'Каптча не действительна!'
 ```
 
 
@@ -132,6 +263,19 @@ g-recaptcha-response:
 | [outerclasses](#obshchie-atributy-polei)      |
 | [validate.required](#obshchie-atributy-polei) |
 
+
+Для этого также требуется соответствующий элемент `process:`, чтобы обеспечить правильную проверку формы.
+
+!!! info ""
+
+  Это должна быть первая запись в разделе `process:` формы, чтобы гарантировать, что форма не будет обработана, если проверка каптчи не прошла.
+
+Пример:
+
+```yaml
+process:
+    captcha: true
+```
 
 
 ##### Проверка Captcha на стороне сервера
@@ -167,7 +311,7 @@ g-recaptcha-response:
 ```yaml
 agree_to_terms:
   type: checkbox
-  label: "Agree to the terms and conditions"
+  label: "Согласитесь с положениями и условиями"
   validate:
       required: true
 ```
@@ -218,13 +362,13 @@ pages.process:
 ```yaml
 my_field:
     type: checkboxes
-    label: A couple of checkboxes
+    label: Несколько флажков
     default:
         - option1
         - option2
     options:
-        option1: Option 1
-        option2: Option 2
+        option1: Вариант 1
+        option2: Вариант 2
 ```
 
 
@@ -275,7 +419,7 @@ my_conditional:
   fields: # The field(s) below will be displayed only if the plugin named yourplugin is enabled
     header.mytextfield:
       type: text
-      label: A text field
+      label: Текстовое поле
 ```
 
 Однако, если вам требуются более сложные условия, вы можете выполнить некоторую логику, которая возвращает `true` или `false` в виде строк, и поле это тоже поймет.
@@ -287,7 +431,7 @@ my_conditional:
   fields: # The field(s) below will be displayed only if the `site` configuration option `something` equals `custom`
     header.mytextfield:
       type: text
-      label: A text field
+      label: Текстовое поле
 ```
 
 
@@ -550,7 +694,7 @@ content:
 ```yaml
 header.count:
   type: number
-  label: 'How Much?'
+  label: 'Сколько?'
   validate:
     min: 10
     max: 360
@@ -597,7 +741,7 @@ header.count:
 ```yaml
 password:
   type: password
-  label: Password
+  label: Пароль
 ```
 
 
@@ -634,7 +778,7 @@ password:
 ```yaml
 my_choice:
   type: radio
-  label: Choice
+  label: Выбор
   default: markdown
   options:
       markdown: Markdown
@@ -674,7 +818,7 @@ my_choice:
 ```yaml
 header.choose_a_number_in_range:
   type: range
-  label: Choose a number
+  label: Выберите число
   validate:
     min: 1
     max: 10

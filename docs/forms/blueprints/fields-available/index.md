@@ -245,6 +245,7 @@ metadata:
 | `placeholder_key`   |             |
 | `placeholder_value` |             |
 | `value_only`        | Не требуйте и не храните ключи массива, просто храните простой массив значений. |
+| `value_type`        | Установите значение `textarea` для отображения [текстовой области](/forms/forms/fields-available/#pole-textarea) для ввода значений массива вместо обычного [текстового поля](/forms/forms/fields-available#tekstovoe-pole). |
 
 
 
