@@ -16,7 +16,7 @@ description: Различные трюки при работе с Twig в Grav C
 
 ```twig
 <ul>
-    {% for post in page.find('/blog').children.order('date', 'desc').slice(0, 5) %}
+    {% for post in page.find('/blog').published.order('date', 'desc').slice(0, 5) %}
         <li class="recent-posts">
             <strong><a href="{{ post.url }}">{{ post.title }}</a></strong>
         </li>
