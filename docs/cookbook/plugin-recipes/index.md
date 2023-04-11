@@ -330,7 +330,7 @@ public function buildTree($route, $mode = false, $depth = 0)
 
 	Вместо использования наследования тем можно создать очень простой плагин, который позволит вам использовать настраиваемое расположение для предоставления настраиваемых шаблонов Twig.
 
-Единственное, что вам нужно в этом плагине, - это событие, чтобы указать местоположение для ваших шаблонов. Самый простой способ создать плагин - использовать плагин devtools. Итак, установите это с помощью:
+Единственное, что вам нужно в этом плагине, - это событие, чтобы указать местоположение для ваших шаблонов. Самый простой способ создать плагин - использовать плагин DevTools. Итак, установите это с помощью:
 
 ```bash
 $ bin/gpm install devtools
@@ -375,7 +375,7 @@ class CustomTemplatesPlugin extends Plugin
 }
 ```
 
-Этот плагин просто подписывается на событие `onTwigTemplatePaths()`, а затем в этом методе события он добавляет папку `user/plugins/custom-templates/templates` к этому из путей, которые Twig будет проверять.
+Этот плагин просто подписывается на событие `onTwigTemplatePaths()`, а затем в этом методе события он добавляет папку `user/plugins/custom-templates/templates` к массиву путей, которые Twig будет проверять.
 
 Это позволяет вам добавить шаблон Twig под названием `foo.html.twig`, и тогда любая страница с именем `foo.md` сможет использовать этот шаблон.
 
@@ -431,9 +431,9 @@ if ($data = $cache->fetch($id)) {
 
 ### Как я могу читать и записывать данные в файловую систему?
 
-Гравитация может быть плоским файлом, но плоский файл &#8800; статичен! Существует множество способов чтения и записи данных в файловую систему.
+Существует множество способов чтения и записи данных в файловую систему.
 
-* Если вам просто нужен доступ для чтения к данным YAML, проверьте плагин [Import plugin](https://github.com/Deester4x4jr/grav-plugin-import).
+* Если вам просто нужен доступ для чтения к данным YAML, проверьте плагин [Import](https://github.com/Deester4x4jr/grav-plugin-import).
 * Предпочтительный интерфейс - через встроенный интерфейс [RocketTheme\Toolbox\File](https://raw.githubusercontent.com/rockettheme/toolbox/develop/File/src/File.php).
 * Ничто не мешает вам использовать [SQLite](https://sqlite.org/).
 * Самый простой пример - это, вероятно, [плагин комментариев](https://github.com/getgrav/grav-plugin-comments).
@@ -468,7 +468,7 @@ if ($data = $cache->fetch($id)) {
 
 Последний раз вы можете ввести HTML и всё ещё кэшировать свои выходные данные во время события `onOutputGenerated`. Вы можете просто захватить и изменить `$this->grav->output`.
 
-* Многие распространенные задачи могут быть выполнены с помощью [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core) infrastructure.
+* Многие распространенные задачи могут быть выполнены с помощью [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core).
 * Плагины [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed) и [Tablesorter](https://github.com/Perlkonig/grav-plugin-tablesorter) используют более грубый подход.
 
 ### Как мне внедрить такие ресурсы, как файлы JavaScript и CSS?

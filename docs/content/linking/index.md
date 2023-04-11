@@ -228,16 +228,16 @@ Grav не ограничивает ваши внутренние ссылки к
 <a href="/your/pages/some-page?rel=nofollow&classes=underline">Пропуск всех атрибутов</a>
 ```
 
-#### Пропуск определенных атрибутов
+#### Пропуск определённых атрибутов
 
 ```markdown
-[Пропускаем определенные атрибуты](../some-page?id=myvariable&classes=underline&target=_blank&noprocess=id,classes)
+[Пропускаем определённые атрибуты](../some-page?id=myvariable&classes=underline&target=_blank&noprocess=id,classes)
 ```
 
 что приведет к такому HTML:
 
 ```html
-<a href="/your/pages/some-page?id=myvariable&classes=underline" target="_blank">Пропускаем определенные атрибуты</a>
+<a href="/your/pages/some-page?id=myvariable&classes=underline" target="_blank">Пропускаем определённые атрибуты</a>
 ```
 
 Это полезно при попытке пропустить один или несколько конкретных атрибутов, не затрагивая другие.

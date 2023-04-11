@@ -106,7 +106,7 @@ Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et l
 
 ## Встроенный HTML
 
-Если вам нужен определенный HTML-тег (с классом), вы можете использовать обычный HTML:
+Если вам нужен определённый HTML-тег (с классом), вы можете использовать обычный HTML:
 
 ```
 Абзац в Markdown.

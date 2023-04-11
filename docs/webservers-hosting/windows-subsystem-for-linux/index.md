@@ -256,7 +256,7 @@ sudo service apache2 restart
 	127.0.0.1 mysite-prod
 	```
 
-	Хосты, определенные в файле hosts Windows, будут автоматически доступны в `/etc/hosts` в WSL/Ubuntu.
+	Хосты, определённые в файле hosts Windows, будут автоматически доступны в `/etc/hosts` в WSL/Ubuntu.
 * Создайте новые файлы конфигурации VirtualHost в папке `/etc/apache2/sites-available`.
     ```bash
     sudo nano /etc/apache2/sites-available/mysite-dev.conf
@@ -292,7 +292,7 @@ sudo service apache2 restart
 Теперь вы можете указать в браузере [http://mysite-dev](http://mysite-dev) и он откроет установку Grav по адресу `C:/your/path/to/webroot/mysite`, используя файлы конфигурации в папке `/user/mysite-dev/config/`.
 
 ## Автоматический запуск Apache (необязательно)
-Для запуска и остановки Apache требуются повышенные привилегии. А чтобы получить повышенные привилегии, требуется пароль. Чтобы Ubuntu не запрашивал пароль, вы можете предоставить себе постоянные повышенные привилегии для определенных служб.
+Для запуска и остановки Apache требуются повышенные привилегии. А чтобы получить повышенные привилегии, требуется пароль. Чтобы Ubuntu не запрашивал пароль, вы можете предоставить себе постоянные повышенные привилегии для определённых служб.
 
 Запустите редактор [visudo](http://manpages.ubuntu.com/manpages/trusty/man8/visudo.8.html), чтобы отредактировать файл sudoer:
 
