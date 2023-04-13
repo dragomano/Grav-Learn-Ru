@@ -113,12 +113,12 @@ _Обратите внимание, что демонстрационный ко
 
 Когда вы создали новую тему или плагин и хотели бы, чтобы они были добавлены в [репозиторий Grav](https://getgrav.org/downloads), вам необходимо выполнить несколько стандартных действий:
 
-1. Добавить файл `LICENSE`, содерщащий [MIT](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_MIT)-совместимую лицензию. [Пример здесь](https://github.com/getgrav/grav-theme-antimatter/blob/develop/LICENSE)
+1. Добавить файл `LICENSE`, содержащий [MIT](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_MIT)-совместимую лицензию. [Пример здесь](https://github.com/getgrav/grav-theme-antimatter/blob/develop/LICENSE)
 2. Добавить файл `README.md` с описанием функций и инструкциями по его установке и настройке. [Пример здесь](https://github.com/getgrav/grav-theme-antimatter/blob/develop/README.md)
 3. Добавить файл `blueprints.yaml` со [всеми обязательными полями](/forms/blueprints). [Пример здесь](https://github.com/getgrav/grav-theme-antimatter/blob/develop/blueprints.yaml)
 4. Предоставить `CHANGELOG.md` в [правильном формате](#format-spiska-izmenenii). [Пример здесь](https://github.com/getgrav/grav-theme-antimatter/blob/develop/CHANGELOG.md)
 5. Перечислить используемые библиотеки, скрипты, код.
-6. [Создать релиз](https://help.github.com/articles/creating-releases) для плагина/темы. Система репозитория Grav требует наличия релиза и не найдет ваш плагин/тему, если нет релиза, содержащего все вышеперечисленное.
+6. [Создать релиз](https://help.github.com/articles/creating-releases) для плагина/темы. Система репозитория Grav требует наличия релиза и не найдет ваш плагин/тему, если нет релиза, содержащего всё вышеперечисленное.
 7. [Добавить issue в трекере проблем Grav](https://github.com/getgrav/grav/issues/new?title=[add-resource]%20New%20Plugin/Theme&body=I%20would%20like%20to%20add%20my%20new%20plugin/theme%20to%20the%20Grav%20Repository.%0AHere%20are%20the%20project%20details:%20**user/repository**) с подробной информацией о вашем плагине, и мы проведем его быстрый тест, чтобы убедиться, что он работает, а затем добавим его. Обратите внимание, что это не обязательно делать, если вы выпускаете новую версию плагина или темы, которая уже есть в репозитории. Она будет подхвачена автоматически.
 
 !!! tip ""
