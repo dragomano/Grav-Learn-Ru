@@ -23,18 +23,20 @@ theme:
     - search.suggest
     - toc.follow
     - content.tabs.link
+    - content.code.copy
+    - content.code.select
   icon:
     logo: fontawesome/brands/grav
     repo: fontawesome/brands/github
   palette:
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       primary: light blue
       accent: orange
       scheme: default
       toggle:
         icon: material/brightness-4
         name: Тёмный режим
-    - media: "(prefers-color-scheme: dark)"
+    - media: '(prefers-color-scheme: dark)'
       primary: green
       accent: orange
       scheme: slate
@@ -72,8 +74,8 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -94,180 +96,185 @@ plugins:
 nav:
   - Введение: index.md
   - Основы:
-    - Что такое Grav?: basics/what-is-grav/index.md
-    - Требования: basics/requirements/index.md
-    - Установка: basics/installation/index.md
-    - Краткое руководство: basics/basic-tutorial/index.md
-    - Настройка: basics/grav-configuration/index.md
-    - Структура папок: basics/folder-structure/index.md
-    - Получение помощи: basics/getting-help/index.md
-    - Обновление Grav и плагинов: basics/updates/index.md
+      - basics/what-is-grav/index.md
+      - Что такое Grav?: basics/what-is-grav/index.md
+      - Требования: basics/requirements/index.md
+      - Установка: basics/installation/index.md
+      - Краткое руководство: basics/basic-tutorial/index.md
+      - Настройка: basics/grav-configuration/index.md
+      - Структура папок: basics/folder-structure/index.md
+      - Получение помощи: basics/getting-help/index.md
+      - Обновление Grav и плагинов: basics/updates/index.md
   - Контент:
-    - Страницы: content/content-pages/index.md
-    - Заголовки / Frontmatter: content/headers/index.md
-    - Коллекции страниц: content/collections/index.md
-    - Синтаксис Markdown: content/markdown/index.md
-    - Ссылки на страницы: content/linking/index.md
-    - Ссылки на изображения: content/image-linking/index.md
-    - Медиа: content/media/index.md
-    - Таксономия: content/taxonomy/index.md
-    - Модульные страницы: content/modular/index.md
-    - Маршрутизация: content/routing/index.md
-    - Мультиязычность: content/multi-language/index.md
-    - Типы контента: content/content-types/index.md
+      - content/content-pages/index.md
+      - Страницы: content/content-pages/index.md
+      - Заголовки / Frontmatter: content/headers/index.md
+      - Коллекции страниц: content/collections/index.md
+      - Синтаксис Markdown: content/markdown/index.md
+      - Ссылки на страницы: content/linking/index.md
+      - Ссылки на изображения: content/image-linking/index.md
+      - Медиа: content/media/index.md
+      - Таксономия: content/taxonomy/index.md
+      - Модульные страницы: content/modular/index.md
+      - Маршрутизация: content/routing/index.md
+      - Мультиязычность: content/multi-language/index.md
+      - Типы контента: content/content-types/index.md
   - Темы:
-    - Основы тем: themes/theme-basics/index.md
-    - Учебник по темам: themes/theme-tutorial/index.md
-    - Шаблонизатор Twig: themes/twig-primer/index.md
-    - Теги, фильтры и функции Twig:
-      - themes/twig-tags-filters-functions/index.md
-      - Теги Twig: themes/twig-tags-filters-functions/tags/index.md
-      - Фильтры Twig: themes/twig-tags-filters-functions/filters/index.md
-      - Функции Twig: themes/twig-tags-filters-functions/functions/index.md
-    - Конфигурация темы: themes/theme-configuration/index.md
-    - Переменные темы: themes/theme-vars/index.md
-    - Менеджер активов: themes/asset-manager/index.md
-    - Кастомизация: themes/customization/index.md
+      - themes/theme-basics/index.md
+      - Основы тем: themes/theme-basics/index.md
+      - Учебник по темам: themes/theme-tutorial/index.md
+      - Шаблонизатор Twig: themes/twig-primer/index.md
+      - Теги, фильтры и функции Twig:
+          - themes/twig-tags-filters-functions/index.md
+          - Теги Twig: themes/twig-tags-filters-functions/tags/index.md
+          - Фильтры Twig: themes/twig-tags-filters-functions/filters/index.md
+          - Функции Twig: themes/twig-tags-filters-functions/functions/index.md
+      - Конфигурация темы: themes/theme-configuration/index.md
+      - Переменные темы: themes/theme-vars/index.md
+      - Менеджер активов: themes/asset-manager/index.md
+      - Кастомизация: themes/customization/index.md
   - Плагины:
-    - Основы плагинов: plugins/plugin-basics/index.md
-    - Установка плагинов: plugins/plugin-install/index.md
-    - Создание плагинов: plugins/plugin-tutorial/index.md
-    - Хуки событий: plugins/event-hooks/index.md
-    - Жизненный цикл Grav: plugins/grav-lifecycle/index.md
+      - plugins/plugin-basics/index.md
+      - Основы плагинов: plugins/plugin-basics/index.md
+      - Установка плагинов: plugins/plugin-install/index.md
+      - Создание плагинов: plugins/plugin-tutorial/index.md
+      - Хуки событий: plugins/event-hooks/index.md
+      - Жизненный цикл Grav: plugins/grav-lifecycle/index.md
   - Админка:
-    - admin-panel/introduction/index.md
-    - Дашборд:
-      - admin-panel/dashboard/index.md
-      - Настройка (система): admin-panel/dashboard/configuration-system/index.md
-      - Настройка (сайт): admin-panel/dashboard/configuration-site/index.md
-      - Профиль: admin-panel/dashboard/profile/index.md
-    - Учётные записи и группы:
-      - admin-panel/accounts/users/index.md
-      - Группы пользователей: admin-panel/accounts/groups/index.md
-      - Настройка: admin-panel/accounts/configuration/index.md
-      - Разрешения: admin-panel/accounts/permissions/index.md
-    - Страницы:
-      - admin-panel/page/index.md
-      - Редактор (содержание): admin-panel/page/editor/index.md
-      - Редактор (опции): admin-panel/page/options/index.md
-      - Редактор (экспертный): admin-panel/page/advanced/index.md
-      - Редактор (безопасность): admin-panel/page/security/index.md
-      - Настройка: admin-panel/page/configuration/index.md
-      - Разрешения страницы: admin-panel/page/permissions/index.md
-    - Плагины:
-      - admin-panel/plugins/index.md
-      - Параметры: admin-panel/plugins/options/index.md
-    - Темы: admin-panel/themes/index.md
-    - Безопасность:
-      - admin-panel/security/index.md
-      - Двухфакторная аутентификация: admin-panel/security/2fa/index.md
-      - Защита от флуда: admin-panel/security/rate-limiting/index.md
-    - Сервис: admin-panel/tools/index.md
-    - Расширение админки:
-      - admin-panel/extending/index.md
-      - Хуки событий админки: admin-panel/extending/admin-events/index.md
-    - ЧаВо: admin-panel/faq/index.md
+      - admin-panel/introduction/index.md
+      - Дашборд:
+          - admin-panel/dashboard/index.md
+          - Настройка (система): admin-panel/dashboard/configuration-system/index.md
+          - Настройка (сайт): admin-panel/dashboard/configuration-site/index.md
+          - Профиль: admin-panel/dashboard/profile/index.md
+      - Учётные записи и группы:
+          - admin-panel/accounts/users/index.md
+          - Группы пользователей: admin-panel/accounts/groups/index.md
+          - Настройка: admin-panel/accounts/configuration/index.md
+          - Разрешения: admin-panel/accounts/permissions/index.md
+      - Страницы:
+          - admin-panel/page/index.md
+          - Редактор (содержание): admin-panel/page/editor/index.md
+          - Редактор (опции): admin-panel/page/options/index.md
+          - Редактор (экспертный): admin-panel/page/advanced/index.md
+          - Редактор (безопасность): admin-panel/page/security/index.md
+          - Настройка: admin-panel/page/configuration/index.md
+          - Разрешения страницы: admin-panel/page/permissions/index.md
+      - Плагины:
+          - admin-panel/plugins/index.md
+          - Параметры: admin-panel/plugins/options/index.md
+      - Темы: admin-panel/themes/index.md
+      - Безопасность:
+          - admin-panel/security/index.md
+          - Двухфакторная аутентификация: admin-panel/security/2fa/index.md
+          - Защита от флуда: admin-panel/security/rate-limiting/index.md
+      - Сервис: admin-panel/tools/index.md
+      - Расширение админки:
+          - admin-panel/extending/index.md
+          - Хуки событий админки: admin-panel/extending/admin-events/index.md
+      - ЧаВо: admin-panel/faq/index.md
   - Формы:
-    - forms/index.md
-    - Чертежи:
-      - forms/blueprints/index.md
-      - Чертеж полей формы: forms/blueprints/fields-available/index.md
-      - Чертеж плагина: forms/blueprints/example-plugin-blueprint/index.md
-      - Конфигурация плагина: forms/blueprints/example-plugin-configuration/index.md
-      - Чертежи страниц: forms/blueprints/example-page-blueprint/index.md
-      - Чертежи конфигурации: forms/blueprints/example-config-blueprints/index.md
-      - Как добавить поле для загрузки файлов: forms/blueprints/how-to-add-file-upload/index.md
-      - Расширенные возможности чертежей: forms/blueprints/advanced-features/index.md
-    - Фронтенд-формы:
-      - forms/forms/index.md
-      - Параметры формы: forms/forms/form-options/index.md
-      - Индекс поля формы: forms/forms/fields-available/index.md
-      - Контактная форма: forms/forms/example-form/index.md
-      - Действия формы: forms/forms/reference-form-actions/index.md
-      - Как разместить формы на модульных страницах: forms/forms/how-to-forms-in-modular-pages/index.md
-      - Как сделать отправку через Ajax: forms/forms/how-to-ajax-submission/index.md
+      - forms/index.md
+      - Чертежи:
+          - forms/blueprints/index.md
+          - Чертеж полей формы: forms/blueprints/fields-available/index.md
+          - Чертеж плагина: forms/blueprints/example-plugin-blueprint/index.md
+          - Конфигурация плагина: forms/blueprints/example-plugin-configuration/index.md
+          - Чертежи страниц: forms/blueprints/example-page-blueprint/index.md
+          - Чертежи конфигурации: forms/blueprints/example-config-blueprints/index.md
+          - Как добавить поле для загрузки файлов: forms/blueprints/how-to-add-file-upload/index.md
+          - Расширенные возможности чертежей: forms/blueprints/advanced-features/index.md
+      - Фронтенд-формы:
+          - forms/forms/index.md
+          - Параметры формы: forms/forms/form-options/index.md
+          - Индекс поля формы: forms/forms/fields-available/index.md
+          - Контактная форма: forms/forms/example-form/index.md
+          - Действия формы: forms/forms/reference-form-actions/index.md
+          - Как разместить формы на модульных страницах: forms/forms/how-to-forms-in-modular-pages/index.md
+          - Как сделать отправку через Ajax: forms/forms/how-to-ajax-submission/index.md
   - Консоль CLI:
-    - Введение в командную строку: cli-console/command-line-intro/index.md
-    - Команды Grav: cli-console/grav-cli/index.md
-    - Команды плагинов: cli-console/grav-cli-plugin/index.md
-    - Команды GPM: cli-console/grav-cli-gpm/index.md
-    - Обновления по сценарию: cli-console/scripted-upgrades/index.md
+      - Введение в командную строку: cli-console/command-line-intro/index.md
+      - Команды Grav: cli-console/grav-cli/index.md
+      - Команды плагинов: cli-console/grav-cli-plugin/index.md
+      - Команды GPM: cli-console/grav-cli-gpm/index.md
+      - Обновления по сценарию: cli-console/scripted-upgrades/index.md
   - Дополнительно:
-    - Объекты Flex:
-      - advanced/flex/index.md
-      - Управление:
-        - advanced/flex/administration/index.md
-        - advanced/flex/administration/introduction/index.md
-        - advanced/flex/administration/views-list/index.md
-        - advanced/flex/administration/views-edit/index.md
-        - advanced/flex/administration/configuration/index.md
-      - Использование объектов Flex:
-        - advanced/flex/using/index.md
-        - advanced/flex/using/flex/index.md
-        - advanced/flex/using/directory/index.md
-        - advanced/flex/using/collection/index.md
-        - advanced/flex/using/object/index.md
-      - Пользовательские типы каталогов:
-        - advanced/flex/custom-types/index.md
-        - advanced/flex/custom-types/blueprint/index.md
-    - Производительность и кэширование:
-      - advanced/performance-and-caching/index.md
-    - Отладка и ведение журнала:
-      - advanced/debugging/index.md
-    - Конфигурация окружения:
-      - advanced/environment-config/index.md
-    - Настройка мультисайта:
-      - advanced/multisite-setup/index.md
-    - Приоритезация плагинов:
-      - advanced/plugin-prioritization/index.md
-    - Планировщик:
-      - advanced/scheduler/index.md
-    - Резервные копии:
-      - advanced/backups/index.md
-    - Разработка Grav:
-      - advanced/grav-development/index.md
-      - advanced/grav-development/grav-15-upgrade-guide/index.md
-      - advanced/grav-development/grav-16-upgrade-guide/index.md
-      - advanced/grav-development/grav-17-upgrade-guide/index.md
-    - Синтаксис YAML:
-      - advanced/yaml/index.md
-    - Группы и разрешения:
-      - advanced/groups-and-permissions/index.md
-    - Изменение URL-адреса сайта:
-      - advanced/change-site-url/index.md
+      - Объекты Flex:
+          - advanced/flex/index.md
+          - Управление:
+              - advanced/flex/administration/index.md
+              - advanced/flex/administration/introduction/index.md
+              - advanced/flex/administration/views-list/index.md
+              - advanced/flex/administration/views-edit/index.md
+              - advanced/flex/administration/configuration/index.md
+          - Использование объектов Flex:
+              - advanced/flex/using/index.md
+              - advanced/flex/using/flex/index.md
+              - advanced/flex/using/directory/index.md
+              - advanced/flex/using/collection/index.md
+              - advanced/flex/using/object/index.md
+          - Пользовательские типы каталогов:
+              - advanced/flex/custom-types/index.md
+              - advanced/flex/custom-types/blueprint/index.md
+      - Производительность и кэширование:
+          - advanced/performance-and-caching/index.md
+      - Отладка и ведение журнала:
+          - advanced/debugging/index.md
+      - Конфигурация окружения:
+          - advanced/environment-config/index.md
+      - Настройка мультисайта:
+          - advanced/multisite-setup/index.md
+      - Приоритезация плагинов:
+          - advanced/plugin-prioritization/index.md
+      - Планировщик:
+          - advanced/scheduler/index.md
+      - Резервные копии:
+          - advanced/backups/index.md
+      - Разработка Grav:
+          - advanced/grav-development/index.md
+          - advanced/grav-development/grav-15-upgrade-guide/index.md
+          - advanced/grav-development/grav-16-upgrade-guide/index.md
+          - advanced/grav-development/grav-17-upgrade-guide/index.md
+      - Синтаксис YAML:
+          - advanced/yaml/index.md
+      - Группы и разрешения:
+          - advanced/groups-and-permissions/index.md
+      - Изменение URL-адреса сайта:
+          - advanced/change-site-url/index.md
   - Веб-серверы и хостинг:
-    - Nginx: webservers-hosting/servers/nginx/index.md
-    - Встроенный веб-сервер Grav: webservers-hosting/servers/grav-built-in/index.md
-    - Универсальная установка VPS: webservers-hosting/vps/generic/index.md
-    - Установка VPS на Ubuntu 18.04: webservers-hosting/vps/ubuntu-18.04/index.md
-    - Локальная разработка с ddev: webservers-hosting/local-development-with-ddev/index.md
-    - Развёртывание с помощью Git: webservers-hosting/deploying-with-git/index.md
-    - Тестовый хостинг со встроенным веб-сервером PHP: webservers-hosting/php-built-in-web-server/index.md
-    - Подсистема Windows для Linux: webservers-hosting/windows-subsystem-for-linux/index.md
+      - webservers-hosting/servers/grav-built-in/index.md
+      - Встроенный веб-сервер Grav: webservers-hosting/servers/grav-built-in/index.md
+      - Nginx: webservers-hosting/servers/nginx/index.md
+      - Универсальная установка VPS: webservers-hosting/vps/generic/index.md
+      - Установка VPS на Ubuntu 18.04: webservers-hosting/vps/ubuntu-18.04/index.md
+      - Локальная разработка с ddev: webservers-hosting/local-development-with-ddev/index.md
+      - Развёртывание с помощью Git: webservers-hosting/deploying-with-git/index.md
+      - Тестовый хостинг со встроенным веб-сервером PHP: webservers-hosting/php-built-in-web-server/index.md
+      - Подсистема Windows для Linux: webservers-hosting/windows-subsystem-for-linux/index.md
   - Сборник рецептов:
-    - cookbook/general-recipes/index.md
-    - cookbook/twig-recipes/index.md
-    - cookbook/plugin-recipes/index.md
-    - cookbook/admin-recipes/index.md
-    - Создание блога:
-      - cookbook/tutorials/create-a-blog/index.md
+      - cookbook/general-recipes/index.md
+      - cookbook/twig-recipes/index.md
+      - cookbook/plugin-recipes/index.md
+      - cookbook/admin-recipes/index.md
+      - Создание блога:
+          - cookbook/tutorials/create-a-blog/index.md
   - Решение проблем:
-    - Общие проблемы: troubleshooting/common-problems/index.md
-    - Страница не найдена — 404: troubleshooting/page-not-found/index.md
-    - Ошибка сервера: troubleshooting/server-error/index.md
-    - Внутренняя ошибка сервера — 500: troubleshooting/internal-server-error/index.md
-    - Доступ запрещён — 403: troubleshooting/forbidden/index.md
-    - Неверный токен безопасности: troubleshooting/invalid-security-token/index.md
-    - Разрешения: troubleshooting/permissions/index.md
-    - Проблемы с прокси: troubleshooting/proxy/index.md
-    - .htaccess: troubleshooting/htaccess/index.md
+      - Общие проблемы: troubleshooting/common-problems/index.md
+      - Страница не найдена — 404: troubleshooting/page-not-found/index.md
+      - Ошибка сервера: troubleshooting/server-error/index.md
+      - Внутренняя ошибка сервера — 500: troubleshooting/internal-server-error/index.md
+      - Доступ запрещён — 403: troubleshooting/forbidden/index.md
+      - Неверный токен безопасности: troubleshooting/invalid-security-token/index.md
+      - Разрешения: troubleshooting/permissions/index.md
+      - Проблемы с прокси: troubleshooting/proxy/index.md
+      - .htaccess: troubleshooting/htaccess/index.md
   - Переезд с других движков: https://learn.getgrav.org/migration
   - Политики безопасности:
-    - security/overview/index.md
-    - Рекомендуемая конфигурация: security/configuration/index.md
-    - Пользователям: security/users/index.md
-    - Разработчикам: security/developers/index.md
-    - На стороне сервера: security/server-side/index.md
+      - security/overview/index.md
+      - Рекомендуемая конфигурация: security/configuration/index.md
+      - Пользователям: security/users/index.md
+      - Разработчикам: security/developers/index.md
+      - На стороне сервера: security/server-side/index.md
   - API: https://learn.getgrav.org/api
   - Лайфхаки:
-    - Метаданные блогов: hints-tips/metadata/index.md
+      - Метаданные блогов: hints-tips/metadata/index.md
