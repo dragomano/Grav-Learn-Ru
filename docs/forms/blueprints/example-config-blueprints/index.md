@@ -8,19 +8,16 @@ description: Как добавить свои поля в интерфейс н�
 
 Чтобы сделать эти параметры настраиваемыми через панель админки, добавьте несколько полей в `user/blueprints/config/site.yaml`. Например:
 
-
 ```yaml
-@extends:
-    '@parent'
+extends@: '@parent'
 
 form:
-    fields:
-        content:
-
-            fields:
-                myfield:
-                    type: text
-                    label: My Field
+  fields:
+    content:
+      fields:
+        myfield:
+          type: text
+          label: My Field
 ```
 
 Добавит тип ввода «Мое поле», добавив его в раздел «Контент» конфигурации сайта.
@@ -28,19 +25,18 @@ form:
 Вы также можете добавлять целые новые разделы, например:
 
 ```yaml
-@extends:
-    '@parent'
+extends@: '@parent'
 
 form:
-    fields:
-        anothersection:
-            type: section
-            title: Another Section
-            underline: true
+  fields:
+    anothersection:
+      type: section
+      title: Another Section
+      underline: true
 
-            fields:
-                myfield:
-                    type: text
-                    label: A label
-                    size: large
+      fields:
+        myfield:
+          type: text
+          label: A label
+          size: large
 ```

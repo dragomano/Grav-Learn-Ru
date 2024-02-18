@@ -140,6 +140,7 @@ nav:
       - Создание плагинов: plugins/plugin-tutorial/index.md
       - Хуки событий: plugins/event-hooks/index.md
       - Жизненный цикл Grav: plugins/grav-lifecycle/index.md
+      - Использование Flex в плагинах: plugins/plugin-flex/index.md
   - Админка:
       - admin-panel/introduction/index.md
       - Дашборд:

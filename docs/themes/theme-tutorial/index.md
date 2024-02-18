@@ -10,7 +10,7 @@ description: Как создать собственную тему для Grav C
 
 Grav поставляется с чистой и современной темой под названием **Quark**, которая использует [фреймворк Spectre.css](https://picturepan2.github.io/spectre/).
 
-Spectre.css — легкий, отзывчивый и современный CSS-фреймворк для более быстрой и расширяемой разработки.
+Spectre.css — лёгкий, отзывчивый и современный CSS-фреймворк для более быстрой и расширяемой разработки.
 
 Spectre предоставляет базовые стили для типографии и элементов, гибкую систему быстрой разметки, чистые CSS-компоненты и утилиты с передовой практикой кодирования и последовательным языком проектирования.
 
@@ -36,7 +36,7 @@ Pure — маленький, быстрый и отзывчивый CSS-фрей
 
 #### Установка через консольное приложение GPM
 
-* Перейдите в командной строке в корень вашей установки Grav и введите следующую команду:
+- Перейдите в командной строке в корень вашей установки Grav и введите следующую команду:
 
 ```bash
 bin/gpm install devtools
@@ -44,9 +44,9 @@ bin/gpm install devtools
 
 #### Установка через плагин Admin
 
-* После входа в систему просто перейдите к разделу **Плагины** в боковой панели.
-* Нажмите кнопку :material-plus: **Добавить** в правом верхнем углу.
-* Найдите **DevTools** в списке и нажмите кнопку :material-plus: **Установить**.
+- После входа в систему просто перейдите к разделу **Плагины** в боковой панели.
+- Нажмите кнопку :material-plus: **Добавить** в правом верхнем углу.
+- Найдите **DevTools** в списке и нажмите кнопку :material-plus: **Установить**.
 
 ## Шаг 2 - Создание базовой темы
 
@@ -82,15 +82,14 @@ SUCCESS theme mytheme -> Created Successfully
 Path: /www/user/themes/my-theme
 ```
 
-DevTools сообщает, где был создан этот новый шаблон. Созданный шаблон полностью функционален, но в то же время очень прост. Вы захотите изменить это в соответствии с вашими потребностями.
+DevTools сообщает, где был создан этот новый шаблон. Созданный шаблон полностью функционален, но в то же время очень прост. Вы захотите изменить его в соответствии с вашими потребностями.
 
 Чтобы увидеть вашу новую тему в действии, вам нужно будет изменить тему по умолчанию с `quark` на `my-theme`, так что отредактируйте ваш `user/config/system.yaml` таким образом:
 
 ```yaml
-...
+---
 pages:
-    theme: my-theme
-...
+  theme: my-theme
 ```
 
 Перезагрузите ваш сайт в браузере, и вы увидите, что тема теперь изменилась.
@@ -123,27 +122,27 @@ pages:
 └── thumbnail.jpg
 ```
 
-Это примерная структура, но необходимы некоторые вещи:
+Это примерная структура, но потребуется ещё несколько вещей.
 
 ### Необходимые элементы для работы
 
 Эти элементы имеют решающее значение, и ваша тема не будет работать надежно, если вы не включите их в свою тему.
 
 **`blueprints.yaml`** - файл конфигурации, используемый Grav для получения информации о вашей теме. Он также может определить форму, отображаемую при просмотре деталей темы. Эта форма позволит вам сохранить настройки темы. Подробнее в главе [Формы](/forms/blueprints).
-* **`my-theme.php`** - Этот файл будет назван в соответствии с вашей темой, но может быть использован для размещения любой нужной логики. Вы можете использовать любой [хук событий плагинов](/plugins/event-hooks) за исключением `onPluginsInitialized()`, однако есть хук `onThemeInitialized()`, который можно использовать в качестве альтернативы.
-* **`my-theme.yaml`** - это конфигурация, используемая плагином для установки опций темы.
-* **`templates/`** - это папка, которая содержит шаблоны Twig для отображения ваших страниц.
+
+- **`my-theme.php`** - этот файл будет назван в соответствии с вашей темой, но может быть использован для размещения любой нужной логики. Вы можете использовать любой [хук событий плагинов](/plugins/event-hooks) за исключением `onPluginsInitialized()`, однако есть хук `onThemeInitialized()`, который можно использовать в качестве альтернативы.
+- **`my-theme.yaml`** - это конфигурация, используемая плагином для установки опций темы.
+- **`templates/`** - это папка, которая содержит шаблоны Twig для отображения ваших страниц.
 
 ### Требуемые элементы для выпуска
 
 Эти пункты необходимы, если вы хотите выпустить свою тему через GPM.
 
-* **`CHANGELOG.md`** - файл, который соответствует [формату списка изменений Grav](/advanced/grav-development/#format-spiska-izmenenii) для отображения изменений в релизах.
-* **`LICENSE`** - файл лицензии. Чаще всего это MIT, если только у вас нет особой потребности в чем-то другом.
-* **`README.md`** - содержит любую документацию по теме. Например, как установить, настроить и использовать.
-* **`screenshot.jpg`** - скриншот темы, размером 1009px x 1009px.
-* **`thumbnail.jpg`** - скриншот темы, размером 300px x 300px.
-
+- **`CHANGELOG.md`** - файл, который соответствует [формату списка изменений Grav](/advanced/grav-development/#format-spiska-izmenenii) для отображения изменений в релизах.
+- **`LICENSE`** - файл лицензии. Чаще всего это MIT, если только у вас нет особой потребности в чем-то другом.
+- **`README.md`** - содержит любую документацию по теме. Например, как установить, настроить и использовать.
+- **`screenshot.jpg`** - скриншот темы, размером 1009px x 1009px.
+- **`thumbnail.jpg`** - скриншот темы, размером 300px x 300px.
 
 ## Шаг 4 - Базовый шаблон
 
@@ -285,7 +284,7 @@ pages:
 
 1. Тэг `<body>` имеет атрибут класса, который будет выводить всё, что вы установили в переменной `body_classes` фронтматтера страницы.
 
-1. В блоке `header` есть несколько вещей, которые выводят HTML-заголовок страницы. Важно отметить, что логотип имеет гиперссылку на `base_url` с логикой:` {{base_url == '? '/': base_url}} `. Это сделано для того, чтобы гарантировать, что если нет подкаталога, ссылка будет просто `/`.
+1. В блоке `header` есть несколько вещей, которые выводят HTML-заголовок страницы. Важно отметить, что логотип имеет гиперссылку на `base_url` с логикой:`{{base_url == '? '/': base_url}}`. Это сделано для того, чтобы гарантировать, что если нет подкаталога, ссылка будет просто `/`.
 
 1. Название сайта выводится в качестве логотипа в этой теме примера с `{{config.site.title}}`, но вы можете просто заменить его тегом `<img>` на логотип, если хотите.
 
@@ -297,7 +296,6 @@ pages:
 
 1. Подобно блоку содержимого, `{% block bottom%} {% endblock%}` предназначен в качестве заполнителя для шаблонов для добавления пользовательских кодов инициализации JavaScript или аналитических кодов. В этом примере мы выводим любой код JavaScript, который был добавлен в группу активов `bottom`. Подробнее об этом читайте в документации [менеджер активов](../asset-manager).
 
-
 ## Шаг 6 - CSS-файлы темы
 
 Вы могли заметить, что в файле `partials/base.html.twig` мы сделали ссылку на настраиваемую тему CSS через менеджер активов: `do assets.add('theme://css/custom.css', 98)`. Этот файл будет содержать любой настраиваемый CSS, который нам нужен для заполнения пробелов, не предусмотренных платформой Pure.css. Поскольку Pure - это очень минималистичный фреймворк, он предоставляет самое необходимое, но почти не имеет стилей.
@@ -307,15 +305,15 @@ pages:
 ```css
 /* Core Styles */
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #606d6e;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #606d6e;
 }
 
 h1,
@@ -324,166 +322,167 @@ h3,
 h4,
 h5,
 h6 {
-    color: #454B4D;
+  color: #454b4d;
 }
 
 a {
-    color: #1F8CD6;
-    text-decoration: none;
+  color: #1f8cd6;
+  text-decoration: none;
 }
 
 a:hover {
-    color: #175E91;
+  color: #175e91;
 }
 
 pre {
-    background: #F0F0F0;
-    margin: 1rem 0;
-    border-radius: 2px;
+  background: #f0f0f0;
+  margin: 1rem 0;
+  border-radius: 2px;
 }
 
 blockquote {
-    border-left: 10px solid #eee;
-    margin: 0;
-    padding: 0 2rem;
+  border-left: 10px solid #eee;
+  margin: 0;
+  padding: 0 2rem;
 }
 
 /* Utility Classes */
 .wrapper {
-    margin: 0 3rem;
+  margin: 0 3rem;
 }
 
 .padding {
-    padding: 3rem 1rem;
+  padding: 3rem 1rem;
 }
 
 .left {
-    float: left;
+  float: left;
 }
 
 .right {
-    float: right
+  float: right;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .text-right {
-    text-align: right;
+  text-align: right;
 }
 
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 
 /* Content Styling */
 .header .padding {
-    padding: 1rem 0;
+  padding: 1rem 0;
 }
 
 .header {
-    background-color: #1F8DD6;
-    color: #eee;
+  background-color: #1f8dd6;
+  color: #eee;
 }
 
 .header a {
-    color: #fff;
+  color: #fff;
 }
 
 .header .logo {
-    font-size: 1.7rem;
-    text-transform: uppercase;
+  font-size: 1.7rem;
+  text-transform: uppercase;
 }
 
 .footer {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 /* Menu Settings */
 .main-nav ul {
-    text-align: center;
-    letter-spacing: -1em;
-    margin: 0;
-    padding: 0;
+  text-align: center;
+  letter-spacing: -1em;
+  margin: 0;
+  padding: 0;
 }
 
 .main-nav ul li {
-    display: inline-block;
-    letter-spacing: normal;
+  display: inline-block;
+  letter-spacing: normal;
 }
 
 .main-nav ul li a {
-    position: relative;
-    display: block;
-    line-height: 45px;
-    color: #fff;
-    padding: 0 20px;
-    white-space: nowrap;
+  position: relative;
+  display: block;
+  line-height: 45px;
+  color: #fff;
+  padding: 0 20px;
+  white-space: nowrap;
 }
 
 .main-nav > ul > li > a {
-    border-radius: 2px;
+  border-radius: 2px;
 }
 
 /*Active dropdown nav item */
 .main-nav ul li:hover > a {
-    background-color: #175E91;
+  background-color: #175e91;
 }
 
 /* Selected Dropdown nav item */
 .main-nav ul li.selected > a {
-    background-color: #fff;
-    color: #175E91;
+  background-color: #fff;
+  color: #175e91;
 }
 
 /* Dropdown CSS */
-.main-nav ul li {position: relative;}
+.main-nav ul li {
+  position: relative;
+}
 
 .main-nav ul li ul {
-    position: absolute;
-    background-color: #1F8DD6;
-    min-width: 100%;
-    text-align: left;
-    z-index: 999;
+  position: absolute;
+  background-color: #1f8dd6;
+  min-width: 100%;
+  text-align: left;
+  z-index: 999;
 
-    display: none;
+  display: none;
 }
 .main-nav ul li ul li {
-    display: block;
+  display: block;
 }
 
 /* Dropdown CSS */
 .main-nav ul li ul ul {
-    left: 100%;
-    top: 0;
+  left: 100%;
+  top: 0;
 }
 
 /* Active on Hover */
 .main-nav li:hover > ul {
-    display: block;
+  display: block;
 }
 
 /* Child Indicator */
 .main-nav .has-children > a {
-    padding-right: 30px;
+  padding-right: 30px;
 }
 .main-nav .has-children > a:after {
-    font-family: FontAwesome;
-    content: '\f107';
-    position: absolute;
-    display: inline-block;
-    right: 8px;
-    top: 0;
+  font-family: FontAwesome;
+  content: '\f107';
+  position: absolute;
+  display: inline-block;
+  right: 8px;
+  top: 0;
 }
 
 .main-nav .has-children .has-children > a:after {
-    content: '\f105';
+  content: '\f105';
 }
-
 ```
 
-Это довольно стандартный CSS-файл, который задает некоторые основные поля, шрифты, цвета и служебные классы. Для рендеринга раскрывающегося меню требуются некоторые базовые стили содержимого и более обширные стили. Не стесняйтесь изменять этот файл по своему усмотрению или даже добавлять новые файлы CSS (просто убедитесь, что вы добавили ссылку в блоке `head`, следуя примеру с `custom.css`).
+Это довольно стандартный CSS-файл, который задает некоторые основные поля, шрифты, цвета и служебные классы. Для отрисовки раскрывающегося меню требуются некоторые базовые стили содержимого и более обширные стили. Не стесняйтесь изменять этот файл по своему усмотрению или даже добавлять новые файлы CSS (просто убедитесь, что вы добавили ссылку в блоке `head`, следуя примеру с `custom.css`).
 
 ## Шаг 7 - Тестирование
 

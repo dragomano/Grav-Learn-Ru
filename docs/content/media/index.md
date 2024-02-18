@@ -4,7 +4,7 @@ description: Список поддерживаемых медиа-файлов �
 
 # Медиа
 
-При создании контента в **Grav** вам часто требуется отображать различные типы мультимедиа, такие как **изображения**, **видео** и различные другие **файлы**. Эти файлы автоматически обнаруживаются и обрабатываются Grav, и они становятся доступными для использования на любой странице. Это особенно удобно, потому что затем вы можете использовать встроенные функции страницы для использования миниатюр, доступа к метаданным и динамического изменения мультимедиа (например, изменения размера изображений, установки размера отображения для видео и т. д.) По мере необходимости.
+При создании контента в **Grav** вам часто требуется отображать различные типы мультимедиа, такие как **изображения**, **видео** и различные другие **файлы**. Эти файлы автоматически обнаруживаются и обрабатываются Grav, и они становятся доступными для использования на любой странице. Это особенно удобно, потому что затем, по мере необходимости, вы можете использовать встроенные функции страницы для использования миниатюр, доступа к метаданным и динамического изменения мультимедиа (например, изменения размера изображений, установки размера отображения для видео и т. д.).
 
 Grav использует **систему интеллектуального кэширования**, которая при необходимости автоматически создает в кэше копии динамически генерируемых носителей. Таким образом, все последующие запросы могут использовать кэшированную версию вместо того, чтобы создавать мультимедиа заново.
 
@@ -139,13 +139,16 @@ Grav использует паттерн **Строитель** при рабо�
 Это возвращает **необработанный URL-путь** к медиа.
 
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].url|e }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].url|e }}
+    ```
+
 === "HTML"
-`
-	/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg
-	`
+
+    ```html
+    /images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg
+    ```
 
 #### html
 
@@ -156,17 +159,22 @@ Grav использует паттерн **Строитель** при рабо�
 Действие `html` выведет действительный HTML-тег для мультимедиа в зависимости от текущего режима отображения.
 
 === "Markdown"
-`markdown
-	![Some ALT text](sample-image.jpg?classes=myclass "My title")
-	`
+
+    ```markdown
+    ![Some ALT text](sample-image.jpg?classes=myclass "My title")
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].html('My title', 'Some ALT text', 'myclass')|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].html('My title', 'Some ALT text', 'myclass')|raw }}
+    ```
+
 === "HTML"
-`
-	<img title="My title" alt="Some ALT text" class="myclass" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
-	`
+
+    ```html
+    <img title="My title" alt="Some ALT text" class="myclass" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
+    ```
 
 #### display
 
@@ -189,17 +197,22 @@ Grav использует паттерн **Строитель** при рабо�
 В следующем примере будет отображена текстовая ссылка (`display('text')`) на версию файла `sample-image.jpg` сепии:
 
 === "Markdown"
-`markdown
-	![Image link](sample-image.jpg?sepia&link&display=text)
-	`
+
+    ```markdown
+    ![Image link](sample-image.jpg?sepia&link&display=text)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].sepia().link().display('text').html('Image link')|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].sepia().link().display('text').html('Image link')|raw }}
+    ```
+
 === "HTML"
-`
-	<a href="/images/3/7/7/1/c/3771c3fabb6d7bc0035dd119281718f9143c4653-sample-image.jpg"><img title="Image link" alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" /></a>
-	`
+
+    ```html
+    <a href="/images/3/7/7/1/c/3771c3fabb6d7bc0035dd119281718f9143c4653-sample-image.jpg"><img title="Image link" alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" /></a>
+    ```
 
 #### Только Cache
 
@@ -216,17 +229,22 @@ images:
 Отключите манипуляцию с изображениями с помощью параметра `cache`.
 
 === "Markdown"
-`markdown
-	![](sample-image.jpg?cache)
-	`
+
+    ```markdown
+    ![](sample-image.jpg?cache)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cache.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cache.html()|raw }}
+    ```
+
 === "HTML"
-`
-	<img alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
-	`
+
+    ```html
+    <img alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
+    ```
 
 #### lightbox
 
@@ -235,17 +253,22 @@ images:
 Если возможно (в настоящее время только в случае изображений), Grav изменит размер вашего мультимедиа до требуемой ширины и высоты. В противном случае он просто добавит к ссылке атрибуты `data-width` и `data-height`.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?lightbox=600,400&resize=200,200)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?lightbox=600,400&resize=200,200)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].lightbox(600,400).resize(200,200).html('Sample Image')|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].lightbox(600,400).resize(200,200).html('Sample Image')|raw }}
+    ```
+
 === "HTML"
-`
-	<a rel="lightbox" data-width="600" data-height="400" href="/images/b/5/e/b/3/b5eb31744b96349b1a711697692b897624202cb1-sample-image.jpg"><img title="Sample Image" alt="" src="/images/4/5/5/e/4/455e41587c2cd25f34cfdccd8ab5078707aabe6b-sample-image.jpg" /></a>
-	`
+
+    ```html
+    <a rel="lightbox" data-width="600" data-height="400" href="/images/b/5/e/b/3/b5eb31744b96349b1a711697692b897624202cb1-sample-image.jpg"><img title="Sample Image" alt="" src="/images/4/5/5/e/4/455e41587c2cd25f34cfdccd8ab5078707aabe6b-sample-image.jpg" /></a>
+    ```
 
 ##### Результат:
 
@@ -256,17 +279,22 @@ images:
 Вручную выберите миниатюру, которую должен использовать Grav. Вы можете выбрать между `page` и `default` для любого типа медиа, а также `media` для графических медиа, если вы хотите использовать сам медиаобъект в качестве миниатюры.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?thumbnail=default&display=thumbnail)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?thumbnail=default&display=thumbnail)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].thumbnail('default').display('thumbnail').html('Sample Image')|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].thumbnail('default').display('thumbnail').html('Sample Image')|raw }}
+    ```
+
 === "HTML"
-`
-	<img title="Sample Image" alt="" src="/system/images/media/thumb-jpg.png" />
-	`
+
+    ```html
+    <img title="Sample Image" alt="" src="/system/images/media/thumb-jpg.png" />
+    ```
 
 ##### Результат:
 
@@ -277,17 +305,47 @@ images:
 Это добавляет дополнительный атрибут HTML к выходным данным.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?attribute=myattribute,myvalue)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?attribute=myattribute,myvalue)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].attribute('myattribute', 'myvalue').html('Sample Image')|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].attribute('myattribute', 'myvalue').html('Sample Image')|raw }}
+    ```
+
 === "HTML"
-`
-	<img myattribute="myvalue" title="Sample Image" alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
-	`
+
+    ```html
+    <img myattribute="myvalue" title="Sample Image" alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
+    ```
+
+#### decoding
+
+Атрибуция декодирования изображений дает авторам возможность контролировать, когда браузер должен начать декодирование ресурса. Значением атрибута декодирования может быть одно из следующих значений: `auto` (по умолчанию), `sync`, `async`.
+Значение может быть установлено в `system.images.defaults.decoding` как значение по умолчанию или для каждого изображения md с `?decoding=async`
+Если выбрано значение `auto`, атрибут `decoding` не добавляется, и браузер сам определит, какую стратегию использовать.
+
+=== "Markdown"
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?decoding=async)
+    ```
+
+=== "Twig"
+
+    ```twig
+    {# Использование значения по умолчанию, как определено в 'config.system.images.defaults.decoding' #}
+    {{ page.media['sample-image.jpg'].decoding('async').html('Sample Image')|raw }}
+    ```
+
+=== "HTML"
+
+    ```html
+    <img decoding="async" title="Sample Image" alt="" src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
+    ```
 
 ## Действия с изображениями
 
@@ -296,13 +354,16 @@ images:
 Изменение размера делает именно то, что вы ожидаете. `resize` позволяет вам создать новое изображение на основе «ширины» и «высоты». Соотношение сторон сохраняется, и новое изображение будет содержать пустые области **необязательного** цвета фона, представленного как «шестнадцатеричное значение», например `0xffffff`. Параметр фона является необязательным, и, если он не указан, по умолчанию будет установлено значение **прозрачное**, если изображение в формате PNG, или **белое**, если оно в формате JPEG.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?resize=400,200)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?resize=400,200)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].resize(400, 200).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].resize(400, 200).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -313,13 +374,16 @@ images:
 Изменяет размер изображения на ширину и высоту, как указано. `forceResize` не будет учитывать исходное соотношение сторон и растянет изображение по мере необходимости, чтобы оно соответствовало новому размеру изображения.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?forceResize=200,300)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?forceResize=200,300)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].forceResize(200, 300).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].forceResize(200, 300).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -332,13 +396,16 @@ images:
 Например, если у вас есть изображение размером `640` x `480` и вы выполняете над ним действие `cropResize(100, 100)`, вы получите изображение размером `100` x` 75`.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropResize=300,300)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropResize=300,300)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropResize(300, 300).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropResize(300, 300).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -351,13 +418,16 @@ images:
 Например, изображение размером `640` x `480` с `crop(0, 0, 400, 100)` создаст изображение шириной `400` и высотой `100`, исходящее из левого верхнего угла (`0, 0`).
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?crop=100,100,300,200)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?crop=100,100,300,200)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].crop(100,100,300,200).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].crop(100,100,300,200).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -376,13 +446,16 @@ images:
 Например, если у вас есть изображение размером `640` x` 480` и вы выполняете действие `cropZoom(400, 100)`, результирующее изображение будет изменено до `400` x `300`, а затем будет обрезана высота. В результате получается изображение `400` x `100`.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=600,200)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=600,200)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(600,200).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(600,200).html()|raw }}
+    ```
 
 !!! warning ""
 
@@ -397,13 +470,16 @@ images:
 Динамически позволяет установить значение **процента сжатия** для изображения от `0` до `100`. Меньшее число означает меньшее качество, где `100` означает максимальное качество.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&quality=25)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&quality=25)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).quality(25).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).quality(25).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -414,13 +490,16 @@ images:
 Применяет **отрицательный фильтр** к изображению с инвертированными цветами.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&negate)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&negate)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).negate.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).negate.html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -431,13 +510,16 @@ images:
 Применяет **фильтр яркости** к изображению со значением от `-255` до `+255`. Большие отрицательные числа сделают изображение темнее, а большие положительные числа сделают изображение ярче.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&brightness=-100)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&brightness=-100)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).brightness(-100).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).brightness(-100).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -448,13 +530,16 @@ images:
 Это применяет **фильтр контраста** к изображению со значением от `-100` до `+100`. Большие отрицательные числа увеличивают контраст, а большие положительные числа уменьшают контраст.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&contrast=-50)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&contrast=-50)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).contrast(-50).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).contrast(-50).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -465,13 +550,16 @@ images:
 Это обрабатывает изображение с помощью **фильтра оттенков серого**.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&grayscale)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&grayscale)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).grayscale.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).grayscale.html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -482,13 +570,16 @@ images:
 Это обрабатывает изображение с помощью **фильтра тиснения**.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&emboss)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&emboss)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).emboss.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).emboss.html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -499,13 +590,16 @@ images:
 Это применяет **фильтр сглаживания** к изображению на основе параметра сглаживания `value` от `-10` до `10`.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&smooth=5)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&smooth=5)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).smooth(5).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).smooth(5).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -516,13 +610,16 @@ images:
 Это применяет **фильтр повышения резкости** к изображению.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&sharp)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&sharp)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).sharp.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).sharp.html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -533,13 +630,16 @@ images:
 Это применяет **фильтр обнаружения краев** к изображению.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&edge)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&edge)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).edge.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).edge.html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -550,13 +650,16 @@ images:
 Вы можете раскрасить изображение на основе настройки значений `red`, `green` и `blue` для изображения от `-255` до `+255` для каждого цвета.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&colorize=100,-100,40)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&colorize=100,-100,40)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).colorize(100,-100,40).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).colorize(100,-100,40).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -567,13 +670,16 @@ images:
 Это применяет **фильтр сепии** к изображению для создания винтажного вида.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&sepia)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&sepia)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).sepia.html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).sepia.html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -584,13 +690,16 @@ images:
 **Размывает** изображение с помощью фактора, который определяет, как часто фильтр размытия применяется к изображению. По умолчанию 1 раз.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?gaussianBlur=3)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?gaussianBlur=3)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].gaussianBlur(3).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].gaussianBlur(3).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -601,13 +710,16 @@ images:
 **Поворачивает** изображение на заданный `угол` против часовой стрелки, отрицательные значения вращают по часовой стрелке.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&rotate=-90)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&rotate=-90)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).rotate(-90).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).rotate(-90).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -618,13 +730,16 @@ images:
 **Переворачивает** изображение в заданном направлении. Оба параметра могут иметь значение `0|1`. Оба значения `0` эквивалентны отсутствию переворачивания в любом направлении.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?cropZoom=300,200&flip=0,1)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?cropZoom=300,200&flip=0,1)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].cropZoom(300,200).flip(0,1).html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].cropZoom(300,200).flip(0,1).html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -635,13 +750,16 @@ images:
 Исправляет ориентацию изображения при повороте через данные EXIF ​​(применимо к изображениям jpeg, снятым с помощью телефонов и камер).
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?fixOrientation)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?fixOrientation)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].fixOrientation().html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].fixOrientation().html()|raw }}
+    ```
 
 #### loading
 
@@ -650,22 +768,26 @@ images:
 Когда выбрано значение `auto`, атрибут `loading` не добавляется и браузер определит, какую стратегию использовать.
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?loading=lazy)
-	`
-=== "Twig"
-```twig
-{# Using default value as defined in 'config.system.images.defaults.loading' #}
-{{ page.media['sample-image.jpg'].loading.html('Sample Image')|raw }}
 
-    {# Using explicit value #}
+    ```markdown
+    ![Sample Image](sample-image.jpg?loading=lazy)
+    ```
+
+=== "Twig"
+
+    ```twig
+    {# Использование значения по умолчанию, как определено в 'config.system.images.defaults.loading' #}
+    {{ page.media['sample-image.jpg'].loading.html('Sample Image')|raw }}
+
+    {# Использование явного значения #}
     {{ page.media['sample-image.jpg'].loading('lazy').html('Sample Image')|raw }}
     ```
 
 === "HTML"
-`
-	<img loading="lazy" title="Sample Image"  src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
-	`
+
+    ```html
+    <img loading="lazy" title="Sample Image"  src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
+    ```
 
 ## Действия с объектами
 
@@ -674,50 +796,66 @@ images:
 Поскольку PHP не может обрабатывать динамическое изменение размера этих типов носителей, действие resize будет только гарантировать, что атрибут `width` и `height` или `data-width` и `data-height` установлены в вашем теге `<img>`/`<video>` или `<a>` соответственно. Это означает, что ваше изображение или видео будет отображаться в требуемом размере, но фактическое изображение или видеофайл не будут преобразованы каким-либо образом.
 
 === "Markdown"
-`markdown
-	![Sample Trailer](sample-trailer.mov?resize=400,200)
-	`
+
+    ```markdown
+    ![Sample Trailer](sample-trailer.mov?resize=400,200)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-trailer.mov'].resize(400, 200).html('Sample Trailer') }}
-	`
+
+    ```twig
+    {{ page.media['sample-trailer.mov'].resize(400, 200).html('Sample Trailer') }}
+    ```
+
 === "HTML"
-`
-	<video controls="1" style="width: 400px;height: 200px;" title="Sample Trailer" alt=""><source src="/user/pages/02.content/07.media/sample-trailer.mov?loading=auto">Your browser does not support the video tag.</video>
-	`
+
+    ```html
+    <video controls="1" style="width: 400px;height: 200px;" title="Sample Trailer" alt=""><source src="/user/pages/02.content/07.media/sample-trailer.mov?loading=auto">Your browser does not support the video tag.</video>
+    ```
 
 #### Примеры
 
 Некоторые примеры этого:
 
 === "Векторное изображение"
-`markdown
-	![Sample Vector](sample-vector.svg?resize=300,300)
-	`
-<img alt="Sample Vector" src="https://learn.getgrav.org/user/pages/02.content/07.media/sample-vector.svg" width="300" height="300" />
+
+    ```markdown
+    ![Sample Vector](sample-vector.svg?resize=300,300)
+    ```
+
+    <img alt="Sample Vector" src="https://learn.getgrav.org/user/pages/02.content/07.media/sample-vector.svg" width="300" height="300" />
+
 === "Анимированное изображение"
-`markdown
-	![Animated Gif](sample-animated.gif?resize=300,300)
-	`
-<img alt="Animated Gif" src="https://learn.getgrav.org/user/pages/02.content/07.media/sample-animated.gif" width="300" height="300" />
+
+    ```markdown
+    ![Animated Gif](sample-animated.gif?resize=300,300)
+    ```
+
+    <img alt="Animated Gif" src="https://learn.getgrav.org/user/pages/02.content/07.media/sample-animated.gif" width="300" height="300" />
+
 === "Видео"
-`markdown
-	![Sample Trailer](sample-trailer.mov?resize=400,200)
-	`
-<video controls="1" style="width: 400px;height: 200px;" title="Sample Trailer"><source src="https://learn.getgrav.org/user/pages/02.content/07.media/sample-trailer.mov?loading=auto">Your browser does not support the video tag.</video>
+
+    ```markdown
+    ![Sample Trailer](sample-trailer.mov?resize=400,200)
+    ```
+
+    <video controls="1" style="width: 400px;height: 200px;" title="Sample Trailer"><source src="https://learn.getgrav.org/user/pages/02.content/07.media/sample-trailer.mov?loading=auto">Your browser does not support the video tag.</video>
 
 ## Действия с аудио
 
 Аудио медиа будет отображать аудио ссылку HTML5:
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].html()|raw }}
+    ```
 
 ##### Результат:
 
@@ -728,17 +866,22 @@ images:
 Позволяет явно устанавливать или удалять элементы управления HTML5 по умолчанию. Передача `0` скрывает элементы управления браузером для воспроизведения, громкости и т. д.
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3?controls=0)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3?controls=0)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].controls(0)|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].controls(0)|raw }}
+    ```
+
 === "HTML"
-`
-	<audio controls="0" title="Hal 9000: I'm Sorry Dave"><source src="pages/02.content/07.media/hal9000.mp3">Your browser does not support the audio tag.</audio>
-	`
+
+    ```html
+    <audio controls="0" title="Hal 9000: I'm Sorry Dave"><source src="pages/02.content/07.media/hal9000.mp3">Your browser does not support the audio tag.</audio>
+    ```
 
 #### preload
 
@@ -753,13 +896,16 @@ images:
     Атрибут `preload` игнорируется, если присутствует `autoplay`.
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3?preload=metadata)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3?preload=metadata)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].preload('metadata')|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].preload('metadata')|raw }}
+    ```
 
 #### autoplay
 
@@ -770,13 +916,16 @@ images:
     Если в заданном элементе `audio` присутствуют и `autoplay`, и `preload`, `preload` игнорируется.
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3?autoplay=1)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3?autoplay=1)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].autoplay(1)|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].autoplay(1)|raw }}
+    ```
 
 #### controlsList
 
@@ -787,52 +936,64 @@ images:
     Если вы устанавливаете более одного параметра в markdown, разделяйте их тире (`-`). Они будут заменены пробелами в выходном HTML.
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3?controlsList=nodownload-nofullscreen-noremoteplayback)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3?controlsList=nodownload-nofullscreen-noremoteplayback)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].controlsList('nodownload nofullscreen noremoteplayback')|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].controlsList('nodownload nofullscreen noremoteplayback')|raw }}
+    ```
 
 #### muted
 
 Позволяет установить, будет ли звук отключен при загрузке. Если не задано, по умолчанию используется `false`.
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3?muted=1)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3?muted=1)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].muted(1)|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].muted(1)|raw }}
+    ```
 
 #### loop
 
 Позволяет установить, будет ли звук зацикливаться после завершения воспроизведения. Если не задано, по умолчанию используется `false`.
 
 === "Markdown"
-`markdown
-	![Hal 9000: I'm Sorry Dave](hal9000.mp3?loop=1)
-	`
+
+    ```markdown
+    ![Hal 9000: I'm Sorry Dave](hal9000.mp3?loop=1)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['hal9000.mp3'].loop(1)|raw }}
-	`
+
+    ```twig
+    {{ page.media['hal9000.mp3'].loop(1)|raw }}
+    ```
 
 ## Действия с файлами
 
 На данный момент Grav не предоставляет никаких настраиваемых действий с файлами, и мы не планируем их добавлять. Если вы что-то придумаете, свяжитесь с нами.
 
 === "Markdown"
-`markdown
-	[Текстовый файл](acronyms.txt)
-	`
+
+    ```markdown
+    [Текстовый файл](acronyms.txt)
+    ```
+
 === "Twig"
-`twig
-	<a href="{{ page.media['acronyms.txt'].url()|raw }}">Текстовый файл</a>
-	`
+
+    ```twig
+    <a href="{{ page.media['acronyms.txt'].url()|raw }}">Текстовый файл</a>
+    ```
 
 ##### Результат:
 
@@ -843,13 +1004,16 @@ images:
 Как видите: Grav предоставляет несколько мощных функций для работы с изображениями, которые упрощают работу с изображениями! Настоящая сила приходит, когда вы комбинируете несколько эффектов и производите очень сложные динамические манипуляции с изображениями. Например, это абсолютно верно:
 
 === "Markdown"
-`markdown
-	![Sample Image](sample-image.jpg?negate&lightbox&cropZoom=200,200)
-	`
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?negate&lightbox&cropZoom=200,200)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['sample-image.jpg'].negate.lightbox.cropZoom(200,200)|raw }}
-	`
+
+    ```twig
+    {{ page.media['sample-image.jpg'].negate.lightbox.cropZoom(200,200)|raw }}
+    ```
 
 ##### Результат:
 
@@ -889,17 +1053,22 @@ Grav имеет встроенную поддержку отзывчивых и�
 Предположим, у вас есть файл с именем `retina@2x.jpg`, вы на самом деле укажете его в своих ссылках как `retina.jpg`, и тогда Grav не найдет это изображение и начнет искать размеры изображения. Он найдет `retina@2x.jpg`, а затем поймет, что ему нужно создать вариант `@1x` и отобразить соответствующий вывод `srcset`:
 
 === "Markdown"
-`markdown
-	![Retina Image](retina.jpg?sizes=80vw)
-	`
+
+    ```markdown
+    ![Retina Image](retina.jpg?sizes=80vw)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['retina.jpg'].sizes('80vw').html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['retina.jpg'].sizes('80vw').html()|raw }}
+    ```
+
 === "HTML"
-`
-	<img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="80vw">
-	`
+
+    ```html
+    <img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="80vw">
+    ```
 
 ##### Результат:
 
@@ -914,17 +1083,22 @@ Grav имеет встроенную поддержку отзывчивых и�
 Grav также поддерживает медиа-запросы внутри атрибута `sizes`, что позволяет использовать разную ширину в зависимости от размера экрана устройства. В отличие от первого метода, вам не нужно создавать несколько изображений; они будут созданы автоматически. Резервное изображение - это текущее изображение, поэтому браузер без поддержки `srcset` будет отображать исходное изображение.
 
 === "Markdown"
-`markdown
-	![Retina Image](retina.jpg?sizes=%28max-width%3A26em%29+100vw%2C+50vw)
-	`
+
+    ```markdown
+    ![Retina Image](retina.jpg?sizes=%28max-width%3A26em%29+100vw%2C+50vw)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['retina.jpg'].sizes('(max-width:26em) 100vw, 50vw').html('Retina Image')|raw }}
-	`
+
+    ```twig
+    {{ page.media['retina.jpg'].sizes('(max-width:26em) 100vw, 50vw').html('Retina Image')|raw }}
+    ```
+
 === "HTML"
-`
-	<img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="(max-width:26em)+100vw">
-	`
+
+    ```html
+    <img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="(max-width:26em)+100vw">
+    ```
 
 ##### Результат:
 
@@ -945,17 +1119,22 @@ Grav также поддерживает медиа-запросы внутри 
     На данный момент он не работает внутри `markdown`, только в ваших файлах `twig`.
 
 === "Markdown"
-`markdown
-	![Retina Image](retina.jpg?derivatives=320,1600,300&sizes=%28max-width%3A26em%29+100vw%2C+50vw)
-	`
+
+    ```markdown
+    ![Retina Image](retina.jpg?derivatives=320,1600,300&sizes=%28max-width%3A26em%29+100vw%2C+50vw)
+    ```
+
 === "Twig"
-`twig
-	{{ page.media['retina.jpg'].derivatives(320,1600,300).sizes('(max-width:26em) 100vw, 50vw').html()|raw }}
-	`
+
+    ```twig
+    {{ page.media['retina.jpg'].derivatives(320,1600,300).sizes('(max-width:26em) 100vw, 50vw').html()|raw }}
+    ```
+
 === "HTML"
-`
-	<img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/d/c/e/f/7/dcef77ec0cc8efd0a66851a7750b530d8bfe093a-retina320w.jpg 320w, /images/1/5/d/a/1/15da17d9989ac18738474b1fab5ff6104b96be41-retina620w.jpg 620w, /images/e/c/e/3/f/ece3fa30474b851808a485197b481d202d8f3811-retina920w.jpg 920w, /images/3/8/8/2/4/3882463d358fc22a189380da7b7d14db2a5b260a-retina1220w.jpg 1220w, /images/6/0/5/0/e/6050e7409d6040b3737b6562cdec89854cac3f9a-retina1520w.jpg 1520w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="(max-width:26em)+100vw">
-	`
+
+    ```html
+    <img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/d/c/e/f/7/dcef77ec0cc8efd0a66851a7750b530d8bfe093a-retina320w.jpg 320w, /images/1/5/d/a/1/15da17d9989ac18738474b1fab5ff6104b96be41-retina620w.jpg 620w, /images/e/c/e/3/f/ece3fa30474b851808a485197b481d202d8f3811-retina920w.jpg 920w, /images/3/8/8/2/4/3882463d358fc22a189380da7b7d14db2a5b260a-retina1220w.jpg 1220w, /images/6/0/5/0/e/6050e7409d6040b3737b6562cdec89854cac3f9a-retina1520w.jpg 1520w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="(max-width:26em)+100vw">
+    ```
 
 ##### Результат:
 
