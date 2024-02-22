@@ -6,9 +6,6 @@ site_url: https://grav-docs.ru/
 # Repository
 #repo_url: https://github.com/dragomano/Grav-Learn-Ru
 
-# Copyright
-copyright: <a href="https://qiwi.com/n/DRAGOMANO" target="_blank" rel="noopener">Поддержать сайт</a>
-
 # Configuration
 theme:
   name: material
@@ -16,7 +13,6 @@ theme:
   features:
     - navigation.top
     - navigation.tracking
-    - navigation.indexes
     - navigation.footer
     - search.highlight
     - search.share
@@ -96,7 +92,6 @@ plugins:
 nav:
   - Введение: index.md
   - Основы:
-      - basics/what-is-grav/index.md
       - Что такое Grav?: basics/what-is-grav/index.md
       - Требования: basics/requirements/index.md
       - Установка: basics/installation/index.md
@@ -106,7 +101,6 @@ nav:
       - Получение помощи: basics/getting-help/index.md
       - Обновление Grav и плагинов: basics/updates/index.md
   - Контент:
-      - content/content-pages/index.md
       - Страницы: content/content-pages/index.md
       - Заголовки / Frontmatter: content/headers/index.md
       - Коллекции страниц: content/collections/index.md
@@ -120,12 +114,11 @@ nav:
       - Мультиязычность: content/multi-language/index.md
       - Типы контента: content/content-types/index.md
   - Темы:
-      - themes/theme-basics/index.md
       - Основы тем: themes/theme-basics/index.md
       - Учебник по темам: themes/theme-tutorial/index.md
       - Шаблонизатор Twig: themes/twig-primer/index.md
       - Теги, фильтры и функции Twig:
-          - themes/twig-tags-filters-functions/index.md
+          - Обзор: themes/twig-tags-filters-functions/index.md
           - Теги Twig: themes/twig-tags-filters-functions/tags/index.md
           - Фильтры Twig: themes/twig-tags-filters-functions/filters/index.md
           - Функции Twig: themes/twig-tags-filters-functions/functions/index.md
@@ -134,7 +127,6 @@ nav:
       - Менеджер активов: themes/asset-manager/index.md
       - Кастомизация: themes/customization/index.md
   - Плагины:
-      - plugins/plugin-basics/index.md
       - Основы плагинов: plugins/plugin-basics/index.md
       - Установка плагинов: plugins/plugin-install/index.md
       - Создание плагинов: plugins/plugin-tutorial/index.md
@@ -142,14 +134,14 @@ nav:
       - Жизненный цикл Grav: plugins/grav-lifecycle/index.md
       - Использование Flex в плагинах: plugins/plugin-flex/index.md
   - Админка:
-      - admin-panel/introduction/index.md
+      - Введение: admin-panel/introduction/index.md
       - Дашборд:
-          - admin-panel/dashboard/index.md
+          - Обзор: admin-panel/dashboard/index.md
           - Настройка (система): admin-panel/dashboard/configuration-system/index.md
           - Настройка (сайт): admin-panel/dashboard/configuration-site/index.md
           - Профиль: admin-panel/dashboard/profile/index.md
       - Учётные записи и группы:
-          - admin-panel/accounts/users/index.md
+          - Учётные записи: admin-panel/accounts/users/index.md
           - Группы пользователей: admin-panel/accounts/groups/index.md
           - Настройка: admin-panel/accounts/configuration/index.md
           - Разрешения: admin-panel/accounts/permissions/index.md
@@ -162,22 +154,22 @@ nav:
           - Настройка: admin-panel/page/configuration/index.md
           - Разрешения страницы: admin-panel/page/permissions/index.md
       - Плагины:
-          - admin-panel/plugins/index.md
+          - Обзор: admin-panel/plugins/index.md
           - Параметры: admin-panel/plugins/options/index.md
       - Темы: admin-panel/themes/index.md
       - Безопасность:
-          - admin-panel/security/index.md
+          - Обзор: admin-panel/security/index.md
           - Двухфакторная аутентификация: admin-panel/security/2fa/index.md
           - Защита от флуда: admin-panel/security/rate-limiting/index.md
       - Сервис: admin-panel/tools/index.md
       - Расширение админки:
-          - admin-panel/extending/index.md
+          - Обзор: admin-panel/extending/index.md
           - Хуки событий админки: admin-panel/extending/admin-events/index.md
       - ЧаВо: admin-panel/faq/index.md
   - Формы:
-      - forms/index.md
+      - Введение: forms/index.md
       - Чертежи:
-          - forms/blueprints/index.md
+          - Обзор: forms/blueprints/index.md
           - Чертеж полей формы: forms/blueprints/fields-available/index.md
           - Чертеж плагина: forms/blueprints/example-plugin-blueprint/index.md
           - Конфигурация плагина: forms/blueprints/example-plugin-configuration/index.md
@@ -186,7 +178,7 @@ nav:
           - Как добавить поле для загрузки файлов: forms/blueprints/how-to-add-file-upload/index.md
           - Расширенные возможности чертежей: forms/blueprints/advanced-features/index.md
       - Фронтенд-формы:
-          - forms/forms/index.md
+          - Обзор: forms/forms/index.md
           - Параметры формы: forms/forms/form-options/index.md
           - Индекс поля формы: forms/forms/fields-available/index.md
           - Контактная форма: forms/forms/example-form/index.md
@@ -201,7 +193,7 @@ nav:
       - Обновления по сценарию: cli-console/scripted-upgrades/index.md
   - Дополнительно:
       - Объекты Flex:
-          - advanced/flex/index.md
+          - Обзор: advanced/flex/index.md
           - Управление:
               - advanced/flex/administration/index.md
               - advanced/flex/administration/introduction/index.md
@@ -243,7 +235,6 @@ nav:
       - Изменение URL-адреса сайта:
           - advanced/change-site-url/index.md
   - Веб-серверы и хостинг:
-      - webservers-hosting/servers/grav-built-in/index.md
       - Встроенный веб-сервер Grav: webservers-hosting/servers/grav-built-in/index.md
       - Nginx: webservers-hosting/servers/nginx/index.md
       - Универсальная установка VPS: webservers-hosting/vps/generic/index.md
@@ -271,7 +262,7 @@ nav:
       - .htaccess: troubleshooting/htaccess/index.md
   - Переезд с других движков: https://learn.getgrav.org/migration
   - Политики безопасности:
-      - security/overview/index.md
+      - Обзор: security/overview/index.md
       - Рекомендуемая конфигурация: security/configuration/index.md
       - Пользователям: security/users/index.md
       - Разработчикам: security/developers/index.md
