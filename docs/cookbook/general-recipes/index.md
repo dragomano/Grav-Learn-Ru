@@ -49,7 +49,7 @@ export PATH
 
 !!! question ""
 
-	Общее требование к веб-дизайну - наличие на странице какой-либо галереи. Это может быть отображение фотографий вашего нового домашнего питомца, портфолио с предыдущими дизайнерскими работами или даже базовый каталог некоторых продуктов, которые вы хотите показать и продать своим пользователям. В этом примере мы предполагаем, что вы хотите просто отобразить группу фотографий с подписью ниже. Конечно, это можно адаптировать и для других целей.
+    Общее требование к веб-дизайну - наличие на странице какой-либо галереи. Это может быть отображение фотографий вашего нового домашнего питомца, портфолио с предыдущими дизайнерскими работами или даже базовый каталог некоторых продуктов, которые вы хотите показать и продать своим пользователям. В этом примере мы предполагаем, что вы хотите просто отобразить группу фотографий с подписью ниже. Конечно, это можно адаптировать и для других целей.
 
 Самый простой способ решить эту проблему - использовать [мультимедийные функции Grav](/content/media), которые позволяют странице узнавать об изображениях, доступных в её папке.
 
@@ -125,11 +125,12 @@ description: The other day, Fido got a new bone, and he became really captivated
 
 !!! question ""
 
-	Несколько раз возникал вопрос, как быстро отобразить одну страницу в нескольких колонках.
+    Несколько раз возникал вопрос, как быстро отобразить одну страницу в нескольких колонках.
 
-Есть много потенциальных решений, но одно простое решение - разделить ваш контент на логические разделы с помощью разделителя, такого как HTML `<hr />` или тег *тематический разрыв*. В Markdown это представлено 3 или более дефисами или `---`. Мы просто создаем наш контент и разделяем наши разделы этими чёрточками:
+Есть много потенциальных решений, но одно простое решение - разделить ваш контент на логические разделы с помощью разделителя, такого как HTML `<hr />` или тег _тематический разрыв_. В Markdown это представлено 3 или более дефисами или `---`. Мы просто создаем наш контент и разделяем наши разделы этими чёрточками:
 
 **columns.md**
+
 ```markdown
 ---
 title: 'Columns Page Test'
@@ -138,9 +139,11 @@ title: 'Columns Page Test'
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas arcu leo, hendrerit ut rhoncus eu, dictum vitae ligula. Suspendisse interdum at purus eget congue. Aliquam erat volutpat. Proin ultrices ligula vitae nisi congue sagittis. Nulla mollis, libero id maximus elementum, ante dolor auctor sem, sed volutpat mauris nisl non quam.
 
 ---
+
 Phasellus id eleifend risus. In dui tellus, dignissim id viverra non, convallis sed ante. Suspendisse dignissim, felis vitae faucibus dictum, dui mi tempor lectus, non porta elit libero quis orci. Morbi porta neque quis magna imperdiet hendrerit.
 
 ---
+
 Praesent eleifend commodo purus, sit amet viverra nunc dictum nec. Mauris vehicula, purus sed convallis blandit, massa sem egestas ex, a congue odio lacus non quam. Donec vitae metus vitae enim imperdiet tempus vitae sit amet quam. Nam sed aliquam justo, in semper eros. Suspendisse magna turpis, mollis quis dictum sit amet, luctus id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eu rutrum mi.
 ```
 
@@ -166,14 +169,17 @@ Praesent eleifend commodo purus, sit amet viverra nunc dictum nec. Mauris vehicu
 
 Вы можете видеть, как содержимое **разделяется** тегом `<hr />` и конвертируется в массив из 3 столбцов, которые мы перебираем и визуализируем. В этом примере мы используем простой тег таблицы HTML, но вы можете использовать все, что захотите.
 
+!!! note ""
+
+    При использовании плагина page-toc необходимо использовать `|split('<hr>')`, так как плагин page-toc очищает HTML-код.
+
 ## Действительно простой CSS-слайдер изображений
 
 !!! question ""
 
-	Вам нужен слайдер изображений без каких-либо накладных расходов.
+    Вам нужен слайдер изображений без каких-либо накладных расходов.
 
 Этот рецепт состоит из 4 изображений и страницы под названием `slider.md`! Просто поместите изображения там, где находится файл `.md`. Затем создайте новый шаблон Twig и расширьте `base.html.twig`.
-
 
 ```twig
 {% extends 'partials/base.html.twig' %}
@@ -193,6 +199,7 @@ Praesent eleifend commodo purus, sit amet viverra nunc dictum nec. Mauris vehicu
 ```
 
 Для модульного слайдера удалите
+
 ```twig
 {% extends 'partials/base.html.twig' %}
 
@@ -211,29 +218,52 @@ Praesent eleifend commodo purus, sit amet viverra nunc dictum nec. Mauris vehicu
 
 ```scss
 @keyframes slidy {
-    0% { left: 0%; }
-    20% { left: 0%; }
-    25% { left: -100%; }
-    45% { left: -100%; }
-    50% { left: -200%; }
-    70% { left: -200%; }
-    75% { left: -300%; }
-    95% { left: -300%; }
-    100% { left: -400%; }
+  0% {
+    left: 0%;
+  }
+  20% {
+    left: 0%;
+  }
+  25% {
+    left: -100%;
+  }
+  45% {
+    left: -100%;
+  }
+  50% {
+    left: -200%;
+  }
+  70% {
+    left: -200%;
+  }
+  75% {
+    left: -300%;
+  }
+  95% {
+    left: -300%;
+  }
+  100% {
+    left: -400%;
+  }
 }
-body { margin: 0; }
+body {
+  margin: 0;
+}
 div#slider {
-    overflow: hidden;
-    margin-top: -3rem;
-    max-height: 30rem;
+  overflow: hidden;
+  margin-top: -3rem;
+  max-height: 30rem;
 }
-div#slider figure img { width: 20%; float: left; }
+div#slider figure img {
+  width: 20%;
+  float: left;
+}
 div#slider figure {
-    position: relative;
-    width: 500%;
-    margin: 0;
-    left: 0;
-    animation: 30s slidy infinite;
+  position: relative;
+  width: 500%;
+  margin: 0;
+  left: 0;
+  animation: 30s slidy infinite;
 }
 ```
 
@@ -260,6 +290,7 @@ pages:
 # my markdown content
 
 this content is wrapped into a div with class "myWrapper"
+
 </div>
 ```
 
@@ -269,7 +300,7 @@ this content is wrapped into a div with class "myWrapper"
 
 !!! question ""
 
-	Вы хотите создать виджет недавних записей на боковой панели
+    Вы хотите создать виджет недавних записей на боковой панели
 
 Всегда можно создать частичный шаблон, расширяющий `partials/base.html.twig` (см. другие решения на этой странице), но вместо этого вы собираетесь создать полный шаблон. Окончательный код для вашего шаблона Twig показан ниже:
 
@@ -299,43 +330,44 @@ CSS для этого виджета приведен ниже:
 
 ```css
 .sidebar-content .recent-post {
-    margin-bottom: 25px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #F0F0F0;
-    float: left;
-    clear: both;
-    width: 100%;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #f0f0f0;
+  float: left;
+  clear: both;
+  width: 100%;
 }
 
 .sidebar-content [class~='recent-post']:last-of-type {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .sidebar-content .recent-post .recent-post-image,
 .sidebar-content .recent-post .recent-post-text {
-    float: left;
+  float: left;
 }
 
 .sidebar-content .recent-post .recent-post-image {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .sidebar-content .recent-post .recent-post-text h4 {
-    font-family: serif;
-    margin-bottom: 10px;
+  font-family: serif;
+  margin-bottom: 10px;
 }
 
 .sidebar-content .recent-post .recent-post-text h4 a {
-    color: #193441;
+  color: #193441;
 }
 
 .sidebar-content .recent-post .recent-post-text p {
-    font-family: Arial, sans-serif;
-    font-size: 1.5rem;
-    color: #737373;
-    margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  color: #737373;
+  margin: 0;
 }
 ```
+
 Отрегулируйте интервал между последними элементами публикации, семейством шрифтов, размером шрифта и толщиной шрифта по своему вкусу.
 
 ## Создание закрытого раздела
@@ -351,7 +383,7 @@ Grav позволяет очень легко создать приватный 
 
 ```yaml
 access:
-    site.login: true
+  site.login: true
 ```
 
 Пользователи, получающие доступ к странице, должны будут войти в систему, прежде чем увидеть содержимое страницы.
@@ -368,14 +400,14 @@ access:
 
 ```yaml
 access:
-    site.onlybob: true
+  site.onlybob: true
 ```
 
 Затем добавьте Бобу разрешение `site.onlybob` в его пользовательский файл `bob.yaml` в папке `user/accounts`:
 
 ```yaml
 access:
-    site.onlybob: true
+  site.onlybob: true
 ```
 
 ## Использование разрешений на основе группы
@@ -404,7 +436,7 @@ premium:
 
 ```yaml
 groups:
-      - premium
+  - premium
 ```
 
 в yaml-файлы пользователей в директории `user/accounts`.
@@ -500,7 +532,7 @@ return [
 </ol>
 ```
 
-Это создает упорядоченный список, который перебирает все видимые страницы в Grav, переходя на три уровня в глубину, чтобы создать структуру для каждого уровня. Список, охватывающий всю структуру, имеет класс *tree*, и каждый элемент списка имеет класс *parent*, если он содержит дочерние элементы, или *элемент*, если его нет.
+Это создает упорядоченный список, который перебирает все видимые страницы в Grav, переходя на три уровня в глубину, чтобы создать структуру для каждого уровня. Список, охватывающий всю структуру, имеет класс _tree_, и каждый элемент списка имеет класс _parent_, если он содержит дочерние элементы, или _элемент_, если его нет.
 
 При нажатии на родительский элемент открывается список, в то время как обычные элементы ссылаются на саму страницу. Вы можете добавить это практически в любой шаблон Twig в теме Grav, при условии, что Grav имеет доступ к видимым страницам.
 
@@ -528,7 +560,7 @@ ol.tree li.parent.open:after {
 
 Обычно его следует размещать перед структурой Twig или, в идеале, транслировать в [менеджере активов](/themes/asset-manager) вашей темы. Эффект заключается в добавлении **[+]** после каждого родительского элемента, указывающего, что он может быть открыт, который исчезает при открытии.
 
-Наконец, давайте добавим немного JavaScript для [переключения дескрипторов](https://stackoverflow.com/a/36297446/603387) класса *open*:
+Наконец, давайте добавим немного JavaScript для [переключения дескрипторов](https://stackoverflow.com/a/36297446/603387) класса _open_:
 
 ```js
 <script type="text/javascript">
@@ -603,6 +635,7 @@ body_classes: featurepost
 Таблицы стилей требуют немного большего внимания, так как есть конвейер ресурсов, который мы захотим включить в какой-то момент, поэтому мы перемещаем их в блок таблиц стилей в теге `<head>`.
 
 Пример:
+
 ```twig
 {% block stylesheets %}
     {% do assets.addCss('theme://css/styles.min.css', 100) %}
@@ -613,6 +646,7 @@ body_classes: featurepost
 То же самое относится и к файлам JavaScript с дополнительным требованием, чтобы часть JS загружалась в нижний колонтитул.
 
 Пример:
+
 ```twig
 {% block javascripts %}
     {% do assets.addJs('theme://js/custom.js') %}
@@ -642,7 +676,7 @@ body_classes: featurepost
 
 !!! question ""
 
-	Вам необходимо добавить актив в определённый шаблон вашей темы.
+    Вам необходимо добавить актив в определённый шаблон вашей темы.
 
 В большинстве случаев ваши активы будут добавлены внутри блока Twig в вашем базовом шаблоне, как показано ниже.
 
@@ -668,36 +702,41 @@ body_classes: featurepost
 
 !!! question ""
 
-	У вас много страниц или модулей, и вы хотите использовать один и тот же блок содержимого на нескольких страницах без необходимости поддерживать несколько отдельных экземпляров одного и того же текста.
+    У вас много страниц или модулей, и вы хотите использовать один и тот же блок содержимого на нескольких страницах без необходимости поддерживать несколько отдельных экземпляров одного и того же текста.
 
 Это очень простой и понятный метод, который не требует плагина и может использоваться в панели администратора.
 
 **Примечание:** существует также плагин [Grav Page Inject Plugin](https://github.com/getgrav/grav-plugin-page-inject) для этой функции, которая может быть подходящей для более сложных сценариев.
 
-Во-первых, создайте новый файл шаблона, который будет служить заполнителем для содержимого - он может иметь любое имя, это имя называется "modular_reuse" и будет храниться в папке `templates/modular_` вашей темы для этого примера, но может храниться где угодно. в папке шаблонов.
-
+Во-первых, создайте новый файл шаблона, который будет служить заполнителем для содержимого - он может иметь любое имя, это имя называется "modular*reuse" и будет храниться в папке `templates/modular*` вашей темы для этого примера, но может храниться где угодно. в папке шаблонов.
 
 `modular_reuse.html.twig` содержит только одну строку:
+
 ```twig
 {{ page.content }}
 ```
+
 Затем создайте новую модульную страницу в панели администратора, где этот контент должен отображаться с использованием этого нового шаблона «модульного повторного использования». Имя новой страницы может быть любым, поскольку оно не будет отображаться - будет выводиться исходный заголовок страницы.
 
 Содержимое страницы - это всего одна строка:
 Страница:
+
 ```twig
 {% include 'modular_reuse.html.twig' with {'page': page.find('/test-page/amazing-offers')} %}
 ```
+
 Модульная:
+
 ```twig
 {% include 'modular/modular_reuse.html.twig' with {'page': page.find('/test-page/_amazing-offers')} %}
 ```
 
 То, что идет после «include», - это место, где хранится шаблон из первого шага, вероятно, в папке `templates` для обычных страниц, и в папке `templates/modular` для модульных страниц.
 
-После page.find должна идти фактическая ссылка на исходный контент, который вы хотите использовать повторно. Модульный контент начинается с _, а страницы - нет. Самый простой способ найти правильную ссылку - открыть страницу в панели администратора и скопировать URL-адрес после слова admin.
+После page.find должна идти фактическая ссылка на исходный контент, который вы хотите использовать повторно. Модульный контент начинается с \_, а страницы - нет. Самый простой способ найти правильную ссылку - открыть страницу в панели администратора и скопировать URL-адрес после слова admin.
 
 The final page should look like this:
+
 ```twig
 ---
 title: 'Modular Reuse Example'
@@ -712,22 +751,22 @@ title: 'Modular Reuse Example'
 
 !!! question ""
 
-	Обычные методы предотвращения спама, такие как поле-приманка, некоторые спам-боты обходят стороной.
+    Обычные методы предотвращения спама, такие как поле-приманка, некоторые спам-боты обходят стороной.
 
 Сделайте так, чтобы боту было сложнее угадать, что он может и не может заполнить, при заполнении контактной формы. Проще говоря, задайте вопрос, на который пользователь обязательно ответит, но в ответах на который бот не может понять значение. В вашем Markdown-файле с [Form-data](/forms/forms/example-form) добавьте это поле:
 
 ```yaml
-    - name: personality
-      type: radio
-      label: What is five times eight?
-      options:
-        alaska: 32
-        oklahoma: 40
-        california: 48
-      validate:
-        required: true
-        pattern: "^oklahoma$"
-        message: Not quite, try that math again.
+- name: personality
+  type: radio
+  label: What is five times eight?
+  options:
+    alaska: 32
+    oklahoma: 40
+    california: 48
+  validate:
+    required: true
+    pattern: '^oklahoma$'
+    message: Not quite, try that math again.
 ```
 
 Вопрос должен быть простым, но с множеством простых неправильных ответов. Важен порядок ответов. Правильный ответ никогда не должен быть первым; стремитесь где-то посередине. Важно самостоятельно рандомизировать значения, стоящие за ответами (метками), поэтому база данных связанных значений и ответов не поможет при ответе.
@@ -738,7 +777,7 @@ title: 'Modular Reuse Example'
 
 !!! question ""
 
-	Вы настроили поддомен dev.yourdomain.com в качестве сайта разработки для предварительного просмотра того, над чем вы работаете, перед публикацией изменений в yourdomain.com, и хотите запретить поисковым индексаторам сканировать его, сохраняя при этом рабочую среду. сайт виден в результатах поиска.
+    Вы настроили поддомен dev.yourdomain.com в качестве сайта разработки для предварительного просмотра того, над чем вы работаете, перед публикацией изменений в yourdomain.com, и хотите запретить поисковым индексаторам сканировать его, сохраняя при этом рабочую среду. сайт виден в результатах поиска.
 
 Хотя вы должны защищать свой сайт разработки паролем, чтобы он действительно оставался конфиденциальным, иногда достаточно, и даже более практично, просто запретить индексаторам поисковых систем сканировать ваш сайт. К счастью, Grav может обрабатывать страницы в формате txt так же, как и html, поэтому мы можем использовать [конфигурации среды](/advanced/environment-config) и шаблоны twig для завершения работы.
 
@@ -747,7 +786,6 @@ title: 'Modular Reuse Example'
 `/user/[dev.yourdomain.com]/config/site.yaml`:
 
     environment: dev
-
 
 Затем создайте шаблон страницы `robots.txt.twig`, который проверяет, работает ли Grav в настоящее время на нашем сайте разработки, и отображает другое содержимое, если это так.
 
@@ -781,7 +819,7 @@ dev:
   - 'Disallow: /'
 ---
 
-User-agent: *
+User-agent: _
 Disallow: /backup/
 Disallow: /bin/
 Disallow: /cache/
@@ -793,7 +831,7 @@ Disallow: /user/
 Allow: /user/pages/
 Allow: /user/themes/
 Allow: /user/images/
-Allow: /user/plugins/*.css$
+Allow: /user/plugins/_.css$
 Allow: /user/plugins/*.js$
 ```
 

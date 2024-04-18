@@ -15,7 +15,7 @@ name: Antimatter
 slug: antimatter
 type: theme
 version: 1.7.0
-description: "Antimatter is the default theme included with **Grav**"
+description: 'Antimatter is the default theme included with **Grav**'
 icon: empire
 author:
   name: Team Grav
@@ -28,11 +28,11 @@ bugs: https://github.com/getgrav/grav-theme-antimatter/issues
 license: MIT
 ```
 
-Вы можете получить доступ к любому из этих элементов через `theme`, используя стандартный **dot-синтаксис**:
+Вы можете получить доступ к любому из этих элементов через `grav.theme`, используя стандартный **dot-синтаксис**:
 
 ```twig
-Author Email: {{ theme.author.email }}
-Theme License: {{ theme.license }}
+Имейл автора: {{ grav.theme.author.email }}
+Лицензия темы: {{ grav.theme.license }}
 ```
 
 Вы также можете получить эти же значения из плагина Grav с синтаксисом PHP:
@@ -63,7 +63,7 @@ color: blue
 
 !!! info ""
 
-	*Заметьте, что `enabled` здесь не повторяется. Если файлы конфигурации объединены, а не просто заменены, это следует указать явно.*
+    *Заметьте, что `enabled` здесь не повторяется. Если файлы конфигурации объединены, а не просто заменены, это следует указать явно.*
 
 ```yaml
 color: red
@@ -96,16 +96,16 @@ $info = $this->grav['theme']->config()['info'];
 Также работают следующие псевдонимы:
 
 === "Псевдоним 1"
-	```twig
+`twig
 	{{ config.theme.color_option }}
-	```
+	`
 === "Псевдоним 2"
-	```twig
+`twig
 	{{ theme_var(color_option) }}
-	```
+	`
 === "Псевдоним 3"
-	```twig
+`twig
 	{{ grav.themes.antimatter.color_option }} [ИЗБЕГАЙТЕ!]
-	```
+	`
 
 **Несмотря на то, что `grav.themes.<themename>` поддерживается, избегайте этого, потому что такой способ делает невозможным правильное наследование темы.**

@@ -36,21 +36,15 @@ Grav ищет шаблон под названием `blog.xml.twig`. Вы до�
 
 ```json
 {
-   "frontmatter":{
-      "title":"New Macbook Pros Arriving Soon",
-      "date": "14:23 08/01/2016",
-      "taxonomy":{
-         "category":[
-            "blog"
-         ],
-         "tag":[
-            "apple",
-            "mbpr",
-            "laptops"
-         ]
-      }
-   },
-   "content":"<p>this has an -&gt; arrow here and <strong>bold</strong> here</p>\n<blockquote>\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies tristique nulla et mattis. Phasellus id massa eget nisl congue blandit sit amet id ligula. Praesent et nulla eu augue tempus sagittis. Mauris faucibus nibh et nibh cursus in vestibulum sapien egestas. Curabitur ut lectus tortor. Sed ipsum eros, egestas ut eleifend non, elementum vitae eros.\n-- <cite> Ronald Wade</cite></p>\n</blockquote>\n<p>Mauris felis diam, pellentesque vel lacinia ac, dictum a nunc. Mauris mattis nunc sed mi sagittis et facilisis tortor volutpat. Etiam tincidunt urna mattis erat placerat placerat ac eu tellus.</p>\n<p>This is a new paragraph</p>\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies tristique nulla et mattis.</p>"
+  "frontmatter": {
+    "title": "New Macbook Pros Arriving Soon",
+    "date": "14:23 08/01/2016",
+    "taxonomy": {
+      "category": ["blog"],
+      "tag": ["apple", "mbpr", "laptops"]
+    }
+  },
+  "content": "<p>this has an -&gt; arrow here and <strong>bold</strong> here</p>\n<blockquote>\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies tristique nulla et mattis. Phasellus id massa eget nisl congue blandit sit amet id ligula. Praesent et nulla eu augue tempus sagittis. Mauris faucibus nibh et nibh cursus in vestibulum sapien egestas. Curabitur ut lectus tortor. Sed ipsum eros, egestas ut eleifend non, elementum vitae eros.\n-- <cite> Ronald Wade</cite></p>\n</blockquote>\n<p>Mauris felis diam, pellentesque vel lacinia ac, dictum a nunc. Mauris mattis nunc sed mi sagittis et facilisis tortor volutpat. Etiam tincidunt urna mattis erat placerat placerat ac eu tellus.</p>\n<p>This is a new paragraph</p>\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies tristique nulla et mattis.</p>"
 }
 ```
 
@@ -63,10 +57,10 @@ Grav ищет шаблон под названием `blog.xml.twig`. Вы до�
 Например, если вы хотите отображать события календаря iCal, вам нужно добавить этот тип мультимедиа в `user/config/media.yaml`:
 
 ```yaml
-  ics:
-    type: iCal
-    thumb: media/thumb.png
-    mime: text/calendar
+ics:
+  type: iCal
+  thumb: media/thumb.png
+  mime: text/calendar
 ```
 
-Это определяет расширение файла `.ics` как файл` iCal` с типом mime: `text/calendar`. Затем все, что вам нужно сделать, это предоставить соответствующий шаблон `.ical.twig` для рендеринга любого файла этого типа, который вы запрашиваете.
+Это определяет расширение файла `.ics` как файл` iCal` с типом mime: `text/calendar`. Затем все, что вам нужно сделать, это предоставить соответствующий шаблон `.ics.twig` для рендеринга любого файла этого типа, который вы запрашиваете.

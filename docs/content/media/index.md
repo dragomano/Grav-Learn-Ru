@@ -270,8 +270,6 @@ images:
     <a rel="lightbox" data-width="600" data-height="400" href="/images/b/5/e/b/3/b5eb31744b96349b1a711697692b897624202cb1-sample-image.jpg"><img title="Sample Image" alt="" src="/images/4/5/5/e/4/455e41587c2cd25f34cfdccd8ab5078707aabe6b-sample-image.jpg" /></a>
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/6/e/3/8/8/6e388bab69f2d1bc5c0d3cd80ef317e9d1a343ed-sample-image.jpg)
 
 #### thumbnail
@@ -295,8 +293,6 @@ images:
     ```html
     <img title="Sample Image" alt="" src="/system/images/media/thumb-jpg.png" />
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/system/images/media/thumb-jpg.png)
 
@@ -322,11 +318,39 @@ images:
     <img myattribute="myvalue" title="Sample Image" alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
     ```
 
+#### watermark
+
+Действие **watermark** объединяет два изображения, изображение с водяным знаком и исходное изображение, в конечное изображение с водяным знаком. Это очень специфическое действие, которое требует более подробного описания, чем другие действия или фильтры. В частности, необходимо учитывать особенности поведения при [объединении фильтров](#combinations). Для тех, кому интересно, есть очень подробная [запись в блоге о действии `watermark`](https://www.grav.cz/blog/vodoznak-aneb-nepokrades-kelisova), написанная [Витом Петиром](https://github.com/petira), но только на чешском языке. Однако инструкции легко понять.
+
+!!! note ""
+
+    Если вы используете [поток](/content/image-linking#потоки-php) на уровне страницы, то префиксы страниц также должны быть указаны.
+
+=== "Markdown"
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?watermark=user://pages/02.content/07.media/sample-watermark.png,top-left,50)
+    ```
+
+=== "Twig"
+
+    ```twig
+    {{ page.media['sample-image.jpg'].watermark('user://pages/02.content/07.media/sample-watermark.png','top-left',50).html()|raw }}
+    ```
+
 #### decoding
 
 Атрибуция декодирования изображений дает авторам возможность контролировать, когда браузер должен начать декодирование ресурса. Значением атрибута декодирования может быть одно из следующих значений: `auto` (по умолчанию), `sync`, `async`.
 Значение может быть установлено в `system.images.defaults.decoding` как значение по умолчанию или для каждого изображения md с `?decoding=async`
 Если выбрано значение `auto`, атрибут `decoding` не добавляется, и браузер сам определит, какую стратегию использовать.
+
+##### Использование значения по умолчанию, как определено в `config.system.images.defaults.decoding`
+
+```twig
+{{ page.media['sample-image.jpg'].decoding.html('Sample Image')|raw }}
+```
+
+##### Использование явного значения
 
 === "Markdown"
 
@@ -337,7 +361,6 @@ images:
 === "Twig"
 
     ```twig
-    {# Использование значения по умолчанию, как определено в 'config.system.images.defaults.decoding' #}
     {{ page.media['sample-image.jpg'].decoding('async').html('Sample Image')|raw }}
     ```
 
@@ -365,8 +388,6 @@ images:
     {{ page.media['sample-image.jpg'].resize(400, 200).html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/f/8/2/e/8/f82e84dcb05f4e4abc0337d77f766863a4864658-sample-image.jpg)
 
 #### forceResize
@@ -384,8 +405,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].forceResize(200, 300).html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/4/5/a/6/d/45a6d20510669bf09fc1f89b470ec8508851f1e3-sample-image.jpg)
 
@@ -407,8 +426,6 @@ images:
     {{ page.media['sample-image.jpg'].cropResize(300, 300).html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/c/6/f/2/a/c6f2a4797dd65154696266da9292f3280240de79-sample-image.jpg)
 
 #### crop
@@ -428,8 +445,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].crop(100,100,300,200).html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/f/1/8/9/a/f189a48ef158968a6e707cb65f6fa4167e3513ab-sample-image.jpg)
 
@@ -461,8 +476,6 @@ images:
 
     Люди, знакомые с использованием `zoomCrop` для этой цели, обнаружат, что он также работает в Grav.
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/d/9/2/b/f/d92bfdaee70366a7390266cc163e6c1cbf085b6b-sample-image.jpg)
 
 #### quality
@@ -480,8 +493,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).quality(25).html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/4/d/3/7/a/4d37ada8680de55cf46d1cb9b78217463755f765-sample-image.jpg)
 
@@ -501,8 +512,6 @@ images:
     {{ page.media['sample-image.jpg'].cropZoom(300,200).negate.html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/3/4/f/8/0/34f801552d1959142ff0a8af90d1ef0b7ffca31b-sample-image.jpg)
 
 #### brightness
@@ -520,8 +529,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).brightness(-100).html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/7/4/2/3/b/7423b7e6ff834ef259c41a05134bf6dd954a943c-sample-image.jpg)
 
@@ -541,8 +548,6 @@ images:
     {{ page.media['sample-image.jpg'].cropZoom(300,200).contrast(-50).html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/3/1/4/1/e/3141e4a436373d0d14b30c81f5fd67e420de4546-sample-image.jpg)
 
 #### grayscale
@@ -560,8 +565,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).grayscale.html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/9/b/8/d/f/9b8dfb148124c5623c59d1a63c006e2f7eb066ce-sample-image.jpg)
 
@@ -581,8 +584,6 @@ images:
     {{ page.media['sample-image.jpg'].cropZoom(300,200).emboss.html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/4/c/e/2/1/4ce21377a2ee4a7749535dc82bd3521f48e4e117-sample-image.jpg)
 
 #### smooth
@@ -600,8 +601,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).smooth(5).html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/5/5/8/0/3/55803bc6242fe0f0eb7602c4376c3643880beca9-sample-image.jpg)
 
@@ -621,8 +620,6 @@ images:
     {{ page.media['sample-image.jpg'].cropZoom(300,200).sharp.html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/d/1/c/b/8/d1cb87797f40ca52e4c8010d4e95e2ed63e2f664-sample-image.jpg)
 
 #### edge
@@ -640,8 +637,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).edge.html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/2/c/3/4/7/2c3473fc46d715d58d6d54978c896f63a6c737e6-sample-image.jpg)
 
@@ -661,8 +656,6 @@ images:
     {{ page.media['sample-image.jpg'].cropZoom(300,200).colorize(100,-100,40).html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/8/6/5/b/9/865b9c011421966a2e11320c3b84b7c98139c87a-sample-image.jpg)
 
 #### sepia
@@ -680,8 +673,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).sepia.html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/b/2/1/5/3/b2153a55ad179282856a085973af657bde607e95-sample-image.jpg)
 
@@ -701,8 +692,6 @@ images:
     {{ page.media['sample-image.jpg'].gaussianBlur(3).html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/8/f/d/7/c/8fd7ce172594ef49d2307c1b405c68360d714380-sample-image.jpg)
 
 #### rotate
@@ -721,8 +710,6 @@ images:
     {{ page.media['sample-image.jpg'].cropZoom(300,200).rotate(-90).html()|raw }}
     ```
 
-##### Результат:
-
 ![Sample Image](https://learn.getgrav.org/images/5/0/f/7/f/50f7f806aedb26a4bdba9c9b4b8615b900cd0098-sample-image.jpg)
 
 #### flip
@@ -740,8 +727,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].cropZoom(300,200).flip(0,1).html()|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/8/b/2/d/7/8b2d7799726efac9caceeb2e867a5b49c327eb63-sample-image.jpg)
 
@@ -856,8 +841,6 @@ images:
     ```twig
     {{ page.media['hal9000.mp3'].html()|raw }}
     ```
-
-##### Результат:
 
 <audio controls="1" title="Hal 9000: I'm Sorry Dave"><source src="https://learn.getgrav.org/user/pages/02.content/07.media/hal9000.mp3">Your browser does not support the audio tag.</audio>
 
@@ -995,8 +978,6 @@ images:
     <a href="{{ page.media['acronyms.txt'].url()|raw }}">Текстовый файл</a>
     ```
 
-##### Результат:
-
 [Текстовый файл](https://learn.getgrav.org/content/media/acronyms.txt)
 
 ### Комбинации
@@ -1014,8 +995,6 @@ images:
     ```twig
     {{ page.media['sample-image.jpg'].negate.lightbox.cropZoom(200,200)|raw }}
     ```
-
-##### Результат:
 
 ![Sample Image](https://learn.getgrav.org/images/5/9/a/5/b/59a5bca6c32648f2e976b41e92f2b1b6cd4f40b6-sample-image.jpg)
 
@@ -1070,8 +1049,6 @@ Grav имеет встроенную поддержку отзывчивых и�
     <img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="80vw">
     ```
 
-##### Результат:
-
 ![Retina Image](https://learn.getgrav.org/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg)
 
 !!! danger ""
@@ -1100,8 +1077,6 @@ Grav также поддерживает медиа-запросы внутри 
     <img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="(max-width:26em)+100vw">
     ```
 
-##### Результат:
-
 ![Retina Image](https://learn.getgrav.org/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg)
 
 !!! danger ""
@@ -1110,7 +1085,7 @@ Grav также поддерживает медиа-запросы внутри 
 
 ##### Размеры с медиа-запросами с использованием производных
 
-Если вы хотите настроить размеры автоматически созданных файлов, вы можете использовать метод `derivatives()` (как показано ниже). Первый параметр — это ширина наименьшего из сгенерированных изображений. Второй — это максимальная ширина генерируемых изображений. Третий и единственный необязательный параметр определяет интервалы, с которыми будут создаваться фотографии (по умолчанию-200). Например, если вы установите первый параметр равным `320`, а третий — `100`, Grav будет генерировать изображение для 320, 420, 520, 620 и так далее, пока не достигнет установленного максимума.
+Если вы хотите настроить размеры автоматически созданных файлов, вы можете использовать метод `derivatives()` (как показано ниже). Первый параметр — это ширина наименьшего из сгенерированных изображений. Второй — это максимальная ширина (эксклюзивная) генерируемых изображений. Третий и единственный необязательный параметр определяет интервалы, с которыми будут создаваться фотографии (по умолчанию-200). Например, если вы установите первый параметр равным `320`, а третий — `100`, Grav будет генерировать изображение для 320, 420, 520, 620 и так далее, пока не достигнет установленного максимума.
 
 В нашем примере мы установили максимум в `1600`. В результате будет достигнуто увеличение на 300 с `320` до `1520`, так как `1620` будет выше порога.
 
@@ -1135,8 +1110,6 @@ Grav также поддерживает медиа-запросы внутри 
     ```html
     <img alt="Retina Image" src="/images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg" srcset="/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg 2880w, /images/d/c/e/f/7/dcef77ec0cc8efd0a66851a7750b530d8bfe093a-retina320w.jpg 320w, /images/1/5/d/a/1/15da17d9989ac18738474b1fab5ff6104b96be41-retina620w.jpg 620w, /images/e/c/e/3/f/ece3fa30474b851808a485197b481d202d8f3811-retina920w.jpg 920w, /images/3/8/8/2/4/3882463d358fc22a189380da7b7d14db2a5b260a-retina1220w.jpg 1220w, /images/6/0/5/0/e/6050e7409d6040b3737b6562cdec89854cac3f9a-retina1520w.jpg 1520w, /images/3/7/f/0/c/37f0ca845b3eb054374d6a1ac2e36e13c59e14f8-retina1x.jpg 1440w" sizes="(max-width:26em)+100vw">
     ```
-
-##### Результат:
 
 ![Retina Image](https://learn.getgrav.org/images/b/a/c/1/9/bac199ed46f9188dafad759760afd27da935e564-retina2x.jpg)
 

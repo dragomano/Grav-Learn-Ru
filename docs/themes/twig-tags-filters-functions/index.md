@@ -14,7 +14,7 @@ description: Краткая информация о тегах, фильтрах
 
 Тег обеспечивает высокоуровневую функциональность Twig. Примеры встроенных тегов включают такие конструкции, как `include`, `block`, `for`, `if` и многие другие. Теги идентифицируются в Twig с помощью синтаксиса `{% tagname %}`. Кроме того, большинство тегов закрываются с помощью `{% endtagname %}`.
 
-Grav включает несколько полезных настраиваемых тегов, которые обеспечивают такие функции, как `cache`, `markdown`, `script`, `style`, `switch` и др.
+Grav включает несколько полезных настраиваемых тегов, которые обеспечивают такую функциональность, как `cache`, `markdown`, `script`, `style`, `switch` и др.
 
 [Теги Twig Grav :arrow_right:](/themes/twig-tags-filters-functions/tags)
 
@@ -24,13 +24,11 @@ Grav включает несколько полезных настраиваем
 
 Примеры встроенных фильтров Twig включают `date`, `escape`, `join`, `lower`, `slice` и многие другие. Примером может быть:
 
-
 ```twig
 {% set foo = "one,two,three,four,five"|split(',', 3) %}
 ```
 
-
-Grav включает несколько полезных настраиваемых фильтров, которые обеспечивают такие функции, как `hyphenize`, `nicetime`, `starts_with`, `contains`, `base64_decode` и многие другие.
+Grav включает несколько полезных настраиваемых фильтров, которые обеспечивают такую функциональность, как `hyphenize`, `nicetime`, `starts_with`, `contains`, `base64_decode` и многие другие.
 
 [Фильтры Twig Grav :arrow_right:](/themes/twig-tags-filters-functions/filters)
 
@@ -40,11 +38,10 @@ Grav включает несколько полезных настраиваем
 
 Примеры встроенных фильтров Twig включают `block`, `dump`, `parent`, `random`, `range` и др. Примером может быть:
 
-
 ```twig
 {{ random(['apple', 'orange', 'citrus']) }}
 ```
 
-Grav включает несколько полезных пользовательских функций, которые обеспечивают такие функции, как `authorize`, `debug`, `evaluate`, `regex_filter`, `media` и многие другие.
+Grav включает несколько полезных пользовательских функций, которые обеспечивают такую функциональность, как `authorize`, `debug`, `evaluate`, `regex_filter`, `media` и многие другие.
 
 [Функции Twig Grav :arrow_right:](/themes/twig-tags-filters-functions/functions)

@@ -165,17 +165,17 @@ form:
   name: contact
   fields:
     name:
-      label: Name
+      label: Имя
       type: text
       validate:
         required: true
     email:
-      label: Email
+      label: Имейл
       type: email
       validate:
         required: true
     message:
-      label: Message
+      label: Сообщение
       type: textarea
       validate:
         required: true
@@ -185,13 +185,13 @@ form:
   buttons:
     submit:
       type: submit
-      value: Submit
+      value: Отправить
   process:
     turnstile: true
     email:
       subject: '[Acme] {{ form.value.name|e }}'
       reply_to: '{{ form.value.name|e }} <{{ form.value.email }}>'
-    message: Thanks for contacting us!
+    message: Спасибо, что обратились к нам!
     reset: true
     display: '/'
 ```
@@ -234,7 +234,7 @@ recaptcha:
 ```yaml
 g-recaptcha-response:
   type: captcha
-  label: Captcha
+  label: Капча
 ```
 
 Вы также можете предоставить настраиваемое сообщение об ошибке `recaptcha_not_validated`, но если вы этого не сделаете, сообщение по умолчанию предоставляется подключаемым модулем формы. Если вы хотите установить специфичный для формы ключ `recaptcha_site_key`, а не устанавливать его глобально в конфигурации формы, вы также можете установить это.
@@ -242,9 +242,9 @@ g-recaptcha-response:
 ```yaml
 g-recaptcha-response:
   type: captcha
-  label: Captcha
+  label: Капча
   recaptcha_site_key: ENTER_YOUR_CAPTCHA_PUBLIC_KEY
-  recaptcha_not_validated: 'Каптча не действительна!'
+  recaptcha_not_validated: 'Капча не действительна!'
 ```
 
 | Атрибут                   | Описание                                           |
@@ -445,7 +445,7 @@ my_conditional:
 
 ```yaml
 - type: date
-  label: Enter a date
+  label: Введите дату
   validate.min: '2014-01-01'
   validate.max: '2018-12-31'
 ```
@@ -1011,14 +1011,14 @@ tabs:
 
 ### Поле телефона
 
-Тип поля `tel` используется для представления поля ввода текста, которое принимает телефонный номер, используя элемент input типа [tel](https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/tel).
+Тип поля `tel` используется для представления поля ввода текста, которое принимает число, используя [элемент input типа `tel`](https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/tel).
 
 Пример:
 
 ```yaml
 header.phone:
   type: tel
-  label: 'Your Phone Number'
+  label: 'Ваш номер телефона'
 ```
 
 | Атрибут        | Описание                        |
@@ -1191,9 +1191,9 @@ summary.enabled:
 Пример:
 
 ```yaml
-header.phone:
+header.url:
   type: url
-  label: 'Your Phone Number'
+  label: 'Ваш сайт'
 ```
 
 | Атрибут        | Описание                        |
