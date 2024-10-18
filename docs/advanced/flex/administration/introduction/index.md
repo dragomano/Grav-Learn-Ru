@@ -32,18 +32,21 @@ $ cp user/plugins/flex-objects/data/flex-objects/contacts.json user/data/flex-ob
 
 Перейдите в раздел **[Страницы](/admin-panel/page)** и [добавьте новую страницу](/admin-panel/page/#dobavlenie-novykh-stranits). Введите следующие значения:
 
-- **Заголовок страницы**: `Flex-Objects`
+- **Заголовок страницы**: `Каталог`
 - **Шаблон страницы**: `Flex-objects`
 
 После этого вы можете нажать кнопку **Продолжить**.
 
-В **[Редакторе контента](../views-edit)** войдите в каталог и добавьте контент:
+В **[Расширенном редакторе контента](../views-edit)** убедитесь, что в метаданных `flex.directory` содержится `contacts`:
 
-- **Flex-каталог**: `Contacts`
-- **Контент**:
-  ```twig
-  # Directory Example
-  ```
+```twig
+---
+title: Каталог
+flex:
+  directory: contacts
+---
+# Пример каталога
+```
 
 Убедитесь, что ввели всё правильно, затем нажмите **Сохранить**.
 
