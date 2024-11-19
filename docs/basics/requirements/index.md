@@ -28,6 +28,7 @@ Grav настолько прост и универсален, что вам да
 
 - MacOS 12.0 Monterey уже поставляется с веб-сервером Apache и PHP актуальной версии. При желании можно использовать [несколько версий PHP](https://getgrav.org/blog/macos-monterey-apache-multiple-php-versions).
 - [MAMP/MAMP Pro](https://mamp.info) поставляется с Apache, MySQL и, конечно, с PHP. Это отличный способ получить больше контроля над тем, какую версию PHP вы используете, настраивая виртуальные хосты, а также другие полезные функции, такие как автоматическая обработка динамических DNS.
+- [DDEV](https://ddev.com/) для разработки на PHP в средах, основанных на Docker.
 - [AMPPS](https://www.ampps.com/downloads) это программный стек от Softaculous, позволяющий использовать Apache, PHP, Perl и Python. Это включает в себя всё, что вам нужно (и даже больше) для разработки Grav.
 
 ### Windows
@@ -35,9 +36,9 @@ Grav настолько прост и универсален, что вам да
 - [Open Server Panel](https://ospanel.io) это портативная серверная платформа и программная среда, созданная специально для веб-разработчиков с учётом их рекомендаций и пожеланий.
 - [Laragon](https://laragon.org/) портативная, изолированная, быстрая и мощная универсальная среда разработки для PHP, Node.js и многое другое. Быстрая, легкая, простая в использовании и легко расширяется.
 - [XAMPP](https://www.apachefriends.org/ru/index.html) предоставляет Apache, PHP и MySQL в одном простом пакете.
+- [DDEV](https://ddev.com/) для разработки на PHP в средах, основанных на Docker.
 - [EasyPHP](https://www.easyphp.org/) предоставляет персональный пакет веб-хостинга, а также более мощную версию для разработчиков.
 - [Подсистема Linux](https://medium.freecodecamp.org/setup-a-php-development-environment-on-windows-subsystem-for-linux-wsl-9193ff28ae83) это отличный способ запустить Linux-подобную среду на Windows
-- [WinNMP](https://winnmp.wtriple.com/) - для любителей чего-то уж совсем простого
 
 ### Linux
 
