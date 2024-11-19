@@ -318,57 +318,6 @@ images:
     <img myattribute="myvalue" title="Sample Image" alt="" src="/images/a/f/2/8/f/af28f2ad724f1e05248ac8dd518b2a5789c6cd41-sample-image.jpg" />
     ```
 
-#### watermark
-
-Действие **watermark** объединяет два изображения, изображение с водяным знаком и исходное изображение, в конечное изображение с водяным знаком. Это очень специфическое действие, которое требует более подробного описания, чем другие действия или фильтры. В частности, необходимо учитывать особенности поведения при [объединении фильтров](#combinations). Для тех, кому интересно, есть очень подробная [запись в блоге о действии `watermark`](https://www.grav.cz/blog/vodoznak-aneb-nepokrades-kelisova), написанная [Витом Петиром](https://github.com/petira), но только на чешском языке. Однако инструкции легко понять.
-
-!!! note ""
-
-    Если вы используете [поток](/content/image-linking#потоки-php) на уровне страницы, то префиксы страниц также должны быть указаны.
-
-=== "Markdown"
-
-    ```markdown
-    ![Sample Image](sample-image.jpg?watermark=user://pages/02.content/07.media/sample-watermark.png,top-left,50)
-    ```
-
-=== "Twig"
-
-    ```twig
-    {{ page.media['sample-image.jpg'].watermark('user://pages/02.content/07.media/sample-watermark.png','top-left',50).html()|raw }}
-    ```
-
-#### decoding
-
-Атрибуция декодирования изображений дает авторам возможность контролировать, когда браузер должен начать декодирование ресурса. Значением атрибута декодирования может быть одно из следующих значений: `auto` (по умолчанию), `sync`, `async`.
-Значение может быть установлено в `system.images.defaults.decoding` как значение по умолчанию или для каждого изображения md с `?decoding=async`
-Если выбрано значение `auto`, атрибут `decoding` не добавляется, и браузер сам определит, какую стратегию использовать.
-
-##### Использование значения по умолчанию, как определено в `config.system.images.defaults.decoding`
-
-```twig
-{{ page.media['sample-image.jpg'].decoding.html('Sample Image')|raw }}
-```
-
-##### Использование явного значения
-
-=== "Markdown"
-
-    ```markdown
-    ![Sample Image](sample-image.jpg?decoding=async)
-    ```
-
-=== "Twig"
-
-    ```twig
-    {{ page.media['sample-image.jpg'].decoding('async').html('Sample Image')|raw }}
-    ```
-
-=== "HTML"
-
-    ```html
-    <img decoding="async" title="Sample Image" alt="" src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
-    ```
 
 ## Действия с изображениями
 
@@ -746,6 +695,26 @@ images:
     {{ page.media['sample-image.jpg'].fixOrientation().html()|raw }}
     ```
 
+#### watermark
+
+Действие **watermark** объединяет два изображения, изображение с водяным знаком и исходное изображение, в конечное изображение с водяным знаком. Это очень специфическое действие, которое требует более подробного описания, чем другие действия или фильтры. В частности, необходимо учитывать особенности поведения при [объединении фильтров](#combinations). Для тех, кому интересно, есть очень подробная [запись в блоге о действии `watermark`](https://www.grav.cz/blog/vodoznak-aneb-nepokrades-kelisova), написанная [Витом Петиром](https://github.com/petira), но только на чешском языке. Однако инструкции легко понять.
+
+!!! note ""
+
+    Если вы используете [поток](/content/image-linking#потоки-php) на уровне страницы, то префиксы страниц также должны быть указаны.
+
+=== "Markdown"
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?watermark=user://pages/02.content/07.media/sample-watermark.png,top-left,50)
+    ```
+
+=== "Twig"
+
+    ```twig
+    {{ page.media['sample-image.jpg'].watermark('user://pages/02.content/07.media/sample-watermark.png','top-left',50).html()|raw }}
+    ```
+
 #### loading
 
 Атрибут `loading` на изображениях дает авторам контроль над тем, когда браузер должен начать загрузку ресурса. Значение этого атрибута может быть одним из следующих `auto` (по умолчанию), `lazy`, `eager`.
@@ -773,6 +742,63 @@ images:
     ```html
     <img loading="lazy" title="Sample Image"  src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
     ```
+
+#### decoding
+
+Атрибуция декодирования изображений дает авторам возможность контролировать, когда браузер должен начать декодирование ресурса. Значением атрибута декодирования может быть одно из следующих значений: `auto` (по умолчанию), `sync`, `async`.
+Значение может быть установлено в `system.images.defaults.decoding` как значение по умолчанию или для каждого изображения md с `?decoding=async`
+Если выбрано значение `auto`, атрибут `decoding` не добавляется, и браузер сам определит, какую стратегию использовать.
+
+=== "Markdown"
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?decoding=async)
+    ```
+
+=== "Twig"
+
+    ```twig
+    {# Использование значения по умолчанию, как определено в `config.system.images.defaults.fetchpriority` #}
+    {{ page.media['sample-image.jpg'].decoding.html('Sample Image')|raw }}
+
+    {# Использование явного значения #}
+    {{ page.media['sample-image.jpg'].decoding('async').html('Sample Image')|raw }}
+    ```
+
+=== "HTML"
+
+    ```html
+    <img decoding="async" title="Sample Image" alt="" src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
+    ```
+
+
+#### fetchpriority
+
+Атрибут fetchpriority предоставляет авторам контроль над тем, когда браузер должен приоритизировать загрузку изображения по сравнению с другими изображениями. Значение атрибута fetchpriority может быть одним из: `auto` (по умолчанию), `high`, `low`.
+Значение может быть установлено в `system.images.defaults.fetchpriority` как значение по умолчанию или для конкретного изображения в формате md с помощью `?fetchpriority=high`. Когда выбрано значение `auto`, атрибут `fetchpriority` не добавляется, и браузер сам определит, какую стратегию использовать.
+
+=== "Markdown"
+
+    ```markdown
+    ![Sample Image](sample-image.jpg?fetchpriority=high)
+    ```
+
+=== "Twig"
+
+    ```twig
+    {# Использование значения по умолчанию, как определено в `config.system.images.defaults.fetchpriority` #}
+    {{ page.media['sample-image.jpg'].fetchpriority.html('Sample Image')|raw }}
+
+    {# Использование явного значения #}
+    {{ page.media['sample-image.jpg'].fetchpriority('high').html('Sample Image')|raw }}
+    ```
+
+=== "HTML"
+
+    ```html
+    <img fetchpriority="high" title="Sample Image"  src="/images/e/f/1/0/5/ef10554cd3a99f2e65136e79dce170d4f8a7a1b9-sample-image.jpg" />
+    ```
+
 
 ## Действия с объектами
 
