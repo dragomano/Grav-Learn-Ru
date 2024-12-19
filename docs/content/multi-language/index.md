@@ -294,7 +294,7 @@ $translation = $this->grav['language']->translate(['HEADER.MAIN_TEXT']);
 Вы также можете указать язык:
 
 ```php
-$translation = $this->grav['language']->translate(['HEADER.MAIN_TEXT'], 'ru');
+$translation = $this->grav['language']->translate(['HEADER.MAIN_TEXT'], ['ru']);
 ```
 
 Для перевода определенного элемента в использовании массива:
