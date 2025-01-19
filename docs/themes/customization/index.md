@@ -94,15 +94,17 @@ brew install wellington
 2. Скопируйте файл YAML темы из темы, которую вы наследуете (или из папки `user/config/themes`, если вы её настроили), в `/user/themes/mytheme/mytheme.yaml` и добавьте следующий контент (заменив `user/themes/quark` названием темы, которую вы наследуете):
 
    ```yaml
-   streams:
-     schemes:
-       theme:
-         type: ReadOnlyStream
-         prefixes:
-           '':
-             - user/themes/mytheme
-             - user/themes/quark
+    streams:
+      schemes:
+        theme:
+          type: ReadOnlyStream
+          prefixes:
+            '':
+          - 'user/themes/mytheme'
+          - 'user/themes/quark'
    ```
+
+   ПРИМЕЧАНИЕ: В вашем `mytheme.yaml` необходимо использовать одинарные кавычки для префиксов в версии 1.7. В более старой документации кавычки не использовались (`- user/themes/mytheme - user/themes/quark`). Неправильное использование кавычек в `mytheme.yaml` может привести к фатальной ошибке при активации вашей новой темы: `Template "@images/grav-logo.svg" is not defined in "partials/logo.html.twig" at line 7.`
 
 3. Скопируйте файл `/user/themes/quark/blueprints.yaml` в `/user/themes/mytheme/blueprints.yaml`, чтобы включить настраиваемые элементы темы в админку.
 
