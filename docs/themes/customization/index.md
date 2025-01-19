@@ -93,7 +93,7 @@ brew install wellington
 1. Создайте новую папку: `user/themes/mytheme` для размещения вашей новой темы.
 2. Скопируйте файл YAML темы из темы, которую вы наследуете (или из папки `user/config/themes`, если вы её настроили), в `/user/themes/mytheme/mytheme.yaml` и добавьте следующий контент (заменив `user/themes/quark` названием темы, которую вы наследуете):
 
-   ```yaml
+    ```yaml
     streams:
       schemes:
         theme:
@@ -102,31 +102,31 @@ brew install wellington
             '':
           - 'user/themes/mytheme'
           - 'user/themes/quark'
-   ```
+    ```
 
-   ПРИМЕЧАНИЕ: В вашем `mytheme.yaml` необходимо использовать одинарные кавычки для префиксов в версии 1.7. В более старой документации кавычки не использовались (`- user/themes/mytheme - user/themes/quark`). Неправильное использование кавычек в `mytheme.yaml` может привести к фатальной ошибке при активации вашей новой темы: `Template "@images/grav-logo.svg" is not defined in "partials/logo.html.twig" at line 7.`
+    ПРИМЕЧАНИЕ: В вашем `mytheme.yaml` необходимо использовать одинарные кавычки для префиксов в версии 1.7. В более старой документации кавычки не использовались (`- user/themes/mytheme - user/themes/quark`). Неправильное использование кавычек в `mytheme.yaml` может привести к фатальной ошибке при активации вашей новой темы: `Template "@images/grav-logo.svg" is not defined in "partials/logo.html.twig" at line 7.`
 
 3. Скопируйте файл `/user/themes/quark/blueprints.yaml` в `/user/themes/mytheme/blueprints.yaml`, чтобы включить настраиваемые элементы темы в админку.
 
 4. Измените тему по умолчанию, чтобы использовать новую **mytheme**, отредактировав параметр `pages: theme:` в вашем файле конфигурации `user/config/system.yaml`:
 
-   ```yaml
-   pages:
-     theme: mytheme
-   ```
+    ```yaml
+    pages:
+      theme: mytheme
+    ```
 
 5. Создайте новый файл класса темы, который можно использовать для добавления расширенной функциональности, управляемой событиями. Создайте файл `user/themes/mytheme/mytheme.php`:
 
-   ```php
-   <?php
-   namespace Grav\Theme;
+    ```php
+    <?php
+    namespace Grav\Theme;
 
-   class Mytheme extends Quark
-   {
-       // Some new methods, properties etc.
-   }
-   ?>
-   ```
+    class Mytheme extends Quark
+    {
+        // Some new methods, properties etc.
+    }
+    ?>
+    ```
 
 Теперь вы создали новую тему под названием **mytheme** и настроили потоки так, чтобы сначала они просматривали тему **mytheme**, а затем пробовали **quark**. По сути, Quark является базовой темой для этой новой темы.
 
