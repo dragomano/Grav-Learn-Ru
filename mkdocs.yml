@@ -89,6 +89,7 @@ plugins:
   - minify:
       minify_html: true
   - mkdocs-video
+  - glightbox
 
 # Page tree
 nav:
