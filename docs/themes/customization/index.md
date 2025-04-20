@@ -100,8 +100,8 @@ brew install wellington
           type: ReadOnlyStream
           prefixes:
             '':
-          - 'user/themes/mytheme'
-          - 'user/themes/quark'
+              - 'user/themes/mytheme'
+              - 'user/themes/quark'
     ```
 
     ПРИМЕЧАНИЕ: В вашем `mytheme.yaml` необходимо использовать одинарные кавычки для префиксов в версии 1.7. В более старой документации кавычки не использовались (`- user/themes/mytheme - user/themes/quark`). Неправильное использование кавычек в `mytheme.yaml` может привести к фатальной ошибке при активации вашей новой темы: `Template "@images/grav-logo.svg" is not defined in "partials/logo.html.twig" at line 7.`
