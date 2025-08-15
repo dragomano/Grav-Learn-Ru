@@ -3,7 +3,7 @@ site_name: Документация Grav CMS на русском
 site_author: Bugo
 site_url: https://grav-docs.ru/
 
-copyright: <a href="https://pay.cloudtips.ru/p/06a7df1e" target="_blank">Поддержать сайт</a>
+#copyright: <a href="https://pay.cloudtips.ru/p/06a7df1e" target="_blank">Поддержать сайт</a>
 
 # Repository
 #repo_url: https://github.com/dragomano/Grav-Learn-Ru
