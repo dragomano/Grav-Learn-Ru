@@ -59,14 +59,14 @@ extra_css:
     - extra.css
 
 # Extensions
-markdown_extensions:
+markdown_extensions: # pip install pymdown-extensions
     - meta
     - tables
     - toc:
           title: Содержание
           permalink: ⚓︎
           permalink_title: Постоянная ссылка
-          slugify: !!python/name:slugify.slugify ""
+          slugify: !!python/name:slugify.slugify "" # pip install python-slugify
     - admonition
     - pymdownx.superfences
     - pymdownx.tabbed:
@@ -90,8 +90,8 @@ plugins:
               - ru
     - minify:
           minify_html: true
-    - mkdocs-video
-    - glightbox
+    - mkdocs-video # pip install mkdocs-video
+    - glightbox # pip install mkdocs-glightbox
 
 # Page tree
 nav:
