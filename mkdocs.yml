@@ -273,6 +273,8 @@ nav:
           - Пользователям: security/users/index.md
           - Разработчикам: security/developers/index.md
           - На стороне сервера: security/server-side/index.md
+          - Доверенный хост для ссылок в письмах: security/trusted-host/index.md
+          - Раскрытие папки User: security/user-folder-exposure/index.md
     - API: https://learn.getgrav.org/api
     - Лайфхаки:
           - Метаданные блогов: hints-tips/metadata/index.md
