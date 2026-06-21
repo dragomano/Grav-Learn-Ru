@@ -59,7 +59,7 @@ form:
     g-recaptcha-response:
       label: Капча
       type: captcha
-      recaptcha_not_validated: 'Капча не действительна!'
+      captcha_not_validated: 'Капча не действительна!'
 
   buttons:
     submit:
