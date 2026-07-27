@@ -248,7 +248,7 @@ Grav использует URI-подобные потоки для опреде�
 - `image://` - папка изображений, например `user://images/`, `system://images/`
 - `account://` - папка учётных записей, например `user://accounts/`
 - `environment://` - текущее местоположение нескольких сайтов.
-- `asset://` - папка скомпилированных активов JS/CSS, например `assets/`
+- `asset://` - папка скомпилированных ресурсов JS/CSS, например `assets/`
 - `blueprints://` - папка чертежей, например `environment://blueprints/`, `user://blueprints/`, `system://blueprints/`
 - `config://` - папка конфигураций, например `environment://config/`, `user://config/`, `system://config/`
 - `plugins://` - папка плагинов, например `user://plugins/`
