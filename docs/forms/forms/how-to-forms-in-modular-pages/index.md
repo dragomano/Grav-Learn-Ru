@@ -40,7 +40,7 @@ cache_enable: false
 ```yaml
 ---
 content:
-    items: '@self.modular'
+    items: '@self.modules'
 
 form:
     action: /your-modular-page
