@@ -112,7 +112,7 @@ server {
 
 Caddy отвечает только для имён хостов, перечисленных в блоке site, поэтому указание точного адреса уже отклоняет поддельные хосты:
 
-```caddy
+```nginx
 www.example.com, example.com {
     root * /var/www/grav
     php_fastcgi unix//run/php/php-fpm.sock
