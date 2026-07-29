@@ -128,7 +128,7 @@ Grav поставляется с файлом конфигурации для в
 cp /var/www/grav/webserver-configs/nginx.conf /etc/nginx/sites-available/grav-site
 ```
 
-Откройте этот файл в редакторе и замените `example.com` на свой домен/IP (или `localhost`, если вы хотите просто запустить его локально), замените строку `root` на `root/var/www/grav/;`, а затем создайте символическую ссылку на конфигурацию вашего сайта в `sites-enabled`:
+Откройте этот файл в редакторе и замените стандартное значение `server_name localhost;` на ваш домен или IP-адрес (или оставьте `localhost`, если собираетесь запускать сайт только локально). Затем замените строку `root /home/USER/www/html;` на `root /var/www/grav/;` и создайте символическую ссылку на конфигурацию вашего сайта в каталоге `sites-enabled`:
 
 ```bash
 ln -s /etc/nginx/sites-available/grav-site /etc/nginx/sites-enabled/grav-site
