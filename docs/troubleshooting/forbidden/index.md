@@ -18,7 +18,7 @@ description: Описание ошибки 403 Forbidden в Grav CMS. Причи
 param_sep: ';'
 ```
 
-Это настроит Grav на использование точки с запятой, а не двоеточия. Например, вместо `http://yoursite.com/blog/tag:something` теперь будет `http://yoursite.com/blog/tag;something`.
+Это настроит Grav на использование точки с запятой, а не двоеточия. Например, вместо `https://my-site.example/blog/tag:something` теперь будет `https://my-site.example/blog/tag;something`.
 
 ## Ошибка 403 в админке
 

@@ -142,7 +142,7 @@ return [
 
 При использовании подкаталогов для переключения языковых контекстов вам может потребоваться загружать различные конфигурации в зависимости от языка.
 Вы можете поместить свои языковые конфигурации в `config/<lang-context>/site.yaml`, используя пример для `setup_subdir_config_switch.php` ниже.
-Таким образом `yoursite.com/de-AT/index.html` будет загружать `config/de-AT/site.yaml`, `yoursite.com/de-CH/index.html` будет загружать `config/de-CH/site.yaml` и так далее.
+Таким образом `example.com/de-AT/index.html` будет загружать `config/de-AT/site.yaml`, `example.com/de-CH/index.html` будет загружать `config/de-CH/site.yaml` и так далее.
 
 **setup_subdir_config_switch.php**:
 

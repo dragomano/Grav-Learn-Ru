@@ -218,7 +218,7 @@ routable: true
 или
 
 ```twig
-{{ page.url(true) }} {# может вернуть http://mysite.com/my-section/my-category/my-blog-post #}
+{{ page.url(true) }} {# может вернуть https://my-site.example/my-section/my-category/my-blog-post #}
 ```
 
 ##### permalink()
@@ -431,7 +431,7 @@ routable: true
 
     Полный список методов объекта Uri доступен на [странице API](https://learn.getgrav.org/api#class-gravcommonuri). Вот список наиболее полезных для вас методов.
 
-У объекта Uri есть несколько методов для доступа к частям текущего URI. Для полного URL `http://mysite.com/grav/section/category/page.json/param1:foo/param2:bar/?query1=baz&query2=qux`:
+У объекта Uri есть несколько методов для доступа к частям текущего URI. Для полного URL `https://example.com/grav/section/category/page.json/param1:foo/param2:bar/?query1=baz&query2=qux`:
 
 ##### path()
 
@@ -443,7 +443,7 @@ routable: true
 
 ##### route([absolute = false][, domain = false])
 
-Возвращает маршрут как абсолютный или относительный URL. (Например, `uri.route(true)` = `http://mysite.com/grav/section/category/page` или `uri.route()` = `/section/category/page`)
+Возвращает маршрут как абсолютный или относительный URL. (Например, `uri.route(true)` = `https://example.com/grav/section/category/page` или `uri.route()` = `/section/category/page`)
 
 ##### params()
 
@@ -471,15 +471,15 @@ routable: true
 
 ##### host()
 
-Возвращает хост-часть URL-адреса. (Например, `uri.host` = `mysite.com`)
+Возвращает хост-часть URL-адреса. (Например, `uri.host` = `example.com`)
 
 ##### base()
 
-Возвращает базовую часть URL-адреса. (Например, `uri.base` = `http://mysite.com`)
+Возвращает базовую часть URL-адреса. (Например, `uri.base` = `https://example.com`)
 
 ##### rootUrl([include_host = false])
 
-Возвращает корневой URL-адрес экземпляра Grav. (Например. `uri.rootUrl()` = `http://mysite.com/grav`)
+Возвращает корневой URL-адрес экземпляра Grav. (Например. `uri.rootUrl()` = `https://example.com/grav`)
 
 ##### referrer()
 

@@ -93,7 +93,7 @@ enabled: true
 
 	Вы хотите использовать [плагин Grav для списка таксономии](https://github.com/getgrav/grav-plugin-taxonomylist) для перечисления тегов, которые используются в ваших сообщениях в блоге, но вместо того, чтобы перечислять их все, вы только хотите перечислить наиболее часто используемые элементы в данной таксономии (например, пять основных тегов).
 
-Это пример того, как гибкость плагинов Grav действительно пригодится. Первый шаг - убедиться, что у вас установлен [плагин Grav для списка таксономии](https://github.com/getgrav/grav-plugin-taxonomylist) в вашем пакете Grav. После установки убедитесь, что вы скопировали `/yoursite/user/plugins/taxonomylist/templates/partials/taxonomylist.html.twig` в `/yoursite/user/themes/yourtheme/templates/partials/taxonomylist.html.twig`, поскольку мы будем вносить изменения в этот файл.
+Это пример того, как гибкость плагинов Grav действительно пригодится. Первый шаг - убедиться, что у вас установлен [плагин Grav для списка таксономии](https://github.com/getgrav/grav-plugin-taxonomylist) в вашем пакете Grav. После установки убедитесь, что вы скопировали `user/plugins/taxonomylist/templates/partials/taxonomylist.html.twig` в `user/themes/yourtheme/templates/partials/taxonomylist.html.twig`, поскольку мы будем вносить изменения в этот файл.
 
 Чтобы эта работа работала, мы собираемся ввести три новые переменные: `filter`, `filterstart` и `filterend`, где
 
@@ -157,7 +157,7 @@ enabled: true
 
 	Вам действительно нравится [плагин Grav SimpleSearch](https://github.com/getgrav/grav-plugin-simplesearch), но вы хотите добавить кнопку поиска в дополнение к текстовому полю. Одна из причин для добавления этой кнопки заключается в том, что пользователю может быть не очевидно, что ему нужно нажать клавишу «Enter», чтобы инициировать свой поисковый запрос.
 
-Сначала убедитесь, что вы установили [плагин Grav SimpleSearch](https://github.com/getgrav/grav-plugin-simplesearch). Затем убедитесь, что вы скопировали `/yoursite/user/plugins/simplesearch/templates/partials/simplesearch-searchbox.html.twig` в `/yoursite/user/themes/yourtheme/templates/partials/simplesearch-searchbox.html.twig`, так как нам нужно будет внести изменения в этот файл.
+Сначала убедитесь, что вы установили [плагин Grav SimpleSearch](https://github.com/getgrav/grav-plugin-simplesearch). Затем убедитесь, что вы скопировали `user/plugins/simplesearch/templates/partials/simplesearch-searchbox.html.twig` в `user/themes/yourtheme/templates/partials/simplesearch-searchbox.html.twig`, так как нам нужно будет внести изменения в этот файл.
 
 Прежде чем идти дальше, давайте рассмотрим, что делает этот файл:
 
@@ -176,14 +176,14 @@ enabled: true
 </script>
 ```
 
-Первая строка просто вставляет поле ввода текста в ваш шаблон Twig. Атрибут `data-search-input` хранит базовый URL страницы результирующего запроса. По умолчанию `http://yoursite/search/query`.
+Первая строка просто вставляет поле ввода текста в ваш шаблон Twig. Атрибут `data-search-input` хранит базовый URL страницы результирующего запроса. По умолчанию `https://my-site.example/search/query`.
 
 Теперь перейдем к jQuery ниже. Здесь тег, содержащий атрибут `data-search-input`, назначается переменной input. Затем к `input` применяется метод jQuery `.on()`. Метод `.on()` применяет обработчики событий к выбранным элементам (в данном случае к текстовому полю `<input>`). Итак, когда пользователь нажимает (`keypress`) клавишу, чтобы начать поиск, оператор `if` проверяет, что следующие элементы являются `истинными`:
 
 1. Была нажата клавиша `Enter`: `event.which == 13`, где 13 - числовое значение клавиши `Enter` на клавиатуре.
 2. Количество символов, введенных в поле поиска, больше трех. Вы можете настроить это по своему вкусу, поскольку в вашей организации может быть много сокращений, состоящих из трех или менее символов.
 
-Если они верны, то `event.preventDefault();` гарантирует, что действие браузера по умолчанию для клавиши `Enter` игнорируется, так как это помешает нашему поиску. Наконец, создается полный URL-адрес поискового запроса. По умолчанию это `http://yoursite/search/query:yourquery`. Отсюда `/yoursite/user/plugins/simplesearch/simplesearch.php` выполняет фактический поиск, а другие файлы Twig в подключаемом модуле выводят результаты.
+Если они верны, то `event.preventDefault();` гарантирует, что действие браузера по умолчанию для клавиши `Enter` игнорируется, так как это помешает нашему поиску. Наконец, создается полный URL-адрес поискового запроса. По умолчанию это `https://my-site.example/search/query:yourquery`. Отсюда `user/plugins/simplesearch/simplesearch.php` выполняет фактический поиск, а другие файлы Twig в подключаемом модуле выводят результаты.
 
 Нет возврата к нашему решению! Если мы хотим добавить кнопку поиска, мы должны:
 

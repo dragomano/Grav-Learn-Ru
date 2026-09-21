@@ -261,7 +261,7 @@ bin/gpm install admin
 
 ```bash
 apt install -y certbot python3-certbot-nginx
-certbot --nginx -d yourdomain.com
+certbot --nginx -d my-site.example
 ```
 
 Certbot автоматически настроит Nginx для работы с SSL и включит автоматическое продление сертификатов.

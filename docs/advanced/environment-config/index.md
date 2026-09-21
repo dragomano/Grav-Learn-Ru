@@ -34,7 +34,7 @@ debugger:
 ```
 
 Точно так же вы можете включить конвейерную обработку ресурсов CSS, Link, JS и JS-модулей (объединение + минификация) только для вашего рабочего сайта
-(`user/env/www.mysite.com/config/system.yaml`):
+(`user/env/www.example.com/config/system.yaml`):
 
 ```yaml
 assets:
@@ -43,7 +43,7 @@ assets:
   js_module_pipeline: true
 ```
 
-Если к вашему производственному серверу можно получить доступ через `http://www.mysite.com`, вы также можете указать конфигурацию, специфичную для этого производственного сайта, с помощью файла, расположенного по адресу `user/env/www.mysite.com/config/system.yaml`.
+Если к вашему производственному серверу можно получить доступ через `http://www.example.com`, вы также можете указать конфигурацию, специфичную для этого производственного сайта, с помощью файла, расположенного по адресу `user/env/www.example.com/config/system.yaml`.
 
 Конечно, вы не ограничены изменениями в `system.yaml`, вы можете фактически переопределить **любую** настройку Grav в` site.yaml` или даже в любой [конфигурации плагина](/plugins/plugin-basics)!
 
@@ -86,10 +86,10 @@ mailer:
 user/config/themes/antimatter.yaml
 ```
 
-Может быть переопределено для любой среды, скажем, на каком-то производственном сайте (`http://www.mysite.com`):
+Может быть переопределено для любой среды, скажем, на каком-то производственном сайте (`http://www.example.com`):
 
 ```bash
-user/env/www.mysite.com/config/themes/antimatter.yaml
+user/env/www.example.com/config/themes/antimatter.yaml
 ```
 
 ### Конфигурация среды на основе сервера

@@ -165,8 +165,8 @@ sudo service apache2 restart
 Установите Grav, загрузив ZIP-архив и распаковав его:
 1. Загрузите самую последнюю и лучшую версию [**Grav**](https://getgrav.org/download/core/grav/latest) или пакет [**Grav + Admin**](https://getgrav.org/download/core/grav-admin/latest).
 1. Распакуйте ZIP-файл в созданный вами ранее веб-корневой каталог.
-1. Переименуйте извлеченную папку в `mysite`.
-1. Откройте ссылку [http://localhost/mysite](http://localhost/mysite) в браузере, и у вас должна быть работающая установка Grav.
+1. Переименуйте извлеченную папку в `my-site`.
+1. Откройте ссылку [http://localhost/my-site](http://localhost/my-site) в браузере, и у вас должна быть работающая установка Grav.
 
 ### Вариант 2: Ubuntu
 
@@ -176,10 +176,10 @@ sudo service apache2 restart
 wget -O grav.zip https://getgrav.org/download/core/grav/latest
 sudo apt install unzip  # unzip is not installed by default on WSL/Ubuntu
 unzip grav.zip -d /var/www/webroot
-mv /var/www/webroot/grav /var/www/webroot/mysite
+mv /var/www/webroot/grav /var/www/webroot/my-site
 ```
 
-Откройте ссылку [http://localhost/mysite](http://localhost/mysite) в браузере, и у вас должна быть работающая установка Grav.
+Откройте ссылку [http://localhost/my-site](http://localhost/my-site) в браузере, и у вас должна быть работающая установка Grav.
 
 Чтобы узнать о других вариантах установки, посетите [документацию Grav](/basics/installation).
 
@@ -252,23 +252,23 @@ sudo service apache2 restart
 	Например, вы можете добавить следующие хосты:
 
 	```bash
-	127.0.0.1 mysite-dev
-	127.0.0.1 mysite-prod
+	127.0.0.1 my-site-dev
+	127.0.0.1 my-site-prod
 	```
 
 	Хосты, определённые в файле hosts Windows, будут автоматически доступны в `/etc/hosts` в WSL/Ubuntu.
 * Создайте новые файлы конфигурации VirtualHost в папке `/etc/apache2/sites-available`.
     ```bash
-    sudo nano /etc/apache2/sites-available/mysite-dev.conf
+    sudo nano /etc/apache2/sites-available/my-site-dev.conf
     ```
     Вставьте следующий код в редактор:
     ```apacheconf
     <VirtualHost *:80>
 
-        ServerName mysite-dev
+        ServerName my-site-dev
 
         ServerAdmin webmaster@localhost
-        DocumentRoot  /var/www/webroot/mysite
+        DocumentRoot  /var/www/webroot/my-site
 
         <Directory /var/www/>
             Options Indexes FollowSymLinks
@@ -281,15 +281,15 @@ sudo service apache2 restart
 
     </VirtualHost>
     ```
-Повторите приведенные выше команды для `mysite-prod.conf` и используйте `ServerName mysite-prod` в качестве сервера.
+Повторите приведенные выше команды для `my-site-prod.conf` и используйте `ServerName my-site-prod` в качестве сервера.
 
 Включите новый VirtualHosts в конфигурации Apache:
 ```bash
-sudo a2ensite mysite-*
+sudo a2ensite my-site-*
 sudo service apache2 reload
 sudo service apache2 restart
 ```
-Теперь вы можете указать в браузере [http://mysite-dev](http://mysite-dev) и он откроет установку Grav по адресу `C:/your/path/to/webroot/mysite`, используя файлы конфигурации в папке `/user/mysite-dev/config/`.
+Теперь вы можете указать в браузере [http://my-site-dev](http://my-site-dev) и он откроет установку Grav по адресу `C:/your/path/to/webroot/my-site`, используя файлы конфигурации в папке `/user/my-site-dev/config/`.
 
 ## Автоматический запуск Apache (необязательно)
 Для запуска и остановки Apache требуются повышенные привилегии. А чтобы получить повышенные привилегии, требуется пароль. Чтобы Ubuntu не запрашивал пароль, вы можете предоставить себе постоянные повышенные привилегии для определённых служб.
