@@ -1,276 +1,237 @@
 ---
-description: Список общих методов для работы с Flex-объектами в Grav CMS.
+title: "Flex"
+description: "count(): int — подсчитывает количество директорий, зарегистрированных в Flex."
+tags:
+  - "Flex-объекты"
+  - "Twig"
 ---
 
 # Flex
 
-!!! tip ""
-
-	Полный список методов можно найти в разделе **Настройка объектов Flex**.
+> [!WARNING] Предупреждение
+> **Совет:** полный список методов приведён в разделе **Настройка Flex-объектов**.
 
 ## count()
 
-`count(): int` Подсчёт количества каталогов, зарегистрированных во Flex.
+`count(): int` Подсчитывает количество директорий, зарегистрированных в Flex.
 
 Возвращает:
-- `int` Количество **[Каталогов](../directory)**
+- `int` количество **[директорий](../directory/index.md)**
 
-=== "Twig"
+```twig title="Twig"
+{% set flex = grav.get('flex') %}
 
-	```twig
-	{% set flex = grav.get('flex') %}
+Flex has {{ flex.count() }} enabled directories.
+```
 
-	Flex has {{ flex.count() }} enabled directories.
-	```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
 
-=== "PHP"
+/** @var FlexInterface $flex */
+$flex = Grav::instance()->get('flex');
 
-	```php
-	<?php
-
-	use Grav\Common\Grav;
-	use Grav\Framework\Flex\Interfaces\FlexInterface;
-
-	/** @var FlexInterface $flex */
-	$flex = Grav::instance()->get('flex');
-
-	/** @var int $count */
-	$count = $flex->count();
-	```
-
+/** @var int $count */
+$count = $flex->count();
+```
 
 ## getDirectories()
 
-`getDirectories( [names] ): array` Получить список каталогов.
+`getDirectories( [names] ): array` Возвращает список директорий.
 
 Параметры:
-- **names** Необязательно: список имен каталогов (`array`)
+- **names** Необязательно: список имён директорий (`array`)
 
 Возвращает:
-- `array` список **[Каталогов](../directory)**
+- `array` список **[директорий](../directory/index.md)**
 
-!!! tip ""
+> [!WARNING] Предупреждение
+> **Совет:** если список имён не передан, метод возвращает все директории, зарегистрированные в Flex.
 
-	Если список имен не был предоставлен, метод возвращает все каталоги, зарегистрированные во Flex.
+```twig title="Twig"
+{% set flex = grav.get('flex') %}
 
-=== "Twig"
+{# Получить все директории #}
+{% set directories = flex.directories() %}
 
-	```twig
-	{% set flex = grav.get('flex') %}
+{# Получить перечисленные директории #}
+{% set listed_directories = flex.directories(['contacts', 'phonebook']) %}
 
-	{# Get all directories #}
-	{% set directories = flex.directories() %}
+{# Сделать что-нибудь с директориями #}
+```
 
-	{# Get listed directories #}
-	{% set listed_directories = flex.directories(['contacts', 'phonebook']) %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
+use Grav\Framework\Flex\Interfaces\FlexDirectoryInterface;
 
-	{# Do something with the directories #}
-	```
+/** @var FlexInterface $flex */
+$flex = Grav::instance()->get('flex');
 
-=== "PHP"
+/** @var FlexDirectoryInterface[] $directories */
+$directories = $flex->getDirectories();
+// = ['contacts' => FlexDirectory, ...]
 
-	```php
-	<?php
+/** @var FlexDirectoryInterface[] $directories */
+$listedDirectories = $flex->getDirectories(['contacts', 'phonebook']);
+// = ['contacts' => FlexDirectory]
 
-	use Grav\Common\Grav;
-	use Grav\Framework\Flex\Interfaces\FlexInterface;
-	use Grav\Framework\Flex\Interfaces\FlexDirectoryInterface;
+/** @var array<FlexDirectoryInterface|null> $directories */
+$listedDirectoriesWithMissing = $flex->getDirectories(['contacts', 'phonebook'], true);
+// = ['contacts' => FlexDirectory, 'phonebook' => null]
+```
 
-	/** @var FlexInterface $flex */
-	$flex = Grav::instance()->get('flex');
-
-	/** @var FlexDirectoryInterface[] $directories */
-	$directories = $flex->getDirectories();
-	// = ['contacts' => FlexDirectory, ...]
-
-	/** @var FlexDirectoryInterface[] $directories */
-	$listedDirectories = $flex->getDirectories(['contacts', 'phonebook']);
-	// = ['contacts' => FlexDirectory]
-
-	/** @var array<FlexDirectoryInterface|null> $directories */
-	$listedDirectoriesWithMissing = $flex->getDirectories(['contacts', 'phonebook'], true);
-	// = ['contacts' => FlexDirectory, 'phonebook' => null]
-	```
-
-!!! tip ""
-
-	Вы можете убедиться, что возвращаете только те каталоги, которые хотите.
+> [!WARNING] Предупреждение
+> **Совет:** возможно, стоит убедиться, что вы возвращаете только нужные вам директории.
 
 ## hasDirectory()
 
-`hasDirectory( name ): bool`: Проверить, существует ли каталог.
+`hasDirectory( name ): bool`: проверяет, существует ли директория.
 
 Параметры:
-- **name** Имя каталога (`string`)
+- **name** имя директории (`string`)
 
 Возвращает:
-- `bool` `true`, если найден, иначе `false`
+- `bool` true, если найдена, иначе false
 
-=== "Twig"
+```twig title="Twig"
+{% set flex = grav.get('flex') %}
 
-	```twig
-	{% set flex = grav.get('flex') %}
+Flex has {{ not flex.hasDirectory('contacts') ? 'not' }} contacts directory.
+```
 
-	Flex has {{ not flex.hasDirectory('contacts') ? 'not' }} contacts directory.
-	```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
 
-=== "PHP"
+/** @var FlexInterface $flex */
+$flex = Grav::instance()->get('flex');
 
-	```php
-	<?php
-
-	use Grav\Common\Grav;
-	use Grav\Framework\Flex\Interfaces\FlexInterface;
-
-	/** @var FlexInterface $flex */
-	$flex = Grav::instance()->get('flex');
-
-	/** @var bool $exists */
-	$exists = $flex->hasDirectory('contacts');
-	```
+/** @var bool $exists */
+$exists = $flex->hasDirectory('contacts');
+```
 
 ## getDirectory()
 
-`getDirectory( name ): Directory | null` Получить каталог, возвращает `null`, если он не был найден.
+`getDirectory( name ): Directory | null` Возвращает директорию или null, если она не найдена.
 
 Параметры:
-- **name** Имя каталога (`string`)
+- **name** имя директории (`string`)
 
 Возвращает:
-- **[Каталог](../directory)** (`object`)
-- `null` Каталог не найден
+- **[директорию](../directory/index.md)** (`object`)
+- `null` директория не найдена
 
-=== "Twig"
+```twig title="Twig"
+{% set flex = grav.get('flex') %}
 
-	```twig
-	{% set flex = grav.get('flex') %}
+{# Получить директорию contacts (null, если не найдена) #}
+{% set directory = flex.directory('contacts') %}
 
-	{# Get contacts directory (null if not found) #}
-	{% set directory = flex.directory('contacts') %}
+{# Сделать что-нибудь с директорией contacts #}
+```
 
-	{# Do something with the contacts directory #}
-	```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
+use Grav\Framework\Flex\Interfaces\FlexDirectoryInterface;
 
-=== "PHP"
+/** @var FlexInterface $flex */
+$flex = Grav::instance()->get('flex');
 
-	```php
-	<?php
+/** @var FlexDirectoryInterface|null $directory */
+$directory = $flex->getDirectory('contacts');
+if ($directory) {
+    // Директория существует, делаем что-нибудь с ней...
+}
+```
 
-	use Grav\Common\Grav;
-	use Grav\Framework\Flex\Interfaces\FlexInterface;
-	use Grav\Framework\Flex\Interfaces\FlexDirectoryInterface;
-
-	/** @var FlexInterface $flex */
-	$flex = Grav::instance()->get('flex');
-
-	/** @var FlexDirectoryInterface|null $directory */
-	$directory = $flex->getDirectory('contacts');
-	if ($directory) {
-		// Directory exists, do something with it...
-	}
-	```
-
-!!! info ""
-
-	Проверьте, что вы можете сделать с **[каталогом Flex](../directory)**
+> [!NOTE] Примечание
+> Посмотрите, что можно делать с **[директорией Flex](../directory/index.md)**.
 
 ## getObject()
 
-`getObject( id, directory ): Object | null` Получить объект, возвращает `null`, если он не был найден.
+`getObject( id, directory ): Object | null` Возвращает объект или null, если он не найден.
 
 Параметры:
-- **id** ID объекта (`string`)
-- **directory** Имя каталога (`string`)
+- **id** идентификатор объекта (`string`)
+- **directory** имя директории (`string`)
 
 Возвращает:
-- **[Объект](../object)** (`object`)
-- `null` Объект не найден
+- **[объект](../object/index.md)** (`object`)
+- `null` объект не найден
 
-=== "Twig"
+```twig title="Twig"
+{% set flex = grav.get('flex') %}
 
-	```twig
-	{% set flex = grav.get('flex') %}
+{% set contact = flex.object('ki2ts4cbivggmtlj', 'contacts') %}
 
-	{% set contact = flex.object('ki2ts4cbivggmtlj', 'contacts') %}
+{# Сделать что-нибудь #}
+{% if contact %}
+  {# Получили Bruce Day #}
+  {{ contact.first_name|e }} {{ contact.last_name|e }} has a website: {{ contact.website|e }}
+{% else %}
+  Oops, contact has been removed!
+{% endif %}
+```
 
-	{# Do something #}
-	{% if contact %}
-	{# Got Bruce Day #}
-	{{ contact.first_name|e }} {{ contact.last_name|e }} has a website: {{ contact.website|e }}
-	{% else %}
-	Oops, contact has been removed!
-	{% endif %}
-	```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-=== "PHP"
+/** @var FlexInterface $flex */
+$flex = Grav::instance()->get('flex');
 
-	```php
-	<?php
+/** @var FlexObjectInterface|null $object */
+$object = $flex->getObject('ki2ts4cbivggmtlj', 'contacts');
+if ($object) {
+    // Объект существует, делаем что-нибудь с ним...
+}
+```
 
-	use Grav\Common\Grav;
-	use Grav\Framework\Flex\Interfaces\FlexInterface;
-	use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-	/** @var FlexInterface $flex */
-	$flex = Grav::instance()->get('flex');
-
-	/** @var FlexObjectInterface|null $object */
-	$object = $flex->getObject('ki2ts4cbivggmtlj', 'contacts');
-	if ($object) {
-		// Object exists, do something with it...
-	}
-	```
-
-!!! tip ""
-
-	Проверьте, что вы можете сделать с **[объектом Flex](../object)**
+> [!NOTE] Примечание
+> Посмотрите, что можно делать с **[Flex-объектом](../object/index.md)**.
 
 ## getCollection()
 
-`getCollection( directory ): Collection | null` Получить коллекцию, возвращает `null`, если она не найдена.
+`getCollection( directory ): Collection | null` Возвращает коллекцию или null, если она не найдена.
 
 Параметры:
-- `directory` Имя каталога (`string`)
+- `directory` имя директории (`string`)
 
 Возвращает:
-- **[Коллекция](../collection)** (`object`)
-- `null` Каталог не найден
+- **[коллекцию](../collection/index.md)** (`object`)
+- `null` директория не найдена
 
-=== "Twig"
+```twig title="Twig"
+{% set flex = grav.get('flex') %}
 
-	```twig
-	{% set flex = grav.get('flex') %}
+{% set contacts = flex.collection('contacts') %}
 
-	{% set contacts = flex.collection('contacts') %}
+{# Сделать что-нибудь #}
+<h2>Ten random contacts:</h2>
+<ul>
+  {% for contact in contacts.filterBy({published: true}).shuffle().limit(0, 10) %}
+    <li>{{ contact.first_name|e }} {{ contact.last_name|e }}</li>
+  {% endfor %}
+</ul>
+```
 
-	{# Do something #}
-	<h2>Ten random contacts:</h2>
-	<ul>
-	{% for contact in contacts.filterBy({published: true}).shuffle().limit(0, 10) %}
-		<li>{{ contact.first_name|e }} {{ contact.last_name|e }}</li>
-	{% endfor %}
-	</ul>
-	```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
 
-=== "PHP"
+/** @var FlexInterface $flex */
+$flex = Grav::instance()->get('flex');
 
-	```php
-	<?php
+/** @var FlexCollectionInterface|null $collection */
+$collection = $flex->getCollection('contacts');
+if ($collection) {
+    // Коллекция существует, делаем что-нибудь с ней...
+}
+```
 
-	use Grav\Common\Grav;
-	use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-	use Grav\Framework\Flex\Interfaces\FlexInterface;
-
-	/** @var FlexInterface $flex */
-	$flex = Grav::instance()->get('flex');
-
-	/** @var FlexCollectionInterface|null $collection */
-	$collection = $flex->getCollection('contacts');
-	if ($collection) {
-		// Collection exists, do something with it...
-	}
-	```
-
-!!! tip ""
-
-	Проверьте, что вы можете сделать с **[коллекцией Flex](../collection)**
+> [!NOTE] Примечание
+> Посмотрите, что можно делать с **[коллекцией Flex](../collection/index.md)**.

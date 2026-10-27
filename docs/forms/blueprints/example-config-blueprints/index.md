@@ -1,42 +1,50 @@
 ---
-description: Как добавить свои поля в интерфейс настроек админки.
+title: "Пример: схемы конфигурации"
+description: "Часто в site.yaml добавляют некоторые параметры конфигурации, чтобы они отображались в содержимом сайта."
+tags:
+  - "Формы"
+  - "Схемы"
+  - "Конфигурация"
 ---
 
-# Пример: чертежи конфигурации
+# Пример: схемы конфигурации
 
-Обычно в `site.yaml` добавляются некоторые параметры конфигурации, которые будут отображаться в содержимом сайта.
+Часто в site.yaml добавляют некоторые параметры конфигурации, чтобы они отображались в содержимом сайта.
 
-Чтобы сделать эти параметры настраиваемыми через панель админки, добавьте несколько полей в `user/blueprints/config/site.yaml`. Например:
+Чтобы сделать эти параметры настраиваемыми через админку, добавьте поля в `user/blueprints/config/site.yaml`. Например:
 
-```yaml
-extends@: '@parent'
+```yaml linenums="1"
+extends@:
+    '@parent'
 
 form:
-  fields:
-    content:
-      fields:
-        myfield:
-          type: text
-          label: My Field
+    fields:
+        content:
+
+            fields:
+                myfield:
+                    type: text
+                    label: My Field
 ```
 
-Добавит тип ввода «Мое поле», добавив его в раздел «Контент» конфигурации сайта.
+Это добавит поле ввода «My Field», прикрепив его к разделу Content конфигурации Site.
 
-Вы также можете добавлять целые новые разделы, например:
+Можно добавлять и целые новые разделы, например:
 
-```yaml
-extends@: '@parent'
+```yaml linenums="1"
+extends@:
+    '@parent'
 
 form:
-  fields:
-    anothersection:
-      type: section
-      title: Another Section
-      underline: true
+    fields:
+        anothersection:
+            type: section
+            title: Another Section
+            underline: true
 
-      fields:
-        myfield:
-          type: text
-          label: A label
-          size: large
+            fields:
+                myfield:
+                    type: text
+                    label: A label
+                    size: large
 ```

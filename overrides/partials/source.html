@@ -1,0 +1,20 @@
+{#-
+  Шапка: ссылка на репозиторий перевода + ссылка на оригинальную документацию Grav.
+  Оригинальный шаблон темы: zensical/templates/partials/source.html
+-#}
+<div class="md-source-group">
+  <a href="{{ config.repo_url }}" title="{{ lang.t('source') }}" class="md-source" data-md-component="source">
+    <div class="md-source__icon md-icon">
+      {% set icon = config.theme.icon.repo or "fontawesome/brands/git-alt" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </div>
+    <div class="md-source__repository">
+      {{ config.repo_name }}
+    </div>
+  </a>
+  <a href="https://learn.getgrav.org/2" target="_blank" rel="noopener" title="Оригинальная документация Grav на английском" class="md-source md-source--upstream" data-md-component="source-upstream">
+    <div class="md-source__icon md-icon">
+      {% include ".icons/fontawesome/brands/grav.svg" %}
+    </div>
+  </a>
+</div>

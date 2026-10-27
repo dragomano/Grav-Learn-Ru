@@ -1,1482 +1,1250 @@
 ---
-description: Список методов для работы с Flex-коллекциями в Grav CMS.
+title: "Коллекция Flex"
+description: "Коллекция Flex — это упорядоченная карта объектов, которую также можно использовать как список."
+tags:
+  - "Flex-объекты"
+  - "Twig"
 ---
 
 # Коллекция Flex
 
 **Коллекция Flex** — это **упорядоченная карта объектов**, которую также можно использовать как список.
 
-Коллекция предоставляет несколько полезных методов, которые можно использовать для визуализации вывода, выборки объектов, фильтрации и сортировки и так далее.
+Коллекция предоставляет несколько полезных методов для рендеринга вывода, получения объектов, фильтрации, сортировки и так далее.
 
-!!! tip ""
+> [!WARNING] Предупреждение
+> **Совет:** коллекция Flex расширяет **[Doctrine Collections](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html)**.
 
-    Коллекция Flex расширяет **[Коллекции Doctrine](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html)**.
+## Рендеринг коллекции
 
-## Визуализация коллекции
+## render()
 
-### render()
-
-`render( [layout], [context] ): Block` Визуализирует коллекцию.
-
-Параметры:
-
-* **layout** Название макета (`string`)
-* **context** Дополнительные переменные, которые можно использовать внутри файла шаблона Twig (`array`)
-
-Возвращает:
-
-* **Block** (`object`) HTML-класс блока, содержащего вывод
-
-!!! note ""
-
-    В twig есть тег `{% render %}`, который следует использовать вместо прямого вызова метода. Это позволит ресурсам JS/CSS из коллекции работать правильно.
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% set page = 2 %}
-    {% set limit = 10 %}
-    {% set start = (page - 1) * limit %}
-
-    <h2>Contacts:</h2>
-
-    {% render contacts.limit(start, limit) layout: 'cards' with { background: 'gray', color: 'white' } %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\ContentBlock\HtmlBlock;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    $page = 2;
-    $limit = 10;
-    $start = ($page-1)*$limit;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->limit($start, $limit);
-
-        /** @var HtmlBlock $block */
-        $block = $collection->render('cards', ['background' =>'gray', 'color' => 'white']);
-
-    }
-    ```
-
-## Манипуляции с коллекциями
-
-Все эти методы возвращают **измененную копию** коллекции. Исходная коллекция остается без изменений.
-
-### sort()
-
-`sort( orderings ): Collection` Отсортируйте коллекцию по списку пар `свойство: направление` (`property: direction`).
+`render( [layout], [context] ): Block` Рендерит коллекцию.
 
 Параметры:
-
-* **orderings** Пары `property: direction`, где направление либо `ASC`, либо `DESC` (`array`)
+- **layout** имя макета (`string`)
+- **context** дополнительные переменные, доступные внутри файла шаблона Twig (`array`)
 
 Возвращает:
+- **Block** (`object`) класс HtmlBlock, содержащий вывод
 
-* **[Collection](#kollektsiia-flex)** (`object`) Новый отсортированный экземпляр коллекции
+> [!NOTE] Примечание
+> **ПРИМЕЧАНИЕ:** в Twig есть тег `{% render %}`, который следует использовать вместо прямого вызова метода. Это позволит корректно работать JS/CSS-ресурсам коллекции.
 
-!!! tip ""
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% set page = 2 %}
+{% set limit = 10 %}
+{% set start = (page - 1) * limit %}
 
-    Порядок сортировки по умолчанию может быть установлен для внешнего интерфейса в чертежах **Flex-типа**.
+<h2>Contacts:</h2>
 
-=== "Twig"
+{% render contacts.limit(start, limit) layout: 'cards' with { background: 'gray', color: 'white' } %}
+```
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\ContentBlock\HtmlBlock;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    {% set contacts = contacts.sort({last_name: 'ASC', first_name: 'ASC'}) %}
+$page = 2;
+$limit = 10;
+$start = ($page-1)*$limit;
 
-    <div>Displaying all contacts in alphabetical order:</div>
-    {% render contacts layout: 'cards' %}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
+    $collection = $collection->limit($start, $limit);
 
-    ```php
-    <?php
+    /** @var HtmlBlock $block */
+    $block = $collection->render('cards', ['background' =>'gray', 'color' => 'white']);
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+}
+```
 
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
+## Работа с коллекцией
 
-        $collection = $collection->sort(['last_name' => 'ASC', 'first_name' => 'ASC']);
-        // Collection has now be sorted by last name, first name...
+Все эти методы возвращают **изменённую копию** коллекции. Исходная коллекция остаётся неизменной.
 
-    }
-    ```
+## sort()
 
-### limit()
-
-`limit( start, limit ): Collection` Вернуть подмножество коллекции, начиная с `start` и включая только `limit` объектов.
+`sort( orderings ): Collection` Сортирует коллекцию по списку пар `property: direction`.
 
 Параметры:
-
-* **start** Начальный индекс начиная с 0 (`int`)
-* **limit** Максимальное количество объектов (`int`)
+- **orderings** пары `property: direction`, где direction — `ASC` или `DESC` (`array`)
 
 Возвращает:
+- **[коллекцию](./)** (`object`) новый отсортированный экземпляр коллекции
 
-* **[Collection](#kollektsiia-flex)** (`object`) Новый отфильтрованный экземпляр коллекции
+> [!WARNING] Предупреждение
+> **Совет:** порядок сортировки по умолчанию для фронтенда можно задать в схеме **типа Flex**.
 
-=== "Twig"
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% set page = 3 %}
-    {% set limit = 6 %}
-    {% set start = (page - 1) * limit %}
+{% set contacts = contacts.sort({last_name: 'ASC', first_name: 'ASC'}) %}
 
-    {% set contacts = contacts.limit(start, limit) %}
+<div>Displaying all contacts in alphabetical order:</div>
+{% render contacts layout: 'cards' %}
+```
 
-    <div>Displaying page {{ page|e }}:</div>
-    {% render contacts layout: 'cards' %}
-    ```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-=== "PHP"
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    ```php
-    <?php
+    $collection = $collection->sort(['last_name' => 'ASC', 'first_name' => 'ASC']);
+    // Коллекция теперь отсортирована по фамилии, затем по имени...
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+}
+```
 
-    $start = 0;
-    $limit = 6;
+## limit()
 
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->limit($start, $limit);
-        // Collection contains only the objects in the current page...
-
-    }
-    ```
-
-### filterBy()
-
-`filterBy( filters ): Collection` Фильтрация коллекции по списку пар `свойство: значение` (`property: value`).
+`limit( start, limit ): Collection` Возвращает подмножество коллекции, начиная с `start` и включая только `limit` объектов.
 
 Параметры:
-
-* **filters** Пары `property: value`, которые используются для фильтрации коллекции (`array`)
-
-Возвращает:
-
-* **[Collection](#kollektsiia-flex)** (`object`) Новый отфильтрованный экземпляр коллекции
-
-!!! tip ""
-
-    Фильтрацию по умолчанию можно установить для внешнего интерфейса в чертежах **Flex-типа**.
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    {% set contacts = contacts.filterBy({'published': true}) %}
-
-    <div>Displaying only published contacts:</div>
-    {% render contacts layout: 'cards' %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    $start = 0;
-    $limit = 6;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->filterBy(['published' => true]);
-        // Collection contains only published objects...
-
-    }
-    ```
-
-### reverse()
-
-`reverse(): Collection`  Поменять порядок объектов в коллекции на обратный.
+- **start** начальный индекс, начиная с 0 (`int`)
+- **limit** максимальное число объектов (`int`)
 
 Возвращает:
+- **[коллекцию](./)** (`object`) новый отфильтрованный экземпляр коллекции
 
-* **[Collection](#kollektsiia-flex)** (`object`) Новый перевернутый экземпляр коллекции
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% set page = 3 %}
+{% set limit = 6 %}
+{% set start = (page - 1) * limit %}
 
-!!! tip ""
+{% set contacts = contacts.limit(start, limit) %}
 
-    Если вы используете `sort()`, рекомендуется изменить порядок в нем, поскольку это экономит дополнительный шаг.
+<div>Displaying page {{ page|e }}:</div>
+{% render contacts layout: 'cards' %}
+```
 
-=== "Twig"
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+$start = 0;
+$limit = 6;
 
-    {% set contacts = contacts.reverse() %}
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    <div>Displaying contacts in reverse ordering:</div>
-    {% render contacts layout: 'cards' %}
-    ```
+    $collection = $collection->limit($start, $limit);
+    // Коллекция содержит только объекты текущей страницы...
 
-=== "PHP"
+}
+```
 
-    ```php
-    <?php
+## filterBy()
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    $start = 0;
-    $limit = 6;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->reverse();
-        // Collection is now in reverse ordering...
-
-    }
-    ```
-
-### shuffle()
-
-`shuffle(): Collection`  Перемешать объекты в случайном порядке.
-
-Возвращает:
-
-* **[Collection](#kollektsiia-flex)** (`object`) Новый случайно упорядоченный экземпляр коллекции
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    {% set contacts = contacts.shuffle().limit(0, 6) %}
-
-    <div>Displaying 6 random contacts:</div>
-    {% render contacts layout: 'cards' %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->shuffle()->limit(0,6);
-        // Collection contains 6 random contacts...
-
-    }
-    ```
-
-### select()
-
-`select( keys ): Collection` Выбрать объекты (по их ключам) из коллекции.
+`filterBy( filters ): Collection` Фильтрует коллекцию по списку пар `property: value`.
 
 Параметры:
-
-* **keys** Список ключей объекта, используемых для выбора объектов (`array`)
+- **filters** пары `property: value`, используемые для фильтрации коллекции (`array`)
 
 Возвращает:
+- **[коллекцию](./)** (`object`) новый отфильтрованный экземпляр коллекции
 
-* **[Collection](#kollektsiia-flex)** (`object`) Новый экземпляр коллекции
+> [!WARNING] Предупреждение
+> **Совет:** фильтрацию по умолчанию для фронтенда можно задать в схеме **типа Flex**.
 
-=== "Twig"
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% set selected = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'] %}
+{% set contacts = contacts.filterBy({'published': true}) %}
 
-    {% set contacts = contacts.select(selected) %}
+<div>Displaying only published contacts:</div>
+{% render contacts layout: 'cards' %}
+```
 
-    <div>Displaying 4 selected contacts:</div>
-    {% render contacts layout: 'cards' %}
-    ```
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-=== "PHP"
+$start = 0;
+$limit = 6;
 
-    ```php
-    <?php
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+    $collection = $collection->filterBy(['published' => true]);
+    // Коллекция содержит только опубликованные объекты...
 
-    $selected = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'];
+}
+```
 
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
+## reverse()
 
-        $collection = $collection->select($selected);
-        // Collection now contains the 4 selected contacts...
+`reverse(): Collection`  Меняет порядок объектов в коллекции на обратный.
 
-    }
-    ```
+Возвращает:
+- **[коллекцию](./)** (`object`) новый экземпляр коллекции в обратном порядке
 
-### unselect()
+> [!WARNING] Предупреждение
+> **Совет:** если вы используете `sort()`, рекомендуется задать обратный порядок прямо в нём — так вы сэкономите лишний шаг.
 
-`unselect( keys ): Collection` Удалять предметы (по их ключам) из коллекции.
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+
+{% set contacts = contacts.reverse() %}
+
+<div>Displaying contacts in reverse ordering:</div>
+{% render contacts layout: 'cards' %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+
+$start = 0;
+$limit = 6;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    $collection = $collection->reverse();
+    // Коллекция теперь в обратном порядке...
+
+}
+```
+
+## shuffle()
+
+`shuffle(): Collection`  Перемешивает объекты в случайном порядке.
+
+Возвращает:
+- **[коллекцию](./)** (`object`) новый экземпляр коллекции в случайном порядке
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+
+{% set contacts = contacts.shuffle().limit(0, 6) %}
+
+<div>Displaying 6 random contacts:</div>
+{% render contacts layout: 'cards' %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    $collection = $collection->shuffle()->limit(0,6);
+    // Коллекция содержит 6 случайных контактов...
+
+}
+```
+
+## select()
+
+`select( keys ): Collection` Выбирает объекты (по их ключам) из коллекции.
 
 Параметры:
-
-* **keys** Список ключей объектов, используемых для удаления объектов (`array`)
+- **keys** список ключей объектов для выбора (`array`)
 
 Возвращает:
+- **[коллекцию](./)** (`object`) новый экземпляр коллекции
 
-* **[Collection](#kollektsiia-flex)** (`object`) Новый экземпляр коллекции
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% set selected = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'] %}
 
+{% set contacts = contacts.select(selected) %}
 
-=== "Twig"
+<div>Displaying 4 selected contacts:</div>
+{% render contacts layout: 'cards' %}
+```
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% set ignore = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'] %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    {% set contacts = contacts.unselect(ignore) %}
+$selected = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'];
 
-    <div>Displaying all but 4 ignored contacts:</div>
-    {% render contacts layout: 'cards' %}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
+    $collection = $collection->select($selected);
+    // Коллекция теперь содержит 4 выбранных контакта...
 
-    ```php
-    <?php
+}
+```
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+## unselect()
 
-    $ignore = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'];
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->unselect($ignore);
-        // Collection now contains all but 4 ignored contacts...
-
-    }
-    ```
-
-### search()
-
-`search( string, [properties], [options] ): Collection` Поиск строки в коллекции.
+`unselect( keys ): Collection` Удаляет объекты (по их ключам) из коллекции.
 
 Параметры:
-
-* **string** Строка для поиска (`string`)
-* **properties** Свойства для поиска, если `null` (или не указано), используйте значения по умолчанию (`array` или `null`)
-* **options** Дополнительные параметры, используемые при поиске (`array`)
-    * starts_with: `bool`
-    * ends_with: `bool`
-    * contains: `bool`
-    * case_sensitive: `bool`
+- **keys** список ключей объектов для удаления (`array`)
 
 Возвращает:
+- **[коллекцию](./)** (`object`) новый экземпляр коллекции
 
-* **[Collection](#kollektsiia-flex)** (`object`) Новый отфильтрованный экземпляр коллекции
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% set ignore = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'] %}
 
-=== "Twig"
+{% set contacts = contacts.unselect(ignore) %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+<div>Displaying all but 4 ignored contacts:</div>
+{% render contacts layout: 'cards' %}
+```
 
-    {% set contacts = contacts.search('Jack', ['first_name', 'last_name', 'email'], {'contains': true}) %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    <div>Displaying all search results for 'Jack':</div>
-    {% render contacts layout: 'cards' %}
-    ```
+$ignore = ['gizwsvkyo5xtms2s', 'gjmva53uoncdo4sb', 'mfzwwtcugv5hkocd', 'k5nfctkeoftwi4zu'];
 
-=== "PHP"
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    ```php
-    <?php
+    $collection = $collection->unselect($ignore);
+    // Коллекция теперь содержит все контакты, кроме 4 исключённых...
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+}
+```
 
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
+## search()
 
-        $collection = $collection->search('Jack', ['first_name', 'last_name', 'email'], ['contains' => true]);
-        // Collection now contains all search results...
+`search( string, [properties], [options] ): Collection` Ищет строку в коллекции.
 
-    }
-    ```
-
-### copy()
-
-`copy(): Collection` Создать копию из коллекции, клонировав все объекты в коллекции.
-
-Возвращает:
-
-* **[Collection](#kollektsiia-flex)** (`object`) Новый экземпляр коллекции, теперь с клонированными объектами
-
-!!! warning ""
-
-    Если вы изменяете объекты в своей коллекции, вы всегда должны использовать копии!
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    {% set contacts = contacts.shuffle().limit(0, 10) %}
-    {% set fakes = contacts.copy() %}
-
-    {% do fakes.setProperty('first_name', 'JACK') %}
-
-    <h2>Fake cards</h2>
-    {% render fakes layout: 'cards' %}
-
-    <h2>Original cards</h2>
-    {% render contacts layout: 'cards' %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        $collection = $collection->search('Jack', ['first_name', 'last_name', 'email'], ['contains' => true]);
-        // Collection now contains all search results...
-
-    }
-    ```
-
-## Итерация по коллекции
-
-**Коллекции** можно перебирать.
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    <h2>All contacts:</h2>
-    <ul>
-    {% for contact in contacts %}
-        <li>{{ contact.first_name|e }} {{ contact.last_name|e }}</li>
-    {% endfor %}
-    </ul>
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var FlexObjectInterface $object */
-        foreach ($collection as $object) {
-            // Do something with the object...
-        }
-
-    }
-    ```
-
-### first()
-
-`first(): Object | false` Устанавливает итератор на первый объект в коллекции и возвращает этот объект.
+Параметры:
+- **string** строка поиска (`string`)
+- **properties** свойства для поиска; если null (или не переданы), используются значения по умолчанию (`array` или `null`)
+- **options** дополнительные параметры поиска (`array`)
+  - starts_with: `bool`
+  - ends_with: `bool`
+  - contains: `bool`
+  - case_sensitive: `bool`
 
 Возвращает:
+- **[коллекцию](./)** (`object`) новый отфильтрованный экземпляр коллекции
 
-* **[Object](../object)** (`object`) Первый объект
-* `false` Никаких предметов в коллекции нет
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set contacts = contacts.search('Jack', ['first_name', 'last_name', 'email'], {'contains': true}) %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+<div>Displaying all search results for 'Jack':</div>
+{% render contacts layout: 'cards' %}
+```
 
-    {% set contact = contacts.first() %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    {% if contact %}
-        <h2>First contact:</h2>
-        <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
-    {% endif %}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
+    $collection = $collection->search('Jack', ['first_name', 'last_name', 'email'], ['contains' => true]);
+    // Коллекция теперь содержит все результаты поиска...
 
-    ```php
-    <?php
+}
+```
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+## copy()
 
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
+`copy(): Collection` Создаёт копию коллекции, клонируя все объекты в ней.
+
+Возвращает:
+- **[коллекцию](./)** (`object`) новый экземпляр коллекции, теперь с клонированными объектами
+
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** если вы изменяете объекты в коллекции, всегда используйте копии!
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+
+{% set contacts = contacts.shuffle().limit(0, 10) %}
+{% set fakes = contacts.copy() %}
+
+{% do fakes.setProperty('first_name', 'JACK') %}
+
+<h2>Fake cards</h2>
+{% render fakes layout: 'cards' %}
+
+<h2>Original cards</h2>
+{% render contacts layout: 'cards' %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    $collection = $collection->search('Jack', ['first_name', 'last_name', 'email'], ['contains' => true]);
+    // Коллекция теперь содержит все результаты поиска...
+
+}
+```
+
+## Перебор коллекции
+
+По **коллекциям** можно итерироваться.
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+
+<h2>All contacts:</h2>
+<ul>
+  {% for contact in contacts %}
+    <li>{{ contact.first_name|e }} {{ contact.last_name|e }}</li>
+  {% endfor %}
+</ul>
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    /** @var FlexObjectInterface $object */
+    foreach ($collection as $object) {
+        // Делаем что-нибудь с объектом...
+    }
+
+}
+```
+
+## first()
+
+`first(): Object | false` Переводит итератор на первый объект коллекции и возвращает этот объект.
+
+Возвращает:
+- **[объект](../object/index.md)** (`object`) первый объект
+- `false` в коллекции нет объектов
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+
+{% set contact = contacts.first() %}
+
+{% if contact %}
+    <h2>First contact:</h2>
+    <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
+{% endif %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    /** @var FlexObjectInterface|false $object */
+    $object = $collection->first();
+    if ($object) {
+        // Делаем что-нибудь с объектом...
+    }
+
+}
+```
+
+## last()
+
+`last(): Object | false` Переводит итератор на последний объект коллекции и возвращает этот объект.
+
+Возвращает:
+- **[объект](../object/index.md)** (`object`) последний объект
+- `false` в коллекции нет объектов
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+
+{% set contact = contacts.last() %}
+
+{% if contact %}
+    <h2>Last contact:</h2>
+    <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
+{% endif %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    /** @var FlexObjectInterface|false $object */
+    $object = $collection->last();
+    if ($object) {
+        // Делаем что-нибудь с объектом...
+    }
+
+}
+```
+
+## next()
+
+`next(): object | false` Перемещает итератор к следующему объекту и возвращает этот элемент.
+
+Возвращает:
+- **[объект](../object/index.md)** (`object`) следующий объект
+- `false` в коллекции больше нет объектов
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% set first = contacts.first() %}
+...
+
+{% set contact = contacts.next() %}
+
+{% if contact %}
+    <h2>Next contact is:</h2>
+    <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
+{% endif %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+
+    /** @var FlexObjectInterface|false $object */
+    while ($object = $collection->next()) {
+        // Делаем что-нибудь с объектом...
+    }
+
+}
+```
+
+## current()
+
+`current(): object | false` Возвращает объект коллекции на текущей позиции итератора.
+
+Возвращает:
+- **[объект](../object/index.md)** (`object`) текущий объект
+- `false` в коллекции больше нет объектов
+
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% do contacts.next() %}
+{% do contacts.next() %}
+...
+
+{% set contact = contacts.current() %}
+
+{% if contact %}
+    <h2>Current contact is:</h2>
+    <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
+{% endif %}
+```
+
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+    while ($collection->next()) {
 
         /** @var FlexObjectInterface|false $object */
-        $object = $collection->first();
-        if ($object) {
-            // Do something with the object...
-        }
+        $object = $collection->current();
+        // Делаем что-нибудь с объектом...
 
     }
-    ```
+}
+```
 
-### last()
+## key()
 
-`last(): Object | false` Устанавливает итератор на последний объект в коллекции и возвращает этот объект.
+`key(): key | null` Возвращает ключ объекта на текущей позиции итератора.
 
 Возвращает:
+- **key** (`string`) ключ объекта
+- `null` в коллекции больше нет объектов
 
-* **[Object](../object)** (`object`) Последний объект
-* `false` Никаких предметов в коллекции нет
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
+{% do contacts.next() %}
+{% do contacts.next() %}
+...
 
-=== "Twig"
+{% set key = contacts.key() %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+{% if key %}
+    Current contact key is: <strong>{{ key|e }}</strong>
+{% endif %}
+```
 
-    {% set contact = contacts.last() %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    {% if contact %}
-        <h2>Last contact:</h2>
-        <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
-    {% endif %}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
+    while ($collection->next()) {
 
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var FlexObjectInterface|false $object */
-        $object = $collection->last();
-        if ($object) {
-            // Do something with the object...
-        }
+        $key = $collection->key();
+        // Делаем что-нибудь с ключом...
 
     }
-    ```
+}
+```
 
-### next()
+## Получение объекта и ключа
 
-`next(): object | false` Перемещает позицию итератора к следующему объекту и возвращает этот элемент.
+## Доступ как к массиву {: #array-access }
 
-Возвращает:
+К **коллекциям** можно обращаться так же, как к ассоциативным массивам или картам.
 
-* **[Object](../object)** (`object`) Следующий объект
-* `false` Больше никаких элементов в коллекции
+> [!NOTE] Примечание
+> **ПРИМЕЧАНИЕ:** возвращается `null`, если объекта с указанным ключом нет в коллекции.
 
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set contact = contacts['ki2ts4cbivggmtlj']
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% set first = contacts.first() %}
-    ...
+{# Сделать что-нибудь #}
+{% if contact %}
+  {# Получили Bruce Day #}
+  Email for {{ contact.first_name|e }} {{ contact.last_name|e }} is {{ contact.email|e }}
+{% else %}
+  Oops, contact has been removed!
+{% endif %}
+```
 
-    {% set contact = contacts.next() %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    {% if contact %}
-        <h2>Next contact is:</h2>
-        <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
-    {% endif %}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var FlexObjectInterface|false $object */
-        while ($object = $collection->next()) {
-            // Do something with the object...
-        }
-
+    /** @var FlexObjectInterface|null $object */
+    $object = $collection['ki2ts4cbivggmtlj'];
+    if ($object) {
+        // Объект существует, делаем что-нибудь с ним...
     }
-    ```
 
-### current()
+}
+```
 
-`current(): object | false` Возвращает объект коллекции в текущей позиции итератора.
+## get()
 
-Возвращает:
-
-* **[Object](../object)** (`object`) Текущий объект
-* `false` Больше никаких элементов в коллекции
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% do contacts.next() %}
-    {% do contacts.next() %}
-    ...
-
-    {% set contact = contacts.current() %}
-
-    {% if contact %}
-        <h2>Current contact is:</h2>
-        <div>{{ contact.first_name|e }} {{ contact.last_name|e }}</div>
-    {% endif %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-        while ($collection->next()) {
-
-            /** @var FlexObjectInterface|false $object */
-            $object = $collection->current();
-            // Do something with the object...
-
-        }
-    }
-    ```
-
-### key()
-
-`key(): key | null` Возвращает ключ объекта в текущей позиции итератора.
-
-Возвращает:
-
-* **key** (`string`) Ключ объекта
-* `null` Больше никаких элементов в коллекции
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-    {% do contacts.next() %}
-    {% do contacts.next() %}
-    ...
-
-    {% set key = contacts.key() %}
-
-    {% if key %}
-        Current contact key is: <strong>{{ key|e }}</strong>
-    {% endif %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-        while ($collection->next()) {
-
-            $key = $collection->key();
-            // Do something with the key...
-
-        }
-    }
-    ```
-
-## Получение объекта/ключа
-
-### Доступ к массиву
-
-**Коллекции** доступны так же, как ассоциативные массивы или карты.
-
-!!! note ""
-
-    Если объекта с данным ключом нет в коллекции, возвращается `null`.
-
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    {% set contact = contacts['ki2ts4cbivggmtlj']
-
-    {# Do something #}
-    {% if contact %}
-    {# Got Bruce Day #}
-    Email for {{ contact.first_name|e }} {{ contact.last_name|e }} is {{ contact.email|e }}
-    {% else %}
-    Oops, contact has been removed!
-    {% endif %}
-    ```
-
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var FlexObjectInterface|null $object */
-        $object = $collection['ki2ts4cbivggmtlj'];
-        if ($object) {
-            // Object exists, do something with it...
-        }
-
-    }
-    ```
-
-### get()
-
-`get( key ): Object | null` Получает объект с указанным ключом.
+`get( key ): Object | null` Возвращает объект с указанным ключом.
 
 Параметры:
-
-* **key**  Ключ объекта (`string`)
+- **key**  ключ объекта (`string`)
 
 Возвращает:
+- **Object** (`object`)
+- `null` объекта с указанным ключом нет в коллекции
 
-* **Object** (`object`)
-* `null` Объект с данным ключом отсутствует в коллекции
+Альтернатива [доступу как к массиву](#array-access)
 
-Альтернатива — [Доступ к массиву](#dostup-k-massivu)
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set contact = contacts.get('ki2ts4cbivggmtlj')
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+{# Сделать что-нибудь #}
+{% if contact %}
+  {# Получили Bruce Day #}
+  Email for {{ contact.first_name|e }} {{ contact.last_name|e }} is {{ contact.email|e }}
+{% else %}
+  Oops, contact has been removed!
+{% endif %}
+```
 
-    {% set contact = contacts.get('ki2ts4cbivggmtlj')
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    {# Do something #}
-    {% if contact %}
-    {# Got Bruce Day #}
-    Email for {{ contact.first_name|e }} {{ contact.last_name|e }} is {{ contact.email|e }}
-    {% else %}
-    Oops, contact has been removed!
-    {% endif %}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var FlexObjectInterface|null $object */
-        $object = $collection->get('ki2ts4cbivggmtlj');
-        if ($object) {
-            // Object exists, do something with it...
-        }
-
+    /** @var FlexObjectInterface|null $object */
+    $object = $collection->get('ki2ts4cbivggmtlj');
+    if ($object) {
+        // Объект существует, делаем что-нибудь с ним...
     }
-    ```
+
+}
+```
 
 ## Коллекция как массив
 
-### getKeys()
+## getKeys()
 
-`getKeys(): array` Получает все ключи коллекции.
+`getKeys(): array` Возвращает все ключи коллекции.
 
 Возвращает:
+- `array` список ключей
 
-* `array` Список ключей
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set keys = contacts.keys() %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+Keys are: {{ keys|join(', ')|e }}
+```
 
-    {% set keys = contacts.keys() %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
 
-    Keys are: {{ keys|join(', ')|e }}
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
+    /** @var string[] $keys */
+    $keys = $collection->getKeys();
+    $keysList = implode(', ', $keys);
 
-    ```php
-    <?php
+}
+```
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var string[] $keys */
-        $keys = $collection->getKeys();
-        $keysList = implode(', ', $keys);
-
-    }
-    ```
-
-### GetObjectKeys()
+## GetObjectKeys()
 
 `GetObjectKeys(): array` Псевдоним метода `getKeys()`.
 
 Возвращает:
+- `array` список ключей
 
-* `array` Список ключей
+## getValues()
 
-### getValues()
-
-`getValues(): array` Получает все объекты коллекции.
+`getValues(): array` Возвращает все объекты коллекции.
 
 Преобразует коллекцию в массив. Ключи не сохраняются.
 
 Возвращает:
+- список **объектов** (`array`)
 
-* Список **объектов** (`array`)
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set list = contacts.values() %}
+<ol>
+{% for i,object in list %}
+    <li>#{{ (i+1)|e }}: {{ object.email|e }}</li>
+{% endfor %}
+</ol>
+```
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    {% set list = contacts.values() %}
-    <ol>
-    {% for i,object in list %}
-        <li>#{{ (i+1)|e }}: {{ object.email|e }}</li>
-    {% endfor %}
-    </ol>
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var FlexObjectInterface[] $objects */
-        $objects = $collection->getValues();
-        foreach ($objects as $pos => $object) {
-            // Do something with the object and its position...
-        }
-
+    /** @var FlexObjectInterface[] $objects */
+    $objects = $collection->getValues();
+    foreach ($objects as $pos => $object) {
+        // Делаем что-нибудь с объектом и его позицией...
     }
-    ```
 
-### toArray()
+}
+```
 
-`toArray(): array` Получает собственное представление коллекции в виде массива PHP.
+## toArray()
 
-То же, что и `getValues​​()`, но с сохранением ключей.
+`toArray(): array` Возвращает нативное представление коллекции в виде массива PHP.
+
+Аналогично `getValues()`, но сохраняет ключи.
 
 Возвращает:
+- `array` список пар `key: Object`
 
-* `array` Список пар `key: Object`
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set list = contacts.toArray() %}
+<ol>
+{% for key,object in list %}
+    <li>ID: {{ key|e }}: {{ object.email|e }}</li>
+{% endfor %}
+</ol>
+```
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    {% set list = contacts.toArray() %}
-    <ol>
-    {% for key,object in list %}
-        <li>ID: {{ key|e }}: {{ object.email|e }}</li>
-    {% endfor %}
-    </ol>
-    ```
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-=== "PHP"
-
-    ```php
-    <?php
-
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var array<string, FlexObjectInterface> $objects */
-        $objects = $collection->toArray();
-        foreach ($objects as $key => $object) {
-            // Do something with the object and its key...
-        }
-
+    /** @var array<string, FlexObjectInterface> $objects */
+    $objects = $collection->toArray();
+    foreach ($objects as $key => $object) {
+        // Делаем что-нибудь с объектом и его ключом...
     }
-    ```
 
-### slice()
+}
+```
 
-`slice( offset, length ): array` Извлекает из коллекции `length` элементов, начиная с позиции `offset`.
+## slice()
+
+`slice( offset, length ): array` Извлекает из коллекции срез из `length` элементов, начиная с позиции `offset`.
 
 Параметры:
-
-* **offset** Начальное смещение, начиная с 0 (`int`)
-* **length** Максимальное количество объектов (`int`)
+- **offset** начальное смещение, начиная с 0 (`int`)
+- **length** максимальное число объектов (`int`)
 
 Возвращает:
+- `array` список пар `key: Object`
 
-* `array` Список пар `key: Object`
+> [!WARNING] Предупреждение
+> **Совет:** этот метод можно использовать для постраничного вывода.
 
-!!! tip ""
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-    Этот метод можно использовать для нумерации страниц.
+{% set list = contacts.slice(10, 5) %}
 
-=== "Twig"
+<div>Displaying 5 emails starting from offset 10:</div>
+<ol>
+{% for key,object in list %}
+    <li>ID: {{ key|e }}: {{ object.email|e }}</li>
+{% endfor %}
+</ol>
+```
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    {% set list = contacts.slice(10, 5) %}
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    <div>Displaying 5 emails starting from offset 10:</div>
-    <ol>
-    {% for key,object in list %}
-        <li>ID: {{ key|e }}: {{ object.email|e }}</li>
-    {% endfor %}
-    </ol>
-    ```
+    /** @var array<string, FlexObjectInterface> $objects */
+    $objects = $collection->slice(10, 5);
 
-=== "PHP"
+    // Делаем что-нибудь с объектом и его ключом...
 
-    ```php
-    <?php
+}
+```
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
+## chunk()
 
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-
-        /** @var array<string, FlexObjectInterface> $objects */
-        $objects = $collection->slice(10, 5);
-
-        // Do something with the object and its key...
-
-    }
-    ```
-
-### chunk()
-
-`chunk( size ): array` Разбить коллекцию на части с максимальной вместимостью `size` объектов в каждой.
+`chunk( size ): array` Разбивает коллекцию на блоки по `size` объектов.
 
 Параметры:
-
-* **size** Размер частей (`int`)
+- **size** размер блоков (`int`)
 
 Возвращает:
+- `array` двухмерный список пар `key: Object`
 
-* `array` Двумерный список пар `key: Object`
+> [!WARNING] Предупреждение
+> **Совет:** этот метод можно использовать, чтобы разбить контент на строки и колонки.
 
-!!! tip ""
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-    Этот метод можно использовать для разделения содержимого на строки и столбцы.
+{% set columns = contacts.limit(0, 10).chunk(5) %}
 
-=== "Twig"
-
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    {% set columns = contacts.limit(0, 10).chunk(5) %}
-
-    <div>Displaying two columns of 5 emails each:</div>
-    <div class="columns">
-    {% for column,list in columns %}
-        <div class="column">
-        {% for object in list %}
-            <div>{{ object.email|e }}</div>
-        {% endfor %}
-        </div>
+<div>Displaying two columns of 5 emails each:</div>
+<div class="columns">
+{% for column,list in columns %}
+    <div class="column">
+    {% for object in list %}
+        <div>{{ object.email|e }}</div>
     {% endfor %}
     </div>
-    ```
+{% endfor %}
+</div>
+```
 
-=== "PHP"
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    ```php
-    <?php
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-        /** @var array $columns */
-        $columns = $collection->limit(0, 10)->chunk(5);
-
-        /** @var
-            int $column
-            array<string, FlexObjectInterface> $objects
-        */
-        foreach ($columns as $column => $objects) {
-            // Do something with the objects...
-        }
+    /** @var array $columns */
+    $columns = $collection->limit(0, 10)->chunk(5);
+    /** @var
+        int $column
+        array<string, FlexObjectInterface> $objects
+    */
+    foreach ($columns as $column => $objects) {
+        // Делаем что-нибудь с объектами...
     }
-    ```
+}
 
-### group()
+}
+```
 
-`group( property ): array` Сгруппировать объекты в коллекции по свойству и вернуть их в виде связанного массива.
+## group()
+
+`group( property ): array` Группирует объекты коллекции по свойству и возвращает их в виде ассоциативного массива.
 
 Параметры:
-
-* **property** Имя свойства, которое используется для группировки объектов (`string`)
+- **property** имя свойства, по которому группируются объекты (`string`)
 
 Возвращает:
+- `array` двухмерный список пар `key: Object`, где значение свойства является ключом первого уровня
 
-* `array` Двумерный список пар `key: Object`, где значение свойства является ключом первого уровня
+```twig title="Twig"
+{% set contacts = grav.get('flex').collection('contacts') %}
 
-=== "Twig"
+{% set by_name = contacts.sort({last_name: 'ASC', first_name: 'ASC'}).group('last_name') %}
 
-    ```twig
-    {% set contacts = grav.get('flex').collection('contacts') %}
-
-    {% set by_name = contacts.sort({last_name: 'ASC', first_name: 'ASC'}).group('last_name') %}
-
-    <div>Displaying contacts grouped by last name:</div>
-    <div>
-    {% for last_name,list in by_name %}
-        {{ last_name|e }}:
-        <ul>
-        {% for object in list %}
-            <li>{{ object.first_name|e }}</li>
-        {% endfor %}
-        </ul>
+<div>Displaying contacts grouped by last name:</div>
+<div>
+{% for last_name,list in by_name %}
+    {{ last_name|e }}:
+    <ul>
+    {% for object in list %}
+        <li>{{ object.first_name|e }}</li>
     {% endfor %}
-    </div>
-    ```
+    </ul>
+{% endfor %}
+</div>
+```
 
-=== "PHP"
+```php title="PHP"
+use Grav\Common\Grav;
+use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 
-    ```php
-    <?php
+/** @var FlexCollectionInterface|null $collection */
+$collection = Grav::instance()->get('flex')->getCollection('contacts');
+if ($collection) {
 
-    use Grav\Common\Grav;
-    use Grav\Framework\Flex\Interfaces\FlexCollectionInterface;
-    use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
-
-    /** @var FlexCollectionInterface|null $collection */
-    $collection = Grav::instance()->get('flex')->getCollection('contacts');
-    if ($collection) {
-        /** @var array $byName */
-        $byName = $collection->group('last_name');
-
-        /** @var
-            string $lastName
-            array<string, FlexObjectInterface> $objects
-        */
-        foreach ($byName as $lastName => $objects) {
-            // Do something with the objects...
-        }
+    /** @var array $byName */
+    $byName = $collection->group('last_name');
+    /** @var
+        string $lastName
+        array<string, FlexObjectInterface> $objects
+    */
+    foreach ($byName as $lastName => $objects) {
+        // Делаем что-нибудь с объектами...
     }
+}
+
+}
 ```
 
 ## Добавление и удаление объектов
 
-### add()
+## add()
 
 `add( Object )` Добавляет объект в конец коллекции.
 
 Параметры:
+- **[объект](../object/index.md)** объект для добавления (`object`)
 
-* **[Object](../object)** Объект для добавления (`object`)
+## remove()
 
-### remove()
-
-`remove( key ): Object | null` Удаляет элемент с указанным индексом из коллекции.
+`remove( key ): Object | null` Удаляет элемент по указанному индексу из коллекции.
 
 Параметры:
-
-* **key** Ключ объекта для удаления (`object`)
+- **key** ключ удаляемого объекта (`object`)
 
 Возвращает:
+- **[объект](../object/index.md)** удалённый объект (`object`) или `null`, если он не найден
 
-* **[Object](../object)** Удаленный объект (`object`) или `null`, если объекта не существует
-
-### removeElement()
+## removeElement()
 
 `removeElement( Object ): bool` Удаляет указанный объект из коллекции, если он найден.
 
 Параметры:
-
-* **[Object](../object)** Объект, подлежащий удалению (`object`)
+- **[объект](../object/index.md)** объект для удаления (`object`)
 
 Возвращает:
+- `true`, если объект был в коллекции, `false`, если нет
 
-* `true` если объект был в коллекции, `false` если нет
-
-### clear()
+## clear()
 
 `clear()` Очищает коллекцию, удаляя все элементы.
 
-## Тесты
+## Проверки
 
-### containsKey()
+## containsKey()
 
 `containsKey( key ): bool` Проверяет, содержит ли коллекция объект с указанным ключом.
 
 Параметры:
-
-* **key** Ключ для проверки (`string`)
+- **key** проверяемый ключ (`string`)
 
 Возвращает:
+- `true`, если объект есть в коллекции, `false`, если нет
 
-* `true` если объект находится в коллекции, `false` если нет
-
-### contains()
+## contains()
 
 `contains( object ): bool` Проверяет, содержится ли элемент в коллекции.
 
 Параметры:
-
-* **[Object](../object)** Объект для тестирования (`object`)
+- **[объект](../object/index.md)** проверяемый объект (`object`)
 
 Возвращает:
+- `true`, если объект есть в коллекции, `false`, если нет
 
-* `true` если объект находится в коллекции, `false` если нет
+## indexOf()
 
-### indexOf()
-
-`indexOf( object ): string | false` Возвращает индекс/ключ данного объекта.
+`indexOf( object ): string | false` Возвращает индекс/ключ указанного объекта.
 
 Параметры:
-
-* **[Object](../object)** Объект для тестирования (`object`)
+- **[объект](../object/index.md)** проверяемый объект (`object`)
 
 Возвращает:
+- `string` индекс/ключ объекта, `false`, если объект не найден
 
-* `string` индекс/ключ объекта, `false` если объект не был найден
-
-### isEmpty()
+## isEmpty()
 
 `isEmpty(): bool` Проверяет, пуста ли коллекция (не содержит объектов).
 
 Возвращает:
+- `true`, если коллекция пуста, иначе `false`
 
-* `true` если коллекция пуста, `false` в противном случае
-
-### count()
+## count()
 
 `count(): int`
 
 Возвращает:
+- `int` число объектов в коллекции
 
-* `int` Количество объектов в коллекции
+## Массовые действия с объектами
 
-## Массовые действия для объектов
+## hasProperty()
 
-### hasProperty()
-
-`hasProperty( property ): array` Возвращает список пар `key: boolean` независимо от того, имеет ли объект с ключом определенное свойство или нет.
+`hasProperty( property ): array` Возвращает список пар `key: boolean` — определено ли у объекта с данным ключом свойство.
 
 Параметры:
-
-* **property** Имя свойства (`string`)
+- **property** имя свойства (`string`)
 
 Возвращает:
+- `array` пар `key: bool`, где `key` — ключ объекта, а `bool` — true или false.
 
-* `array` пар `key: bool`, где `key` — ключ объекта, а `bool` либо `true`, либо `false`.
-
-### getProperty()
+## getProperty()
 
 `getProperty( property, default ): array` Возвращает список `key: value` для каждого объекта.
 
 Параметры:
-
-* **property** Имя свойства (`string`)
+- **property** имя свойства (`string`)
 
 Возвращает:
+- `array` пар `key: value`, где `key` — ключ объекта, а `value` — значение свойства.
 
-* `array` пар `key: value`, где `key` — ключ объекта, а `value` — значение свойства.
+## setProperty()
 
-### setProperty()
-
-`setProperty( property, value ): Collection` Установить новое значение свойства для каждого объекта в коллекции.
+`setProperty( property, value ): Collection` Задаёт новое значение свойства для каждого объекта в коллекции.
 
 Параметры:
-
-* **property** Имя свойства (`string`)
-* **value** Новое значение (`mixed`)
+- **property** имя свойства (`string`)
+- **value** новое значение (`mixed`)
 
 Возвращает:
+- **Collection** (`object`) коллекцию для цепочки вызовов методов.
 
-* **Collection** (`object`) Коллекция для цепочки вызовов методов.
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** этот метод изменяет экземпляры объектов, общие для всех коллекций. Если это не задумано, перед использованием метода [скопируйте](#copy) коллекцию.
 
-!!! warning ""
+## defProperty()
 
-    Этот метод изменяет экземпляры объектов, общие для всех коллекций, если это не предусмотрено, пожалуйста, [скопируйте](#copy) коллекцию перед использованием этого метода.
-
-### defProperty()
-
-`defProperty( property, default ): Collection` Определить значение по умолчанию для свойства для каждого объекта в коллекции.
+`defProperty( property, default ): Collection` Определяет значение свойства по умолчанию для каждого объекта в коллекции.
 
 Параметры:
-
-* **property** Имя свойства (`string`)
-* **default** Значение по умолчанию (`mixed`)
+- **property** имя свойства (`string`)
+- **default** значение по умолчанию (`mixed`)
 
 Возвращает:
+- **Collection** (`object`) коллекцию для цепочки вызовов методов.
 
-* **Collection** (`object`) Коллекция для цепочки вызовов методов.
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** этот метод изменяет экземпляры объектов, общие для всех коллекций. Если это не задумано, перед использованием метода [скопируйте](#copy) коллекцию.
 
-!!! warning ""
+## unsetProperty()
 
-    Этот метод изменяет экземпляры объектов, общие для всех коллекций, если это не предусмотрено, пожалуйста, [скопируйте](#copy) коллекцию перед использованием этого метода.
-
-### unsetProperty()
-
-`unsetProperty( property ): Collection` Удалить значение свойства для каждого объекта в коллекции.
+`unsetProperty( property ): Collection` Удаляет значение свойства у каждого объекта в коллекции.
 
 Параметры:
-
-* **property** Имя свойства (`string`)
+- **property** имя свойства (`string`)
 
 Возвращает:
+- **Collection** (`object`) коллекцию для цепочки вызовов методов.
 
-* **Collection** (`object`) Коллекция для объединения вызовов методов.
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** этот метод изменяет экземпляры объектов, общие для всех коллекций. Если это не задумано, перед использованием метода [скопируйте](#copy) коллекцию.
 
-!!! warning ""
-
-    Этот метод изменяет экземпляры объектов, общие для всех коллекций, если это не предусмотрено, пожалуйста, [скопируйте](#copy) коллекцию перед использованием этого метода.
-
-### call()
+## call()
 
 `call( method, arguments): array` Вызывает метод для каждого объекта в коллекции. Возвращает результаты каждого вызова.
 
 Параметры:
-
-* **method** Имя метода (`string`)
-* **arguments** Список аргументов (`array`)
-
-Возвращает:
-
-* Список пар `key: result` (`array`)
-
-!!! warning ""
-
-    Если метод изменяет объект, пожалуйста, [скопируйте](#copy) коллекцию перед использованием этого метода.
-
-### getTimestamps()
-
-`getTimestamps(): array`  Возвращает список пар `key: timestamp` для каждого объекта.
+- **method** имя метода (`string`)
+- **arguments** список аргументов (`array`)
 
 Возвращает:
+- список пар `key: result` (`array`)
 
-* Список пар `key: timestamp`, где timestamp — целое число (`array`)
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** если метод изменяет объект, перед использованием метода [скопируйте](#copy) коллекцию.
 
-### getStorageKeys()
+## getTimestamps()
 
-`getStorageKeys(): array`  Возвращает список пар `key: storage_key` для каждого объекта.
-
-Возвращает:
-
-* Список пар `key: storage_key` (`array`)
-
-### getFlexKeys()
-
-`getFlexKeys(): array`  Возвращает список пар `key: flex_key` для каждого объекта.
+`getTimestamps(): array`  Возвращает список `key: timestamp` для каждого объекта.
 
 Возвращает:
+- список пар `key: timestamp`, где timestamp — целое число (`array`)
 
-* Список пар `key: flex_key` (`array`)
+## getStorageKeys()
 
-### withKeyField()
+`getStorageKeys(): array`  Возвращает список `key: storage_key` для каждого объекта.
 
-`withKeyField( field ): Collection` Return new collection with a different key.
+Возвращает:
+- список пар `key: storage_key` (`array`)
+
+## getFlexKeys()
+
+`getFlexKeys(): array`  Возвращает список `key: flex_key` для каждого объекта.
+
+Возвращает:
+- список пар `key: flex_key` (`array`)
+
+## withKeyField()
+
+`withKeyField( field ): Collection` Возвращает новую коллекцию с другим ключом.
 
 Параметры:
-
-* **field** Ключ поля (`string`)
-    * 'key': Ключ по умолчанию, используемый каталогом
-    * 'storage_key': Storage layer key
-    * 'flex_key': Уникальный ключ, который можно использовать, не зная каталога
+- **field** поле ключа (`string`)
+  - 'key': ключ по умолчанию, используемый директорией
+  - 'storage_key': ключ слоя хранения
+  - 'flex_key': уникальный ключ, который можно использовать, не зная директории
 
 Возвращает:
+- **Collection** (`object`) коллекцию, но проиндексированную новым ключом.
 
-* **Collection** (`object`) Коллекция, проиндексированная новым ключом.
+## Проверки с замыканиями (только PHP)
 
-## Closure Tests (только PHP)
+## exists()
 
-### exists()
-
-`exists( Closure ): bool` Проверяет существование объекта, удовлетворяющего заданному предикату.
+`exists( Closure ): bool` Проверяет, существует ли объект, удовлетворяющий заданному предикату.
 
 Параметры:
-
-* **Closure** Метод, используемый для проверки каждого объекта.
+- **Closure** метод, используемый для проверки каждого объекта.
 
 Возвращает:
+- `bool` true, если ваша функция обратного вызова возвращает true хотя бы для одного объекта.
 
-* `bool` `true`, если ваша функция обратного вызова возвращает `true` для всех объектов.
+## forAll()
 
-### forAll()
-
-`forAll( Closure ): bool` Проверяет, выполняется ли данный предикат для всех объектов этой коллекции.
+`forAll( Closure ): bool` Проверяет, выполняется ли заданный предикат для всех объектов коллекции.
 
 Параметры:
-
-* **Closure** Метод, используемый для проверки каждого объекта.
+- **Closure** метод, используемый для проверки каждого объекта.
 
 Возвращает:
+- `bool` true, если ваша функция обратного вызова возвращает true для всех объектов.
 
-* `bool` `true`, если ваша функция обратного вызова возвращает `true` для всех объектов.
+## Фильтрация с замыканиями (только PHP)
 
-## Closure Filtering (PHP only)
+## filter()
 
-### filter()
-
-`filter( Closure ): Collection` Возвращает все объекты этой коллекции, удовлетворяющие предикату.
+`filter( Closure ): Collection` Возвращает все объекты коллекции, удовлетворяющие предикату.
 
 Порядок элементов сохраняется.
 
 Параметры:
-
-* **Closure** Метод, используемый для проверки отдельного объекта.
+- **Closure** метод, используемый для проверки одного объекта.
 
 Возвращает:
+- **Collection** (`object`) новую коллекцию со всеми объектами, для которых ваша функция обратного вызова возвращает `true`.
 
-* **Collection** (`object`) Новая коллекция со всеми объектами, для которых функция обратного вызова возвращает `true`.
+## map()
 
-### map()
-
-`map( Closure ): Collection` Применяет данную функцию к каждому объекту в коллекции и возвращает новую коллекцию с объектами, возвращаемыми функцией.
+`map( Closure ): Collection` Применяет заданную функцию к каждому объекту коллекции и возвращает новую коллекцию с объектами, возвращёнными функцией.
 
 Параметры:
-
-* **Closure** Метод, используемый для проверки отдельного объекта.
+- **Closure** метод, используемый для проверки одного объекта.
 
 Возвращает:
+- **Collection** (`object`) новую коллекцию с объектами, возвращёнными функцией обратного вызова.
 
-* **Collection** (`object`) Новая коллекция с объектами, возвращаемыми функцией обратного вызова.
+## collectionGroup()
 
-### collectionGroup()
-
-`collectionGroup( property ): Collection[]` Сгруппируйте объекты в коллекции по полю и верните их как связанный массив коллекций.
+`collectionGroup( property ): Collection[]` Группирует объекты коллекции по полю и возвращает их в виде ассоциативного массива коллекций.
 
 Параметры:
-
-* **property** (`string`) Свойство, используемое для группировки объектов.
+- **property** (`string`) свойство, по которому группируются объекты.
 
 Возвращает:
+- `array` несколько коллекций в массиве, где ключ — значение свойства.
 
-* `array` Несколько коллекций в массиве, ключом является значение свойства.
+## matching()
 
-### matching()
-
-`matching( Criteria ): Collection` Выбирает все объекты, соответствующие выражению, и возвращает новую коллекцию, содержащую эти объекты.
+`matching( Criteria ): Collection` Выбирает все объекты, соответствующие выражению, и возвращает новую коллекцию с этими объектами.
 
 Параметры:
-
-* **[Criteria](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/expression-builder.html#expression-builder)** Выражение
+- **[Criteria](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/expression-builder.html#expression-builder)** выражение
 
 Возвращает:
+- **Collection** (`object`) новую коллекцию с объектами, соответствующими критерию.
 
-* **Collection** (`object`) Новая коллекция с объектами, соответствующими критериям.
+> [!WARNING] Предупреждение
+> **Совет:** см. документацию Doctrine по **[Expression Builder](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/expression-builder.html#expression-builder)** и **[Expressions](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/expressions.html#expressions)**.
 
-!!! tip ""
+## orderBy()
 
-    См. документацию Doctrine о **[Конструкторе выражений](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/expression-builder.html#expression-builder)** и ** [Выражениях](https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/expressions.html#expressions)**.
-
-### orderBy()
-
-`orderBy( array ): Collection` Изменить порядок коллекции по списку пар свойство/значение.
+`orderBy( array ): Collection` Переупорядочивает коллекцию по списку пар свойство/значение.
 
 Параметры:
-
-* `array`
+- `array`
 
 Возвращает:
+- **Collection** (`object`) новую коллекцию с новым порядком.
 
-* **Collection** (`object`) Новая коллекция с новым порядком.
+## partition()
 
-### partition()
+`partition( Closure ): array` Разделяет коллекцию на две коллекции по предикату.
 
-`partition( Closure ): array` Разбивает эту коллекцию на две коллекции в соответствии с предикатом.
-
-Ключи сохраняются в полученных коллекциях.
+Ключи сохраняются в результирующих коллекциях.
 
 Параметры:
-
-* **Closure** Метод, используемый для разделения одного объекта. Возвращает `true` или `false`.
+- **Closure** метод, используемый для разделения одного объекта. Возвращает true или false.
 
 Возвращает:
-
-* `array` Секционированные объекты `[[a, b], [c, d, e]]`
+- `array` разделённые объекты `[[a, b], [c, d, e]]`

@@ -1,50 +1,53 @@
 ---
-description: Подробнее о командах Grav, доступных во встроенной командной строке.
+title: "Команда Grav"
+description: "Grav поставляется со встроенным интерфейсом командной строки (CLI), который находится в bin/grav. CLI крайне полезен для выполнения повторяющихся задач, таких как очистка кэша, создание резервных копий и многого другого."
+tags:
+  - "CLI"
 ---
 
-# Команды Grav
+# Команда Grav
 
-Grav поставляется со встроенным интерфейсом командной строки (CLI), который можно найти в разделе `bin/grav`. CLI чрезвычайно полезен для выполнения повторяющихся задач, таких как очистка кэша, создание резервных копий и многое другое.
+Grav поставляется со встроенным интерфейсом командной строки (CLI), который находится в `bin/grav`. CLI крайне полезен для выполнения повторяющихся задач, таких как **очистка кэша**, создание **резервных копий** и многое другое.
 
-Доступ к CLI — это простой процесс, но вам нужно использовать **терминал**. На mac это называется «терминал», на windows это называется «cmd», а на Linux это просто оболочка. Команды в стиле UNIX изначально недоступны в Windows cmd. Установка пакета [Git SCM](https://gitforwindows.org) в Windows добавляет [Git](https://git-scm.com/) и Git BASH, который является альтернативой командной строке, делая доступными команды UNIX. Если вы получаете удаленный доступ к своему серверу, то, скорее всего, будете использовать **SSH** для удаленного входа на свой сервер. Посмотрите этот [отличный учебник для получения дополнительной информации о SSH](https://code.tutsplus.com/tutorials/ssh-what-and-how--net-25138).
+Доступ к CLI — простой процесс, но вам понадобится **терминал**. В Mac он называется `Terminal`, в Windows — `cmd`, а в Linux это просто оболочка. Команды в стиле UNIX изначально недоступны в командной строке Windows. Установка пакета [msysgit](http://msysgit.github.io/) в Windows добавляет [Git](https://git-scm.com/) и Git BASH — альтернативную командную строку, в которой доступны команды UNIX. Если вы работаете с сервером удалённо, скорее всего, вы будете использовать **SSH** для входа на него. Ознакомьтесь с этим [отличным руководством по SSH](http://code.tutsplus.com/tutorials/ssh-what-and-how--net-25138).
 
-Хотя некоторые операции могут быть выполнены вручную, с помощью _relying_ на CLI, эти задачи могут быть автоматизированы с помощью _cronjobs_, которые выполняются ежедневно.
+Хотя некоторые операции можно выполнять вручную, _полагаясь_ на CLI, эти задачи можно автоматизировать с помощью _заданий cron_, выполняемых ежедневно.
 
-Чтобы получить список всех команд, доступных в Grav, вы можете запустить команду:
+Чтобы получить список всех команд, доступных в Grav, выполните команду:
 
 ```bash
 bin/grav list
 ```
 
-Это должно отображать что-то вроде:
+Вывод должен быть примерно таким:
 
 ```text
-Доступные команды:
-  backup       Создает резервную копию экземпляра Grav
-  cache        [clearcache|cache-clear] Очищает кэш
-  clean        Запустить очистку
-  composer     Обновляет зависимости поставщика composer, необходимые Grav.
-  help         Отображает справку по команде
-  install      Устанавливает зависимости Grav. При желании можно создать символические ссылки
-  list         Перечисляет команды
-  logviewer    Отображение последних записей журнала Grav
-  new-project  [newproject] Создает новый проект Grav со всеми установленными зависимостями
-  sandbox      Настройка базовой системы Grav в вашем webroot, хорошо подходит для разработки, игры или начала новой работы
-  scheduler    Запустить планировщик Grav. Лучше всего при интеграции с системой cron
-  security     Способен выполнять различные проверки безопасности
+Available commands:
+  backup       Creates a backup of the Grav instance
+  cache        [clearcache|cache-clear] Clears Grav cache
+  clean        Handles cleaning chores for Grav distribution
+  composer     Updates the composer vendor dependencies needed by Grav.
+  help         Displays help for a command
+  install      Installs the dependencies needed by Grav. Optionally can create symbolic links
+  list         Lists commands
+  logviewer    Display the last few entries of Grav log
+  new-project  [newproject] Creates a new Grav project with all the dependencies installed
+  sandbox      Setup of a base Grav system in your webroot, good for development, playing around or starting fresh
+  scheduler    Run the Grav Scheduler.  Best when integrated with system cron
+  security     Capable of running various Security checks
 ```
 
-Чтобы получить справку для конкретной команды, вы можете добавить перед ней `help`:
+Чтобы получить справку по конкретной команде, добавьте `help` перед командой:
 
 ```bash
 bin/grav help install
 ```
 
-## Резервные копии
+## Backup
 
-Система резервного копирования Grav была полностью переработана в Grav 1.6 для поддержки нескольких профилей резервного копирования. Эти профили настраиваются в файле `user/config/backups.aml`. Если у вас нет специального файла конфигурации, Grav будет использовать файл по умолчанию, указанный в `system/config/backups.yaml`.
+Система резервного копирования Grav была полностью переработана в Grav 1.6 и теперь поддерживает несколько профилей резервного копирования. Эти профили настраиваются в `user/config/backups.yaml`. Если у вас нет собственного файла конфигурации, Grav использует файл по умолчанию из `system/config/backups.yaml`.
 
-Если Grav обнаруживает несколько профилей резервного копирования, команда CLI предложит вам выбрать тот, который вы хотите сохранить, с помощью команды CLI.
+Если Grav обнаруживает несколько профилей резервного копирования, команда CLI предложит выбрать тот, с которым нужно создать резервную копию.
 
 ```bash
 cd ~/workspace/portfolio
@@ -58,7 +61,7 @@ Choose a backup?
   [1] Pages Backup
 ```
 
-В качестве альтернативы вы можете напрямую передать индекс профиля:
+Либо можно сразу передать индекс профиля:
 
 ```bash
 $ cd ~/workspace/portfolio
@@ -69,19 +72,19 @@ Archiving 36 files [===================================================] 100% < 
  [OK] Backup Successfully Created: /users/joe/workspace/portfolio/backup/pages_backup--20190227120510.zip
 ```
 
-Более подробную информацию о функциях резервного копирования можно найти в разделе [Дополнительно -> Резервные копии](/advanced/backups).
+Подробнее о функциях резервного копирования — в разделе [Резервные копии](../../advanced/backups/index.md).
 
-## Очистка
+## Clean
 
-Эта команда CLI в основном используется в процессе сборки пакета, поскольку она удаляет из Grav посторонние файлы и папки. Настоятельно рекомендуется **не использовать это** самостоятельно, если вы не используете его для создания собственных пакетов Grav.
+Эта команда CLI в основном используется в процессе сборки пакетов, так как удаляет лишние файлы и папки из Grav. Настоятельно рекомендуется **не использовать её** самостоятельно, если только вы не собираете собственные пакеты Grav.
 
 ```bash
 bin/grav clean
 ```
 
-## Очистка кэша
+## Очистка кэша {: #clear-cache }
 
-Вы можете очистить кэш, удалив все файлы и папки в директории `cache/`.
+Очистить кэш можно, удалив все файлы и папки в `cache/`.
 
 Эквивалентная команда CLI:
 
@@ -90,28 +93,28 @@ $ cd ~/webroot/my-grav-project
 bin/grav cache
 ```
 
-Существует несколько псевдонимов для совместимости ('cache`, `cache-clear`, `clearcache`,`clear').
+Для совместимости есть несколько псевдонимов (`cache`, `cache-clear`, `clearcache`, `clear`).
 
-По умолчанию используется стандартный процесс очистки кэша, однако вы можете дополнительно управлять им с помощью следующих параметров:
+По умолчанию выполняется стандартная очистка кэша, но её можно точнее настроить с помощью следующих параметров:
 
 ```text
---purge           Если задано, удалит старый кэш
---all             Если задано, удалит всё, включая скомпилированные файлы, twig, кэши doctrine
---assets-only     Если задано, удалит только assets/*
---images-only     Если задано, удалит только images/*
---cache-only      Если задано, удалит только cache/*
---tmp-only        Если задано, удалит только tmp/*
+--purge           If set purge old caches
+--all             If set will remove all including compiled, twig, doctrine caches
+--assets-only     If set will remove only assets/*
+--images-only     If set will remove only images/*
+--cache-only      If set will remove only cache/*
+--tmp-only        If set will remove only tmp/*
 ```
 
 ## Composer
 
-Если вы установили Grav через GitHub и вручную установили пакеты поставщиков на основе composer, вы можете легко обновить их с помощью:
+Если вы установили Grav через GitHub и вручную установили vendor-пакеты на основе composer, их можно легко обновить командой:
 
 ```bash
 bin/grav composer
 ```
 
-Вы также можете передать параметры композитора, такие как `install`:
+Также можно передавать параметры composer, например `install`:
 
 ```bash
 bin/grav composer --install
@@ -123,45 +126,43 @@ bin/grav composer --install
 bin/grav composer --update
 ```
 
-!!! warning ""
-
-	Все они используют параметр Composer `--no-dev`, поэтому, чтобы иметь возможность выполнять тестирование, вы должны использовать композитор напрямую: `bin/composer.phar`
+> [!CAUTION] Внимание
+> Все они используют параметр composer `--no-dev`, поэтому для проведения тестирования следует использовать composer напрямую: `bin/composer.phar`
 
 ## Install
 
-Чтобы установить зависимости, на которые полагается Grav (плагин **errors**, плагин **errors**, тема **Antimatter**), запустите **терминал** или **консоль** и перейдите в папку grav, где вы хотите установить зависимости и запустить команду CLI.
+Чтобы установить зависимости, на которые опирается Grav (плагин **error**, плагин **problems**, тема **antimatter**), запустите **терминал** или **консоль**, перейдите в папку grav, где нужно установить зависимости, и выполните команду CLI.
 
 ```bash
 $ cd ~/webroot/my-grav-project
 bin/grav install
 ```
 
-Теперь у вас должны быть установлены зависимости:
-
+Теперь зависимости должны быть установлены в:
 * `~/webroot/my-grav-project/user/plugins/error`
 * `~/webroot/my-grav-project/user/plugins/problems`
 * `~/webroot/my-grav-project/user/themes/antimatter`
 
-## Просмотр журнала
+## Просмотр журналов
 
-В рамках Grav 1.6 была создана новая команда CLI logviewer, позволяющая быстро просматривать журналы Grav.
+В Grav 1.6 появилась новая команда CLI `logviewer` для быстрого просмотра журналов Grav.
 
-Самый простой способ использовать эту команду - просто набрать:
+Проще всего использовать эту команду так:
 
 ```bash
 cd ~/webroot/my-grav-project
 bin/grav logviewer
 ```
 
-Это выведет последние 20 записей журнала из файла `logs/grav.log`. Есть несколько вариантов:
+Она выведет последние 20 записей из файла `logs/grav.log`. Есть несколько параметров:
 
-```text
--f, --file[=FILE]     расположение настраиваемого файла журнала (по умолчанию = grav.log)
--l, --lines[=LINES]   количество строк (по умолчанию = 10)
--v, --verbose         подробный вывод, включая трассировку стека, если она доступна
+```text linenums="1"
+-f, --file[=FILE]     custom log file location (default = grav.log)
+-l, --lines[=LINES]   number of lines (default = 10)
+-v, --verbose         verbose output including a stack trace if available
 ```
 
-например
+Например:
 
 ```bash
 bin/grav logviewer --lines=4                                                                           [12:27:20]
@@ -171,13 +172,13 @@ Log Viewer
 
 viewing last 4 entries in grav.log
 
-2019-02-27 12:00:30 [WARNING] Plugin 'foo-plugin' enabled but not found! Try clearing cache with `bin/grav cache`
+2019-02-27 12:00:30 [WARNING] Plugin 'foo-plugin' enabled but not found! Try clearing cache with I17
 2019-02-27 12:04:57 [NOTICE] Backup Created: /Users/joe/my-grav-project/backup/default_site_backup--20190227120450.zip
 2019-02-27 12:05:10 [NOTICE] Backup Created: /Users/joe/my-grav-project/backup/pages_backup--20190227120510.zip
 2019-02-27 12:26:00 [NOTICE] Backup Created: /Users/joe/my-grav-project/backup/pages_backup--20190227122600.zip
 ```
 
-И подробный вывод с трассировкой стека:
+А вот подробный вывод с трассировками стека:
 
 ```bash
 bin/grav logviewer -v                                                                                                       [16:12:12]
@@ -187,7 +188,7 @@ Log Viewer
 
 viewing last 20 entries in grav.log
 
-2019-03-14 05:52:44 [WARNING] Plugin 'simplesearch.bak' enabled but not found! Try clearing cache with `bin/grav clear-cache`
+2019-03-14 05:52:44 [WARNING] Plugin 'simplesearch.bak' enabled but not found! Try clearing cache with I18
 2019-03-14 05:52:44 [CRITICAL] A function must be an instance of \Twig_FunctionInterface or \Twig_SimpleFunction.
 0 /Users/joe/my-grav-project/plugins/acme-twig-filters/acme-twig-filters.php(52): Twig\Environment->addFunction(Object(Twig\TwigFilter))
 1 /Users/joe/my-grav-project/vendor/symfony/event-dispatcher/EventDispatcher.php(212): Grav\Plugin\ACMETwigFiltersPlugin->onTwigInitialized(Object(RocketTheme\Toolbox\Event\Event), 'onTwigInitializ...', Object(RocketTheme\Toolbox\Event\EventDispatcher))
@@ -200,51 +201,51 @@ viewing last 20 entries in grav.log
 8 /Users/joe/my-grav-project/system/src/Grav/Framework/RequestHandler/Traits/RequestHandlerTrait.php(57): Grav\Framework\RequestHandler\RequestHandler->handle(Object(Nyholm\Psr7\ServerRequest))
 9 /Users/joe/my-grav-project/system/src/Grav/Common/Processors/AssetsProcessor.php(28): Grav\Framework\RequestHandler\RequestHandler->handle(Object(Nyholm\Psr7\ServerRequest))
 
-2019-03-14 05:52:46 [WARNING] Plugin 'simplesearch.bak' enabled but not found! Try clearing cache with `bin/grav clear-cache`
+2019-03-14 05:52:46 [WARNING] Plugin 'simplesearch.bak' enabled but not found! Try clearing cache with I19
 ...
 ```
 
 ## Новый проект
 
-Каждый раз, когда вы хотите начать новый проект с Grav, вам нужно начинать с чистого экземпляра Grav. Через интерфейс командной строки этот процесс очень прост и занимает всего несколько секунд.
+Каждый раз, начиная новый проект на Grav, нужно исходить из чистого экземпляра Grav. Через CLI этот процесс очень прост и занимает всего несколько секунд.
 
-1. Запустите **терминал** или **консоль** и перейдите в папку _grav_ (мы предполагаем, что она находится в папке `~/Projects/grav`).
+1. Запустите **терминал** или **консоль** и перейдите в папку _grav_ (в этом документе будем считать, что она находится в `~/Projects/grav`)
 
 ```bash
 cd ~/Projects/grav
 ```
 
-2. Запустите GRAV CLI для создания нового проекта, причем конечным пунктом будет местоположение, в котором будет находиться ваш проект (обычно это [webroot](https://en.wikipedia.org/wiki/Webroot) вашего веб-сервера). Предположим, что мы создаем **портфолио** и хотим получить его по адресу `~/Webroot/portfolio`.
+2. Выполните CLI Grav, чтобы создать новый проект; в качестве назначения укажите место, где будет размещён проект (обычно [корневая папка веб-сервера](http://en.wikipedia.org/wiki/Webroot)). Предположим, мы создаём **portfolio** и хотим разместить его в `~/Webroot/portfolio`.
 
 ```bash
 bin/grav new-project ~/webroot/portfolio
 ```
 
-Это создаст новый экземпляр Grav и загрузит все необходимые зависимости.
+Будет создан новый экземпляр Grav и загружены все необходимые зависимости.
 
-## Sandbox (песочница)
+## Sandbox
 
-Grav имеет отличную утилиту под названием `sandbox`, которая может быстро создать [симлинковую копию](../command-line-intro/#simvolicheskie-ssylki) текущей установки Grav. Проще говоря, запуск `bin/grav sandbox-S DESTINATION` — где «DESTINATION» — это путь к папке, в которую вы хотите скопировать установку — воссоздает установку Grav в другой папке.
+В Grav есть удобная утилита `sandbox`, которая быстро создаёт [символьно связанную](../command-line-intro/index.md#symbolic-links) копию установки Grav. Проще говоря, команда `bin/grav sandbox -s DESTINATION` — где «DESTINATION» — путь к папке, в которой нужна копия установки — воссоздаёт установку Grav в другой папке.
 
-Например, выполните:
+Например, команда:
 
 ```bash
 bin/grav sandbox -s ../copy
 ```
 
-Из текущей Grav-папки создается родственная папка с именем `copy`, где следующие папки являются виртуальными копиями: `/bin, /system, /vendor, /webserver-configs`, а также стандартные файлы, которые обычно находятся в корневой папке Grav. Все содержимое в /user будет копией под копирку, а не виртуальным, поэтому вы можете легко начать настройку новой установки, не создавая накладных расходов из основных файлов.
+выполненная из текущей папки Grav, создаёт рядом папку `copy`, в которой следующие папки являются виртуальными копиями: `/bin, /system, /vendor, /webserver-configs`, а также стандартные файлы, обычно находящиеся в корневой папке Grav. Всё содержимое в /user будет точными копиями, а не виртуальными, так что можно сразу приступить к настройке новой установки, не создавая накладных расходов из-за файлов ядра.
 
 ## Планировщик
 
-Как описано в разделе [Дополнительно -> Планировщик](/advanced/scheduler), планировщик можно контролировать с помощью команды CLI.
+Как описано в разделе [Планировщик](../../advanced/scheduler/index.md), планировщик можно контролировать с помощью команды CLI.
 
-Базовая команда будет вручную запускать задачи планировщика, которые должны быть выполнены:
+Базовая команда вручную запускает задачи планировщика, срок которых наступил:
 
 ```bash
 bin/grav scheduler
 ```
 
-Чтобы получить более подробную информацию, вы можете запустить с помощью дополнительной опции `-v` :
+Чтобы получить больше подробностей, запустите с необязательным параметром `-v`:
 
 ```bash
 bin/grav scheduler -v
@@ -257,19 +258,19 @@ Running Scheduled Jobs
 [2019-02-27T12:34:07-07:00] Success: ls -lah
 ```
 
-Другие варианты включают в себя:
+Другие параметры:
 
-```text
--i, --install         Показать команду установки
--j, --jobs            Показать сводку заданий
--d, --details         Показать детали заданий
+```text linenums="1"
+-i, --install         Show Install Command
+-j, --jobs            Show Jobs Summary
+-d, --details         Show Job Details
 ```
 
-Пожалуйста, обратитесь к разделу [Advanced -> Scheduler](/advanced/scheduler) для получения более подробной информации об этих параметрах.
+Более подробную информацию об этих параметрах см. в разделе [Планировщик](../../advanced/scheduler/index.md).
 
 ## Безопасность
 
-В Grav 1.5 добавлена ​​новая команда интерфейса командной строки сканера безопасности. Вы можете запустить это, чтобы быстро проверить свое содержимое на соответствие [настроенным параметрам безопасности](/basics/grav-configuration/#bezopasnost).
+В Grav 1.5 появилась новая команда CLI для сканирования безопасности. Её можно запустить, чтобы быстро проверить содержимое на соответствие [настроенным параметрам безопасности](../../basics/grav-configuration/index.md#security).
 
 ```bash
 bin/grav security                                                                                       [12:34:12]
@@ -282,9 +283,9 @@ Scanning 11 pages [===================================================] 100% < 1
 [OK] Security Scan complete: No issues found...
 ```
 
-#### Информация PHP CGI-FCGI
+#### Информация о PHP CGI-FCGI
 
-Чтобы определить, работает ли на вашем сервере `cgi-fcgi` в командной строке, введите следующее:
+Чтобы определить, работает ли на вашем сервере `cgi-fcgi` в командной строке, введите:
 
 ```bash
 $ php -v
@@ -294,4 +295,4 @@ Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
     with the ionCube PHP Loader v4.6.1, Copyright (c) 2002-2014, by ionCube Ltd.
 ```
 
-Если вы видите ссылку на `(cgi-fcgi)`, вам нужно будет поставить перед всеми командами `bin/grav` префикс `php-cli`. В качестве альтернативы вы можете настроить псевдоним в своей оболочке с помощью чего-то вроде: `alias php="php-cli"`, который обеспечит запуск **CLI** версии PHP из командной строки.
+Если вы видите упоминание `(cgi-fcgi)`, нужно добавлять `php-cli` перед всеми командами `bin/grav`. Либо можно настроить псевдоним в оболочке, например `alias php="php-cli"`, чтобы из командной строки запускалась именно **CLI**-версия PHP.

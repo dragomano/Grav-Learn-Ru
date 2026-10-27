@@ -1,0 +1,449 @@
+[project]
+site_url = "https://grav-docs.ru/"
+site_author = "Bugo"
+site_name = "Grav CMS по-русски"
+site_description = "Документация Grav 2.0 на русском"
+copyright = """
+&copy; 2021-2026 Bugo, лицензия <a href="https://github.com/dragomano/Grav-Learn-Ru/blob/main/CONTENT-LICENSE.md">CC BY-NC-SA 4.0</a>
+"""
+repo_url = "https://github.com/dragomano/Grav-Learn-Ru"
+edit_uri = "edit/main/docs/"
+extra_css = ["assets/stylesheets/header.css"]
+
+nav = [
+  { "Главная" = [
+    "index.md",
+    "tags/index.md",
+  ] },
+  { "Основы" = [
+    "basics/index.md",
+    "basics/what-is-grav/index.md",
+    "basics/requirements/index.md",
+    "basics/installation/index.md",
+    "basics/basic-tutorial/index.md",
+    "basics/grav-configuration/index.md",
+    "basics/folder-structure/index.md",
+    "basics/getting-help/index.md",
+    "basics/updates/index.md",
+  ] },
+  { "Контент" = [
+    "content/index.md",
+    "content/content-pages/index.md",
+    "content/headers/index.md",
+    "content/collections/index.md",
+    "content/markdown/index.md",
+    "content/linking/index.md",
+    "content/twig-in-content/index.md",
+    "content/creating-a-shortcode/index.md",
+    "content/image-linking/index.md",
+    "content/media/index.md",
+    "content/taxonomy/index.md",
+    "content/modular/index.md",
+    "content/routing/index.md",
+    "content/multi-language/index.md",
+    "content/content-types/index.md",
+    "content/markdown-output/index.md",
+  ] },
+  { "Миграция" = [
+    "migration/index.md",
+    "migration/overview/index.md",
+    "migration/assisted-migration/index.md",
+    "migration/manual-migration/index.md",
+    "migration/ai-assisted-development/index.md",
+    "migration/developer-upgrade-guide/index.md",
+    "migration/troubleshooting/index.md",
+    { "Переход на Grav" = [
+      "migration/migrating-to-grav/index.md",
+      "migration/migrating-to-grav/from-drupal-7/index.md",
+      "migration/migrating-to-grav/from-wordpress/index.md",
+    ] },
+  ] },
+  { "Темы" = [
+    "themes/index.md",
+    "themes/theme-basics/index.md",
+    "themes/theme-tutorial/index.md",
+    "themes/twig-primer/index.md",
+    { "Теги, фильтры и функции Twig" = [
+      "themes/twig-tags-filters-functions/index.md",
+      "themes/twig-tags-filters-functions/tags/index.md",
+      "themes/twig-tags-filters-functions/filters/index.md",
+      "themes/twig-tags-filters-functions/functions/index.md",
+    ] },
+    "themes/theme-configuration/index.md",
+    "themes/theme-vars/index.md",
+    "themes/asset-manager/index.md",
+    "themes/customization/index.md",
+    "themes/gpm-submission/index.md",
+    "themes/core-templates/index.md",
+  ] },
+  { "Плагины" = [
+    "plugins/index.md",
+    "plugins/plugin-basics/index.md",
+    "plugins/plugin-install/index.md",
+    "plugins/plugin-tutorial/index.md",
+    "plugins/event-hooks/index.md",
+    "plugins/grav-lifecycle/index.md",
+    "plugins/plugin-flex/index.md",
+    "plugins/plugin-api-integration/index.md",
+    "plugins/plugin-compatibility/index.md",
+    "plugins/admin-translations/index.md",
+    "plugins/markdown-extensions/index.md",
+    "plugins/gpm-submission/index.md",
+  ] },
+  "admin-panel/index.md",
+  { "Формы" = [
+    "forms/index.md",
+    { "Схемы" = [
+      "forms/blueprints/index.md",
+      "forms/blueprints/fields-available/index.md",
+      "forms/blueprints/example-plugin-blueprint/index.md",
+      "forms/blueprints/example-plugin-configuration/index.md",
+      "forms/blueprints/example-page-blueprint/index.md",
+      "forms/blueprints/example-config-blueprints/index.md",
+      "forms/blueprints/how-to-add-file-upload/index.md",
+      "forms/blueprints/advanced-features/index.md",
+    ] },
+    { "Формы на сайте" = [
+      "forms/forms/index.md",
+      "forms/forms/form-options/index.md",
+      "forms/forms/fields-available/index.md",
+      "forms/forms/example-form/index.md",
+      "forms/forms/reference-form-actions/index.md",
+      "forms/forms/how-to-forms-in-modular-pages/index.md",
+      "forms/forms/how-to-ajax-submission/index.md",
+    ] },
+  ] },
+  { "REST API" = [
+    "api/index.md",
+    "api/getting-started/index.md",
+    "api/authentication/index.md",
+    { "Справочник REST API" = [
+      "api/endpoints/index.md",
+      "api/endpoints/authentication/index.md",
+      "api/endpoints/pages/index.md",
+      "api/endpoints/media/index.md",
+      "api/endpoints/configuration/index.md",
+      "api/endpoints/users/index.md",
+      "api/endpoints/gpm/index.md",
+      "api/endpoints/system/index.md",
+      "api/endpoints/blueprints/index.md",
+      "api/endpoints/sidebar/index.md",
+      "api/endpoints/dashboard/index.md",
+      "api/endpoints/scheduler/index.md",
+      "api/endpoints/webhooks/index.md",
+      "api/endpoints/admin-integration/index.md",
+      "api/endpoints/flex-objects/index.md",
+      "api/endpoints/audit/index.md",
+      "api/endpoints/translations/index.md",
+      "api/endpoints/mcp/index.md",
+      "api/endpoints/demo/index.md",
+    ] },
+    "api/events/index.md",
+    "api/developer-guide/index.md",
+    "api/demo-mode/index.md",
+  ] },
+  { "Консоль CLI" = [
+    "cli-console/index.md",
+    "cli-console/command-line-intro/index.md",
+    "cli-console/grav-cli/index.md",
+    "cli-console/grav-cli-plugin/index.md",
+    "cli-console/grav-cli-gpm/index.md",
+    "cli-console/scripted-upgrades/index.md",
+  ] },
+  { "Для продвинутых" = [
+    "advanced/index.md",
+    { "Разработка Grav" = [
+      "advanced/grav-development/index.md",
+      "advanced/grav-development/grav-15-upgrade-guide/index.md",
+      "advanced/grav-development/grav-16-upgrade-guide/index.md",
+      "advanced/grav-development/grav-17-upgrade-guide/index.md",
+      "advanced/grav-development/grav-18-upgrade-guide/index.md",
+    ] },
+    "advanced/mcp-server/index.md",
+    "advanced/performance-and-caching/index.md",
+    "advanced/php-reference/index.md",
+    "advanced/debugging/index.md",
+    "advanced/environment-config/index.md",
+    { "Flex-объекты" = [
+      "advanced/flex/index.md",
+      "advanced/flex/quickstart/index.md",
+      "advanced/flex/concepts/index.md",
+      { "Работа с Flex-объектами" = [
+        "advanced/flex/using/index.md",
+        "advanced/flex/using/flex/index.md",
+        "advanced/flex/using/directory/index.md",
+        "advanced/flex/using/collection/index.md",
+        "advanced/flex/using/object/index.md",
+      ] },
+      { "Создание своего типа" = [
+        "advanced/flex/custom-types/index.md",
+        "advanced/flex/custom-types/blueprint/index.md",
+        "advanced/flex/custom-types/blueprint-reference/index.md",
+      ] },
+      "advanced/flex/frontend/index.md",
+      { "Управление Flex в Admin Next" = [
+        "advanced/flex/administration/index.md",
+        "advanced/flex/administration/introduction/index.md",
+        "advanced/flex/administration/views-list/index.md",
+        "advanced/flex/administration/views-edit/index.md",
+        "advanced/flex/administration/configuration/index.md",
+      ] },
+      "advanced/flex/php-and-events/index.md",
+      "advanced/flex/reference/index.md",
+      "advanced/flex/troubleshooting/index.md",
+    ] },
+    "advanced/multisite-setup/index.md",
+    "advanced/plugin-prioritization/index.md",
+    "advanced/scheduler/index.md",
+    "advanced/backups/index.md",
+    "advanced/yaml/index.md",
+    "advanced/groups-and-permissions/index.md",
+    "advanced/change-site-url/index.md",
+  ] },
+  { "Рецепты" = [
+    "cookbook/index.md",
+    "cookbook/general-recipes/index.md",
+    "cookbook/twig-recipes/index.md",
+    "cookbook/plugin-recipes/index.md",
+    "cookbook/admin-recipes/index.md",
+    { "Уроки" = [
+      "cookbook/tutorials/index.md",
+      "cookbook/tutorials/create-a-blog/index.md",
+    ] },
+  ] },
+  { "Grav Premium" = [
+    "grav-premium/index.md",
+    { "Forum Pro" = [
+      "grav-premium/forum-pro/index.md",
+      "grav-premium/forum-pro/installation/index.md",
+      "grav-premium/forum-pro/configuration/index.md",
+      "grav-premium/forum-pro/administration/index.md",
+      "grav-premium/forum-pro/members-and-accounts/index.md",
+      "grav-premium/forum-pro/moderation/index.md",
+      "grav-premium/forum-pro/spam-protection/index.md",
+      "grav-premium/forum-pro/notifications-and-email/index.md",
+      "grav-premium/forum-pro/article-comments/index.md",
+      "grav-premium/forum-pro/search/index.md",
+      "grav-premium/forum-pro/realtime/index.md",
+      "grav-premium/forum-pro/theming/index.md",
+      "grav-premium/forum-pro/file-storage/index.md",
+      "grav-premium/forum-pro/discourse-import/index.md",
+      "grav-premium/forum-pro/xenforo-import/index.md",
+      "grav-premium/forum-pro/privacy-and-retention/index.md",
+      "grav-premium/forum-pro/cli/index.md",
+      "grav-premium/forum-pro/rest-api/index.md",
+    ] },
+    "grav-premium/license-manager/index.md",
+    "grav-premium/helios/index.md",
+    { "Helpdesk Pro" = [
+      "grav-premium/helpdesk-pro/index.md",
+      "grav-premium/helpdesk-pro/installation/index.md",
+      "grav-premium/helpdesk-pro/getting-started/index.md",
+      "grav-premium/helpdesk-pro/projects-and-permissions/index.md",
+      "grav-premium/helpdesk-pro/the-desk/index.md",
+      "grav-premium/helpdesk-pro/triage-and-merging/index.md",
+      "grav-premium/helpdesk-pro/saved-replies-and-views/index.md",
+      "grav-premium/helpdesk-pro/statuses-and-labels/index.md",
+      "grav-premium/helpdesk-pro/help-center-and-portal/index.md",
+      "grav-premium/helpdesk-pro/request-form/index.md",
+      "grav-premium/helpdesk-pro/sign-in-links/index.md",
+      "grav-premium/helpdesk-pro/knowledge-base/index.md",
+      "grav-premium/helpdesk-pro/search/index.md",
+      "grav-premium/helpdesk-pro/attachments/index.md",
+      "grav-premium/helpdesk-pro/outbound-email/index.md",
+      "grav-premium/helpdesk-pro/inbound-email/index.md",
+      "grav-premium/helpdesk-pro/notifications/index.md",
+      "grav-premium/helpdesk-pro/notification-channels/index.md",
+      "grav-premium/helpdesk-pro/rules-and-automations/index.md",
+      "grav-premium/helpdesk-pro/sla/index.md",
+      "grav-premium/helpdesk-pro/customer-ratings/index.md",
+      "grav-premium/helpdesk-pro/custom-fields/index.md",
+      "grav-premium/helpdesk-pro/organizations/index.md",
+      "grav-premium/helpdesk-pro/reports/index.md",
+      "grav-premium/helpdesk-pro/people-and-privacy/index.md",
+      "grav-premium/helpdesk-pro/live-updates/index.md",
+      "grav-premium/helpdesk-pro/jobs-and-cron/index.md",
+      "grav-premium/helpdesk-pro/configuration/index.md",
+      "grav-premium/helpdesk-pro/cli/index.md",
+      "grav-premium/helpdesk-pro/rest-api/index.md",
+      "grav-premium/helpdesk-pro/mcp/index.md",
+      "grav-premium/helpdesk-pro/extending/index.md",
+      "grav-premium/helpdesk-pro/troubleshooting/index.md",
+    ] },
+    { "Mailroom" = [
+      "grav-premium/mailroom/index.md",
+      "grav-premium/mailroom/installation/index.md",
+      "grav-premium/mailroom/getting-started/index.md",
+      "grav-premium/mailroom/sending-and-providers/index.md",
+      "grav-premium/mailroom/lists-and-signup-forms/index.md",
+      "grav-premium/mailroom/double-opt-in-and-consent/index.md",
+      "grav-premium/mailroom/subscribers/index.md",
+      "grav-premium/mailroom/bulk-actions/index.md",
+      "grav-premium/mailroom/import-and-export/index.md",
+      "grav-premium/mailroom/tags-and-segments/index.md",
+      "grav-premium/mailroom/campaigns/index.md",
+      "grav-premium/mailroom/templates-and-branding/index.md",
+      "grav-premium/mailroom/automations/index.md",
+      "grav-premium/mailroom/reports-and-tracking/index.md",
+      "grav-premium/mailroom/deliverability/index.md",
+      "grav-premium/mailroom/unsubscribe-and-preferences/index.md",
+      "grav-premium/mailroom/privacy/index.md",
+      "grav-premium/mailroom/subscribe-api/index.md",
+      "grav-premium/mailroom/jobs-and-cron/index.md",
+      "grav-premium/mailroom/configuration/index.md",
+      "grav-premium/mailroom/cli/index.md",
+      "grav-premium/mailroom/rest-api/index.md",
+      "grav-premium/mailroom/mcp/index.md",
+      "grav-premium/mailroom/troubleshooting/index.md",
+    ] },
+    "grav-premium/typhoon/index.md",
+    "grav-premium/ai-pro/index.md",
+    "grav-premium/ai-translate/index.md",
+    { "Algolia Pro" = [
+      "grav-premium/algolia-pro/index.md",
+      "grav-premium/algolia-pro/frontend/index.md",
+      "grav-premium/algolia-pro/backend/index.md",
+    ] },
+    "grav-premium/cloudflare-manager/index.md",
+    "grav-premium/comments-pro/index.md",
+    "grav-premium/downloads-pro/index.md",
+    "grav-premium/editor-pro/index.md",
+    "grav-premium/email-office365/index.md",
+    "grav-premium/image-optimize/index.md",
+    "grav-premium/lightbox-gallery/index.md",
+    "grav-premium/polls/index.md",
+    "grav-premium/revisions-pro/index.md",
+    "grav-premium/seo-magic/index.md",
+    "grav-premium/site-toolbox/index.md",
+    "grav-premium/yetisearch-pro/index.md",
+  ] },
+  { "Решение проблем" = [
+    "troubleshooting/index.md",
+    "troubleshooting/page-not-found/index.md",
+    "troubleshooting/server-error/index.md",
+    "troubleshooting/internal-server-error/index.md",
+    "troubleshooting/forbidden/index.md",
+    "troubleshooting/invalid-security-token/index.md",
+    "troubleshooting/permissions/index.md",
+    "troubleshooting/proxy/index.md",
+    "troubleshooting/common-problems/index.md",
+    "troubleshooting/htaccess/index.md",
+  ] },
+  { "Безопасность" = [
+    "security/index.md",
+    "security/overview/index.md",
+    { "Рекомендуемая конфигурация" = "security/configuration/index.md" },
+    "security/users/index.md",
+    "security/developers/index.md",
+    "security/server-side/index.md",
+    { "Отчёты" = [
+      "security/reports/index.md",
+      "security/reports/2018-06-11/index.md",
+      "security/reports/admin-2018-001/index.md",
+    ] },
+    "security/trusted-host/index.md",
+    "security/user-folder-exposure/index.md",
+  ] },
+  { "Полезные советы" = [
+    "hints-tips/index.md",
+    { "Блогинг" = [
+      "hints-tips/blogging/index.md",
+      "hints-tips/blogging/metadata/index.md",
+    ] },
+  ] },
+]
+
+[project.plugins.tags]
+
+[project.theme]
+language = "ru"
+favicon = "assets/favicon.png"
+#logo = "assets/grav-logo.svg"
+custom_dir = "overrides"
+features = [
+  "navigation.indexes",
+  "navigation.path",
+  "navigation.top",
+  "navigation.footer",
+  "navigation.tracking",
+  "navigation.instant",
+  "navigation.instant.prefetch",
+  "toc.follow",
+  "content.code.copy",
+  "content.code.select",
+  "content.code.annotate",
+  "content.tooltips",
+  "content.footnote.tooltips",
+  "search.highlight",
+  "search.suggest",
+  "search.share",
+]
+
+[project.theme.icon]
+logo = "fontawesome/brands/grav"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun"
+toggle.name = "Переключиться в светлый режим"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "lucide/moon"
+toggle.name = "Переключиться в тёмный режим"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Переключиться на системную тему"
+
+[project.theme.font]
+text = "Inter"
+code = "Jetbrains Mono"
+
+[project.extra.analytics]
+provider = "clarity"
+property = "wjmrti7djz"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+name = "Репозиторий перевода"
+link = "https://github.com/dragomano/Grav-Learn-Ru"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/grav"
+name = "Оригинальная документация Grav 2"
+link = "https://learn.getgrav.org/2"
+
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+toc.permalink = true
+pymdownx.arithmatex.generic = true
+pymdownx.betterem = {}
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.line_spans = "__span"
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.magiclink = {}
+pymdownx.mark = {}
+pymdownx.quotes.callouts = true
+pymdownx.smartsymbols = {}
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
+pymdownx.tabbed.combine_header_slug = true
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.tilde = {}

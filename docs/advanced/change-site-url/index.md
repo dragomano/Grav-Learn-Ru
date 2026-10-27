@@ -1,61 +1,64 @@
 ---
-description: Как изменить URL-адрес сайта на Grav CMS.
+title: "Смена URL сайта"
+description: "Задав custom_base_url в system.yaml (или Custom Base URL в системных настройках админки), можно держать Grav в папке, но работать в корне домена."
+tags:
+  - "Конфигурация"
 ---
 
-# Изменение URL-адреса сайта
+# Смена URL сайта
 
-Установив `custom_base_url` в system.yaml (или пользовательский базовый URL-адрес в системных настройках, в админке), мы можем держать Grav в папке, но запускать из корня домена.
+Задав `custom_base_url` в system.yaml (или Custom Base URL в системных настройках админки), можно держать Grav в папке, но работать в корне домена.
 
-## Сценарий 1, запуск в корневой папке домена
+## Сценарий 1: работа в корневой папке домена
 
-Grav установлен в `http://localhost:8080/grav-develop`, но вы хотите, чтобы он отвечал на `http://localhost: 8080`
+Grav установлен в `http://localhost:8080/grav-develop`, но вы хотите, чтобы он отвечал на `http://localhost:8080`
 
-В system.yaml установите
+В system.yaml задайте
 
 ```yaml
 custom_base_url: 'http://localhost:8080'
 ```
 
-и установите путь сеанса к новому пути к сайту Grav:
+и установите путь сессии в путь нового сайта Grav,
 
-```yaml
+```yaml linenums="1"
 session:
   path: /
 ```
 
-И в корне домена установите перенаправление, например с .htaccess:
+А в корне домена настройте перенаправление, например через .htaccess:
 
-```text
+```text linenums="1"
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !^/grav-develop/
 RewriteRule ^(.*)$ /grav-develop/$1
 ```
 
-где `grav-develop` — это подпапка, в которой находится Grav.
+где `grav-develop` — подпапка, в которой находится Grav.
 
-## Сценарий 2, запустить в другой подпапке
+## Сценарий 2: работа в другой подпапке
 
-Grav установлен в `http://localhost:8080/grav-develop`, но вы хотите, чтобы он отвечал на `http://localhost:8080/xxxxx`.
+Grav установлен в `http://localhost:8080/grav-develop`, но вы хотите, чтобы он отвечал на `http://localhost:8080/xxxxx`
 
-В system.yaml установите
+В system.yaml задайте
 
 ```yaml
 custom_base_url: 'http://localhost:8080/xxxxx'
 ```
 
-и установите путь сеанса к новому пути к сайту Grav:
+и установите путь сессии в путь нового сайта Grav,
 
-```yaml
+```yaml linenums="1"
 session:
   path: /xxxxx
 ```
 
-И в новой корневой папке /xxxxx установите перенаправление, например с .htaccess:
+А в новой корневой папке /xxxxx настройте перенаправление, например через .htaccess:
 
-```text
+```text linenums="1"
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !^/grav-develop/
 RewriteRule ^(.*)$ /grav-develop/$1
 ```
 
-где `grav-develop` — это дочерняя подпапка, в которой находится Grav.
+где `grav-develop` — соседняя подпапка, в которой находится Grav.

@@ -1,14 +1,31 @@
+{#-
+  Переопределение заголовка страницы: к названию страницы добавляем названия
+  разделов навигации, чтобы страницы с одинаковым заголовком различались
+  (REST API у Mailroom, Helpdesk Pro и Forum Pro, «Конфигурация» у плагинов
+  Grav Premium и т. п.).
+
+  Базовый шаблон берём из темы: `overrides/base.html` намеренно не создаём,
+  иначе `{% extends "base.html" %}` разрешился бы сам в себя.
+-#}
 {% extends "base.html" %}
 
-{% block site_meta %}
-  {{ super() }}
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/images/apple-touch-icon.png' | url }}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ 'assets/images/favicon-32x32.png' | url }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ 'assets/images/favicon-16x16.png' | url }}">
-  <link rel="manifest" href="{{ 'assets/images/site.webmanifest' | url }}">
-  <link rel="mask-icon" href="{{ 'assets/images/safari-pinned-tab.svg' | url }}" color="#5bbad5">
-  <link rel="shortcut icon" href="{{ 'assets/images/favicon.ico' | url }}">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="msapplication-config" content="{{ 'assets/images/browserconfig.xml' | url }}">
-  <meta name="theme-color" content="#ffffff">
+{% block htmltitle %}
+  {% if page.meta and page.meta.title %}
+    {% set page_title = page.meta.title %}
+  {% elif page.title %}
+    {% set page_title = page.title | striptags %}
+  {% else %}
+    {% set page_title = none %}
+  {% endif %}
+  {% if page_title %}
+    {% if not page.url or page.url == '/' %}
+      {% set raw = [] %}
+    {% else %}
+      {% set raw = page.ancestors | default([], true) | map(attribute='title') | select | list | reverse | list %}
+    {% endif %}
+    {% set sections = raw | unique | list | reject('equalto', page_title) | list %}
+    <title>{{ ([page_title] + sections) | join(' — ') }} — {{ config.site_name }}</title>
+  {% else %}
+    <title>{{ config.site_name }}</title>
+  {% endif %}
 {% endblock %}

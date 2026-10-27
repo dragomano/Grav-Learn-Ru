@@ -1,78 +1,98 @@
 ---
-description: Как настроить несколько сайтов Grav CMS. Сниппеты и потоки. Расширенная конфигурация для экспертов.
+title: "Настройка мультисайта"
+description: "Мультисайт позволяет создать сеть из нескольких сайтов и управлять ею, причём все они работают на одной установке."
+tags:
+  - "Для продвинутых"
+  - "Grav 1.7"
+  - "Мультисайт"
 ---
 
 # Настройка мультисайта
 
-!!! warning ""
+> [!CAUTION] Внимание
+> В Grav есть предварительная поддержка мультисайта. Однако плагин Admin всё ещё нужно обновить, чтобы он полностью поддерживал конфигурации мультисайта. Мы продолжим работать над этим в следующих версиях Grav.
 
-    В Grav есть поддержка нескольких сайтов. Однако плагин админки по-прежнему нуждается в обновлении для полной поддержки мультисайтовых конфигураций. Мы продолжим работать над этим в следующих выпусках Grav.
+### Что такое мультисайт?
 
-## Что такое мультисайтовая установка?
+Мультисайт позволяет создать сеть из нескольких сайтов и управлять ею, причём все они работают на одной установке.
 
-Мультисайтовая установка позволяет вам создавать и управлять сетью из нескольких веб-сайтов, работающих на одной установке.
+В Grav есть встроенная поддержка мультисайта. Эта возможность расширяет [базовую конфигурацию окружения](../environment-config/index.md), которая позволяет определять пользовательские окружения для продакшен- и dev-сайтов.
 
-Grav имеет встроенную поддержку нескольких сайтов. В отличие от [автоматической конфигурации среды](/advanced/environment-config), которая позволяет вам определять пользовательские среды для поддержки различных конфигураций и сценариев.
+Полноценный мультисайт даёт вам власть над тем, как и откуда Grav загружает все свои файлы.
 
-Полная мультисайтовая настройка дает вам возможность изменить способ, как и откуда Grav загружает все свои файлы.
+### Требования для мультисайта Grav
 
-## Требования к установке мультисайта Grav
+Самое важное, что понадобится для работы сети мультисайта Grav, — хороший веб-хостинг. Если вы не планируете создавать много сайтов и не ожидаете много посетителей, можно обойтись общим хостингом. Однако из-за особенностей мультисайтов по мере роста сайтов вам, скорее всего, понадобится VPS или выделенный сервер.
 
-Самое главное, что вам понадобится для работы в мультисайтовой сети Grav — это хороший хостинг веб-сайтов. Если вы не планируете создавать много сайтов и не ожидаете большого количества посетителей, то вы можете обойтись виртуальным хостингом. Однако из-за природы мультисайтов вам, вероятно, понадобится VPS или выделенный сервер по мере роста ваших сайтов.
+### Настройка и установка
 
-## Настройка и установка
+Прежде чем начать, убедитесь, что ваш веб-сервер способен обслуживать несколько сайтов, то есть у вас есть доступ к корневой папке Grav.
 
-Перед тем, как начать, вы должны убедиться, что ваш веб-сервер поддерживает работу нескольких веб-сайтов, т. е. у вас есть доступ к корневому каталогу Grav.
+Это необходимо, поскольку обслуживание нескольких сайтов с одной установки основано на файле `setup.php`, расположенном в корне Grav.
 
-Это важно, поскольку обслуживание нескольких веб-сайтов из одной и той же установки основано на файле `setup.php`, расположенном в вашем корне Grav.
+#### Быстрый старт (для начинающих)
 
-### Быстрый старт (для начинающих)
+После создания `setup.php` вызывается каждый раз, когда пользователь запрашивает страницу. Чтобы обслуживать несколько сайтов с одной установки, этот скрипт (грубо говоря) должен сообщить Grav, где находятся файлы (конфигурации, темы, плагины, страницы и т. д.) для конкретного подсайта.
 
-После создания `setup.php` вызывается каждый раз, когда пользователь запрашивает страницу. Чтобы обслуживать несколько веб-сайтов из одной установки, этот сценарий (грубо говоря) должен сообщать Grav, где находятся файлы (для конфигураций, тем, плагинов, страниц и т. д.) Для определенного дочернего сайта.
-
-Приведенные ниже фрагменты настраивают вашу установку Grav таким образом, чтобы запрос вроде
+Приведённые ниже фрагменты настраивают вашу установку Grav так, что запрос вида
 
 ```text
-https://<subsite>.example.com   -->   user/sites/<subsite>.example.com
+https://<subsite>.example.com   -->   user/env/<subsite>.example.com
 ```
 
 или
 
 ```text
-https://example.com/<subsite>   -->   user/sites/<subsite>
+https://example.com/<subsite>   -->   user/env/<subsite>
 ```
 
-будет использовать каталог `user/env` в качестве базового пути для «user» вместо каталога `user`.
+будет использовать папку `user/env` как базовый путь «user» вместо папки `user`.
 
-Если вы выбираете подкаталоги или URL-адреса на основе пути для дочерних сайтов, то единственное, что вам нужно, это создать каталог для каждого дочернего сайта в каталоге `user/env`, содержащий как минимум необходимые папки `config`, `pages`, `plugins` и `themes`.
+Если вы выбираете подпапки или URL на основе путей для подсайтов, то всё, что нужно, — создать папку для каждого подсайта в папке `user/env`, содержащую как минимум обязательные папки `config`, `pages`, `plugins` и `themes`.
 
-Если вы выберете субдомены для структурирования сети своего веб-сайта, вам придется настроить (подстановочные) субдомены на своем сервере в дополнение к настройке ваших дочерних сайтов в каталоге `user/env`.
+Если вы выбираете поддомены для построения сети сайтов, то помимо настройки подсайтов в папке `user/env` вам придётся настроить на сервере (wildcard-)поддомены.
 
-В любом случае, решите, какая установка вам больше подходит.
+В любом случае решите, какой вариант настройки подходит вам больше.
 
-#### Сниппеты
+> [!NOTE] Примечание
+> Серверные правила Grav, защищающие `config`, `accounts` и `data`, действуют и внутри каждой папки `user/env/<name>/`, а темы, плагины и ресурсы подсайта остаются публично доступными. Сайты на Apache получают эти правила в `.htaccess` при обновлении до Grav 2.2.4. На Nginx, Caddy, lighttpd и IIS конфигурацию сервера нужно обновить самостоятельно, поскольку эти серверы не читают `.htaccess`. Старые правила блокировали всё внутри `user/env`, поэтому на сервере, который всё ещё использует их, файлы темы, плагинов и ресурсов подсайта возвращают 403.
 
-Для дочерних сайтов, доступных через поддомены, скопируйте файл `setup_subdomain.php`, в противном случае для дочерних сайтов, доступных через подкаталоги, файл `setup_subdirectory.php` в ваш `setup.php`.
+На Nginx строки с учётом `user/env` выглядят так:
 
-!!! tip ""
+```nginx
+location ~* ^/user/(env/[^/]+/)?config/.*$ { return 403; }
+location ~* ^/user/(env/[^/]+/)?accounts/[^/]+/[^/]+\.(jpe?g|png|gif|webp|avif|bmp|ico)$ { try_files $uri =404; }
+location ~* ^/user/(env/[^/]+/)?accounts/.*$ { return 403; }
+location ~* ^/user/(env/[^/]+/)?data/.*\.(jpe?g|png|gif|webp|avif|bmp|ico|mp4|webm|ogg|ogv|mov|mp3|wav|m4a|flac|pdf)$ { try_files $uri =404; }
+location ~* ^/user/(env/[^/]+/)?data/.*$ { return 403; }
+```
 
-    Файл `setup.php` должен быть помещен в корневую папку Grav, ту же папку, где вы можете найти `index.php`, `README.md` и другие файлы Grav.
+Полные правила для каждого сервера приведены в разделе [Доступность папки user](../../security/user-folder-exposure/index.md).
 
-```php title="setup_subdomain.php"
+##### Фрагменты
+
+Для подсайтов, доступных по поддоменам, скопируйте файл `setup_subdomain.php`, а для подсайтов, доступных по подпапкам, — файл `setup_subdirectory.php` в ваш `setup.php`.
+
+> [!NOTE] Примечание
+> Файл `setup.php` нужно положить в корневую папку Grav — ту же папку, где находятся `index.php`, `README.md` и остальные файлы Grav.
+
+**setup_subdomain.php**:
+
+```php linenums="1"
 <?php
 /**
- * Multisite setup for subsites accessible via sub-domains.
+ * Настройка мультисайта для подсайтов, доступных через поддомены.
  *
- * DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING!
+ * НЕ РЕДАКТИРУЙТЕ, ЕСЛИ НЕ УВЕРЕНЫ, ЧТО ДЕЛАЕТЕ!
  */
 
 use Grav\Common\Utils;
 
-// Get subsite name from sub-domain
+// Получаем имя подсайта из поддомена
 $environment = isset($_SERVER['HTTP_HOST'])
     ? $_SERVER['HTTP_HOST']
     : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost');
-// Remove port from HTTP_HOST generated $environment
+// Убираем порт из $environment, полученного из HTTP_HOST
 $environment = strtolower(Utils::substrToString($environment, ':'));
 $folder = "env/{$environment}";
 
@@ -97,23 +117,23 @@ return [
 
 **setup_subdirectory.php**:
 
-```php
+```php linenums="1"
 <?php
 /**
- * Multisite setup for sub-directories or path based
- * URLs for subsites.
+ * Настройка мультисайта для подсайтов, доступных через
+ * подпапки или URL на основе пути.
  *
- * DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING!
+ * НЕ РЕДАКТИРУЙТЕ, ЕСЛИ НЕ УВЕРЕНЫ, ЧТО ДЕЛАЕТЕ!
  */
 
 use Grav\Common\Filesystem\Folder;
 
-// Get relative path from Grav root.
+// Получаем относительный путь от корня Grav.
 $path = isset($_SERVER['PATH_INFO'])
    ? $_SERVER['PATH_INFO']
    : Folder::getRelativePath($_SERVER['REQUEST_URI'], ROOT_DIR);
 
-// Extract name of subsite from path
+// Извлекаем имя подсайта из пути
 $name = Folder::shift($path);
 $folder = "env/{$name}";
 $prefix = "/{$name}";
@@ -122,7 +142,7 @@ if (!$name || !is_dir(ROOT_DIR . "user/{$folder}")) {
     return [];
 }
 
-// Prefix all pages with the name of the subsite
+// Добавляем имя подсайта как префикс ко всем страницам
 $container['pages']->base($prefix);
 
 return [
@@ -140,18 +160,18 @@ return [
 ];
 ```
 
-При использовании подкаталогов для переключения языковых контекстов вам может потребоваться загружать различные конфигурации в зависимости от языка.
-Вы можете поместить свои языковые конфигурации в `config/<lang-context>/site.yaml`, используя пример для `setup_subdir_config_switch.php` ниже.
-Таким образом `example.com/de-AT/index.html` будет загружать `config/de-AT/site.yaml`, `example.com/de-CH/index.html` будет загружать `config/de-CH/site.yaml` и так далее.
+При использовании подпапок для переключения языковых контекстов может понадобиться загружать разные конфигурации в зависимости от языка.
+Вы можете разместить конфигурации для конкретного языка в `config/<lang-context>/site.yaml`, как показано в примере `setup_subdir_config_switch.php` ниже.
+Так `example.com/de-AT/index.html` загрузит `config/de-AT/site.yaml`, `example.com/de-CH/index.html` загрузит `config/de-CH/site.yaml` и так далее.
 
 **setup_subdir_config_switch.php**:
 
-```php
+```php linenums="1"
 <?php
 /**
- * Switch config based on the language context subdir
+ * Переключение конфигурации в зависимости от подпапки языкового контекста
  *
- * DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING!
+ * НЕ РЕДАКТИРУЙТЕ, ЕСЛИ НЕ УВЕРЕНЫ, ЧТО ДЕЛАЕТЕ!
  */
 
 use Grav\Common\Filesystem\Folder;
@@ -162,12 +182,12 @@ $languageContexts = [
     'de-DE',
 ];
 
-// Get relative path from Grav root.
+// Получаем относительный путь от корня Grav.
 $path = isset($_SERVER['PATH_INFO'])
     ? $_SERVER['PATH_INFO']
     : Folder::getRelativePath($_SERVER['REQUEST_URI'], ROOT_DIR);
 
-// Extract name of subdir from path
+// Извлекаем имя подпапки из пути
 $name = Folder::shift($path);
 
 if (in_array($name, $languageContexts)) {
@@ -193,27 +213,26 @@ if (in_array($name, $languageContexts)) {
 return [];
 ```
 
-#### GPM (менеджер пакетов Grav) и несколько настроек
+##### GPM (Grav Package Manager) и несколько установок
+Если вам нужно управлять плагинами и темами подсайтов с помощью [GPM](https://learn.getgrav.org/17/cli-console/grav-cli-gpm),
+держите и `user/themes`, и `user/plugins`, чтобы GPM скачивал и обновлял их в одном месте. Затем создайте символические ссылки на нужные элементы в `user/env/my.site.com/themes` или `user/env/my.site.com/plugins`. После этого настройте отдельные yaml-конфигурации `user/env/my.site.com/config/plugins` для каждого подсайта.
 
-Если вам необходимо управлять плагинами и темами ваших подсайтов с помощью [GPM](https://learn.getgrav.org/17/cli-console/grav-cli-gpm), храните `user/themes` и `user/plugins`, чтобы GPM получал и обновлял их в одном месте. Затем создайте символические ссылки на `user/env/my.site.com/themes` или `user/env/my.site.com/plugins`. Затем настройте отдельные yaml-конфигурации `user/env/my.site.com/config/plugins` для каждого подсайта.
+#### Продвинутая конфигурация (для экспертов)
 
-### Расширенная конфигурация (для экспертов)
+После создания `setup.php` вам доступны две важные переменные: (i) `$container` — ещё не до конца инициализированный [экземпляр Grav](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Grav.php), и (ii) `$self` — экземпляр [класса ConfigServiceProvider](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Service/ConfigServiceProvider.php).
 
-После создания `setup.php` получите доступ к двум важным переменным: (i) `$container`, который является ещё не инициализированным должным образом [экземпляр Grav](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Grav.php) и (ii) `$self`, который является экземпляром [класса ConfigServiceProvider](https://github.com/getgrav/grav/blob/develop/system/src/Grav/Common/Service/ConfigServiceProvider.php).
+Внутри этого скрипта можно делать что угодно, но учтите: `setup.php` вызывается каждый раз, когда пользователь запрашивает страницу. Это значит, что критичные к памяти или долгие операции инициализации замедляют всю систему, и их следует избегать.
 
-Внутри этого скрипта вы можете делать что угодно, но имейте в виду, что файл `setup.php` вызывается каждый раз, когда пользователь запрашивает страницу. Это означает, что критические для памяти или требующие много времени операции инициализации приводят к замедлению работы всей системы, и поэтому их следует избегать.
+В конце `setup.php` должен вернуть ассоциативный массив с необязательным именем окружения **environment** и коллекцией потоков **streams**
+(подробнее и о том, как настроить их правильно, см. раздел [Потоки](#streams)):
 
-В конце концов, `setup.php` должен возвращать ассоциативный массив с необязательным именем среды **environment** и коллекцией потоков **streams** (подробнее и о том, как правильно их настроить, см. раздел [Потоки](#potoki)):
-
-```php
-<?php
-
+```php linenums="1"
 return [
-  'environment' => '<name>',            // Название окружения
+  'environment' => '<name>',            // имя окружения
   'streams' => [
     'schemes' => [
-      '<stream_name>' => [              // Название потока
-        'type' => 'ReadOnlyStream',     // Объект потока, например: 'ReadOnlyStream' или 'Stream'
+      '<stream_name>' => [              // имя потока
+        'type' => 'ReadOnlyStream',     // объект потока, например 'ReadOnlyStream' или 'Stream'
         'prefixes' => [
           '<prefix>' => [
             '<path1>',
@@ -221,7 +240,7 @@ return [
             '<etc>'
           ]
         ],
-        'paths' => [                    // Пути (не обязательно)
+        'paths' => [                    // пути (необязательно)
           '<paths1>',
           '<paths2>',
           '<etc>'
@@ -230,45 +249,43 @@ return [
     ]
   ]
 ]
-
 ```
 
-!!! warning ""
+> [!TIP] Совет
+> Учтите, что на этом очень раннем этапе у вас нет доступа ни к конфигурации, ни к экземпляру URI, поэтому любой вызов неинициализированного класса может привести к зависанию системы, неожиданным ошибкам или (полной) потере данных.
 
-    Имейте в виду, что на этом очень раннем этапе у вас нет доступа к конфигурации или экземпляру URI, и поэтому любой вызов неинициализированного класса может закончиться зависанием системы, неожиданными ошибками или (полной) потерей данных.
+#### Потоки {: #streams }
 
-### Потоки
+Grav использует потоки вида URI для определения всех путей к файлам. Потоки сильно упрощают настройку путей поиска для любого файла.
 
-Grav использует URI-подобные потоки для определения всех путей к файлам в Grav. Использование потоков позволяет очень легко настроить пути поиска для любого файла.
+По умолчанию потоки настроены так:
 
-По умолчанию потоки были настроены следующим образом:
+* `user://` — папка user. Например, `user/`
+* `page://` — папка pages. Например, `user://pages/`
+* `image://` — папка images. Например, `user://images/`, `system://images/`
+* `account://` — папка accounts. Например, `user://accounts/`
+* `environment://` — текущее расположение мультисайта.
+* `asset://` — папка скомпилированных JS/CSS. Например, `assets/`
+* `blueprints://` — папка blueprints. Например, `environment://blueprints/`, `user://blueprints/`, `system://blueprints/`
+* `config://` — папка конфигурации. Например, `environment://config/`, `user://config/`, `system://config/`
+* `plugins://` — папка plugins. Например, `user://plugins/`
+* `themes://` — текущая тема. Например, `user://themes/`
+* `theme://` — текущая тема. Например, `themes://antimatter/`
+* `languages://` — папка languages. Например, `environment://languages/`, `user://languages/`, `system://languages/`
+* `user-data://` — папка data. Например, `user/data/`
+* `system://` — системная папка. Например, `system/`
+* `cache://` — папка кэша. Например, `cache/`, `images/`
+* `log://` — папка журналов. Например, `logs/`
+* `backup://` — папка резервных копий. Например, `backups/`
+* `tmp://` — временная папка. Например, `tmp/`
 
-- `user://` - папка пользователя, например `user/`
-- `page://` - папка страниц, например `user://pages/`
-- `image://` - папка изображений, например `user://images/`, `system://images/`
-- `account://` - папка учётных записей, например `user://accounts/`
-- `environment://` - текущее местоположение нескольких сайтов.
-- `asset://` - папка скомпилированных ресурсов JS/CSS, например `assets/`
-- `blueprints://` - папка чертежей, например `environment://blueprints/`, `user://blueprints/`, `system://blueprints/`
-- `config://` - папка конфигураций, например `environment://config/`, `user://config/`, `system://config/`
-- `plugins://` - папка плагинов, например `user://plugins/`
-- `themes://` - папка тем, например `user://themes/`
-- `theme://` - папка текущей темы, например `themes://antimatter/`
-- `languages://` - папка языков, например `environment://languages/`, `user://languages/`, `system://languages/`
-- `user-data://` - папка данных, например `user/data/`
-- `system://` - папка файлов движка, например `system/`
-- `cache://` - папка кэша, например `cache/`, `images/`
-- `log://` - папка логов, например `logs/`
-- `backup://` - папка резервных копий, например `backups/`
-- `tmp://` - папка временных файлов, например `tmp/`
+В конфигурациях мультисайта некоторые из этих настроек по умолчанию могут вам не подходить. Grav даёт простой способ настраивать потоки из конфигурации окружения с помощью `config/streams.yaml`. Кроме того, при необходимости можно создавать и использовать собственные потоки.
 
-При настройке нескольких сайтов некоторые из этих параметров по умолчанию могут быть не теми, которые вам нужны. Grav обеспечивает простой способ, чтобы настроить потоки от конфигурации среды, используя `config/streams.yaml`. Кроме того, вы можете создавать и использовать свои собственные потоки, когда это необходимо.
-
-Сопоставление физических каталогов с логическим устройством может быть выполнено путем настройки префиксов. Вот пример, где мы отделяем страницы, изображения, учетные записи, данные, кэш и журналы от остальных сайтов, но заставляем все остальное искать в местоположении по умолчанию:
+Сопоставить физические папки логическому устройству можно, настроив `prefixes`. Вот пример, в котором мы отделяем страницы, изображения, учётные записи, данные, кэш и журналы от остальных частей сайтов, а всё остальное ищется в местах по умолчанию:
 
 `user/env/domain.com/config/streams.yaml`:
 
-```yaml
+```yaml linenums="1"
 schemes:
   account:
     type: ReadOnlyStream
@@ -297,79 +314,78 @@ schemes:
       '': ['logs/domain.com']
 ```
 
-In Grav streams are objects, mapping a set of physical directories of the system to a logical device. They are classified via their `type` attribute. For read-only streams that's the `ReadOnlyStream` type and for read-writeable streams that's the `Stream` type.
+В Grav потоки — это объекты, сопоставляющие набор физических папок системы логическому устройству. Они классифицируются по атрибуту `type`. Для потоков только для чтения это тип `ReadOnlyStream`, а для потоков с чтением и записью — `Stream`.
 
-For example, if you use `image://mountain.jpg` stream, Grav looks up `environment://images` (`user/env/domain.com/images`) and `system://images` (`system/images`). This means that streams can be used to define other streams.
+Например, если вы используете поток `image://mountain.jpg`, Grav ищет в `environment://images` (`user/env/domain.com/images`) и `system://images` (`system/images`). Это значит, что потоки можно использовать для определения других потоков.
 
-Prefixes allows you to combine several physical paths into one logical stream. If you look carefully at `cache` stream definition, it is a bit different. In this case `cache://` resolves to `cache`, but `cache://images` resolves to `images`.
+Префиксы позволяют объединить несколько физических путей в один логический поток. Если внимательно посмотреть на определение потока `cache`, оно немного отличается. В этом случае `cache://` разрешается в `cache`, а `cache://images` — в `images`.
 
-## Серверная мультисайтовая конфигурация
+### Конфигурация мультисайта на основе сервера {: #server-based-multi-site-configuration }
 
-Grav 1.7 добавляет поддержку настройки начальной среды из конфигурации вашего сервера.
+Grav 1.7 добавляет поддержку настройки начального окружения из конфигурации сервера.
 
-Эта функция удобна, если вы хотите использовать, например, контейнеры docker и хотите сделать их независимыми от домена, который вы используете. Или если вы не хотите хранить секреты в конфигурации, но хранить их в настройках Вашего сервера.
+Эта фича пригодится, если вы хотите, например, использовать docker-контейнеры и сделать их независимыми от домена, который вам доведётся использовать. Или если вы не хотите хранить секреты в конфигурации, а хотите хранить их в настройках сервера.
 
-Следующие переменные среды можно использовать для настройки путей по умолчанию, которые Grav использует для настройки среды. После инициализации потоки могут указывать на другое местоположение.
+Следующие переменные окружения позволяют настроить пути по умолчанию, которые Grav использует для настройки окружения. После инициализации потоки могут указывать на другое место.
 
-!!! note ""
+> [!NOTE] Примечание
+> **Примечание:** можно использовать переменные окружения или PHP-константы, но задать их нужно до запуска Grav.
 
-    Вы можете использовать либо переменные среды, либо константы PHP, но они должны быть установлены перед запуском Grav.
+| Переменная | По умолчанию | Описание |
+| -------- | ------- | ----------- |
+| **GRAV_SETUP_PATH** | АВТООПРЕДЕЛЕНИЕ | Пользовательский путь к файлу `setup.php` вместе с именем файла. По умолчанию Grav ищет файл в `GRAV_ROOT/setup.php` и `GRAV_ROOT/GRAV_USER_PATH/setup.php`. |
+| **GRAV_USER_PATH** | `user` | Относительный путь для потока `user://`. |
+| **GRAV_CACHE_PATH** | `cache` | Относительный путь для потока `cache://`. |
+| **GRAV_LOG_PATH** | `logs` | Относительный путь для потока `log://`. |
+| **GRAV_TMP_PATH** | `tmp` | Относительный путь для потока `tmp://`. |
+| **GRAV_BACKUP_PATH** | `backup` | Относительный путь для потока `backup://`. |
 
-| Переменная           | Значение по умолчанию | Описание                                                                                                                                                      |
-| -------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **GRAV_SETUP_PATH**  | AUTO DETECT           | Пользовательский путь к `setup.php`, включая имя файла. По умолчанию Grav просматривает файл из `GRAV_ROOT/setup.php` и `GRAV_ROOT/GRAV_USER_PATH/setup.php`. |
-| **GRAV_USER_PATH**   | `user`                | Относительный путь для потока `user://`.                                                                                                                      |
-| **GRAV_CACHE_PATH**  | `cache`               | Относительный путь для потока `cache://`.                                                                                                                     |
-| **GRAV_LOG_PATH**    | `logs`                | Относительный путь для потока `log://`.                                                                                                                       |
-| **GRAV_TMP_PATH**    | `tmp`                 | Относительный путь для потока `tmp://`.                                                                                                                       |
-| **GRAV_BACKUP_PATH** | `backup`              | Относительный путь для потока `backup://`.                                                                                                                    |
+Кроме того, есть переменные для настройки окружений. Более подробная документация о них приведена в разделе [Конфигурация окружения на основе сервера](../environment-config/index.md#server-based-environment-configuration).
 
-Кроме того, есть переменные для настройки окружения. Лучшую документацию по ним можно найти в разделе [Конфигурация среды на основе сервера](/advanced/environment-config/#konfiguratsiia-sredy-na-osnove-servera).
+> [!NOTE] Примечание
+> **Примечание:** они также работают из файла `setup.php`. Их можно сделать константами с помощью `define()` или переменными окружения с помощью `putenv()`. Константы предпочтительнее переменных окружения.
 
-!!! note ""
+| Переменная | По умолчанию | Описание |
+| -------- | ------- | ----------- |
+| **GRAV_ENVIRONMENT** | ИМЯ ДОМЕНА | Имя окружения. Можно использовать, например, в docker-контейнерах, чтобы задать пользовательское окружение, не зависящее от имени домена, например `production` и `develop`. |
+| **GRAV_ENVIRONMENTS_PATH** | `user://env` | Путь поиска для всех окружений, если вы предпочитаете что-то вроде `user://sites`. Может быть потоком или относительным путём от `GRAV_ROOT`. |
+| **GRAV_ENVIRONMENT_PATH** | `user://env/ENVIRONMENT` | Иногда бывает полезно задать отдельное расположение для вашего окружения. |
 
-    Они также работают из файла `setup.php`. Вы можете сделать их константами, используя `define()`, или переменные среды с `putenv()`. Константы предпочтительнее переменных среды.
+#### Переопределения конфигурации на основе сервера
 
-| Переменная                 | Значение по умолчанию    | Описание                                                                                                                                                                   |
-| -------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **GRAV_ENVIRONMENT**       | DOMAIN NAME              | Имя среды. Может использоваться, например, в контейнерах докеров для установки настраиваемой среды, которая не зависит от имени домена, например `production` и `develop`. |
-| **GRAV_ENVIRONMENTS_PATH** | `user://env`             | Путь поиска для всех сред, если вы предпочитаете что-то вроде `user://sites`. Может быть потоком или относительным путем от `GRAV_ROOT`.                                   |
-| **GRAV_ENVIRONMENT_PATH**  | `user://env/ENVIRONMENT` | Иногда может быть полезно указать настраиваемое местоположение для вашей среды.                                                                                            |
+Если вы не хотите хранить секретные учётные данные в конфигурации, их также можно передать через переменные окружения с вашего сервера.
 
-### Переопределения конфигурации на основе сервера
+Поскольку к именам переменных окружения предъявляются строгие требования (они могут содержать только A-Z, a-z, 0-9 и _), чтобы переопределения конфигурации заработали, нужны некоторые ухищрения.
 
-Если вы не хотите хранить секретные учетные данные внутри конфигурации, вы также можете предоставить их, используя переменные среды с вашего сервера.
-
-Поскольку переменные среды имеют строгие требования к именованию (они могут содержать только A-Z, a-z, 0-9 и \_), необходимы некоторые уловки, чтобы заставить работать переопределения конфигурации.
-
-Вот пример простого переопределения конфигурации с использованием формата YAML для презентации:
+Вот пример простого переопределения конфигурации в формате YAML для наглядности:
 
 ```yaml
-GRAV_CONFIG: true # If false, the configuration here will be ignored.
-GRAV_CONFIG_ALIAS__GITHUB: plugins.github # Create alias GITHUB='plugins.github' to shorten the variable names below
-GRAV_CONFIG__GITHUB__auth__method: api # Override config.plugins.github.auth.method = api
-GRAV_CONFIG__GITHUB__auth__token: xxxxxxxx # Override config.plugins.github.auth.token = xxxxxxxx
+GRAV_CONFIG: true                           # если false, конфигурация ниже будет проигнорирована.
+
+GRAV_CONFIG_ALIAS__GITHUB: plugins.github   # создаёт псевдоним GITHUB='plugins.github', чтобы сократить имена переменных ниже
+
+GRAV_CONFIG__GITHUB__auth__method: api      # переопределяет config.plugins.github.auth.method = api
+GRAV_CONFIG__GITHUB__auth__token: xxxxxxxx  # переопределяет config.plugins.github.auth.token = xxxxxxxx
 ```
 
-В приведенном выше примере `__` (двойное подчеркивание) представляет вложенную переменную, которая в Twig представлена ​​с помощью точки (`.`).
+В приведённом примере `__` (двойное подчёркивание) обозначает вложенную переменную, которая в twig представляется точкой `.`.
 
-Вы также можете использовать переменные среды в `setup.php`. Это позволяет, например, хранить секреты вне конфигурации:
+Переменные окружения можно также использовать в `setup.php`. Это позволяет, например, хранить секреты вне конфигурации:
 
 `user/setup.php`:
-
 ```php
 <?php
 
-// Use following environment variables in your server configuration:
+// Используйте следующие переменные окружения в конфигурации сервера:
 //
-// DYNAMODB_SESSION_KEY: DynamoDb server key for the PHP session storage
-// DYNAMODB_SESSION_SECRET: DynamoDb server secret
-// DYNAMODB_SESSION_REGION: DynamoDb server region
-// GOOGLE_MAPS_KEY: Google Maps secret key
+// DYNAMODB_SESSION_KEY: ключ сервера DynamoDb для хранения сессий PHP
+// DYNAMODB_SESSION_SECRET: секрет сервера DynamoDb
+// DYNAMODB_SESSION_REGION: регион сервера DynamoDb
+// GOOGLE_MAPS_KEY: секретный ключ Google Maps
 
 return [
     'plugins' => [
-        // This plugin does not exist
+        // Этот плагин не существует
         'dynamodb_session' => [
             'credentials' => [
                 'key' => getenv('DYNAMODB_SESSION_KEY') ?: null,
@@ -377,7 +393,7 @@ return [
             ],
             'region' => getenv('DYNAMODB_SESSION_REGION') ?: null
         ],
-        // This plugin does not exist
+        // Этот плагин не существует
         'google_maps' => [
             'key' => getenv('GOOGLE_MAPS_KEY') ?: null
         ]
@@ -385,77 +401,68 @@ return [
 ];
 ```
 
-!!! warning ""
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** `setup.php` используется для задания начальной конфигурации. Если плагин или ваша конфигурация позже переопределят эти настройки, начальные значения будут потеряны.
 
-    `setup.php` используется для установки начальной конфигурации. Если плагин или ваша конфигурация позже переопределят эти настройки, исходные значения будут потеряны.
+Определив переменные в `setup.php`, их можно задать на сервере:
 
-После определения переменных в `setup.php` вы можете установить их на своем сервере:
-
-=== "Apache 2"
-
-````apacheconf
+```apache title="Apache 2" linenums="1"
 <VirtualHost 127.0.0.1:80>
-...
+    ...
 
-        SetEnv GRAV_SETUP_PATH         user/setup.php
-        SetEnv GRAV_ENVIRONMENT        production
-        SetEnv DYNAMODB_SESSION_KEY    JBGARDQ06UNJV00DL0R9
-        SetEnv DYNAMODB_SESSION_SECRET CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
-        SetEnv DYNAMODB_SESSION_REGION us-east-1
-        SetEnv GOOGLE_MAPS_KEY         XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
-    </VirtualHost>
-    ```
+    SetEnv GRAV_SETUP_PATH         user/setup.php
+    SetEnv GRAV_ENVIRONMENT        production
+    SetEnv DYNAMODB_SESSION_KEY    JBGARDQ06UNJV00DL0R9
+    SetEnv DYNAMODB_SESSION_SECRET CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
+    SetEnv DYNAMODB_SESSION_REGION us-east-1
+    SetEnv GOOGLE_MAPS_KEY         XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
+</VirtualHost>
+```
 
-=== "NGINX php-fpm"
-```nginx
+```nginx title="NGINX php-fpm" linenums="1"
+location / {
+    ...
+
+    fastcgi_param GRAV_SETUP_PATH         user/setup.php;
+    fastcgi_param GRAV_ENVIRONMENT        production;
+    fastcgi_param DYNAMODB_SESSION_KEY    JBGARDQ06UNJV00DL0R9;
+    fastcgi_param DYNAMODB_SESSION_SECRET CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7;
+    fastcgi_param DYNAMODB_SESSION_REGION us-east-1;
+    fastcgi_param GOOGLE_MAPS_KEY         XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp;
+}
+```
+
+```nginx title="NGINX php-cgi" linenums="1"
 location / {
 ...
 
-        fastcgi_param GRAV_SETUP_PATH         user/setup.php;
-        fastcgi_param GRAV_ENVIRONMENT        production;
-        fastcgi_param DYNAMODB_SESSION_KEY    JBGARDQ06UNJV00DL0R9;
-        fastcgi_param DYNAMODB_SESSION_SECRET CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7;
-        fastcgi_param DYNAMODB_SESSION_REGION us-east-1;
-        fastcgi_param GOOGLE_MAPS_KEY         XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp;
-    }
-    ```
+    env[GRAV_SETUP_PATH]          = user/setup.php
+    env[GRAV_ENVIRONMENT]         = production
+    env[DYNAMODB_SESSION_KEY]     = JBGARDQ06UNJV00DL0R9
+    env[DYNAMODB_SESSION_SECRET]  = CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
+    env[GDYNAMODB_SESSION_REGION] = us-east-1
+    env[GGOOGLE_MAPS_KEY]         = XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
+}
+```
 
-=== "NGINX php-cgi"
-```nginx
-location / {
-...
+```yaml title="Docker" linenums="1"
+web:
+  environment:
+    - GRAV_SETUP_PATH=user/setup.php
+    - GRAV_ENVIRONMENT=production
+    - DYNAMODB_SESSION_KEY=JBGARDQ06UNJV00DL0R9
+    - DYNAMODB_SESSION_SECRET=CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
+    - DYNAMODB_SESSION_REGION=us-east-1
+    - GOOGLE_MAPS_KEY=XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
+```
 
-        env[GRAV_SETUP_PATH]          = user/setup.php
-        env[GRAV_ENVIRONMENT]         = production
-        env[DYNAMODB_SESSION_KEY]     = JBGARDQ06UNJV00DL0R9
-        env[DYNAMODB_SESSION_SECRET]  = CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
-        env[GDYNAMODB_SESSION_REGION] = us-east-1
-        env[GGOOGLE_MAPS_KEY]         = XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
-    }
-    ```
+```php title="PHP" linenums="1"
+putenv('GRAV_SETUP_PATH', 'user/setup.php');
+putenv('GRAV_ENVIRONMENT', 'production');
+putenv('DYNAMODB_SESSION_KEY', 'JBGARDQ06UNJV00DL0R9');
+putenv('DYNAMODB_SESSION_SECRET', 'CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7');
+putenv('DYNAMODB_SESSION_REGION', 'us-east-1');
+putenv('GOOGLE_MAPS_KEY', 'XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp');
+```
 
-=== "Docker"
-`yaml
-    web:
-    environment:
-        - GRAV_SETUP_PATH=user/setup.php
-        - GRAV_ENVIRONMENT=production
-        - DYNAMODB_SESSION_KEY=JBGARDQ06UNJV00DL0R9
-        - DYNAMODB_SESSION_SECRET=CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7
-        - DYNAMODB_SESSION_REGION=us-east-1
-        - GOOGLE_MAPS_KEY=XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp
-    `
-
-=== "PHP"
-`php
-    <?php
-    putenv('GRAV_SETUP_PATH', 'user/setup.php');
-    putenv('GRAV_ENVIRONMENT', 'production');
-    putenv('DYNAMODB_SESSION_KEY', 'JBGARDQ06UNJV00DL0R9');
-    putenv('DYNAMODB_SESSION_SECRET', 'CVjwH+QkfnPhKgVvJvrG24s0ABi343cJ7WTPxvb7');
-    putenv('DYNAMODB_SESSION_REGION', 'us-east-1');
-    putenv('GOOGLE_MAPS_KEY', 'XWIozB2R2GmYInTqZ6jnKuUrdELounUb4BIxYmp');
-    `
-
-В этом примере сервер также будет использовать среду `production`, хранящуюся в папке `user/env/production`.
-````
+В этом примере сервер также будет использовать окружение `production`, хранящееся в папке `user/env/production`.

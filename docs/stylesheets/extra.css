@@ -1,0 +1,80 @@
+:root {
+  --md-primary-fg-color: #526cfe;
+  --md-primary-fg-color--light: #7b8cff;
+  --md-primary-fg-color--dark: #3b53d9;
+  --md-accent-fg-color: #7b8cff;
+}
+
+.md-typeset .api-method {
+  display: inline-block;
+  min-width: 4.2em;
+  margin-right: 0.35rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  vertical-align: 0.08em;
+}
+
+.api-method-get { background: #2f7de1; }
+.api-method-post { background: #2e9e5b; }
+.api-method-put { background: #b7791f; }
+.api-method-patch { background: #9c6ade; }
+.api-method-delete { background: #d64545; }
+.api-method-head { background: #5f6b7a; }
+.api-method-options { background: #5f6b7a; }
+
+.md-typeset .color-swatch {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.25rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  vertical-align: -0.15em;
+}
+
+.md-typeset img.shadow,
+.md-typeset img.image-shadow,
+.md-typeset .shadow {
+  border-radius: 0.35rem;
+  box-shadow: 0 0.35rem 1.1rem rgb(0 0 0 / 22%);
+}
+
+[data-md-color-scheme="slate"] .md-header__button.md-logo img,
+[data-md-color-scheme="slate"] .md-nav__title .md-logo img {
+  filter: invert(1) brightness(1.8);
+}
+
+.md-typeset table:not([class]) {
+  font-size: 0.76rem;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.4rem;
+}
+
+/* The Grav documentation has more top-level tabs than the stock theme
+   expects.  Keep all of them visible on ordinary desktop widths. */
+.md-tabs__item {
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+}
+
+.md-tabs__link {
+  font-size: 0.66rem;
+}
+
+@media screen and (min-width: 100em) {
+  .md-tabs__item {
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+  }
+
+  .md-tabs__link {
+    font-size: 0.58rem;
+  }
+}

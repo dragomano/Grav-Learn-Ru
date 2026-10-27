@@ -1,85 +1,84 @@
 ---
-description: Как использовать Flex в плагинах Grav CMS
+title: "Использование Flex в плагине"
+description: "Использование Flex — в Twig или в коде — здесь рассматривается только в рамках введения. Чтобы понять мощь и гибкость Flex, прочитайте отдельную документацию по Flex."
+tags:
+  - "Плагины"
+  - "Grav 1.7"
+  - "Flex Objects"
+  - "PHP"
 ---
 
-# Использование Flex в плагинах
+# Использование Flex в плагине
 
 ## Введение
 
-Использование Flex, будь то в Twig или в PHP-коде, будет рассмотрено только в рамках данного введения. Чтобы понять всю мощь и гибкость Flex, ознакомьтесь с нашей [специальной документацией по Flex](/advanced/flex).
+Использование Flex — в Twig или в коде — здесь рассматривается только в рамках введения. Чтобы понять мощь и гибкость Flex, прочитайте [отдельную документацию по Flex](../../advanced/flex/index.md).
 
-Flex позволяет создавать собственные объекты CRUDS, как отдельные объекты, так и коллекции, и предоставляет обширные API, которые можно использовать из кода плагина или шаблонов.
+Flex позволяет создавать собственные CRUD-объекты — как отдельные объекты, так и коллекции — и предоставляет обширные API, доступные из кода плагина или шаблонов.
 
-Пользовательский интерфейс администратора можно легко добавить, используя как стандартные шаблоны, так и собственные настроенные листинги или формы (или что-то ещё).
+Интерфейс админки можно легко добавить, используя стандартные шаблоны или собственные списки и формы (или иные решения).
 
 ## Требования
 
-Требуется Grav 1.7 или более поздняя версия. Для целей этой документации мы будем использовать установку grav+admin. Убедитесь, что она у вас установлена и запущена, чтобы выполнить следующие шаги. Чтобы подготовить её, обратитесь к [документации по установке](/basics/installation).
+Требуется Grav 1.7 или новее. В этой документации мы будем использовать установку grav+admin; убедитесь, что она работает, чтобы повторить шаги ниже. См. [документацию по установке](../../basics/installation/index.md), чтобы подготовить её.
 
-## Создание ваших плагинов
+## Создание плагина
 
-Поскольку можно создать плагин с Flex или без него с нуля, чтобы гарантировать наличие всех последних изменений, мы настоятельно рекомендуем использовать инструменты DevTools для создания скелета и базовых функций:
+Хотя плагин можно создать с Flex или без него с нуля, чтобы гарантировать наличие всех последних изменений, мы настоятельно рекомендуем использовать devtools для генерации скелета и базовой функциональности:
 
-Для этого мы воспользуемся командной строкой devtools:
+Для этого воспользуемся CLI devtools:
 
 ```bash
 bin/gpm install devtools
 ```
 
-Чтобы [создать новый плагин с помощью devtools](/plugins/plugin-tutorial), используется следующая команда, имя плагина — myflexplugin:
+Чтобы [создать новый плагин с помощью devtools](../plugin-tutorial/index.md), используется следующая команда; имя плагина — myflexplugin:
 
 ```bash
 grav-admin bin/plugin devtools new-plugin
 ```
 
-Заполните вопросы, используя следующие ответы, главное — выбрать плагин, подготовленный для Flex:
+и ответьте на вопросы следующими ответами; важная часть — выбрать плагин, подготовленный для Flex:
 
 ```bash
-Enter Plugin Name:
+ Enter Plugin Name:
+ > myflexplugin
 
-> myflexplugin
+ Enter Plugin Description:
+ > A little Flex plugin test
 
-Enter Plugin Description:
+ Enter Developer Name:
+ > grav@example.com
 
-> A little Flex plugin test
+ Enter GitHub ID (can be blank):
+ > gravcms
 
-Enter Developer Name:
+ Enter Developer Email:
+ > grav@example.com
 
-> grav@example.com
+ Please choose an option:
+  [blank] Basic Plugin
+  [flex ] Basic Plugin prepared for custom Flex Objects
+ > flex
 
-Enter GitHub ID (can be blank):
+ Enter Flex Object Name:
+ > book
 
-> gravcms
+ Please choose a storage type:
+  [simple] Basic Storage (1 file for all objects) - no media support
+  [file  ] File Storage (1 file per object)
+  [folder] Folder Storage (1 folder per object)
+ > folder
 
-Enter Developer Email:
-
-> grav@example.com
-
-Please choose an option:
-[blank] Basic Plugin
-[flex ] Basic Plugin prepared for custom Flex Objects
-
-> flex
-
-Enter Flex Object Name:
-
-> book
-
-Please choose a storage type:
-[simple] Basic Storage (1 file for all objects) - no media support
-[file ] File Storage (1 file per object)
-[folder] Folder Storage (1 folder per object)
-
-> folder
 
 SUCCESS plugin myflexplugin -> Created Successfully
 
 Path: /home/pierre/project/grav/grav-admin/user/plugins/myflexplugin
 
-Please run `cd /home/pierre/project/grav/grav-admin/user/plugins/myflexplugin` and `composer update` to initialize the autoloader
+Please run I0 and I1 to initialize the autoloader
 ```
 
-В случае успеха нам нужно установить зависимости, если таковые имеются, для нашего нового плагина:
+В случае успеха нужно установить зависимости, если они есть, для нашего нового плагина:
 
 ```bash
 cd /home/pierre/project/grav/grav-admin/user/plugins/myflexplugin
@@ -89,7 +88,7 @@ cd /home/pierre/project/grav/grav-admin/user/plugins/myflexplugin
 composer update
 ```
 
-В случае успеха на экране должно появиться следующее сообщение:
+В случае успеха должен отобразиться следующий вывод:
 
 ```bash
 Loading composer repositories with package information
@@ -102,188 +101,185 @@ Generating autoload files
 No installed packages - skipping audit.
 ```
 
-затем вернитесь в корневую папку установки grav-admin:
+и вернитесь в корневую папку установки grav-admin:
 
 ```bash
 cd -
 ```
 
-Скрипт devtools сгенерировал очень простой объект Flex, состоящий из имени и описания, и его коллекцию. Пользовательский интерфейс администратора уже позволяет перечислять эти объекты, создавать, редактировать или удалять их, не написав ни строчки кода.
+Devtools сгенерировал очень простой flex-объект, состоящий из имени и описания, и его коллекцию. Интерфейс админки уже позволяет перечислять эти объекты book, создавать, редактировать и удалять их, не написав ни одной строки кода.
 
 В левом боковом меню появился новый пункт:
 
-![Admin book flex menu entry](admin_menu_book.png)
+![Пункт меню Flex для книг в админке](admin_menu_book.png)
 
 Форма редактирования по умолчанию выглядит так:
 
-![Simple form edit](book_edit.png)
+![Простая форма редактирования](book_edit.png)
 
-Вы также должны увидеть различные папки и файлы, связанные с вашим плагином и его Flex-объектом `book`.
+Вы также должны увидеть различные папки и файлы, связанные с вашим плагином и его flex-объектом `book`.
 
-## Что сделано
+## Что где находится
 
-Папка с плагином должна выглядеть следующим образом:
+Папка плагина должна выглядеть так:
 
-```
+```bash linenums="1"
 ../grav-admin/user/plugins/myflexplugin
 ├── CHANGELOG.md
 ├── LICENSE
 ├── README.md
 ├── blueprints
-│   └── flex-objects
-│   └── book.yaml
+│   └── flex-objects
+│       └── book.yaml
 ├── blueprints.yaml
 ├── classes
-│   └── Flex
-│   └── Types
-│   └── Book
-│   ├── BookCollection.php
-│   └── BookObject.php
+│   └── Flex
+│       └── Types
+│           └── Book
+│               ├── BookCollection.php
+│               └── BookObject.php
 ├── composer.json
 ├── composer.lock
 ├── languages.yaml
 ├── myflexplugin.php
 ├── myflexplugin.yaml
 └── vendor
-├── autoload.php
-└── composer
-├── ClassLoader.php
-├── InstalledVersions.php
-├── LICENSE
-├── autoload_classmap.php
-├── autoload_namespaces.php
-├── autoload_psr4.php
-├── autoload_real.php
-├── autoload_static.php
-├── installed.json
-├── installed.php
-└── platform_check.php
+    ├── autoload.php
+    └── composer
+        ├── ClassLoader.php
+        ├── InstalledVersions.php
+        ├── LICENSE
+        ├── autoload_classmap.php
+        ├── autoload_namespaces.php
+        ├── autoload_psr4.php
+        ├── autoload_real.php
+        ├── autoload_static.php
+        ├── installed.json
+        ├── installed.php
+        └── platform_check.php
 ```
 
-### Определение объекта Flex
+### Определение flex-объекта
+Ключевой файл — [определение схемы](../../advanced/flex/custom-types/blueprint/index.md). Именно здесь определяется схема этого flex-объекта вместе с многочисленными опциями для настройки практически всего, что с ним связано.
 
-Ключевым файлом является определение [чертежа](/advanced/flex/custom-types/blueprint). Здесь будет определена схема этого Flex-объекта, а также множество опций, позволяющих настроить практически все его параметры.
+В нашем плагине схему book можно найти по адресу user/plugins/myflexplugin/blueprints/flex-objects/book.yaml.
 
-В нашем плагине чертежи книг можно найти в `user/plugins/myflexplugin/blueprints/flex-objects/book.yaml`.
+> **ВАЖНО** Схема для каждого flex-объекта в вашем плагине (или основной установке /blueprints) должна находиться в папке `blueprints/flex-objects/`, иначе она не будет найдена.
 
-> **ВАЖНО** Чертёж для каждого Flex-объекта в вашем плагине (или в основной установке `/blueprints`) должен находиться в папке `blueprints/flex-objects/`, иначе они не будут найдены.
+Схема определяется с помощью раздела Form этой схемы. Независимо от того, используются ли формы админки, этот раздел определяет свойства flex-объекта.
 
-Схема определяется в разделе Form этого чертежа. Независимо от того, будут ли использоваться формы пользовательского интерфейса администратора, в этом разделе определяются свойства этого Flex-объекта.
+Мы не будем здесь рассматривать все опции, а сосредоточимся на реализации объекта book. [Обширная документация по схемам Flex](../../advanced/flex/custom-types/blueprint/index.md) поможет углубиться и настроить его.
 
-Мы не будем рассматривать здесь все варианты, а сосредоточимся на том, как реализовать объект нашей книги. В [обширной документации по чертежам Flex](/advanced/flex/custom-types/blueprint) вы сможете углубиться и настроить их под себя.
+Схема ниже определяет два свойства:
 
-В приведённой ниже схеме определены эти два свойства:
-
-```yaml
+```yaml linenums="1"
 form:
-  validation: loose
-  fields:
-    published:
-      type: toggle
-      label: Published
-      highlight: 1
-      default: 1
-      options:
-        1: PLUGIN_ADMIN.YES
-        0: PLUGIN_ADMIN.NO
-      validate:
-        type: bool
-        required: true
-    name:
-      type: text
-      label: Name
-      validate:
-        required: true
-    description:
-      type: text
-      label: Description
-      validate:
-        required: true
+    validation: loose
+    fields:
+        published:
+            type: toggle
+            label: Published
+            highlight: 1
+            default: 1
+            options:
+                1: PLUGIN_ADMIN.YES
+                0: PLUGIN_ADMIN.NO
+            validate:
+                type: bool
+                required: true
+        name:
+            type: text
+            label: Name
+            validate:
+                required: true
+        description:
+            type: text
+            label: Description
+            validate:
+                required: true
 ```
 
 ### Хуки плагина
 
-`myflexplugin.php` — это обычное определение ядра для реализации плагинов, хуков и т. д.
+`myflexplugin.php` — обычное основное определение для реализации плагина, хуков и т. д.
 
-Эти детали необходимы для включения Flex:
+Эти части необходимы для включения Flex:
 
-```php
-<?php
-
+```php linenums="1"
 public $features = [
-'blueprints' => 0,
+    'blueprints' => 0,
 ];
 
-    /**
-     * @return array
-     *
-     * The getSubscribedEvents() gives the core a list of events
-     *     that the plugin wants to listen to. The key of each
-     *     array section is the event that the plugin listens to
-     *     and the value (in the form of an array) contains the
-     *     callable (or function) as well as the priority. The
-     *     higher the number the higher the priority.
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            'onPluginsInitialized' => [
-                // Uncomment following line when plugin requires Grav < 1.7
-                // ['autoload', 100000],
-                ['onPluginsInitialized', 0]
-            ],
-            FlexRegisterEvent::class       => [['onRegisterFlex', 0]],
-        ];
-    }
-
+/**
+ * @return array
+ *
+ * Метод getSubscribedEvents() даёт ядру список событий,
+ *     на которые хочет подписаться плагин. Ключ каждой
+ *     секции массива — событие, которое слушает плагин,
+ *     а значение (в виде массива) содержит вызываемый
+ *     объект (или функцию) и приоритет. Чем выше число,
+ *     тем выше приоритет.
+ */
+public static function getSubscribedEvents(): array
+{
+    return [
+        'onPluginsInitialized' => [
+            // Раскомментируйте следующую строку, если плагину требуется Grav < 1.7
+            // ['autoload', 100000],
+            ['onPluginsInitialized', 0]
+        ],
+        FlexRegisterEvent::class       => [['onRegisterFlex', 0]],
+    ];
+}
 ```
 
-Остальные файлы являются стандартными и хорошо описаны в предыдущих разделах документации плагинов. Мы не будем рассматривать их здесь.
+Остальные файлы стандартны и хорошо описаны в предыдущих разделах документации по плагинам. Здесь мы их не рассматриваем.
 
-Папка _classes_ содержит классы, используемые для Flex-объекта book и Flex-коллекции book. Это классы, в которые можно добавить пользовательские методы, которые будут доступны для каждого объекта или экземпляра коллекции. См. раздел [Добавление пользовательского метода к объекту Flex](#dobavlenie-polzovatelskogo-metoda-k-obektu-flex).
+Папка _classes_ содержит классы, используемые для flex-объекта book и flex-коллекции book. В этих классах можно добавить пользовательские методы, доступные в каждом экземпляре объекта или коллекции. См. [добавление пользовательских методов в flex-объект](#add-custom-method-to-the-flex-object).
 
-## Изменение схемы объектов Flex
+## Изменение схемы flex-объекта
 
-Давайте добавим в наш объект поле, скажем, поле datetime, представляющее дату публикации этой книги, это можно сделать, просто добавив поля `pub_date` в чертежи:
+Давайте добавим в объект поле — скажем, поле datetime, представляющее дату публикации книги. Это можно сделать, просто добавив поля `pub_date` в схему:
 
-```yaml
+```yaml linenums="1"
 form:
-  validation: loose
-  fields:
-    published:
-      type: toggle
-      label: Published
-      highlight: 1
-      default: 1
-      options:
-        1: PLUGIN_ADMIN.YES
-        0: PLUGIN_ADMIN.NO
-      validate:
-        type: bool
-        required: true
-    name:
-      type: text
-      label: Name
-      validate:
-        required: true
-    pub_date:
-      type: datetime
-      label: Description
-      validate:
-        required: true
+    validation: loose
+    fields:
+        published:
+            type: toggle
+            label: Published
+            highlight: 1
+            default: 1
+            options:
+                1: PLUGIN_ADMIN.YES
+                0: PLUGIN_ADMIN.NO
+            validate:
+                type: bool
+                required: true
+        name:
+            type: text
+            label: Name
+            validate:
+                required: true
+        pub_date:
+            type: datetime
+            label: Description
+            validate:
+                required: true
 ```
 
-В форме редактирования по умолчанию теперь отображаются поля ввода даты публикации:
+Теперь форма редактирования по умолчанию показывает поля ввода даты публикации:
 
-![Simple form edit](pub_date_added.png)
+![Простая форма редактирования](pub_date_added.png)
 
-Список всех доступных типов полей можно найти [здесь](/forms/blueprints/fields-available)
+Список всех доступных типов полей можно найти [здесь](../../forms/blueprints/fields-available/index.md)
 
-## Добавление пользовательского метода к объекту Flex<a href="#addcustommethod"></a>
+<a id="addcustommethod"></a>
+## Добавление пользовательского метода в flex-объект {: #add-custom-method-to-the-flex-object }
 
-Текущий Flex-объект book, `user/plugins/myflexplugin/classes/Flex/Types/Book/BookObject.php`, реализует только GenericObject (с помощью трейтов):
+Текущий flex-объект book, user/plugins/myflexplugin/classes/Flex/Types/Book/BookObject.php, реализует только GenericObject (используя трейты):
 
-```php
+```php linenums="1"
 <?php
 
 declare(strict_types=1);
@@ -300,7 +296,7 @@ namespace Grav\Plugin\Myflexplugin\Flex\Types\Book;
 use Grav\Common\Flex\Types\Generic\GenericObject;
 
 /**
- * Class BookObject
+ * Класс BookObject
  * @package Grav\Common\Flex\Generic
  *
  * @extends FlexObject<string,GenericObject>
@@ -311,9 +307,9 @@ class BookObject extends GenericObject
 }
 ```
 
-Добавим метод для получения краткого содержания книги, используя разделитель для краткого содержания:
+Добавим метод для получения краткого описания книги, используя разделитель краткого описания сайта:
 
-```php
+```php linenums="1"
 <?php
 
 declare(strict_types=1);
@@ -330,7 +326,7 @@ namespace Grav\Plugin\Myflexplugin\Flex\Types\Book;
 use Grav\Common\Flex\Types\Generic\GenericObject;
 
 /**
- * Class BookObject
+ * Класс BookObject
  * @package Grav\Common\Flex\Generic
  *
  * @extends FlexObject<string,GenericObject>
@@ -345,16 +341,16 @@ class BookObject extends GenericObject
 }
 ```
 
-Теперь мы можем вызвать этот метод в любом месте, где используется Flex-объект book, например, в шаблоне:
+Теперь этот метод можно вызвать везде, где используется flex-объект book, например в шаблоне:
 
-```twig
+```twig linenums="1"
 {% set books = grav.get('flex').collection('book') %}
 {% for book in books  %}
-<h1>{{ book.header.title}}</h1>
-<p>{{ book.getSummary()}}</p>
+    <h1>{{ book.header.title}}</h1>
+    <p>{{ book.getSummary()}}</p>
 {% endfor %}
 ```
 
-Метод `::getSummary` можно использовать и в любом PHP-коде.
+Метод `::getSummary` также можно использовать в любом PHP-коде.
 
-То же самое можно сделать в классе коллекции `user/plugins/myflexplugin/classes/Flex/Types/Book/BookCollection.php`. Например, добавить дружественный метод поиска по нетривиальным запросам. Действительно, коллекция уже предоставляет все обычные методы коллекций. Если у объекта много различных полей, то стандартные методы сбора могут привести к ошибкам.
+То же можно сделать в классе коллекции, user/plugins/myflexplugin/classes/Flex/Types/Book/BookCollection.php. Например, чтобы добавить удобный метод для поиска с нетривиальными запросами. Коллекция уже предоставляет все общие методы коллекций. Может быть удобно добавить несколько помощников, если у объекта много разных полей, где стандартные методы коллекции могут легко привести к ошибкам.

@@ -1,0 +1,31 @@
+/* Шапка: репозиторий перевода и ссылка на оригинальную документацию Grav. */
+
+.md-header__source {
+  width: auto;
+  max-width: none;
+}
+
+.md-source-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.md-source-group > .md-source {
+  flex: 0 0 auto;
+}
+
+/* Блок репозитория по ширине содержимого: иначе между ним и иконкой Grav
+   остаётся пустое место в 11.5rem, зарезервированное под длинное имя репозитория. */
+.md-source-group > .md-source:not(.md-source--upstream) {
+  width: auto;
+}
+
+/* Имя репозитория и счётчики звёзд/форков должны вмещаться целиком. */
+.md-source-group .md-source__repository {
+  max-width: none;
+}
+
+.md-source--upstream .md-source__icon {
+  width: 1.8rem;
+}

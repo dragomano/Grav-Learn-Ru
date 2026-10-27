@@ -1,38 +1,45 @@
 ---
-description: Список проблем и решений, связанных с плагинами Grav CMS.
+title: "Рецепты плагинов"
+description: "Сборник задач и их решений, связанных с плагинами Grav."
+tags:
+  - "Рецепты"
+  - "Разработка"
+  - "Плагины"
+  - "PHP"
 ---
 
 # Рецепты плагинов
 
-Эта страница содержит целый ряд проблем и их соответствующих решений, связанных с плагинами Grav.
+На этой странице собраны задачи и их решения, связанные с плагинами Grav.
 
-## На выходе какой-то PHP-код в шаблон Twig
+## Вывод результата PHP-кода в шаблоне Twig
 
-!!! question ""
+<h4 id="goal">Цель:</h4>
 
-	Вы хотите обработать некоторый пользовательский PHP-код и сделать результат доступным на странице.
+Вы хотите обработать какой-то собственный PHP-код и сделать результат доступным на странице.
 
-Вы создаете новый плагин, который создает расширение Twig и делает часть содержимого PHP доступной в ваших шаблонах Twig.
+<h4 id="solution">Решение:</h4>
 
-Создайте новую папку плагина в `user/plugins/example` и добавьте эти файлы:
+Вы создаёте новый плагин, который добавляет расширение Twig и делает некий PHP-контент доступным в шаблонах Twig.
+
+Создайте папку нового плагина `user/plugins/example` и добавьте в неё файлы:
 
 `user/plugins/example/example.php`
 `user/plugins/example/example.yaml`
 `user/plugins/example/twig/ExampleTwigExtension.php`
 
-В `twig/ExampleTwigExtension.php` вы выполните свою собственную обработку и вернете её в виде строки в `exampleFunction()`.
+В `twig/ExampleTwigExtension.php` вы выполняете свою обработку и возвращаете результат строкой в `exampleFunction()`.
 
-Затем в вашем файле шаблона Twig (или в файле Markdown страницы, если вы включили обработку Twig в Pages) визуализируйте вывод, используя: `{{ example() }}`.
+Затем в файле шаблона Twig (или в Markdown-файле страницы, если вы включили обработку Twig для страниц) выводите результат так: `{{ example() }}`.
 
-Обзор окончен, давайте посмотрим на код:
+Обзор закончен, перейдём к коду:
 
-```php title="example.php"
+`example.php`:
+
+```php linenums="1"
 <?php
-
 namespace Grav\Plugin;
-
 use \Grav\Common\Plugin;
-
 class ExamplePlugin extends Plugin
 {
     public static function getSubscribedEvents()
@@ -41,21 +48,19 @@ class ExamplePlugin extends Plugin
             'onTwigExtensions' => ['onTwigExtensions', 0]
         ];
     }
-
     public function onTwigExtensions()
     {
         require_once(__DIR__ . '/twig/ExampleTwigExtension.php');
-
         $this->grav['twig']->twig->addExtension(new ExampleTwigExtension());
     }
 }
 ```
 
-```php title="ExampleTwigExtension.php"
+`ExampleTwigExtension.php`:
+
+```php linenums="1"
 <?php
-
 namespace Grav\Plugin;
-
 use Grav\Common\Twig\Extension\GravExtension;
 
 class ExampleTwigExtension extends GravExtension
@@ -64,14 +69,12 @@ class ExampleTwigExtension extends GravExtension
     {
         return 'ExampleTwigExtension';
     }
-
     public function getFunctions(): array
     {
         return [
             new \Twig_SimpleFunction('example', [$this, 'exampleFunction'])
         ];
     }
-
     public function exampleFunction()
     {
         return 'something';
@@ -85,37 +88,40 @@ class ExampleTwigExtension extends GravExtension
 enabled: true
 ```
 
-Теперь плагин установлен и включен, и всё должно работать.
+Плагин установлен и включён, и всё должно работать.
 
 ## Фильтрация таксономий с помощью плагина taxonomylist
 
-!!! question ""
+<h4 id="goal-1">Цель:</h4>
 
-	Вы хотите использовать [плагин Grav для списка таксономии](https://github.com/getgrav/grav-plugin-taxonomylist) для перечисления тегов, которые используются в ваших сообщениях в блоге, но вместо того, чтобы перечислять их все, вы только хотите перечислить наиболее часто используемые элементы в данной таксономии (например, пять основных тегов).
+Вы хотите использовать [плагин taxonomylist для Grav](https://github.com/getgrav/grav-plugin-taxonomylist), чтобы выводить теги, которые используются в записях блога, но вместо всех тегов показывать только самые используемые элементы заданной таксономии (например, пять самых популярных тегов).
 
-Это пример того, как гибкость плагинов Grav действительно пригодится. Первый шаг - убедиться, что у вас установлен [плагин Grav для списка таксономии](https://github.com/getgrav/grav-plugin-taxonomylist) в вашем пакете Grav. После установки убедитесь, что вы скопировали `user/plugins/taxonomylist/templates/partials/taxonomylist.html.twig` в `user/themes/yourtheme/templates/partials/taxonomylist.html.twig`, поскольку мы будем вносить изменения в этот файл.
+<h4 id="solution-1">Решение:</h4>
 
-Чтобы эта работа работала, мы собираемся ввести три новые переменные: `filter`, `filterstart` и `filterend`, где
+Это пример, где гибкость плагинов Grav действительно пригодится. Первый шаг — убедиться, что [плагин taxonomylist](https://github.com/getgrav/grav-plugin-taxonomylist) установлен в вашей сборке Grav. После установки скопируйте `user/plugins/taxonomylist/templates/partials/taxonomylist.html.twig` в `user/themes/yourtheme/templates/partials/taxonomylist.html.twig`, потому что мы будем вносить изменения в этот файл.
 
-* **filter** - это логическое значение, которому будет присвоено значение `true`, если мы хотим иметь возможность перечислять только несколько верхних тегов (или любую другую таксономию, которую вы хотите использовать).
-* **filterstart** - произвольное целое число, но обычно его следует установить равным нулю. Это индекс в массиве таксономии, с которого вы хотите начать.
-* **filterend** - произвольное целое число и индекс в массиве таксономии, которым вы хотите закончить. Обратите внимание, что если вы хотите перечислить пять лучших элементов в своей таксономии, вы должны установить это значение в 5, так как наш цикл будет повторяться до `filterend -1`.
+Чтобы всё заработало, мы введём три новые переменные: `filter`, `filterstart` и `filterend`, где
 
-Следующим шагом будет вызов `taxonomylist.html.twig` в шаблоне, в котором мы хотим перечислить основные элементы в нашей таксономии. Как обычно, мы будем делать это с помощью `{% include %}`, как показано в следующем примере фрагмента:
+ * **filter** — логическое значение, которое устанавливается в `true`, если нужно вывести только несколько самых популярных тегов (или любую другую нужную вам таксономию).
+ *  **filterstart** — произвольное целое число, но обычно его ставят равным нулю. Это индекс в массиве таксономии, с которого нужно начать.
+ * **filterend** — произвольное целое число, индекс в массиве таксономии, на котором нужно закончить. Учтите: если нужно вывести пять первых элементов таксономии, установите это значение в 5, потому что цикл будет идти до `filterend -1`.
 
-```twig
+Следующий шаг — вызвать `taxonomylist.html.twig` в том шаблоне, где мы хотим вывести самые популярные элементы таксономии. Как обычно, сделаем это через `{% include %}`, как в примере ниже:
+
+```twig linenums="1"
 {% if config.plugins.taxonomylist.enabled %}
-    <div class="sidebar-content">
-        <h4>Popular Tags</h4>
-        {% include 'partials/taxonomylist.html.twig' with {'taxonomy':'tag', filter: true, filterstart: 0, filterend: 5} %}
-    </div>
+<div class="sidebar-content">
+    <h4>Popular Tags</h4>
+    {% include 'partials/taxonomylist.html.twig' with {'taxonomy':'tag', filter: true, filterstart: 0, filterend: 5} %}
+</div>
 {% endif %}
 ```
-В этом примере мы собираемся перечислить пять самых популярных тегов.
 
-Теперь давайте обратим наше внимание на `taxonomylist.html.twig`. Для справки, вот код по умолчанию для этого файла при первоначальной установке:
+В этом примере мы выведем пять самых популярных тегов.
 
-```twig
+Теперь обратимся к `taxonomylist.html.twig`. Для справки: вот стандартный код этого файла сразу после установки:
+
+```twig linenums="1"
 {% set taxlist = taxonomylist.get() %}
 
 {% if taxlist %}
@@ -127,9 +133,9 @@ enabled: true
 {% endif %}
 ```
 
-Чтобы это работало с нашими новыми переменными (например, `filter`, `filterstart` и `filterend`), нам нужно будет включить их в этот файл следующим образом:
+Чтобы это работало с нашими новыми переменными (`filter`, `filterstart` и `filterend`), нужно добавить их в этот файл:
 
-```twig
+```twig linenums="1"
 {% set taxlist = taxonomylist.get %}
 
 {% if taxlist %}
@@ -147,52 +153,56 @@ enabled: true
 {% endif %}
 ```
 
-Здесь файл сначала проверяет, установлен ли `filter` в значение `true`. Если это так, цикл for выполняется так же, как и в исходном файле `taxonomylist.html.twig`, но на этот раз он использует фильтр Twig `slice`. Этот `filter`, в нашем случае, извлечет подмножество массива от начального индекса (в нашем случае `filterstart`) до конечного индекса (в нашем случае `filterend -1`).
+Здесь файл по умолчанию собирает все элементы таксономии в переменную `taxlist_taxonomy`.
 
-Если, с другой стороны, для переменной `filter` установлено значение `false` или она не найдена, будут перечислены все элементы в вашей таксономии.
+Если `filter` задан, таксономия использует фильтр Twig `slice`. В нашем случае этот фильтр извлекает подмножество массива от начального индекса (`filterstart`) до конечного (`filterend`).
+
+Цикл `for` выполняется так же, как в исходном `taxonomylist.html.twig`, но с содержимым `taxlist_taxonomy` — отфильтрованным или нет.
 
 ## Добавление кнопки поиска в плагин SimpleSearch
 
-!!! question ""
+<h4 id="goal-2">Цель:</h4>
 
-	Вам действительно нравится [плагин Grav SimpleSearch](https://github.com/getgrav/grav-plugin-simplesearch), но вы хотите добавить кнопку поиска в дополнение к текстовому полю. Одна из причин для добавления этой кнопки заключается в том, что пользователю может быть не очевидно, что ему нужно нажать клавишу «Enter», чтобы инициировать свой поисковый запрос.
+Вам очень нравится [плагин SimpleSearch для Grav](https://github.com/getgrav/grav-plugin-simplesearch), но вы хотите добавить кнопку поиска в дополнение к текстовому полю. Одна из причин добавить такую кнопку — пользователю может быть неочевидно, что для запуска поиска нужно нажать клавишу `Enter`.
 
-Сначала убедитесь, что вы установили [плагин Grav SimpleSearch](https://github.com/getgrav/grav-plugin-simplesearch). Затем убедитесь, что вы скопировали `user/plugins/simplesearch/templates/partials/simplesearch-searchbox.html.twig` в `user/themes/yourtheme/templates/partials/simplesearch-searchbox.html.twig`, так как нам нужно будет внести изменения в этот файл.
+<h4 id="solution-2">Решение:</h4>
 
-Прежде чем идти дальше, давайте рассмотрим, что делает этот файл:
+Сначала убедитесь, что у вас установлен [плагин SimpleSearch для Grav](https://github.com/getgrav/grav-plugin-simplesearch). Затем скопируйте `user/plugins/simplesearch/templates/partials/simplesearch-searchbox.html.twig` в `user/themes/yourtheme/templates/partials/simplesearch-searchbox.html.twig`, потому что нам нужно будет изменить этот файл.
 
-```twig
+Прежде чем идти дальше, разберём, что делает этот файл:
+
+```twig linenums="1"
 <input type="text" placeholder="Search..." value="{{ query }}" data-search-input="{{ base_url }}{{ config.plugins.simplesearch.route}}/query" />
 <script>
-    jQuery(document).ready(function($) {
-        var input = $('[data-search-input]');
-        input.on('keypress', function(event) {
-            if (event.which == 13 && input.val().length > 3) {
-                event.preventDefault();
-                window.location.href = input.data('search-input') + '{{ config.system.param_sep }}' + input.val();
-            }
-        });
+jQuery(document).ready(function($){
+    var input = $('[data-search-input]');
+    input.on('keypress', function(event) {
+        if (event.which == 13 && input.val().length > 3) {
+            event.preventDefault();
+            window.location.href = input.data('search-input') + '{{ config.system.param_sep }}' + input.val();
+        }
     });
+});
 </script>
 ```
 
-Первая строка просто вставляет поле ввода текста в ваш шаблон Twig. Атрибут `data-search-input` хранит базовый URL страницы результирующего запроса. По умолчанию `https://my-site.example/search/query`.
+Первая строка просто вставляет в шаблон Twig текстовое поле. Атрибут `data-search-input` хранит базовый URL страницы с результатами запроса. По умолчанию это `http://my-site.example/search/query`.
 
-Теперь перейдем к jQuery ниже. Здесь тег, содержащий атрибут `data-search-input`, назначается переменной input. Затем к `input` применяется метод jQuery `.on()`. Метод `.on()` применяет обработчики событий к выбранным элементам (в данном случае к текстовому полю `<input>`). Итак, когда пользователь нажимает (`keypress`) клавишу, чтобы начать поиск, оператор `if` проверяет, что следующие элементы являются `истинными`:
+Теперь перейдём к jQuery ниже. Здесь тег с атрибутом `data-search-input` присваивается переменной `input`. Затем к `input` применяется метод jQuery `.on()`. Метод `.on()` назначает обработчики событий выбранным элементам (в данном случае текстовому полю `<input>`). Когда пользователь нажимает клавишу (`keypress`), чтобы запустить поиск, инструкция `if` проверяет, что выполняются следующие условия:
 
-1. Была нажата клавиша `Enter`: `event.which == 13`, где 13 - числовое значение клавиши `Enter` на клавиатуре.
-2. Количество символов, введенных в поле поиска, больше трех. Вы можете настроить это по своему вкусу, поскольку в вашей организации может быть много сокращений, состоящих из трех или менее символов.
+1. Нажата клавиша `Enter`: `event.which == 13`, где 13 — числовой код клавиши `Enter` на клавиатуре.
+2. В поле поиска введено больше трёх символов. Возможно, это значение стоит подстроить под себя: в вашей организации может быть много аббревиатур из трёх символов и меньше.
 
-Если они верны, то `event.preventDefault();` гарантирует, что действие браузера по умолчанию для клавиши `Enter` игнорируется, так как это помешает нашему поиску. Наконец, создается полный URL-адрес поискового запроса. По умолчанию это `https://my-site.example/search/query:yourquery`. Отсюда `user/plugins/simplesearch/simplesearch.php` выполняет фактический поиск, а другие файлы Twig в подключаемом модуле выводят результаты.
+Если условия выполняются, `event.preventDefault();` гарантирует, что стандартное действие браузера для клавиши `Enter` будет проигнорировано, иначе поиск не сработает. Наконец, строится полный URL поискового запроса. По умолчанию это `http://my-site.example/search/query:yourquery`. Дальше `user/plugins/simplesearch/simplesearch.php` выполняет сам поиск, а другие файлы Twig в плагине выводят результаты.
 
-Нет возврата к нашему решению! Если мы хотим добавить кнопку поиска, мы должны:
+Но вернёмся к нашему решению! Если мы хотим добавить кнопку поиска, нужно:
 
-1. Добавьте кнопку
-2. Обязательно примените к кнопке метод `.on()`, но на этот раз с помощью `click` вместо `keypress`
+1. Добавить кнопку.
+2. Убедиться, что метод `.on()` применяется к кнопке, но на этот раз с событием `click` вместо `keypress`.
 
-Это достигается с помощью следующего кода, использующего [Turret CSS Framework](https://turretcss.com). Фрагменты кода для других фреймворков будут перечислены в конце.
+Это делается таким кодом с использованием [CSS-фреймворка Turret](http://bigfishtv.github.io/turret/docs/index.html). Фрагменты для других фреймворков приведены в конце.
 
-```html
+```html linenums="1"
 <div class="input-group input-group-search">
 	<input type="search" placeholder="Search" value="{{ query }}" data-search-input="{{ base_url }}{{ config.plugins.simplesearch.route}}/query" >
 	<span class="input-group-button">
@@ -201,34 +211,34 @@ enabled: true
 </div>
 
 <script>
-    jQuery(document).ready(function($) {
-        var input = $('[data-search-input]');
-        var searchButton = $('.button.search');
+jQuery(document).ready(function($){
+    var input = $('[data-search-input]');
+    var searchButton = $('.button.search');
 
-        input.on('keypress', function(event) {
-            if (event.which == 13 && input.val().length > 3) {
-                event.preventDefault();
-                window.location.href = input.data('search-input') + '{{ config.system.param_sep }}' + input.val();
-            }
-        });
-
-        searchButton.on('click', function(event) {
-            if (input.val().length > 3) {
-                event.preventDefault();
-                window.location.href = input.data('search-input') + '{{ config.system.param_sep }}' + input.val();
-            }
-        });
+    input.on('keypress', function(event) {
+        if (event.which == 13 && input.val().length > 3) {
+            event.preventDefault();
+            window.location.href = input.data('search-input') + '{{ config.system.param_sep }}' + input.val();
+        }
     });
+
+    searchButton.on('click', function(event) {
+        if (input.val().length > 3) {
+            event.preventDefault();
+            window.location.href = input.data('search-input') + '{{ config.system.param_sep }}' + input.val();
+        }
+    });
+});
 </script>
 ```
 
-Атрибуты HTML и class специфичны для Turret, но конечный результат будет [что-то вроде этого](https://turretcss.com/form/input-group/). Мы также можем видеть, что метод `.on()` также был назначен кнопке поиска, но он проверяет только то, что количество символов, введенных в поле поиска, больше трех перед выполнением кода в операторе `if`.
+HTML и атрибуты классов специфичны для Turret, но в итоге получится [примерно так](http://bigfishtv.github.io/turret/docs/index.html#input-group). Видно также, что метод `.on()` назначен и кнопке поиска, но он проверяет только, что в поле поиска введено больше трёх символов, прежде чем выполнить код внутри `if`.
 
-Вот HTML-код по умолчанию для текстового поля и кнопка поиска для нескольких других фреймворков:
+Вот стандартный HTML для текстового поля с кнопкой поиска для нескольких других фреймворков:
 
-[**Bootstrap**](https://getbootstrap.com/)
+[**Bootstrap**](http://getbootstrap.com/)
 
-```html
+```html linenums="1"
 <div class="input-group">
     <input type="text" class="form-control" placeholder="Search for...">
     <span class="input-group-btn">
@@ -237,55 +247,55 @@ enabled: true
 </div>
 ```
 
-[**Materialize**](https://materializecss.com/)
+[**Materialize**](http://materializecss.com/)
 
-```html
+```html linenums="1"
 <div class="input-field">
     <input id="search" type="search" required>
     <label for="search"><i class="material-icons">search</i></label>
 </div>
 ```
 
-[**Pure CSS**](https://purecss.io)
+[**Pure CSS**](http://purecss.io)
 
-```html
+```html linenums="1"
 <form class="pure-form">
     <input type="text" class="pure-input-rounded">
     <button type="submit" class="pure-button">Search</button>
 </form>
 ```
 
-[**Semantic UI**](https://semantic-ui.com/)
+[**Semantic UI**](http://semantic-ui.com/)
 
-```html
+```html linenums="1"
 <div class="ui action input">
   <input type="text" placeholder="Search...">
   <button class="ui button">Search</button>
 </div>
 ```
 
-## Итерации по страницам и медиа
+## Перебор страниц и медиафайлов
 
-!!! question ""
+<h4 id="goal-3">Цель:</h4>
 
-	Вы хотите получить доступ ко всем страницам и связанным с каждой страницей носителям через PHP и/или Twig, чтобы над ними можно было зацикливаться или иным образом манипулировать плагином.
+Вы хотите получать доступ ко всем страницам и связанным с каждой страницей медиафайлам через PHP и/или Twig, чтобы плагин мог перебирать их или как-то иначе обрабатывать.
 
-Используйте возможности Grav для создания рекурсивного индекса всех страниц, а при индексировании также собирайте медиа-файлы для каждой страницы. Плагин [DirectoryListing](https://github.com/OleVik/grav-plugin-directorylisting/blob/v2.0.0-rc.2/Utilities.php#L64-L105) делает именно это и создает HTML- список с использованием созданной древовидной структуры. Для этого мы создадим рекурсивную функцию - или метод, который может иметь место в классе плагина, - который просматривает каждую страницу и сохраняет её в массиве. Метод рекурсивен, потому что он снова вызывает себя для каждой найденной страницы, имеющей дочерние элементы.
+<h4 id="solution-3">Решение:</h4>
 
-Но обо всем по порядку, метод принимает три параметра: первый - это `$route` к странице, который сообщает Grav, где его найти; второй - `$mode`, который сообщает методу, следует ли выполнять итерацию по самой странице или по её дочерним элементам; третий - `$depth`, который отслеживает, на каком уровне находится страница. Метод сначала создает экземпляр объекта Page, затем работает с глубиной и режимом и создает коллекцию. По умолчанию мы упорядочиваем страницы по дате, по убыванию, но вы можете сделать это настраиваемым. Затем мы создаем массив `$paths` для хранения каждой страницы. Поскольку маршруты в Grav уникальны, они используются как ключи в этом массиве для идентификации каждой страницы.
+Используйте возможности коллекций Grav, чтобы построить рекурсивный индекс всех страниц, попутно собирая медиафайлы каждой страницы. Плагин [DirectoryListing](https://github.com/OleVik/grav-plugin-directorylisting/blob/v2.0.0-rc.2/Utilities.php#L64-L105) делает именно это и строит HTML-список по полученной древовидной структуре. Для этого мы создадим рекурсивную функцию — или метод, если речь о классе плагина, — которая проходит по каждой странице и сохраняет её в массив. Метод рекурсивный, потому что он снова вызывает себя для каждой найденной страницы, у которой есть дочерние.
 
-Теперь мы перебираем страницы, добавляя глубину, заголовок и маршрут (также сохраняемые как значение для облегчения доступа). В цикле foreach мы также пытаемся получить дочерние страницы и добавить их, если они найдены. Также мы находим все медиа, связанные со страницей, и добавляем их. Поскольку метод рекурсивен, он будет продолжать поиск страниц и дочерних страниц до тех пор, пока больше не будет найдено.
+Сначала о параметрах: метод принимает три аргумента. Первый — `$route` страницы, он говорит Grav, где её искать; второй — `$mode`, который сообщает методу, перебирать ли саму страницу или её дочерние страницы; третий — `$depth`, который отслеживает уровень страницы. Сначала метод создаёт объект Page, затем обрабатывает глубину и режим и строит коллекцию. По умолчанию мы сортируем страницы по дате по убыванию, но это можно сделать настраиваемым. Затем мы создаём массив `$paths` для хранения страниц. Поскольку маршруты в Grav уникальны, они используются как ключи этого массива для идентификации каждой страницы.
 
-Возвращаемые данные представляют собой древовидную структуру или многомерный массив, говоря языком PHP, содержащий все страницы и их носители. Это можно передать в Twig или использовать в самом плагине. Обратите внимание, что с очень большими структурами папок PHP может выйти из строя или выйти из строя из-за ограничений рекурсии, например. папки глубиной 100 или более уровней.
+Теперь перебираем страницы, добавляя глубину, заголовок и маршрут (он также сохраняется как значение для удобства доступа). Внутри цикла foreach мы также пытаемся получить дочерние страницы и добавляем их, если они найдены. Кроме того, мы находим все медиафайлы, связанные со страницей, и добавляем их. Поскольку метод рекурсивный, он продолжит искать страницы и дочерние страницы, пока они не закончатся.
 
-```php
-<?php
+Возвращаемые данные — это древовидная структура, или многомерный массив в терминах PHP, содержащий все страницы и их медиафайлы. Его можно передать в Twig или использовать внутри самого плагина. Учтите, что при очень большой структуре папок PHP может завершиться по тайм-ауту или упасть из-за ограничений рекурсии, например при глубине 100 уровней и больше.
 
+```php linenums="1"
 /**
- * Creates page-structure recursively
- * @param string $route Route to page
- * @param integer $depth Reserved placeholder for recursion depth
- * @return array Page-structure with children and media
+ * Рекурсивно создаёт структуру страниц
+ * @param string $route Маршрут к странице
+ * @param integer $depth Зарезервированное место для глубины рекурсии
+ * @return array Структура страниц с дочерними страницами и медиафайлами
  */
 public function buildTree($route, $mode = false, $depth = 0)
 {
@@ -326,27 +336,28 @@ public function buildTree($route, $mode = false, $depth = 0)
 
 ## Плагин пользовательских шаблонов Twig
 
-!!! question ""
+<h4 id="goal-4">Цель:</h4>
 
-	Вместо использования наследования тем можно создать очень простой плагин, который позволит вам использовать настраиваемое расположение для предоставления настраиваемых шаблонов Twig.
+Вместо наследования темы можно создать очень простой плагин, который позволяет использовать собственное расположение для пользовательских шаблонов Twig.
 
-Единственное, что вам нужно в этом плагине, - это событие, чтобы указать местоположение для ваших шаблонов. Самый простой способ создать плагин - использовать плагин DevTools. Итак, установите это с помощью:
+<h4 id="solution-4">Решение:</h4>
+
+Всё, что нужно в этом плагине, — событие, которое задаёт расположение ваших шаблонов. Проще всего создать плагин с помощью плагина `devtools`. Установите его:
 
 ```bash
 $ bin/gpm install devtools
 ```
 
-После установки создайте новый плагин с помощью команды:
+После установки создайте новый плагин командой:
 
 ```bash
 $ bin/plugin devtools newplugin
 ```
 
-Заполните данные для имени, автора и т. д. Скажем, мы называем это `Custom Templates`, и плагин будет создан в `/user/plugins/custom-templates`. Все, что вам нужно сделать сейчас, это отредактировать файл `custom-templates.php` и поместить этот код:
+Заполните данные: имя, автора и т. д. Допустим, мы назовём его `Custom Templates`, и плагин будет создан в `/user/plugins/custom-templates`. Теперь достаточно отредактировать файл `custom-templates.php` и вставить такой код:
 
-```php
+```php linenums="1"
 <?php
-
 namespace Grav\Plugin;
 
 use \Grav\Common\Plugin;
@@ -354,7 +365,7 @@ use \Grav\Common\Plugin;
 class CustomTemplatesPlugin extends Plugin
 {
     /**
-     * Subscribe to required events
+     * Подписка на нужные события
      *
      * @return array
      */
@@ -366,7 +377,7 @@ class CustomTemplatesPlugin extends Plugin
     }
 
     /**
-     * Add current directory to twig lookup paths.
+     * Добавляет текущую папку в пути поиска twig.
      */
     public function onTwigTemplatePaths()
     {
@@ -375,37 +386,34 @@ class CustomTemplatesPlugin extends Plugin
 }
 ```
 
-Этот плагин просто подписывается на событие `onTwigTemplatePaths()`, а затем в этом методе события он добавляет папку `user/plugins/custom-templates/templates` к массиву путей, которые Twig будет проверять.
+Этот плагин просто подписывается на событие `onTwigTemplatePaths()` и в его методе добавляет папку `user/plugins/custom-templates/templates` к путям, которые проверяет Twig.
 
-Это позволяет вам добавить шаблон Twig под названием `foo.html.twig`, и тогда любая страница с именем `foo.md` сможет использовать этот шаблон.
+Это позволяет положить шаблон Twig с именем `foo.html.twig`, после чего любая страница `foo.md` сможет использовать этот шаблон.
 
-!!! note ""
+> [!WARNING] Предупреждение
+> Примечание: путь к пользовательским шаблонам плагина добавляется в **конец** массива путей шаблонов Twig. Это значит, что тема (она всегда идёт первой) имеет приоритет над шаблонами плагина с тем же именем. Чтобы это исправить, поставьте путь шаблонов плагина в начало массива, изменив метод события:
 
-    Это добавит путь настраиваемого шаблона плагина к **концу** массива путей к шаблону Twig. Это означает, что тема (которая всегда стоит первой) будет иметь приоритет над одноименными шаблонами плагина. Чтобы решить эту проблему, просто поместите путь шаблона плагина перед массивом, изменив метод события:
-
-```php
-<?php
-
+```twig linenums="1"
 /**
- * Add current directory to twig lookup paths.
-*/
+ * Добавляет текущую папку в пути поиска twig.
+ */
 public function onTwigTemplatePaths()
 {
     array_unshift($this->grav['twig']->twig_paths, __DIR__ . '/templates');
 }
 ```
 
-## Использование кэша в ваших собственных плагинах
+## Использование кэша в своих плагинах
 
-!!! question ""
+<h4 id="goal-5">Цель:</h4>
 
-	При разработке собственных плагинов часто бывает полезно использовать кэш Grav для кэширования данных для повышения производительности. К счастью, это очень простой процесс использования кэша в вашем собственном коде.
+При разработке своих плагинов часто полезно кэшировать данные средствами кэша Grav, чтобы повысить производительность. К счастью, использовать кэш в своём коде очень просто.
 
-Это некоторый базовый код, который показывает вам, как работает кэширование:
+<h4 id="solution-5">Решение:</h4>
 
-```php
-<?php
+Вот базовый код, показывающий, как работает кэширование:
 
+```php linenums="1"
 $cache = Grav::instance()['cache'];
 $id = 'myplugin-data'
 $list = [];
@@ -419,90 +427,105 @@ if ($data = $cache->fetch($id)) {
 }
 ```
 
-Сначала мы получаем объект кэша Grav, а затем пытаемся проверить, существуют ли наши данные уже в кэше (`$data = $cache->fetch($id)`). Если `$data` существует, просто верните его без необходимости дополнительной работы.
+Сначала мы получаем объект кэша Grav и проверяем, нет ли уже наших данных в кэше (`$data = $cache->fetch($id)`). Если `$data` существует, просто возвращаем его без лишней работы.
 
-Однако, если выборка кэша возвращает null, то есть он не кэшируется, сделайте некоторую _работу_ и получите данные (`$data = $this->gatherData()`), а затем просто сохраните данные для следующего раза (`$cache->save($hash, $data)`).
+Однако если выборка из кэша вернула null, значит, данных в кэше нет: выполняем нужную _работу_ и получаем данные (`$data = $this->gatherData()`), а затем просто сохраняем их на будущее (`$cache->save($hash, $data)`).
 
-## Обучение на примере
+## Учимся на примерах
 
-Учитывая обилие доступных в настоящее время плагинов, есть вероятность, что вы найдете свои ответы где-то в их исходном коде. Проблема в том, чтобы знать, на какие из них смотреть. Эта страница пытается перечислить общие проблемы плагинов, а затем перечисляет конкретные плагины, которые демонстрируют, как их решать.
+Плагинов сейчас так много, что ответ наверняка найдётся в исходном коде какого-нибудь из них. Проблема в том, чтобы понять, какие именно смотреть. Эта страница пытается перечислить типовые задачи плагинов и указать конкретные плагины, в которых показано, как их решать.
 
-Прежде чем продолжить, убедитесь, что вы ознакомились с [основной документацией](/plugins), особенно с главой [Жизненный цикл Grav](/plugins/grav-lifecycle)!
+Прежде чем продолжать, убедитесь, что вы знакомы с [основной документацией](https://learn.getgrav.org/plugins), особенно с [жизненным циклом Grav](https://learn.getgrav.org/plugins/grav-lifecycle)!
 
-### Как я могу читать и записывать данные в файловую систему?
+### Как читать данные из файловой системы и записывать их? {: #how-do-i-read-from-and-write-data-to-the-file-syst }
 
-Существует множество способов чтения и записи данных в файловую систему.
+Grav работает с файлами, но файлы &#8800; статика! Есть множество способов читать данные из файловой системы и записывать их.
 
-* Если вам просто нужен доступ для чтения к данным YAML, проверьте плагин [Import](https://github.com/Deester4x4jr/grav-plugin-import).
-* Предпочтительный интерфейс - через встроенный интерфейс [RocketTheme\Toolbox\File](https://raw.githubusercontent.com/rockettheme/toolbox/develop/File/src/File.php).
-* Ничто не мешает вам использовать [SQLite](https://sqlite.org/).
-* Самый простой пример - это, вероятно, [плагин комментариев](https://github.com/getgrav/grav-plugin-comments).
-* Другие включают в себя
+  * Если нужен только доступ на чтение к данным YAML, посмотрите [плагин Import](https://github.com/Deester4x4jr/grav-plugin-import).
+
+  * Предпочтительный интерфейс — встроенный [RocketTheme\Toolbox\File](https://learn.getgrav.org/api#class-RocketThemeToolboxFile).
+
+  * Ничто не мешает использовать и [SQLite](https://sqlite.org/).
+
+  * Самый простой пример — пожалуй, плагин [Comments](https://github.com/getgrav/grav-plugin-comments).
+
+  * Другие примеры:
+
     * [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
+
     * [Thumb Ratings](https://github.com/iusvar/grav-plugin-thumb-ratings)
+
     * [Webmention](https://github.com/Perlkonig/grav-plugin-webmention)
 
-### Как сделать данные из плагина доступными для Twig?
+### Как сделать данные из плагина доступными в Twig?
 
-Один из способов — через пространство имён `config.plugins.X`. Просто сделайте `$this->config->set()`, как показано в одном из следующих примеров:
+Один из способов — пространство имён `config.plugins.X`. Просто вызовите `$this->config->set()`, как в примерах ниже:
 
-* [ipLocate](https://github.com/Perlkonig/grav-plugin-iplocate/blob/master/iplocate.php#L82)
-* [Count Views](https://github.com/Perlkonig/grav-plugin-count-views/blob/master/count-views.php#L88)
+  * [ipLocate](https://github.com/Perlkonig/grav-plugin-iplocate/blob/master/iplocate.php#L82)
+  * [Count Views](https://github.com/Perlkonig/grav-plugin-count-views/blob/master/count-views.php#L88)
 
-Затем вы можете получить доступ к этому в шаблоне Twig через `{{ config.plugins.X.whatever.variable }}`.
+Затем к этим данным можно обратиться в шаблоне Twig через `{{ config.plugins.X.whatever.variable }}`.
 
-Кроме того, вы можете передавать переменные через `grav['twig']`:
+Как вариант, переменные можно передавать через `grav['twig']`:
 
-* [Blogroll](https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/blogroll.php#L43), к которому вы затем можете получить прямой доступ [через ваш шаблон](https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/templates/partials/blogroll.html.twig#L32).
+  * [Blogroll](https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/blogroll.php#L43), после чего к ним можно обратиться напрямую [в своём шаблоне](https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/templates/partials/blogroll.html.twig#L32).
 
-Наконец, вы можете ввести данные непосредственно в заголовок страницы, как показано в [плагине импорта](https://github.com/Deester4x4jr/grav-plugin-import).
+Наконец, данные можно внедрить прямо в заголовки страницы, как это сделано в [плагине Import](https://github.com/Deester4x4jr/grav-plugin-import).
 
-### Как я могу ввести Markdown на страницу?
+### Как внедрить Markdown в страницу?
 
-В соответствии с [жизненным циклом Grav](/plugins/grav-lifecycle), последний хук события, в который вы можете ввести необработанный Markdown, — `onPageContentRaw`. Самый ранний из них, вероятно, `onPageInitialized`. Вы можете просто захватить `$this->grav['page']->rawMarkdown()`, изменить его, а затем записать обратно с помощью `$this->grav['page']->setRawContent()`. Следующие плагины демонстрируют это:
+Согласно [жизненному циклу Grav](https://learn.getgrav.org/plugins/grav-lifecycle), самый поздний хук события, где можно внедрить сырой Markdown, — `onPageContentRaw`. Самый ранний — вероятно, `onPageInitialized`. Вы можете просто взять `$this->grav['page']->rawMarkdown()`, обработать его и записать обратно через `$this->grav['page']->setRawContent()`. Это демонстрируют следующие плагины:
 
-* [Page Inject](https://github.com/getgrav/grav-plugin-page-inject)
-* [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
+  * [Page Inject](https://github.com/getgrav/grav-plugin-page-inject)
 
-### Как мне внедрить HTML в конечный результат?
+  * [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
 
-Последний раз вы можете ввести HTML и всё ещё кэшировать свои выходные данные во время события `onOutputGenerated`. Вы можете просто захватить и изменить `$this->grav->output`.
+### Как внедрить HTML в итоговый вывод?
 
-* Многие распространенные задачи могут быть выполнены с помощью [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core).
-* Плагины [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed) и [Tablesorter](https://github.com/Perlkonig/grav-plugin-tablesorter) используют более грубый подход.
+Самый поздний момент, когда можно внедрить HTML и при этом сохранить вывод в кэше, — событие `onOutputGenerated`. Можно просто взять и изменить `$this->grav->output`.
 
-### Как мне внедрить такие ресурсы, как файлы JavaScript и CSS?
+  * Многие типовые задачи можно решить средствами [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core).
+
+  * Плагины [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed) и [Tablesorter](https://github.com/Perlkonig/grav-plugin-tablesorter) действуют более грубо.
+
+### Как подключить ресурсы вроде JavaScript и CSS? {: #how-do-i-inject-assets-like-javascript-and-css-fil }
 
 Это делается через интерфейс [Grav\Common\Assets](https://learn.getgrav.org/api#class-gravcommonassets).
 
-* [Google Analytics](https://github.com/escopecz/grav-ganalytics)
-* [Bootstrapper](https://github.com/getgrav/grav-plugin-bootstrapper)
-* [Gravstrap](https://github.com/giansi/gravstrap)
-* [Tablesorter](https://github.com/Perlkonig/grav-plugin-tablesorter)
+  * [Google Analytics](https://github.com/escopecz/grav-ganalytics)
 
-### Как я могу повлиять на заголовки ответов и коды ответов?
+  * [Bootstrapper](https://github.com/getgrav/grav-plugin-bootstrapper)
 
-Вы можете использовать команду php `header()` для установки заголовков ответов. Последнее, что вы можете сделать, - это во время события onOutputGenerated, после чего выходные данные фактически отправляются клиенту. Сам код ответа может быть задан только в заголовке YAML соответствующей страницы (`http_response_code`).
+  * [Gravstrap](https://github.com/giansi/gravstrap)
 
-* Плагин [Graveyard](https://github.com/Perlkonig/grav-plugin-graveyard) плагин заменяет ответы `404 NOT FOUND` на ответы `410 GONE` через заголовок YAML.
-* Плагин [Webmention](https://github.com/Perlkonig/grav-plugin-webmention) устанавливает заголовок `Location` в ответе `201 CREATED`.
+  * [Tablesorter](https://github.com/Perlkonig/grav-plugin-tablesorter)
 
-### Как включить сторонние библиотеки в свой плагин?
+### Как влиять на заголовки и коды ответа? {: #how-do-i-affect-the-response-headers-and-response- }
 
-Обычно вы включаете другие полные библиотеки во вложенную папку `vendor` и подключаете его `autoload.php` там, где это необходимо, в вашем плагине. (Если вы используете Git, подумайте об использовании [subtrees](https://help.github.com/articles/about-git-subtree-merges/))
+Заголовки ответа можно задать командой PHP `header()`. Самое позднее, когда это можно сделать, — событие `onOutputGenerated`, после которого вывод фактически отправляется клиенту. Сам код ответа можно задать только в YAML-заголовках соответствующей страницы (`http_response_code`).
 
-* [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core)
-* [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
+  * Плагин [Graveyard](https://github.com/Perlkonig/grav-plugin-graveyard) заменяет ответы `404 NOT FOUND` на `410 GONE` через YAML-заголовки.
 
-### Как мне расширить Twig?
+  * Плагин [Webmention](https://github.com/Perlkonig/grav-plugin-webmention) устанавливает заголовок `Location` в ответе `201 CREATED`.
 
-Самый простой способ - следовать примеру [Custom Twig Filter/Function](../twig-recipes/#polzovatelskii-filtr-funktsiia-twig) в разделе **Рецепты Twig**.
+### Как включить сторонние библиотеки в свой плагин? {: #how-do-i-incorporate-third-party-libraries-into-my }
 
-Также [прочтите документацию Twig](https://twig.sensiolabs.org/doc/advanced.html) и разработайте свое расширение. Затем посмотрите на плагин [TwigPCRE](https://github.com/kesslernetworks/grav-plugin-twigpcre), чтобы узнать, как включить его в Grav.
+Обычно другие готовые библиотеки помещают в подпапку `vendor`, а их `autoload.php` подключают через `require` в нужном месте плагина. (Если вы используете Git, подумайте о [поддеревьях](https://help.github.com/articles/about-git-subtree-merges/).)
 
-### Как мне взаимодействовать с внешними API?
+  * [Shortcode Core](https://github.com/getgrav/grav-plugin-shortcode-core)
 
-Grav предоставляет объект [Grav\Common\GPM\Response](https://learn.getgrav.org/api#class-gravcommongpmresponse), но ничто не мешает вам сделать это напрямую, если вы того пожелаете.
+  * [Table Importer](https://github.com/Perlkonig/grav-plugin-table-importer)
 
-* [ipLocate](https://github.com/Perlkonig/grav-plugin-iplocate)
-* [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed)
+### Как расширить Twig?
+
+Проще всего повторить пример [«Пользовательский фильтр/функция Twig»](../twig-recipes/index.md#custom-twig-filter-function) из раздела **Рецепты Twig**.
+
+Кроме того, [прочитайте документацию Twig](https://twig.symfony.com/) и разработайте своё расширение. Затем посмотрите плагин [TwigPCRE](https://github.com/kesslernetworks/grav-plugin-twigpcre), чтобы узнать, как встроить его в Grav.
+
+### Как работать с внешними API?
+
+Grav предоставляет объект [Grav\Common\GPM\Response](https://learn.getgrav.org/api#class-grav-common-gpm-response), но ничто не мешает обращаться к API напрямую, если вам так удобнее.
+
+  * [ipLocate](https://github.com/Perlkonig/grav-plugin-iplocate)
+
+  * [Pubmed](https://github.com/Perlkonig/grav-plugin-pubmed)

@@ -1,15 +1,19 @@
 ---
-description: Описание ошибки, связанной с выполнением команд GPM через прокси, в Grav CMS.
+title: "Проблемы с прокси"
+description: "Запуск команд GPM через прокси может привести к ошибке."
+tags:
+  - "Решение проблем"
+  - "GPM"
 ---
 
 # Проблемы с прокси
 
-Выполнение команд GPM через прокси может привести к ошибке.
+Запуск команд GPM через прокси может привести к ошибке.
 
-cURL позволяет вам установить прокси в качестве переменной окружения (`http_proxy` и `https_proxy`) без изменений, необходимых в Grav.
+cURL позволяет задать прокси через переменные окружения (`http_proxy` и `https_proxy`), без изменений в Grav.
 
-См. [https://stackoverflow.com/questions/7559103/how-to-setup-curl-to-permanently-use-a-proxy](https://stackoverflow.com/questions/7559103/how-to-setup-curl-to-permanently-use-a-proxy)
+См. [http://stackoverflow.com/questions/7559103/how-to-setup-curl-to-permanently-use-a-proxy](http://stackoverflow.com/questions/7559103/how-to-setup-curl-to-permanently-use-a-proxy)
 
-Но сначала, если в вашей среде включен `fopen`, вам нужно отключить его, отключив `allow_url_fopen` через php.ini.
+Но сначала: если в вашем окружении включён `fopen`, его нужно отключить, задав `allow_url_fopen` в php.ini.
 
-Это потому, что если доступен `fopen`, Grav автоматически использует его поверх `curl`.
+Это потому, что если `fopen` доступен, Grav автоматически использует его вместо `curl`.

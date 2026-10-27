@@ -1,85 +1,90 @@
 ---
-description: Как и в случае с любым другим приложением, важно проверить параметры конфигурации, чтобы обезопасить и оптимизировать свой сайт.
+title: "Рекомендуемая конфигурация"
+description: "Как и для любого другого приложения, важно проверить параметры конфигурации, чтобы защитить и оптимизировать сайт."
+tags:
+  - "Безопасность"
+  - "Конфигурация"
 ---
 
 # Рекомендуемая конфигурация
 
-## Сайт в продакшене
+Как и для любого другого приложения, важно проверить параметры конфигурации, чтобы защитить и оптимизировать сайт.
 
-Важно обеспечить безопасность производственного сайта путем усиления конфигурации. Для этого мы рекомендуем вам установить основную конфигурацию в `user/config/`, содержащую настройки по умолчанию, которые вы хотите использовать в производственной среде, и переопределить эти настройки в среде сайта разработки, например, `user/env/localhost` или `user/env/site.local`. Вы также можете переопределить настройки производственного сайта через среды, например, если вы используете многосайтовую установку на нескольких доменах.
+## Рабочая версия сайта
 
-### Системная конфигурация (`user/config/system.yaml`)
+Важно защитить рабочую версию сайта, усилив конфигурацию. Для этого рекомендуем задать в основной конфигурации в `user/config/` настройки по умолчанию, которые вы хотите использовать в боевом окружении, и переопределять их в окружении сайта разработки, например в `user/env/localhost` или `user/env/site.local`. Настройки рабочей версии сайта также можно переопределять через окружения, например если вы используете мультисайт на нескольких доменах.
+
+### Системная конфигурация (`user/config/system.yaml`) {: #system-configuration-user-config-system-yaml }
 
 ```yaml
-force_ssl: true       # Use HTTPS only (redirect from HTTP -> HTTPS)
+force_ssl: true       # Только HTTPS (редирект с HTTP -> HTTPS)
 
 cache:
-  enabled: true       # Greatly speeds up the site
+  enabled: true       # Сильно ускоряет сайт
   check:
-    method: hash      # Optimization, disables file modification checks for pages
+    method: hash      # Оптимизация: отключает проверку изменения файлов страниц
 
 twig:
-  cache: true         # Greatly speeds up the site
-  debug: false        # We do not want to display debug messages
-  auto_reload: false  # Optimization, disables file modification checks for twig files
-  autoescape: true    # Protects from many XSS attacks, but requires twig updates if used in older sites/themes/plugins
+  cache: true         # Сильно ускоряет сайт
+  debug: false        # Не хотим показывать отладочные сообщения
+  auto_reload: false  # Оптимизация: отключает проверку изменения Twig-файлов
+  autoescape: true    # Защищает от многих XSS-атак, но требует доработки Twig в старых сайтах/темах/плагинах
 
 errors:
-  display: 0          # Display only a simple error
-  log: true           # Log errors for later inspection
+  display: 0          # Показывать только простое сообщение об ошибке
+  log: true           # Записывать ошибки в журнал для последующего изучения
 
 debugger:
-  enabled: false      # Never keep debugger enabled in a live site.
-  censored: true      # In case if you happen to enable debugger, avoid displaying sensitive information
+  enabled: false      # Никогда не оставляйте отладчик включённым на рабочей версии сайта.
+  censored: true      # Если всё же включите отладчик, не показывайте конфиденциальную информацию
 
 session:
-  enabled: true       # NOTE: Disable sessions if you do not use user login and/or forms.
-  secure: true        # Use this as your site should be using HTTPS only
-  httponly: true      # Protects session cookies against client side scripts and XSS
-  samesite: Strict    # Prevent all cross-site scripting attacks
-  split: true         # Separate admin session from the site session for added security
+  enabled: true       # ПРИМЕЧАНИЕ: отключите сессии, если не используете вход пользователей и/или формы.
+  secure: true        # Используйте, так как сайт должен работать только по HTTPS
+  httponly: true      # Защищает cookie сессии от клиентских скриптов и XSS
+  samesite: Strict    # Предотвращает все атаки межсайтового скриптинга
+  split: true         # Отделяет сессию админки от сессии сайта для дополнительной безопасности
 
-strict_mode:          # Test your site before changing these. Removes backward compatibility and improves site security.
+strict_mode:          # Проверьте сайт перед изменением. Убирает обратную совместимость и повышает безопасность сайта.
   yaml_compat: false
   twig_compat: false
   blueprint_compat: false
 ```
 
-## Сайт в разработке
+## Сайт для разработки
 
-Для сервера разработки есть несколько настроек, которые мы должны изменить, чтобы было удобнее обновлять сайт.
+Для сервера разработки есть несколько настроек, которые стоит изменить, чтобы обновлять сайт было удобнее.
 
-### Системная конфигурация (`user/env/localhost/config/system.yaml`)
+### Системная конфигурация (`user/env/localhost/config/system.yaml`) {: #system-configuration-user-env-localhost-config-sys }
 
-!!! tip ""
-
-	Замените localhost на имя вашего локального сервера.
+> [!NOTE] Примечание
+> **Совет:** замените localhost на имя вашего локального сервера.
 
 ```yaml
-force_ssl: false      # If the development site doesn't use SSL
+force_ssl: false      # Если сайт разработки не использует SSL
 
 cache:
-  enabled: true       # Still keep cache enabled
+  enabled: true       # Всё равно оставляем кэш включённым
   check:
-    method: file      # Allow updating pages without clearing cache
+    method: file      # Позволяет обновлять страницы без очистки кэша
 
 twig:
-  cache: true         # Still keep cache enabled
-  debug: true         # We want to display debug messages
-  auto_reload: true   # We may be editing twig files
+  cache: true         # Всё равно оставляем кэш включённым
+  debug: true         # Хотим показывать отладочные сообщения
+  auto_reload: true   # Возможно, мы редактируем Twig-файлы
 
 errors:
-  display: 1          # Display full backtrace if there are errors
+  display: 1          # Показывать полную трассировку при ошибках
 
 debugger:
-  enabled: true       # Debugger is handy to have
-  censored: false     # We may want to see secure content in debugger
+  enabled: true       # Отладчик удобно иметь под рукой
+  censored: false     # Возможно, мы хотим видеть защищённое содержимое в отладчике
 
 session:
-  secure: false       # If the development site doesn't use SSL
-  httponly: false     # If the development site doesn't use SSL
+  secure: false       # Если сайт разработки не использует SSL
+  httponly: false     # Если сайт разработки не использует SSL
 
-strict_mode:          # These settings help you to keep your site updated to use the latest standards
+strict_mode:          # Эти настройки помогают держать сайт в соответствии с последними стандартами
   yaml_compat: false
   twig_compat: false
   blueprint_compat: false

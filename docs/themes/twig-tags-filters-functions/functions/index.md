@@ -1,180 +1,241 @@
 ---
-description: Используемые функции Twig в Grav CMS.
+title: "Функции Twig"
+description: "Функции Twig вызываются напрямую, а параметры передаются в скобках."
+tags:
+  - "Темы"
+  - "Twig"
 ---
 
 # Функции Twig
 
-Функции Twig вызываются непосредственно с любыми параметрами, передаваемыми через скобки.
+Функции Twig вызываются напрямую, а параметры передаются в скобках.
 
-### `array`
+### array
 
-Приводит значение к массиву:
+Приводит значение к массиву.
 
-```twig
+```twig title="Twig"
 {% set value = array(value) %}
 ```
 
-### `array_diff`
+```text title="Вывод"
+(значение приведено к массиву)
+```
 
-Вычисляет разницу массивов:
+### array_diff {: #array-diff }
 
-```twig
+Вычисляет разницу массивов.
+
+```twig title="Twig"
 {% set diff = array_diff(array1, array2...) %}
 ```
 
-### `array_key_value`
-
-Позволяет добавить пару ключ/значение в ассоциированный массив:
-
-```twig
-{% set my_array = {fruit: 'apple'} %}
-{% set my_array = array_key_value('meat','steak', my_array) %}
-{{ print_r(my_array) }}
+```text title="Вывод"
+(массив, содержащий все элементы array1, которых нет в других массивах)
 ```
 
-### `array_key_exists`
+### array_key_value {: #array-key-value }
 
-Обертка для функции `array_key_exists` PHP, которая проверяет, существует ли ключ в ассоциативном массиве или нет:
+Функция `array_key_value` позволяет добавить пару ключ/значение в ассоциативный массив.
 
-```twig
+```twig title="Twig"
+{% set my_array = {fruit: 'apple'} %}
+{% set my_array = array_key_value('meat','steak', my_array) %}
+{{ print_r(my_array)}}
+```
+
+```text title="Вывод"
+[
+    "fruit" => "apple"
+    "meat" => "steak"
+]
+```
+
+### array_key_exists {: #array-key-exists }
+
+Обёртка для функции PHP `array_key_exists`, возвращающая, существует ли ключ в ассоциативном массиве.
+
+```twig title="Twig"
 {% set my_array = {fruit: 'apple', meat: 'steak'} %}
 {{ array_key_exists('meat', my_array) }}
 ```
 
-### `array_intersect`
+```text title="Вывод"
+true
+```
 
-Функция `array_intersect` обеспечивает пересечение двух массивов или коллекций Grav:
+### array_intersect {: #array-intersect }
 
-```twig
+Функция `array_intersect` возвращает пересечение двух массивов или коллекций Grav.
+
+```twig title="Twig"
 {% set array_1 = {fruit: 'apple', meat: 'steak'} %}
 {% set array_2 = {fish: 'tuna', meat: 'steak'} %}
 {{ print_r(array_intersect(array_1, array_2)) }}
 ```
 
-### `array_unique`
-
-Обертка для PHP `array_unique()`, которая удаляет дубликаты из массива:
-
-```twig
-{{ print_r(array_unique(['foo', 'bar', 'foo', 'baz'])) }}
+```text title="Вывод"
+[
+    "meat" => "steak"
+]
 ```
 
-```text
-Array
-(
-  0 => "foo"
-  1 => "bar"
-  3 => "baz"
-)
+### array_unique {: #array-unique }
+
+Обёртка для PHP `array_unique()`, удаляющая дубликаты из массива.
+
+```twig title="Twig"
+{{ array_unique(['foo', 'bar', 'foo', 'baz']) }}
 ```
 
-### `authorize`
-
-Уполномочивает авторизованного пользователя на просмотр ресурса. Принимает одну строку разрешения или массив строк разрешений.
-
-```twig
-{{ print_r(authorize(['admin.statistics', 'admin.super'])) }}
+```text title="Вывод"
+['foo', 'bar', 'baz']
 ```
 
-### `body_class`
+### authorize
 
-Берет массив классов, и если они не установлены на `body_classes`, посмотрим, установлены ли они в текущей конфигурации темы.
+Авторизует аутентифицированного пользователя для просмотра ресурса. Принимает строку разрешения или массив строк разрешений.
 
-```twig
-{% set body_classes = body_class(['header-fixed', 'header-animated', 'header-dark', 'header-transparent', 'sticky-footer']) %}
+```twig title="Twig"
+{{ authorize(['admin.statistics', 'admin.super']) }}
 ```
 
-### `cron`
+```text title="Вывод"
+true/false (в зависимости от разрешений пользователя)
+```
 
-Создаёт объект "Cron" из синтаксиса cron:
+### body_class {: #body-class }
 
-```twig
+Принимает массив классов и, если они не заданы в `body_classes`, проверяет, заданы ли они в конфигурации текущей темы.
+
+```twig title="Twig"
+set body_classes = body_class(['header-fixed', 'header-animated', 'header-dark', 'header-transparent', 'sticky-footer'])
+```
+
+```text title="Вывод"
+header-fixed header-animated header-dark
+```
+
+### cron
+
+Создаёт объект «Cron» из синтаксиса cron.
+
+```twig title="Twig"
 {{ cron("3 * * * *").getNextRunDate()|date(config.date_format.default) }}
 ```
 
-### `dump`
-
-Берет корректную переменную Twig и выбрасывает её в [панели отладчика Grav](/advanced/debugging). Для просмотра значений на вкладке "Сообщения" отладчик должен быть **включен**.
-
-```twig
-{{ dump(page.header) }}
+```text title="Вывод"
+2024-01-15 14:03:00
 ```
 
-### `debug`
+### dump
 
-То же, что и `dump()`
+Принимает допустимую переменную Twig и выводит её в [панель отладки Grav](../../../advanced/debugging/index.md). Чтобы увидеть значения на вкладке сообщений, отладчик должен быть **включён**.
 
-### `evaluate`
+```twig title="Twig"
+{% do dump(page.header) %}
+```
 
-Функцию `evaluate` можно использовать для анализа строки как Twig:
+```text title="Вывод"
+(выводит переменную в панель отладки)
+```
 
-```twig
+### debug
+
+То же, что `dump()`.
+
+### evaluate
+
+Функцию evaluate можно использовать, чтобы вычислить строку как Twig:
+
+```twig title="Twig"
 {{ evaluate('grav.language.getLanguage') }}
 ```
 
-### `evaluate_twig`
-
-То же, что и `evaluate`, но будет анализировать и обрабатывать с помощью Twig
-
-```twig
-{{ evaluate_twig('This is a twig variable: {{ foo }}', {foo: 'bar'}) }}
+```text title="Вывод"
+en
 ```
 
-### `exif`
+### evaluate_twig {: #evaluate-twig }
 
-Вывод EXIF-данных с изображения на основе его файловой траектории. Для этого нужны эти "медиа": auto_metadata_exif: true`установлен в`system.yaml`. Например, в шаблоне Twig:
+Похожа на evaluate, но вычисляет и обрабатывает с помощью Twig.
 
-```twig
+```twig title="Twig"
+{{ evaluate_twig('This is a twig variable: {% verbatim %}{{ foo }}{% endverbatim %}', {foo: 'bar'}) }}
+```
+
+```text title="Вывод"
+This is a twig variable: bar
+```
+
+### exif
+
+Выводит EXIF-данные изображения по пути к файлу. Для этого в `system.yaml` должно быть задано `media: auto_metadata_exif: true`. Например, в шаблоне Twig:
+
+```twig title="Twig"
 {% set image = page.media['sample-image.jpg'] %}
 {% set exif = exif(image.filepath, true) %}
 {{ exif.MaxApertureValue }}
 ```
 
-Это позволило бы записать в камеру значение `MaxApertureValue`, например, "40/10". Вы всегда можете использовать `{{dump(exif)}}` для отображения всех доступных данных в отладчике.
+```text title="Вывод"
+40/10
+```
 
-### `get_cookie`
+Это выведет значение `MaxApertureValue`, заданное в камере, например «40/10». Всегда можно использовать `{{ dump(exif) }}`, чтобы показать все доступные данные в отладчике.
 
-Восстановление значения куки-файла с помощью этой функции:
+### get_cookie {: #get-cookie }
 
-```twig
+Получает значение cookie с помощью этой функции:
+
+```twig title="Twig"
 {{ get_cookie('your_cookie_key') }}
 ```
 
-### `get_type`
+```text title="Вывод"
+cookie_value
+```
 
-Получает тип переменной:
+### get_type {: #get-type }
 
-```twig
+Возвращает тип переменной:
+
+```twig title="Twig"
 {{ get_type(page) }}
 ```
 
-### `gist`
+```text title="Вывод"
+Grav\Common\Page\Page
+```
 
-Принимает Github Gist ID и создает соответствующий код для встраивания Gist:
+### gist
 
-```twig
+Принимает ID Github Gist и создаёт подходящий код встраивания Gist.
+
+```twig title="Twig"
 {{ gist('bc448ff158df4bc56217') }}
 ```
 
-### `header_var`
-
-```twig
-{{ header_var($variable, $pages = null) }}
+```html title="Вывод"
+<script src="https://gist.github.com/bc448ff158df4bc56217.js"></script>
 ```
+
+### header_var {: #header-var }
+
+`header_var($variable, $pages = null)`
 
 Возвращает `page.header.<variable>`.
 
-!!! note "ПРИМЕЧАНИЕ"
+> [!WARNING] Предупреждение
+> **ПРИМЕЧАНИЕ:** устарело с Grav 1.7. Следует использовать `theme_var`.
 
-    Утратила актуальность с версии Grav 1.7. Следует использовать `theme_var`.
+> [!WARNING] Предупреждение
+> Логика поиска переменной изменилась, что может привести к неожиданным результатам:
+> - Если вторым параметром передан массив страниц для поиска, будет использована только первая страница.
+> - Если `<variable>` не определена в заголовке страницы, Grav будет искать переменную в дереве родительских страниц.
+> - Если переменная всё ещё не найдена, Grav будет искать её в файле конфигурации темы.
 
-    Логика поиска переменной изменилась, что может привести к неожиданным результатам:
-
-    - Если в качестве второго параметра указан массив страниц поиска, то будет использована только первая страница.
-    - Если `<variable>` не определена в заголовке страницы, Grav будет искать переменную в дереве родителей страницы.
-    - Если переменная не найдена, Grav будет искать её в конфигурационном файле темы
-
-С учётом параметра в блоке метаданных
+При таких метаданных страницы:
 
 ```
 ---
@@ -182,322 +243,489 @@ title: Home
 ---
 ```
 
-`header_var('title')` :fontawesome-solid-arrow-right: **Home**
-
-### `http_response_code`
-
-Если предоставлен код response_code, то будет возвращен предыдущий код статуса. Если код response_code не предоставлен, то будет возвращен код текущего состояния. Оба эти значения по умолчанию будут иметь код состояния 200, если они используются в среде веб-сервера.
-
-```twig
-{{ http_response_code(404) }}
+```twig title="Twig"
+{{ header_var('title') }}
 ```
 
-### `isajaxrequest`
-
-Функция `isajaxrequest()` может быть использована для проверки, установлена ли опция заголовка `HTTP_X_REQUESTED_WITH`:
-
-### `json_decode`
-
-Вы можете декодировать JSON, просто применив этот фильтр:
-
-```twig
-{{ json_decode({"first_name": "Guido", "last_name":"Rossum"}) }}
+```text title="Вывод"
+Home
 ```
 
-### `media_directory`
+### http_response_code {: #http-response-code }
 
-Возвращает медиа-объект для произвольной директории. После получения изображениями можно манипулировать так же, как и страницами.
+Если передан `response_code`, возвращается предыдущий код состояния. Если `response_code` не передан, возвращается текущий код состояния. Оба значения по умолчанию равны 200, если функция используется в среде веб-сервера.
 
-```twig
+```twig title="Twig"
+{% do http_response_code(404) %}
+```
+
+```text title="Вывод"
+(устанавливает код ответа HTTP 404)
+```
+
+### isajaxrequest
+
+Функцию `isajaxrequest()` можно использовать, чтобы проверить, установлен ли параметр заголовка `HTTP_X_REQUESTED_WITH`:
+
+```twig title="Twig"
+{{ isajaxrequest() }}
+```
+
+```text title="Вывод"
+true/false
+```
+
+### json_decode {: #json-decode }
+
+JSON можно декодировать, просто вызвав эту функцию:
+
+```twig title="Twig"
+{{ json_decode('{"first_name": "Guido", "last_name":"Rossum"}') }}
+```
+
+```text title="Вывод"
+[
+    "first_name" => "Guido"
+    "last_name" => "Rossum"
+]
+```
+
+### markdown_body {: #markdown-body }
+
+Тело [Markdown-вывода](../../../content/markdown-output/index.md) страницы: основная область контента страницы в том виде, в каком её рендерит тема, с добавленным `# Title`, только если тема не вывела ни одного заголовка. По умолчанию — текущая страница. **Grav 2.1+**
+
+```twig title="Twig"
+{{ markdown_body(page) }}
+```
+
+```markdown title="Вывод"
+# My Post
+
+The post content, converted from the rendered HTML.
+```
+
+### markdown_frontmatter {: #markdown-frontmatter }
+
+YAML-блок, открывающий [Markdown-вывод](../../../content/markdown-output/index.md) страницы: title, канонический URL, URL `.md`, язык, дата, описание и таксономия. По умолчанию — текущая страница. **Grav 2.1+**
+
+```twig title="Twig"
+{{ markdown_frontmatter(page) }}
+```
+
+```yaml title="Вывод"
+---
+title: 'My Post'
+url: 'https://example.com/blog/my-post'
+markdown: 'https://example.com/blog/my-post.md'
+date: '2026-09-10'
+---
+```
+
+### markdown_links {: #markdown-links }
+
+Раздел навигации, закрывающий [Markdown-вывод](../../../content/markdown-output/index.md) страницы: родительская, предыдущая и следующая страницы и дочерние страницы, каждая по своему URL `.md`. Пусто, если у страницы их нет. По умолчанию — текущая страница. **Grav 2.1+**
+
+```twig title="Twig"
+{{ markdown_links(page) }}
+```
+
+```markdown title="Вывод"
+---
+
+## Navigation
+
+- Parent: [Blog](https://example.com/blog.md)
+- Next: [A Newer Post](https://example.com/blog/newer-post.md)
+```
+
+### markdown_output {: #markdown-output }
+
+Весь документ [Markdown-вывода](../../../content/markdown-output/index.md) страницы: метаданные, тело и навигация в том виде, в каком их рендерит шаблон ядра `default.md.twig`. По умолчанию — текущая страница. **Grav 2.1+**
+
+```twig title="Twig"
+{%- autoescape false -%}
+{{ markdown_output(page) }}
+{%- endautoescape -%}
+```
+
+### markdown_url {: #markdown-url }
+
+Абсолютный URL `.md` страницы, по которому отдаётся её [Markdown-вывод](../../../content/markdown-output/index.md). Главная страница ссылается по своему реальному маршруту, а не `/.md`. По умолчанию — текущая страница. **Grav 2.1+**
+
+```twig title="Twig"
+<link rel="alternate" type="text/markdown" href="{{ markdown_url(page)|e }}" />
+```
+
+```html title="Вывод"
+<link rel="alternate" type="text/markdown" href="https://example.com/blog/my-post.md" />
+```
+
+### media_directory {: #media-directory }
+
+Возвращает объект медиафайлов для произвольной папки. После получения с изображениями можно работать так же, как со страницами.
+
+```twig title="Twig"
 {{ media_directory('theme://images')['some-image.jpg'].cropResize(200,200).html }}
 ```
 
-### `nicefilesize`
+```html title="Вывод"
+<img src="/user/themes/mytheme/images/some-image.jpg" width="200" height="200">
+```
 
-Выводите размер файла в удобочитаемом для человека формате.
+### nicefilesize
 
-```twig
+Выводит размер файла в удобном человекочитаемом формате.
+
+```twig title="Twig"
 {{ nicefilesize(612394) }}
 ```
 
-### `nicenumber`
-
-Вывод числа в удобочитаемом для человека формате красивых чисел.
-
-```twig
-{{ nicenumnber(12430) }}
+```text title="Вывод"
+598.04 KB
 ```
 
-### `nicetime`
+### nicenumber
 
-Вывод даты в удобочитаемом человеком формате времени.
+Выводит число в удобном человекочитаемом формате.
 
-```twig
+```twig title="Twig"
+{{ nicenumber(12430) }}
+```
+
+```text title="Вывод"
+12K
+```
+
+### nicetime
+
+Выводит дату в удобном человекочитаемом формате времени.
+
+```twig title="Twig"
 {{ nicetime(page.date) }}
 ```
 
-### `nonce_field`
+```text title="Вывод"
+1 month ago
+```
 
-Генерирует поле с кодом безопасности Grav для формы с требуемым `action`:
+### nonce_field {: #nonce-field }
 
-```twig
+Создаёт поле nonce безопасности Grav для формы с обязательным `action`:
+
+```twig title="Twig"
 {{ nonce_field('action') }}
 ```
 
-### `of_type`
+```html title="Вывод"
+<input type="hidden" name="nonce" value="abc123def456">
+```
 
-Проверяет тип переменной на параметр:
+### of_type {: #of-type }
 
-```twig
+Проверяет тип переменной по параметру:
+
+```twig title="Twig"
 {{ of_type(page, 'string') }}
 ```
 
-### `pathinfo`
+```text title="Вывод"
+false
+```
 
-Разбирает путь в массив:
+### pathinfo
 
-```twig
+Разбирает путь в массив.
+
+```twig title="Twig"
 {% set parts = pathinfo('/www/htdocs/inc/lib.inc.php') %}
 {{ print_r(parts) }}
 ```
 
-```text
-Array
-(
-  [dirname] => /www/htdocs/inc
-  [basename] => lib.inc.php
-  [extension] => php
-  [filename] => lib.inc
-)
+```text title="Вывод"
+[
+    "dirname" => "/www/htdocs/inc"
+    "basename" => "lib.inc.php"
+    "extension" => "php"
+    "filename" => "lib.inc"
+]
 ```
 
-### `print_r`
+### print_r {: #print-r }
 
-Печатает переменную в читаемом формате:
+Выводит переменную в читаемом формате.
 
-```twig
+```twig title="Twig"
 {{ print_r(page.header) }}
 ```
 
-### `random_string`
+```text title="Вывод"
+[
+    "title" => "My Page"
+    "published" => true
+]
+```
 
-Сгенерирует произвольную строку из требуемого количества символов. Особенно полезно при создании уникального идентификатора или ключа.
+### random_string {: #random-string }
 
-```twig
+Создаёт случайную строку нужного количества символов. Особенно полезна для создания уникального id или ключа.
+
+```twig title="Twig"
 {{ random_string(10) }}
 ```
 
-### `unique_id`
+```text title="Вывод"
+aBc123XyZ9
+```
 
-Генерирует случайную строку с настраиваемой длиной, префиксом и суффиксом. В отличие от встроенной функции PHP `uniqid()` и утилиты `random_string`, эта строка будет сгенерирована действительно уникальной.
+### unique_id {: #unique-id }
 
-```twig
+Создаёт случайную строку с настраиваемой длиной, префиксом и суффиксом. В отличие от встроенной функции PHP `uniqid()` и утилиты `random_string`, эта строка будет действительно уникальной и не конфликтующей.
+
+```twig title="Twig"
 {{ unique_id(9) }}
 {{ unique_id(11, { prefix: 'user_' }) }}
 {{ unique_id(13, { suffix: '.json' }) }}
 ```
 
-### `range`
+```text title="Вывод"
+a1b2c3d4e
+user_a1b2c3d4e5f
+a1b2c3d4e5f6g.json
+```
 
-Генерирует массив, содержащий ряд элементов, опционально ступенчатых
+### range
 
-```twig
+Создаёт массив, содержащий диапазон элементов с необязательным шагом.
+
+```twig title="Twig"
 {{ range(25, 300, 50) }}
 ```
 
-### `read_file`
+```text title="Вывод"
+[25, 75, 125, 175, 225, 275]
+```
 
-Простая функция для чтения файла на основе пути к файлу и его вывода.
+### read_file {: #read-file }
 
-```twig
+Простая функция для чтения файла по пути и вывода его содержимого.
+
+```twig title="Twig"
 {{ read_file('theme://README.md')|markdown }}
 ```
 
-```markdown
-# Моя тема
-
-<p>Это <strong>тема</strong> для Grav...</p>
+```html title="Вывод"
+<h1>My Theme</h1>
+<p>This <strong>theme</strong> for Grav...</p>
 ```
 
-В целях безопасности `read_file` читает только те файлы, которые проходят три проверки. Все они настраиваются в `security.read_file` файла `system/config/security.yaml`:
+В целях безопасности `read_file` читает только файлы, проходящие три проверки; все они настраиваются в `security.read_file` в `system/config/security.yaml`:
 
-- **`allowed_streams`** — схемы потоков, которые функция будет разрешать. По умолчанию это `theme`, `themes`, `page` и `user-data`. Путь к любому другому потоку (например, `plugins://` или `user://`) возвращает `false`, пока вы не добавите соответствующий поток сюда.
-- **`allowed_extensions`** — расширения файлов, которые функция будет читать. По умолчанию разрешены только текстовые форматы и форматы контента: `md`, `markdown`, `txt`, `html`, `htm`, `css`, `json`, `csv`, `xml` и `svg`.
-- **`max_size`** — максимальный размер файла в байтах (по умолчанию `1048576`, то есть 1 МБ). Для файлов большего размера функция возвращает `false`, не загружая их в память. Установите `0`, чтобы отключить ограничение.
+- **`allowed_streams`** — схемы потоков, которые она разрешает. По умолчанию `theme`, `themes`, `page` и `user-data`. Путь в любом другом потоке (например, `plugins://` или `user://`) возвращает `false`, пока вы не добавите этот поток сюда.
+- **`allowed_extensions`** — расширения файлов, которые она читает. По умолчанию только текстовые и контентные форматы: `md`, `markdown`, `txt`, `html`, `htm`, `css`, `json`, `csv`, `xml` и `svg`.
+- **`max_size`** — максимальный размер файла в байтах (по умолчанию `1048576`, то есть 1 МБ). Файлы большего размера возвращают `false`, а не читаются в память. Установите `0`, чтобы отключить ограничение.
 
-!!! note
-    Не рекомендуется добавлять исполняемые файлы или файлы с секретными данными (например, `php`, `yaml`, `env` или `htaccess`) в `allowed_extensions` — это превращает `read_file` в способ утечки конфигурации и учётных данных в отображаемый контент.
+> [!NOTE] Примечание
+> Добавлять исполняемые или секретные форматы (например, `php`, `yaml`, `env` или `htaccess`) в `allowed_extensions` не рекомендуется — это превращает `read_file` в способ утечки конфигурации и учётных данных в отрендеренный вывод.
 
-### `redirect_me`
+### redirect_me {: #redirect-me }
 
-Переадресация на URL-адрес по вашему выбору.
+Перенаправляет на выбранный URL.
 
-```twig
-{{ redirect_me('http://google.com', 304) }}
+```twig title="Twig"
+{% do redirect_me('http://google.com', 304) %}
 ```
 
-### `regex_filter`
+```text title="Вывод"
+(перенаправляет на http://google.com со статусом 304)
+```
 
-Выполняет `preg_grep` на массиве с регрессионным паттерном:
+### regex_filter {: #regex-filter }
 
-```twig
+Выполняет `preg_grep` по массиву с шаблоном регулярного выражения.
+
+```twig title="Twig"
 {{ regex_filter(['pasta', 'fish', 'steak', 'potatoes'], "/p.*/") }}
 ```
 
-```text
-Array
-(
-  0 => "pasta"
-  3 => "potatoes"
-)
+```text title="Вывод"
+['pasta', 'potatoes']
 ```
 
-### `regex_replace`
+### regex_replace {: #regex-replace }
 
-Полезная обертка для PHP-функции [preg_replace()](https://php.net/manual/ru/function.preg-replace.php), с помощью этого фильтра вы можете выполнять сложные regex-замены текста:
+Полезная обёртка для метода PHP [preg_replace()](https://php.net/manual/en/function.preg-replace.php), позволяющая выполнять сложные замены регулярными выражениями в тексте через эту функцию:
 
-```twig
+```twig title="Twig"
 {{ regex_replace('The quick brown fox jumps over the lazy dog.', ['/quick/','/brown/','/fox/','/dog/'], ['slow','black','bear','turtle']) }}
 ```
 
-```text
+```text title="Вывод"
 The slow black bear jumps over the lazy turtle.
 ```
 
-### `regex_match`
+### regex_match {: #regex-match }
 
-Полезная обертка для PHP-метода [preg_match()](https://php.net/manual/ru/function.preg-match.php), с помощью этого фильтра можно выполнить сложное сопоставление регулярных выражений с текстом:
+Полезная обёртка для метода PHP [preg_match()](https://php.net/manual/en/function.preg-match.php), позволяющая выполнять сложные совпадения регулярных выражений в тексте через эту функцию:
 
-```twig
+```twig title="Twig"
 {{ regex_match('http://www.php.net/index.html', '@^(?:http://)?([^/]+)@i') }}
 ```
 
-```text
-Array
-(
-  [0] => http://www.php.net
-  [1] => www.php.net
-)
+```text title="Вывод"
+[
+    0 => "http://www.php.net"
+    1 => "www.php.net"
+]
 ```
 
-### `regex_split`
+### regex_split {: #regex-split }
 
-Полезная обертка для PHP-метода [preg_split()](https://php.net/manual/ru/function.preg-split.php). Разбиение строки регулярным выражением на текст с помощью этого фильтра:
+Полезная обёртка для метода PHP [preg_split()](https://php.net/manual/en/function.preg-split.php). Разбивает строку регулярным выражением через эту функцию:
 
-```twig
+```twig title="Twig"
 {{ regex_split('hypertext language, programming', '/\\s*,\\s*/u') }}
 ```
 
-```text
-Array
-(
-  [0] => hypertext language
-  [1] => programming
-)
+```text title="Вывод"
+['hypertext language', 'programming']
 ```
 
-### `repeat`
+### repeat
 
-Будет повторять всё, что передано, определенное количество раз.
+Повторяет переданное значение определённое количество раз.
 
-```twig
+```twig title="Twig"
 {{ repeat('blah ', 10) }}
 ```
 
-### `string`
+```text title="Вывод"
+blah blah blah blah blah blah blah blah blah blah
+```
 
-Возвращает строку из значения. Если значение является массивом, верните его в кодировке json
+### string
 
-```twig
+Возвращает строку из значения. Если значение — массив, возвращает его в JSON-кодировке.
+
+```twig title="Twig"
 {{ string(23) }}
 {{ string(['test' => 'x']) }}
 ```
 
-### `svg_image`
+```text title="Вывод"
+"23"
+{"test":"x"}
+```
 
-Возвращает содержимое SVG-изображения и добавляет дополнительные классы по мере необходимости. Обеспечивает преимущества встроенного svg без необходимости вставлять код непосредственно на страницу. Полезно для многократно используемых изображений, таких как значки социальных сетей.
+### svg_image {: #svg-image }
 
-```twig
+Возвращает содержимое SVG-изображения и при необходимости добавляет дополнительные классы. Даёт преимущества встроенного SVG без необходимости вставлять код прямо на страницу. Полезно для повторно используемых изображений, например иконок соцсетей.
+
+```
 {{ svg_image(path, classes, strip_style) }}
 ```
 
-`strip_style` - удалить встроенный стиль SVG - полезно для стилизации с помощью CSS-классов.
+`strip_style` = удаляет встроенные стили SVG — полезно для стилизации через CSS-классы.
 
-пример:
-
-```twig
+```twig title="Twig"
 {{ svg_image('theme://images/something.svg', 'my-class-here mb-10', true) }}
 ```
 
-### `theme_var`
-
-```twig
-{{ theme_var($variable, $default = null, $page = null) }}
+```html title="Вывод"
+<svg class="my-class-here mb-10" viewBox="0 0 24 24">...</svg>
 ```
 
-Получите переменную темы из заголовка страницы или, если она не найдена, из её родителя (родителей), из файла конфигурации темы или из значения по умолчанию, если оно указано:
+### theme_var {: #theme-var }
 
-```twig
+`theme_var($variable, $default = null, $page = null)`
+
+Получает переменную темы из заголовка страницы или, если она не найдена, из её родительских страниц, файла конфигурации темы или значения по умолчанию, если оно предоставлено:
+
+```twig title="Twig"
 {{ theme_var('grid-size') }}
 ```
 
-Этот код сначала попытается получить значение `page.header.grid-size`. Если оно не установлено, то будет осуществляться поиск вверх по дереву родительских элементов. Если и там ничего не найдётся, то будет сделана попытка получить значение `theme.grid-size` из файла конфигурации темы.
-
-При необходимости можно указать значение по умолчанию в качестве запасного варианта:
-
-```twig
-{{ theme_var('grid_size', 1024) }}
+```text title="Вывод"
+1200
 ```
 
-### `t`
+Сначала будет проверено `page.header.grid-size`; если там не задано, будет пройдено дерево родителей. Если всё ещё не найдено, будет проверено `theme.grid-size` из файла конфигурации темы.
 
-Переведите строку, как фильтр `|t`.
+Опционально можно передать значение по умолчанию как резервное:
 
-```twig
+```twig title="Twig"
+{{ theme_var('grid-size', 1024) }}
+```
+
+```text title="Вывод"
+1024 (если не найдено в другом месте)
+```
+
+### t
+
+Переводит строку, как фильтр [`|t`](../filters/index.md#t).
+
+```twig title="Twig"
 {{ t('SITE_NAME') }}
 ```
 
-### `ta`
+```text title="Вывод"
+Site Name
+```
 
-Функция, связанная с фильтром `|ta`.
+### ta
 
-### `tl`
+Работает так же, как фильтр [`|ta`](../filters/index.md#ta).
 
-Переводит строку на определённый язык. Для получения более подробной информации ознакомьтесь с [документацией](/content/multi-language/#kompleksnye-perevody).
+### tl
 
-```twig
+Переводит строку на конкретный язык. Подробнее см. в [документации по многоязычности](../../../content/multi-language/index.md#complex-translations).
+
+```twig title="Twig"
 {{ tl('SIMPLE_TEXT', ['fr']) }}
 ```
 
-### `url`
+```text title="Вывод"
+Texte simple
+```
 
-Создает URL и преобразует любые потоки PHP URL в полноценные HTML ресурсы. Значение по умолчанию может быть передано в случае, если URL не может быть разрешен.
+### url
 
-```twig
+Создаёт URL и преобразует любые URL-потоки PHP в допустимый HTML-ресурс. Можно передать значение по умолчанию на случай, если URL не удаётся разрешить.
+
+```twig title="Twig"
 {{ url('theme://images/logo.png')|default('http://www.placehold.it/150x100/f4f4f4') }}
 ```
 
-### `vardump`
+```text title="Вывод"
+/user/themes/mytheme/images/logo.png
+```
 
-Функция `vardump()` выводит на экран текущую переменную (а не в отладчике, как в `dump()`)
+### vardump
 
-```twig
+Функция `vardump()` выводит текущую переменную на экран (а не в отладчик, как `dump()`).
+
+```twig title="Twig"
 {% set my_array = {foo: 'bar', baz: 'qux'} %}
 {{ vardump(my_array) }}
 ```
 
-```text
-Array
-(
+```text title="Вывод"
+[
   "foo" => "bar"
   "baz" => "qux"
-)
+]
 ```
 
-### `xss`
+### xss
 
-Проверяет строку на наличие уязвимостей XSS:
+Позволяет вручную проверить строку на уязвимости XSS.
 
-```twig
+```twig title="Twig"
 {{ xss('this string contains a <script>alert("hello");</script> XSS vulnerability') }}
 ```
+
+```text title="Вывод"
+this string contains a  XSS vulnerability
+```
+
+Функция `xss()` удаляет из строки вредоносный тег script.

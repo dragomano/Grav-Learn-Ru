@@ -1,46 +1,48 @@
 ---
-description: Руководство по созданию чертежей Flex в Grav CMS.
+title: "Схема"
+description: "Базовая структура схемы Flex содержит title, description и type, которые описывают тип, и три раздела: config, blueprints и form, которые описывают разные аспекты типа директории."
+tags:
+  - "Grav 1.7"
+  - "Flex-объекты"
+  - "Схемы"
 ---
 
-# Чертёж
+# Схема
 
-Базовая структура **чертежа Flex** содержит `title`,` description` и `type`, описывающие тип, и три раздела: `config`, `blueprints` и `form`, описывающие различные аспекты типа каталога.
+Базовая структура **схемы Flex** содержит `title`, `description` и `type`, которые описывают тип, и три раздела: `config`, `blueprints` и `form`, которые описывают разные аспекты типа директории.
 
 Основная структура `contacts.yaml`:
-
 ```yaml
 title: Contacts
 description: Simple contact directory with tags.
-type: flex-objects  # do not change
+type: flex-objects  # не меняйте
 
-# Flex Configuration
+# Конфигурация Flex
 config: {}
 
-# Flex Directory Forms
+# Формы директории Flex
 blueprints: {}
 
-# Flex Object Form
+# Форма объекта Flex
 form: {}
 ```
 
-Чтобы создать свой собственный каталог, вам нужно начать с присвоения имени вашему `type` (имя файла) и заполнения` title` и `description`.
+Чтобы создать собственную директорию, начните с имени `type` (имени файла) и заполните `title` и `description`.
 
-После создания файла и заполнения основной информации следующим шагом будет либо копирование существующей формы, либо добавление некоторых полей в файл.
+После создания файла и заполнения базовой информации следующий шаг — скопировать существующую форму или добавить в файл несколько полей.
 
-!!! tip ""
+> [!WARNING] Предупреждение
+> **Совет:** мы предполагаем, что вы уже умеете создавать свои **[формы и схемы](../../../../forms/index.md)**.
 
-	Мы предполагаем, что вы уже знаете, как создавать свои собственные **[формы и чертежи](/forms)**.
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** лучше не использовать простой формат списка для описания полей, как рассказано в разделе **[Создание простой одиночной формы](../../../../forms/forms/index.md#create-a-simple-single-form)**. Также не переносите в этот файл раздел формы `process`: Flex его не использует.
 
-!!! warning ""
-
-	Лучше не использовать простой формат списка для описания полей, как указано в секции **[Создание простой формы](/forms/forms/#sozdanie-prostoi-formy)**. Также не передавайте в этот файл раздел формы `process`, он не будет использоваться Flex.
-
-## Секция Form
+## Форма
 
 В нашем примере с контактами раздел формы выглядит так:
 
 ```yaml
-# Flex Object Form
+# Форма объекта Flex
 form:
   validation: loose
 
@@ -88,80 +90,79 @@ form:
         type: commalist
 ```
 
-Форма выглядит одинаково независимо от того, была ли она взята со страницы или из файла конфигурации, плагина или чертежа темы. Это основной план для каждого объекта в вашем каталоге, и он должен содержать все поля, определённые в объекте. Подумайте об этом как о форме, отображаемой администратору.
+Форма выглядит одинаково независимо от того, взята ли она со страницы, из конфигурации или из файла схемы плагина либо темы. Это основная схема для каждого объекта в вашей директории, и она должна содержать все поля, определённые у объекта. Считайте её формой, которая показывается администратору.
 
-!!! warning ""
+> [!CAUTION] Внимание
+> **ВНИМАНИЕ:** будьте осторожны, меняя схему существующего типа Flex. Убедитесь, что уже сохранённые объекты совместимы с новой версией схемы — то есть вы должны уметь и сохранять, и отображать старые объекты.
 
-	Будьте осторожны при изменении чертежа для существующего типа Flex. Убедитесь, что объекты, которые вы уже сохранили, совместимы с новой версией чертежа — это означает, что вы должны иметь возможность как сохранять, так и отображать старые объекты.
+Мы ещё не закончили. Чтобы директория заработала, нужно сделать ещё две вещи: настроить слой хранения данных и определить поля, отображаемые в списке админки. И то, и другое делается в разделе `config`.
 
-Мы ещё не закончили. Есть ещё две вещи, которые необходимо сделать, чтобы каталог заработал: нам нужно настроить уровень хранения данных и определить поля для отображения в представлении «Список администраторов». Мы можем сделать и то, и другое в секции `config`.
+## Config
 
-## Секция Config
-
-Раздел конфигурации — самая сложная часть чертежа Flex, хотя большая часть его предназначена только для настройки. Он содержит разделы `data`, `admin` и `site`.
+Раздел config — самая сложная часть схемы Flex, хотя многое в нём существует просто для настройки. Он содержит разделы `data`, `admin` и `site`.
 
 ```yaml
-# Flex Configuration
+# Конфигурация Flex
 config:
 
-  # Data Settings
+  # Настройки данных
   data: {}
 
-  # Admin Settings
+  # Настройки админки
   admin: {}
 
-  # Site Settings
+  # Настройки сайта
   site: {}
 ```
 
 Минимальная конфигурация выглядит примерно так:
 
 ```yaml
-# Flex Configuration
+# Конфигурация Flex
 config:
 
-  # Data Settings
+  # Настройки данных
   data:
     storage: user-data://flex-objects/contacts.json
 
-  # Admin Settings
+  # Настройки админки
   admin:
-    # List view
+    # Вид списка
     list:
-      # List of fields to display
+      # Список полей для отображения
       fields:
         last_name:
-          link: edit # Edit link
+          link: edit # Ссылка на редактирование
         first_name:
-          link: edit # Edit link
+          link: edit # Ссылка на редактирование
         email:
         website:
 ```
 
-В конфигурации есть два обязательных раздела: `config.data.storage` и `config.admin.list.fields`. Последний определяет поля, отображаемые в представлении списка администраторов. С другой стороны, хранилище данных определяет, как данные будут храниться.
+В конфигурации есть два обязательных раздела: `config.data.storage` и `config.admin.list.fields`. Второй определяет поля, отображаемые в списке админки. Хранилище данных, в свою очередь, определяет, как данные будут храниться.
 
 ### Config > Data
 
-**Flex-каталог** легко настраиваемый. Вы можете использовать свои классы `object`, `collection` и `index` для добавления собственного поведения. Кроме того, вы можете настроить уровень хранилища (`storage`) в соответствии с вашими потребностями. Справочник также имеет стандартные функции «упорядочивания» (`ordering`) и «поиска» (`search`).
+**Директория Flex** очень гибко настраивается. Можно использовать собственные PHP-классы `object`, `collection` и `index`, чтобы добавить своё поведение. Кроме того, слой `storage` можно настроить под свои нужды. У директории также есть функциональность `ordering` и `search` по умолчанию.
 
 ```yaml
 config:
   data:
-    # Flex Object Class
+    # Класс объекта Flex
     object: CLASSNAME
-    # Flex Collection Class
+    # Класс коллекции Flex
     collection: CLASSNAME
-    # Flex Index Class
+    # Класс индекса Flex
     index: CLASSNAME
-    # Storage Options
+    # Параметры хранилища
     storage: {}
-    # Ordering Options
+    # Параметры сортировки
     ordering: {}
-    # Search Options
+    # Параметры поиска
     search: {}
 ```
 
-Объект, коллекция и индекс принимают имена классов. Если они не указаны, Grav будет использовать следующую конфигурацию по умолчанию:
+Object, collection и index принимают имена классов. Если они не указаны, Grav использует такую конфигурацию по умолчанию:
 
 ```yaml
 config:
@@ -171,9 +172,9 @@ config:
     index: 'Grav\Common\Flex\Types\Generic\GenericIndex'
 ```
 
-Эти классы вместе будут определять поведение вашего типа. Если вы хотите настроить свой собственный тип, это можно сделать, расширив эти классы и передав здесь свои собственные классы.
+Вместе эти классы определяют поведение вашего типа. Если хотите настроить собственный тип, это можно сделать, расширив эти классы и указав здесь свои.
 
-Одна из наиболее важных частей - определить, где и как хранятся данные:
+Одна из самых важных частей — определить, где и как хранятся данные:
 
 ```yaml
 config:
@@ -186,7 +187,7 @@ config:
         folder: user-data://flex-objects/contacts.json
 ```
 
-Выше частный случай, который также можно записать в краткой форме:
+Выше особый случай, который можно записать и короткой формой:
 
 ```yaml
 config:
@@ -194,367 +195,347 @@ config:
     storage: user-data://flex-objects/contacts.json
 ```
 
-Grav 1.7 предоставляет 3 различных стратегии хранения, хотя вы можете легко создать свою собственную:
-
+Grav 1.7 предлагает 3 разные стратегии хранения, хотя вы легко можете создать свою:
 
 | Название | Класс | Описание |
 |------|-------|-------------|
-| Simple Storage | Grav\Framework\Flex\Storage\SimpleStorage | Все объекты хранятся в одном файле. Не поддерживает медиа. |
+| Simple Storage | Grav\Framework\Flex\Storage\SimpleStorage | Все объекты хранятся в одном файле. Не поддерживает медиафайлы. |
 | File Storage | Grav\Framework\Flex\Storage\FileStorage | Объекты хранятся в отдельных файлах в одной папке. |
 | Folder Storage | Grav\Framework\Flex\Storage\FolderStorage | Каждый объект хранится в отдельной папке. |
 
-
-Кроме того, вы можете указать формат файла с `options.formatter.class`:
-
+Кроме того, можно указать формат файла через `options.formatter.class`:
 
 | Название | Класс | Описание |
 |------|-------|-------------|
-| JSON | Grav\Framework\File\Formatter\JsonFormatter | Использовать формат файла JSON. |
-| YAML | Grav\Framework\File\Formatter\YamlFormatter | Использовать формат файла YAML. |
-| Markdown | Grav\Framework\File\Formatter\MarkdownFormatter | Использовать формат файла Grav Markdown с обложкой YAML. |
-| Serialize | Grav\Framework\File\Formatter\SerializeFormatter | Использовать сериализатор PHP. Быстро, но не читается человеком. |
-| INI | Grav\Framework\File\Formatter\IniFormatter | Использовать формат файла INI. Не рекомендуется. |
-| CSV | Grav\Framework\File\Formatter\CsvFormatter | Использовать формат файла CSV. Не рекомендуется. |
+| JSON | Grav\Framework\File\Formatter\JsonFormatter | Использовать формат JSON. |
+| YAML | Grav\Framework\File\Formatter\YamlFormatter | Использовать формат YAML. |
+| Markdown | Grav\Framework\File\Formatter\MarkdownFormatter | Использовать формат Markdown-файлов Grav с YAML-frontmatter. |
+| Serialize | Grav\Framework\File\Formatter\SerializeFormatter | Использовать сериализатор PHP. Быстро, но не читаемо человеком. |
+| INI | Grav\Framework\File\Formatter\IniFormatter | Использовать формат INI. Не рекомендуется. |
+| CSV | Grav\Framework\File\Formatter\CsvFormatter | Использовать формат CSV. Не рекомендуется. |
 
+Параметры конфигурации (со значениями по умолчанию) для форматтеров по умолчанию приведены ниже на вкладках:
 
-Параметры конфигурации (со значениями по умолчанию) для средств форматирования по умолчанию можно найти ниже во вкладках:
+```yaml title="JSON"
+# JSON
+formatter:
+  class: 'Grav\Framework\File\Formatter\JsonFormatter'
+  options:
+    file_extension: '.json'
+    encode_options: '' # см. https://www.php.net/manual/en/function.json-encode.php (параметры через пробел)
+    decode_assoc: true # декодировать объекты как массивы
+    decode_depth: 512  # декодировать до 512 уровней
+    decode_options: '' # см. https://www.php.net/manual/en/function.json-decode.php (параметры через пробел)
+```
 
-=== "JSON"
+```yaml title="YAML"
+# YAML
+formatter:
+  class: 'Grav\Framework\File\Formatter\YamlFormatter'
+  options:
+    file_extension: '.yaml'
+    inline: 5           # сохранять до 4 раскрытых уровней
+    indent: 2           # отступ в 2 пробела
+    native: true        # использовать нативный декодер YAML, если доступен
+    compat: true        # если YAML не декодируется, использовать режим совместимости (МЕДЛЕННО)
+```
 
-	```yaml
-	# JSON
-	formatter:
-	class: 'Grav\Framework\File\Formatter\JsonFormatter'
-	options:
-		file_extension: '.json'
-		encode_options: '' # See https://www.php.net/manual/en/function.json-encode.php (separate options with space)
-		decode_assoc: true # Decode objects as arrays
-		decode_depth: 512  # Decode up to 512 levels
-		decode_options: '' # See https://www.php.net/manual/en/function.json-decode.php (separate options with space)
-	```
+```yaml title="Markdown"
+# Markdown
+formatter:
+  class: 'Grav\Framework\File\Formatter\MarkdownFormatter'
+  options:
+    file_extension: '.md'
+    header: 'header'    # переменная заголовка, например header.title
+    body: 'markdown'    # переменная тела
+    raw: 'frontmatter'  # переменная RAW YAML
+    yaml:
+      inline: 20        # параметры YAML, см. форматтер YAML выше
+```
 
-=== "Yaml"
+```yaml title="Serialize"
+# PHP Serialize
+formatter:
+  class: 'Grav\Framework\File\Formatter\SerializeFormatter'
+  options:
+    file_extension: '.ser'
+    decode_options:
+      allowed_classes: ['stdClass'] # список разрешённых / безопасных классов при unserialize
+```
 
-	```yaml
-	# YAML
-	formatter:
-	class: 'Grav\Framework\File\Formatter\YamlFormatter'
-	options:
-		file_extension: '.yaml'
-		inline: 5           # Save with up to 4 expanded levels
-		indent: 2           # Indent with 2 spaces
-		native: true        # Use native YAML decoder if available
-		compat: true        # If YAML cannot be decoded, use compatibility mode (SLOW)
-	```
+```yaml title="INI"
+# INI
+formatter:
+  class: 'Grav\Framework\File\Formatter\IniFormatter'
+  options:
+    file_extension: '.ini'
+```
 
-=== "Markdown"
+```yaml title="CSV"
+# CSV
+formatter:
+  class: 'Grav\Framework\File\Formatter\CsvFormatter'
+  options:
+    file_extension: ['.csv', '.tsv']
+    delimiter: ','      # разделитель значений
+    mime: 'text/x-csv'  # MIME-тип для скачивания файла
+```
 
-	```yaml
-	# Markdown
-	formatter:
-	class: 'Grav\Framework\File\Formatter\MarkdownFormatter'
-	options:
-		file_extension: '.md'
-		header: 'header'    # Header variable eg. header.title
-		body: 'markdown'    # Body variable
-		raw: 'frontmatter'  # RAW YAML variable
-		yaml:
-		inline: 20        # YAML options, see YAML formatter from above
-	```
-
-=== "Serialize"
-
-	```yaml
-	# PHP Serialize
-	formatter:
-	class: 'Grav\Framework\File\Formatter\SerializeFormatter'
-	options:
-		file_extension: '.ser'
-		decode_options:
-		allowed_classes: ['stdClass'] # List of allowed / safe classes during unserialize
-	```
-
-=== "INI"
-
-	```yaml
-	# INI
-	formatter:
-	class: 'Grav\Framework\File\Formatter\IniFormatter'
-	options:
-		file_extension: '.ini'
-	```
-
-=== "CSV"
-
-	```yaml
-	# CSV
-	formatter:
-	class: 'Grav\Framework\File\Formatter\CsvFormatter'
-	options:
-		file_extension: ['.csv', '.tsv']
-		delimiter: ','      # Delimiter to separate the values
-		mime: 'text/x-csv'  # MIME type for downloading file
-	```
-
-Вы также можете установить порядок по умолчанию, который определяется парами `key: ASC|DESC`:
+Можно также задать сортировку по умолчанию, которая определяется парами `key: ASC|DESC`:
 
 ```yaml
 config:
   data:
-    # Ordering Options
+    # Параметры сортировки
     ordering:
       key: ASC
       timestamp: ASC
 ```
 
-Наконец, вы можете добавить поля поиска, которые просматриваются при вызове `collection.search()`:
+Наконец, можно добавить поля поиска, которые учитываются при вызове `collection.search()`:
 
 ```yaml
 config:
   data:
     search:
-      # Fields to be searched
+      # Поля для поиска
       fields:
         - last_name
         - first_name
         - email
-      # Search Options
+      # Параметры поиска
       options:
-        - contains: 1   # If field contains the search string, assign weight 1 to the object
+        - contains: 1   # если поле содержит строку поиска, назначить объекту вес 1
 ```
 
-**Fields** содержат список полей для поиска.
+**Fields** содержит список полей, по которым идёт поиск.
 
-Возможные варианты поиска:
+Параметры поиска могут быть такими:
 
-| Название | Класс | Описание |
+| Название | Значение | Описание |
 |------|-------|-------------|
-| case_sensitive | `true` или `false` | Если true, все проверки чувствительны к регистру, по умолчанию false |
-| same_as | 0 ... 1 | Значение поля должно совпадать со строкой поиска |
+| case_sensitive | `true` или `false` | Если true, все проверки чувствительны к регистру; по умолчанию false |
+| same_as | 0 ... 1 | Значение поля должно точно совпадать со строкой поиска |
 | starts_with | 0 ... 1 | Значение поля должно начинаться со строки поиска |
 | ends_with | 0 ... 1 | Значение поля должно заканчиваться строкой поиска |
 | contains | 0 ... 1 | Значение поля должно содержать строку поиска |
 
+Функция поиска возвращает 0, если поле не совпало, и вес от 0 до 1, если совпадение есть. Вес используется для сортировки результатов поиска. Объект с наибольшим баллом совпадает лучше, чем объект с меньшим баллом.
 
-Функция поиска возвращает 0, если поле не совпадает, и вес от 0 до 1, Если есть совпадение. Вес используется для упорядочения результатов поиска. Объект, который получает самое высокое ядро, имеет лучшее совпадение, чем объект с более низким баллом.
-
-!!! success ""
-
-	В настоящее время поиск не поддерживает наличие различных весов или стратегий для каждого поля.
+> [!NOTE] Примечание
+> Сейчас поиск не поддерживает разные веса или стратегии для разных полей.
 
 ### Config > Admin
 
-Раздел Admin содержит различные параметры конфигурации для настройки администрирования каталога. Он содержит несколько основных разделов: `router`, `actions`, `permissions`, `menu`, `template` и `views`.
+Раздел admin содержит различные параметры для настройки администрирования директории. В нём есть несколько основных разделов: `router`, `actions`, `permissions`, `menu`, `template` и `views`.
 
 ```yaml
 config:
-  # Admin Settings
+  # Настройки админки
   admin:
-    # Admin router
+    # Маршрутизатор админки
     router: {}
-    # Allowed admin actions
+    # Разрешённые действия в админке
     actions: {}
-    # Permissions
+    # Права доступа
     permissions: {}
-    # Admin menu
+    # Меню админки
     menu: {}
-    # Admin template type
+    # Тип шаблона админки
     template: pages
-    # Admin views
+    # Виды админки
     views: {}
 ```
 
-Дополнительный раздел `router` можно использовать для настройки маршрутов администрирования **Flex-каталога**. Маршрутизация поддерживает базовый путь, настраиваемые маршруты для каждого действия, а также перенаправление для обработки, например, обратной совместимости. Все пути относятся к базовому URL-адресу администратора.
+Необязательный раздел `router` позволяет настроить маршруты админки **директории Flex**. Маршрутизация поддерживает базовый путь, настраиваемые маршруты для каждого действия, а также перенаправления, например для обратной совместимости. Все пути относительны базового URL админки.
 
 ```yaml
 config:
   admin:
-    # Admin router
+    # Маршрутизатор админки
     router:
-      path: '/contacts' # Custom path to the directory
+      path: '/contacts' # собственный путь к директории
       actions:
-        configure: # Action name
-          path: '/contacts/configure' # New path to the action.
-      redirects: # List of redirects (from: to)
+        configure: # имя действия
+          path: '/contacts/configure' # новый путь к действию.
+      redirects: # список перенаправлений (откуда: куда)
         '/flex-objects/contacts': '/contacts'
 ```
 
-Иногда вы хотите ограничить администрирование только отображением записей или, например, разрешить редактировать только существующие. Для этого `actions` вы можете настроить разрешенные операции CRUD, чтобы они лучше соответствовали вашим потребностям.
+Иногда нужно ограничить администрирование так, чтобы только показывать записи или, например, разрешить только редактирование существующих. Для этого есть `actions`, где можно подогнать разрешённые операции CRUD под свои нужды.
 
 ```yaml
 config:
   admin:
-    # Allowed admin actions (for all users, including super user)
+    # Разрешённые действия в админке (для всех пользователей, включая суперпользователя)
     actions:
-      list: true   # Needs to be true (may change in the future)
-      create: true # Set to false to disable creating new objects
-      read: true   # Set to false to disable link to edit / details of the objects
-      update: false # Set to false to disable saving existing objects
-      delete: false # Set to false to disable deleting objects
+      list: true   # должно быть true (может измениться в будущем)
+      create: true # false запрещает создание новых объектов
+      read: true   # false запрещает ссылку на редактирование / подробности объектов
+      update: false # false запрещает сохранение существующих объектов
+      delete: false # false запрещает удаление объектов
 ```
 
-Приведенный выше пример предотвратит сохранение существующих объектов и их удаление для каждого пользователя, включая суперадминистратора.
+Пример выше запретит сохранение и удаление существующих объектов для всех пользователей, включая суперадминистратора.
 
-Раздел разрешений позволяет вам добавлять новые правила разрешений для Grav. Эти правила появятся в администраторе пользователя/группы. Вы можете создать столько правил разрешений, сколько захотите, но вам нужно добавить свою собственную логику или правила авторизации в этот файл, чтобы использовать их.
+Раздел permissions позволяет добавлять новые правила разрешений для Grav. Эти правила появятся в админке пользователей и групп. Можно создать сколько угодно правил разрешений, но чтобы они работали, в этом файле нужно добавить свою логику или правила `authorize`.
 
 ```yaml
 config:
   admin:
-    # Permissions
+    # Права доступа
     permissions:
-      # Primary permissions (used for the objects)
+      # Основные разрешения (используются для объектов)
       admin.contacts:
-        type: crudl # Create, Read, Update, Delete, List
+        type: crudl # создание, чтение, обновление, удаление, список
         label: Contacts Directory
-      # Secondary permissions (you need to assign these to a view, otherwise these will not be used)
+      # Вторичные разрешения (их нужно назначить виду, иначе они не используются)
       admin.configuration.contacts:
-        type: default # Simple permission
+        type: default # простое разрешение
         label: Contacts Configuration
 ```
 
-Если вы не хотите отображать свой каталог в администрировании `Flex Objects`, один из вариантов — отобразить пункт меню в основной навигации. Вы можете сделать это в секции `menu`.
+Если вы не хотите отображать директорию в администрировании `Flex Objects`, один из вариантов — показать пункт меню в основной навигации. Это делается в разделе конфигурации `menu`.
 
 ```yaml
 config:
   admin:
-    # Admin Menu
+    # Меню админки
     menu:
       list:
-        hidden: false # If true, hide the menu item.
-        route: '/contacts' # Alias to `config.admin.router.path` if router path is not set.
-        title: Контакты
+        hidden: false # если true, скрыть пункт меню.
+        route: '/contacts' # псевдоним для `config.admin.router.path`, если путь маршрутизатора не задан.
+        title: Contacts
         icon: fa-address-card-o
-        authorize: ['admin.contacts.list', 'admin.super'] # Authorization needed to access the menu item.
-        priority: 2 # Priority -10 .. 10 (highest goes up)
+        authorize: ['admin.contacts.list', 'admin.super'] # разрешение, необходимое для доступа к пункту меню.
+        priority: 2 # приоритет от -10 до 10 (чем больше, тем выше)
 ```
 
-В приведенном выше примере создается пункт меню **Контакты**, указывающий на `/admin/contacts`.
+Пример выше создаёт пункт меню **Contacts**, ведущий на `/admin/contacts`.
 
-Когда вы создаете свои собственные каталоги Flex, вам иногда может потребоваться использовать одни и те же шаблоны для всех ваших пользовательских каталогов. Вы можете сделать это с помощью `template`:
+Когда вы создаёте свои директории Flex, иногда хочется использовать одни и те же шаблоны во всех пользовательских директориях. Это делается с помощью `template`:
 
 ```yaml
 config:
   admin:
-    # Admin template type (folder)
+    # Тип (папка) шаблона админки
     template: contacts
 ```
 
-**Flex Admin** имеет несколько представлений для объектов. По умолчанию поддерживаются следующие представления: `list`, `edit`, `configure` и необязательные `preview` и `export`. Также возможно добавить свои собственные представления.
+У **админки Flex** есть несколько видов объектов. По умолчанию поддерживаются виды `list`, `edit`, `configure` и, необязательно, `preview` и `export`. Можно добавлять и собственные виды.
 
 ```yaml
 config:
   admin:
     views:
-      # List view
+      # Вид списка
       list: {}
-      # Edit view
+      # Вид редактирования
       edit: {}
-      # Configure view
+      # Вид конфигурации
       configure: {}
-      # Preview
+      # Предпросмотр
       preview: {}
-      # Data Export
+      # Экспорт данных
       export: {}
 ```
 
-#### Просмотр списка
+#### Вид списка
 
-Первое представление, которое вам понадобится — это то, в котором перечислены все ваши объекты. По умолчанию представление `list` использует *VueTable* и *AJAX* для разбивки объектов на страницы. Ему нужен список «полей» (`fields`) для отображения, а также «параметры» (`options`), чтобы определить, сколько элементов отображается одновременно, а также поле по умолчанию, используемое для упорядочивания.
+Первый нужный вид — тот, что выводит все объекты. По умолчанию вид `list` использует *VueTable* и *AJAX* для постраничного вывода объектов. Ему нужен список `fields` для отображения и `options`, определяющие, сколько элементов показывается сразу, а также поле сортировки по умолчанию.
 
 ```yaml
 config:
   admin:
     views:
-      # List view
+      # Вид списка
       list:
         icon: fa-address-card-o
         title: Site Contacts
-        fields: {}        # See below
+        fields: {}        # см. ниже
         options:
-          per_page: 20    # Default number of items per page
+          per_page: 20    # число элементов на странице по умолчанию
           order:
-            by: last_name # Default field used for ordering
-            dir: asc      # Default ordering direction
+            by: last_name # поле сортировки по умолчанию
+            dir: asc      # направление сортировки по умолчанию
 ```
 
-**Icon** и **Title** используются для настройки значка и заголовка страницы со списком. **Title** также поддерживает использование шаблона Twig в следующем формате:
+**Icon** и **title** используются для настройки иконки и заголовка страницы списка. **Title** также поддерживает шаблон Twig в таком формате:
 
 ```yaml
         title:
           template: "{{ 'PLUGIN_CONTACTS.CONTACTS_TITLE'|tu }}"
 ```
 
-**Fields** содержит поля, которые вы хотите отобразить в списке каталогов. У каждого поля есть ключ, который представляет собой имя поля. Значение можно не указывать или оно может содержать следующие параметры конфигурации:
-
+**Fields** содержит поля, которые вы хотите отображать в списке директории. У каждого поля есть ключ — имя поля. Значение можно опустить, либо оно может содержать следующие параметры:
 
 | Название | Значение | Пример | Описание |
-|------|-------|-------------|
+|------|-------|-------------|-------------|
 | width | `integer` | 8 | Ширина поля в пикселях |
-| alias | `string` | 'header.published' | Имя используемого поля формы. VueTable не любит точки в именах, поэтому установите псевдоним для вложенных переменных. |
-| field | `array` |  | Переопределение поля формы. Написано так же, как и любое поле формы, но без ключа. |
-| link | `string` | 'edit' | Добавляет ссылку для редактирования в текст. |
-| search | `boolean` | true | Делает поле доступным для поиска в списке администрирования. |
-| sort | `array` | field: 'first_name' | Вы можете указать другое значение, если вы используете другое имя поля при запросе данных на стороне сервера, например first_name. |
-| title_class | `string` | 'center' | Классы CSS, используемые в заголовках. |
-| data_class | `string` |  'left' | Классы CSS, используемые в столбцах данных. |
+| alias | `string` | 'header.published' | Имя поля формы, которое нужно использовать. VueTable не любит точки в именах, поэтому задайте псевдоним для вложенных переменных. |
+| field | `array` |  | Переопределение поля формы. Пишется как любое поле формы, но без ключа. |
+| link | `string` | 'edit' | Добавляет ссылку на редактирование к тексту. |
+| search | `boolean` | true | Делает поле доступным для поиска в списке админки. |
+| sort | `array` | field: 'first_name' | Можно указать другое значение, если при запросе данных на сервере используется другое имя поля, например first_name. |
+| title_class | `string` | 'center' | CSS-классы, используемые в заголовках. |
+| data_class | `string` |  'left' | CSS-классы, используемые в колонках данных. |
 
+#### Вид редактирования
 
-#### Редактирование
-
-Режим редактирования имеет те же основные параметры конфигурации, что и режим просмотра списка:
+У вида редактирования те же базовые параметры, что и у вида списка:
 
 ```yaml
 config:
   admin:
     views:
-      # Edit view
+      # Вид редактирования
       edit:
         icon: fa-address-card-o
         title:
           template: '{{ object.last_name ?? ''Last'' }}, {{ object.first_name ?? ''First Name'' }}'
 ```
 
-#### Настройка
+#### Вид конфигурации
 
-Можно добавлять параметры конфигурации каталога в широком диапазоне, которые затем могут быть использованы в файлах шаблонов.
+Вид конфигурации позволяет добавлять параметры уровня всей директории, которые затем можно использовать в файлах шаблонов.
 
 ```yaml
 config:
   admin:
     views:
-      # Configure view
+      # Вид конфигурации
       configure:
-        hidden: false # Configuration button can be hidden, for example if you have custom tab to replace it, like in Accounts.
-        authorize: 'admin.configuration.contacts' # Optional custom authorize rule for this view.
-        file: 'config://flex/contacts.yaml' # Optional file where the configuration is saved.
+        hidden: false # кнопку конфигурации можно скрыть, например если у вас есть своя вкладка, как в Accounts.
+        authorize: 'admin.configuration.contacts' # необязательное правило authorize для этого вида.
+        file: 'config://flex/contacts.yaml' # необязательный файл, в котором сохраняется конфигурация.
 
         icon: fa-cog
         title:
           template: "{{ directory.title }} {{ 'PLUGIN_ADMIN.CONFIGURATION'|tu }}"
 ```
 
-#### Предварительный просмотр
+#### Вид предпросмотра
 
-Flex также поддерживает предварительный просмотр, хотя сейчас он работает путем отрисовки страницы из внешнего интерфейса, которая может быть определена в файле blueprint.
+Flex также поддерживает предпросмотр, хотя сейчас он работает через рендеринг страницы фронтенда, которую можно задать в файле схемы.
 
 ```yaml
-    # Preview View
+    # Вид предпросмотра
     preview:
       enabled: true
       route:
-        template: '/contacts' # Twig template to create URL. In this case we use the list view
+        template: '/contacts' # Twig-шаблон для создания URL. Здесь используется вид списка
 
        icon: fa-address-card-o
         title:
           template: "{{ object.form.getValue('title') ?? object.title ?? key }}"
 ```
 
-#### Экспорт
+#### Вид экспорта
 
-Все объекты могут быть экспортированы в один файл. Вот пример конфигурации, как экспортировать данные в файл YAML:
+Все объекты можно экспортировать в один файл. Вот пример конфигурации для экспорта данных в YAML-файл:
 
 ```yaml
-    # Data Export
+    # Экспорт данных
     export:
       enabled: true
       method: 'jsonSerialize'
@@ -567,42 +548,42 @@ Flex также поддерживает предварительный прос
 
 ```yaml
 config:
-  # Site Settings
+  # Настройки сайта
   site:
     templates:
       collection:
-        # Lookup for the template layout files for collections of objects
+        # Поиск файлов макета шаблона для коллекций объектов
         paths:
           - 'flex/{TYPE}/collection/{LAYOUT}{EXT}'
       object:
-        # Lookup for the template layout files for objects
+        # Поиск файлов макета шаблона для объектов
         paths:
           - 'flex/{TYPE}/object/{LAYOUT}{EXT}'
       defaults:
-        # Default template variable {TYPE}; overridden by filename of this blueprint if template folder exists
+        # Переменная шаблона {TYPE} по умолчанию; переопределяется именем файла этой схемы, если папка шаблонов существует
         type: contacts
-        # Default template variable {LAYOUT}; can be overridden in render calls (usually Twig in templates)
+        # Переменная шаблона {LAYOUT} по умолчанию; может переопределяться в вызовах render (обычно в Twig-шаблонах)
         layout: default
 ```
 
-Настройки шаблона позволяют настроить пути поиска шаблона и установить тип по умолчанию и имя макета во внешнем интерфейсе.
+Настройки шаблонов позволяют настроить пути поиска шаблонов и задать имя типа и макета по умолчанию на фронтенде.
 
-## Чертежи
+## Blueprints
 
-Раздел чертежи определяет общие параметры конфигурации для всего каталога. Эти параметры позволяют настроить общий каталог в соответствии с потребностями сайта, не требуя ручного редактирования файлов.
+Раздел blueprints определяет общие параметры конфигурации для всей директории. Они позволяют настроить общую директорию под нужды сайта, не требуя ручного редактирования файлов.
 
 ```yaml
 blueprints:
-  # Blueprint for configure view.
+  # Схема для вида конфигурации.
   configure:
-    # We are inside TABS field.
+    # Мы внутри поля TABS.
     fields:
-      # Add our own tab
+      # Добавляем собственную вкладку
       compatibility:
         type: tab
         title: Compatibility
         fields:
-          # Fields should be prefixed with object, collection etc..
+          # Поля должны иметь префикс object, collection и т. д.
           object.compat.events:
             type: toggle
             toggleable: true
@@ -617,10 +598,8 @@ blueprints:
               type: bool
 ```
 
-!!! tip ""
+> [!WARNING] Предупреждение
+> **Совет:** эти параметры конфигурации можно изменить в разделе **[Конфигурация](../../administration/configuration/index.md)** раздела **[Администрирование директории Flex](../../administration/index.md)**.
 
-	Эти параметры конфигурации могут быть изменены в секции **[Настройка](/advanced/flex/administration/configuration)** **[Администрирования Flex-каталога](/advanced/flex/administration)**.
-
-!!! note ""
-
-	В настоящее время единственные используемые параметры конфигурации находятся внутри раздела кэша. Для ваших пользовательских настроек вам нужно добавить логику, чтобы использовать их самостоятельно.
+> [!NOTE] Примечание
+> **ПРИМЕЧАНИЕ:** сейчас используются только параметры конфигурации из раздела кэша. Для своих настроек вам нужно самостоятельно добавить логику их использования.

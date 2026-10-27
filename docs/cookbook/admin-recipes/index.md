@@ -1,236 +1,124 @@
 ---
-description: Инструкция по доработке админки Grav CMS.
+title: "Рецепты для админки"
+description: "Задачи и решения по настройке интерфейса Admin2 — одностраничного приложения на SvelteKit, которое общается с вашим сайтом через REST API."
+tags:
+  - "Рецепты"
+  - "Разработка"
+  - "Admin Next"
 ---
 
-# Рецепты админки
+# Рецепты для админки
 
-Эта страница содержит набор проблем и их решения, связанные с модификациями Grav Admin.
+На этой странице собраны задачи и решения по настройке интерфейса Admin2. Admin2 — одностраничное приложение на SvelteKit, которое общается с вашим сайтом через [REST API](../../api/index.md); плагины расширяют его, подписываясь на события `onApi*` и при необходимости поставляя небольшие веб-компоненты. Полный справочник, на который опираются эти рецепты, см. в [руководстве разработчика API](../../api/developer-guide/index.md).
 
-## Добавление пользовательского файла YAML
+> [!NOTE] Примечание
+> Для этих рецептов нужен плагин API `1.0.0-rc.16` / Admin2 `2.0.0-rc.16` или новее.
 
-!!! question ""
+## Добавление своей кнопки создания страницы
 
-	Вы хотите создать для всего сайта группу полей компании, редактируемых пользователем, подобных `system.yaml` или `site.yaml`, но в отдельном файле.
+<h4 id="problem">Проблема:</h4>
 
-Как указано в разделе [Основы / Конфигурация](/basics/grav-configuration/#drugie-parametry-konfiguratsii-i-faily), первым шагом является предоставление вашего нового файла данных YAML, например: `user/config/details.yaml`:
+Вам нужен простой способ создавать новую запись блога в нужной папке нажатием кнопки в админке, а не проходить каждый раз общий сценарий **Add Page**. В примере мы будем использовать запись блога.
 
-```yaml
-name: 'ABC Company Limited'
-address: '8732 North Cumbria Street, Golden, CO, 80401'
-email:
-general: 'hello@abc-company.com'
-support: 'support@abc-company.com'
-sales: 'sales@abc-company.com'
-phone:
-default: '555-123-1111'
-```
+<h4 id="solution">Решение:</h4>
 
-Теперь вам нужно предоставить соответствующий файл чертежа для определения формы. Чертёж может быть предоставлен с помощью плагина, но самый простой подход - просто поместить чертеж в файл: `user/blueprints/config/details.yaml`
+В устаревшем интерфейсе admin-classic это делалось блоком `add_modals` в `user/config/plugins/admin.yaml`, который указывал на пользовательскую схему. **Admin2 не использует этот механизм.** Кнопки панели инструментов добавляет плагин через событие `onApiMenubarItems`, и кнопка может либо вести глубокой ссылкой на штатную форму новой страницы, либо открывать собственное модальное окно. Выберите то, что больше подходит.
 
-Если вы хотите предоставить план через плагин, вам сначала нужно добавить этот код в свой плагин сразу после определения класса:
+##### Вариант A — глубокая ссылка на штатную форму новой страницы (проще всего) {: #option-a-deep-link-the-native-new-page-form-simple }
+
+Элемент панели меню может нести клиентское намерение `route`, которое открывает в Admin2 собственный экран **Add Page** с заранее заполненными родительской страницей и шаблоном. Выбор шаблона при этом **блокируется**, поэтому кнопка всегда создаёт страницу нужного типа. Ни схемы, ни веб-компонента, ни обработчика сохранения — вы бесплатно получаете слаг, валидацию и многоязычность штатной формы.
+
+В вашем плагине:
 
 ```php
-<?php
-
-class MyPlugin extends Plugin
+public static function getSubscribedEvents(): array
 {
-    public $features = [
-        'blueprints' => 1000,
+    return [
+        'onApiMenubarItems' => ['onApiMenubarItems', 0],
     ];
-
-    protected $version;
-    ...
-```
-
-Затем добавьте этот код в свой метод `onPluginsInitialized()`:
-
-```php
-<?php
-
-if ($this->isAdmin()) {
-    // Store this version and prefer newer method
-    if (method_exists($this, 'getBlueprint')) {
-        $this->version = $this->getBlueprint()->version;
-    } else {
-        $this->version = $this->grav['plugins']->get('admin')->blueprints()->version;
-    }
 }
-```
 
-Затем создайте файл с именем `user/plugins/myplugin/blueprints/config/details.yaml`
-
-Фактический файл чертежа должен содержать определение формы, которое соответствует данным конфигурации:
-
-```yaml
-title: Company Details
-form:
-    validation: loose
-    fields:
-
-        content:
-            type: section
-            title: 'Details'
-            underline: true
-        name:
-            type: text
-            label: 'Company Name'
-            size: medium
-            placeholder: 'ACME Corp'
-
-        address:
-            type: textarea
-            label: 'Address'
-            placeholder: '555 Somestreet,\r\nNewville, TX, 77777'
-            size: medium
-
-        email:
-            type: array
-            label: 'Email Addresses'
-            placeholder_key: Key
-            placeholder_value: Email Address
-
-        phone:
-            type: array
-            label: 'Phone Numbers'
-            placeholder_key: Key
-            placeholder_value: Phone Number
-```
-
-Использование типа поля `array` позволит вам добавлять произвольные поля электронной почты и телефона по мере необходимости.
-
-## Добавление модального окна для создания пользовательской страницы
-
-!!! question ""
-
-	Вы хотите предоставить простой способ создания нового сообщения в блоге или страницы изображений галереи. Для этого примера мы рассмотрим сообщение в блоге. Предположим, вы хотите создать блог и легко создать сообщение в нужной папке, нажав кнопку.
-
-Прежде всего, создайте форму для нашего модального окна. Создайте новый файл: `user/blueprints/admin/pages/new_post.yaml`.
-
-```yaml
-form:
-validation: loose
-fields:
-	section:
-		type: section
-		title: Add Post
-
-	title:
-	type: text
-	label: Post Title
-	validate:
-		required: true
-
-	folder:
-	type: hidden
-	default: '@slugify-title'
-
-	route:
-	type: hidden
-	default: /posts
-
-	name:
-	type: hidden
-	default: 'post'
-
-	visible:
-	type: hidden
-	default: ''
-
-	blueprint:
-	type: blueprint
-```
-
-Эта форма имитирует модальную форму по умолчанию `Add Page`. Как видите, для **папки** у нас есть специальное значение: `@slugify-title`. Это означает, что **папка** будет по умолчанию использовать сокращенную версию ввода формы **title**. **route** - это `/posts`, поэтому он будет помещен в папку `/posts`.
-
-**name** это `post`, поэтому он будет использовать чертёж страницы `post`.
-
-Второй шаг - отредактировать конфигурацию плагина админки. Чтобы добавить собственный код в файл конфигурации `admin.yaml` плагина админки, создайте файл `user/config/plugins/admin.yaml` и добавьте этот фрагмент:
-
-```twig
-add_modals:
-  -
-    label: Add Post
-    blueprint: admin/pages/new_post
-    show_in: bar
-```
-
-Ключи/значения конфигурации, доступные для `add_modals`:
-
-* `label` - текст, который будет отображаться на кнопке
-* `show_in` (по умолчанию: bar) (значения: bar|dropdown) - показывать ли кнопку на **bar** или **dropdown**
-* `blueprint` - чертеж, используемый шаблоном
-* `template` - шаблон, используемый модальным (по умолчанию: partials/blueprints-new.html.twig)
-* `with` - данные, которые передаются в шаблон
-* `link_classes` - классы для добавления к элементу ссылки
-* `modal_classes` - классы для добавления к модальному элементу
-
-## Добавление настраиваемого поля выбора
-
-!!! question ""
-
-	Вы хотите добавить поле выбора с большим списком значений. В этом примере мы предположим, что вы хотите отобразить список стран.
-
-Вы можете создать статическую функцию и вызвать массив из вашего чертежа. Вы можете закодировать эту функцию либо в php-файле вашей темы, либо в настраиваемом плагине.
-
-В этом примере мы добавим функцию к теме Antimatter, таким образом мы отредактируем файл `antimatter.php`, который находится в папке `user/themes/antimatter`.
-
-```php
-<?php
-
-namespace Grav\Theme;
-
-use Grav\Common\Theme;
-
-class Antimatter extends Theme
+public function onApiMenubarItems(\RocketTheme\Toolbox\Event\Event $event): void
 {
-    public static function countryCodes()
-    {
-        return array (
-            'AF' => 'Afghanistan',
-            'AX' => 'Åland Islands',
-            'AL' => 'Albania',
-            'DZ' => 'Algeria',
-            'AS' => 'American Samoa',
-            'AD' => 'Andorra',
-            'AO' => 'Angola',
-            'AI' => 'Anguilla',
-            'AQ' => 'Antarctica',
-            'AG' => 'Antigua & Barbuda',
-            'AR' => 'Argentina',
-            'AM' => 'Armenia',
-            'AW' => 'Aruba',
-            'AC' => 'Ascension Island',
-            'AU' => 'Australia',
-            'AT' => 'Austria',
-            'AZ' => 'Azerbaijan',
-            'BS' => 'Bahamas',
-            'BH' => 'Bahrain',
-            'BD' => 'Bangladesh',
-            'BB' => 'Barbados',
-            'BY' => 'Belarus',
-            'BE' => 'Belgium',
-            'BZ' => 'Belize',
-            'BJ' => 'Benin',
-            'BM' => 'Bermuda',
-            'BT' => 'Bhutan',
-        );
+    $items = $event['items'] ?? [];
+    $items[] = [
+        'id'     => 'new-post',
+        'plugin' => 'my-plugin',          // слаг вашего плагина
+        'label'  => 'New Post',           // всплывающая подсказка кнопки
+        'icon'   => 'fa-plus',            // иконка Font Awesome
+        // Глубокая ссылка на форму Add Page. /pages/new принимает три необязательных параметра:
+        //   parent   — предварительно выбирает родительскую страницу
+        //   template — предварительно выбирает И блокирует выбор шаблона
+        //   title    — заполняет заголовок (и подсказывает слаг)
+        'route'  => '/pages/new?parent=/blog&template=post&title=New%20Post',
+    ];
+    $event['items'] = $items;
+}
+```
+
+Этот единственный обработчик даёт вам кнопку **New Post** на верхней панели инструментов, которая открывает форму Add Page с родительской страницей `/blog`, заблокированным шаблоном `post` и заполненным заголовком.
+
+##### Вариант B — собственное модальное окно
+
+Когда нужны поля, которых нет в штатной форме, откройте модальное окно. Самый быстрый путь не требует веб-компонента: определите поля прямо в вызове, и Admin2 построит форму за вас. Из веб-компонента плагина (например, [плавающего виджета](../../api/developer-guide/index.md#floating-widgets) или [пользовательского поля](../../api/developer-guide/index.md#custom-admin-fields-via-web-components)):
+
+```javascript
+const values = await window.__GRAV_DIALOGS.form({
+  title: 'New Post',
+  fields: [
+    { name: 'title',   label: 'Post Title', required: true },
+    { name: 'summary', label: 'Summary', type: 'textarea' },
+  ],
+  submitLabel: 'Create',
+});
+if (values) {
+  // Создаём страницу через REST API.
+  await fetch(`${window.__GRAV_API_SERVER_URL}${window.__GRAV_API_PREFIX || '/api/v1'}/pages`, {
+    method: 'POST',
+    headers: { 'X-API-Token': window.__GRAV_API_TOKEN, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      route: '/blog/' + values.title.toLowerCase().replace(/\s+/g, '-'),
+      title: values.title,
+      template: 'post',
+      content: values.summary,
+    }),
+  });
+}
+```
+
+Для более богатого интерфейса (несколько шагов, живые данные, свой макет) поставьте веб-компонент модального окна в `admin-next/modals/{id}.js` и подключите его прямо к кнопке панели меню:
+
+```php
+$items[] = [
+    'id'     => 'new-post',
+    'plugin' => 'my-plugin',
+    'label'  => 'New Post',
+    'icon'   => 'fa-plus',
+    'modal'  => [
+        'component' => 'new-post',   // → admin-next/modals/new-post.js
+        'title'     => 'New Post',
+        'size'      => 'lg',         // sm | md | lg | xl
+    ],
+];
+```
+
+Компонент возвращает результат, испуская событие `resolve` (или `cancel`/`close`, чтобы закрыть окно). Полный контракт см. в разделе [Модальные окна и наложения](../../api/developer-guide/index.md#modals-and-overlays).
+
+##### Ограничение того, что создаётся
+
+Как бы ни пришёл запрос на создание, вы можете принудительно задать шаблон и внедрить метаданные по умолчанию на стороне сервера событием `onApiBeforePageCreate`, чтобы запись всегда получала нужный тип и заголовки независимо от клиента:
+
+```php
+public function onApiBeforePageCreate(\RocketTheme\Toolbox\Event\Event $event): void
+{
+    if (str_starts_with((string) $event['route'], '/blog/')) {
+        $event['template'] = 'post';
+        $header = $event['header'] ?? [];
+        $header['date'] = date('Y-m-d H:i');
+        $event['header'] = $header;
     }
 }
 ```
 
-!!! info ""
-
-	Это урезанный список для удобства просмотра, но вы можете скопировать/вставить полный список стран из [:material-github: umpirsky/count-list](https://github.com/umpirsky/country-list/blob/master/data/en_US/country.php)
-
-Затем мы вызываем функцию из чертежа или определения формы внешнего интерфейса следующим образом:
-
-```yaml
-country:
-  type: select
-  label: Country
-  data-options@: '\Grav\Theme\Antimatter::countryCodes'
-```
-
-Вот как это будет выглядеть в админке
-
-![](countrylist.png)
+> [!NOTE] Примечание
+> В отличие от рецепта с `add_modals` для admin-classic, который можно было добавить на любой сайт через `user/config/plugins/admin.yaml`, кнопка панели инструментов Admin2 регистрируется из плагина. Если у вас его ещё нет, достаточно крошечного плагина из одного файла с обработчиком `onApiMenubarItems` из примера выше.

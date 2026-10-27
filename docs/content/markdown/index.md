@@ -1,84 +1,101 @@
 ---
-description: Небольшая памятка об основах синтаксиса Markdown, используемого в Grav CMS.
+title: "Синтаксис Markdown"
+description: "Узнайте о синтаксисе Markdown в Grav."
+tags:
+  - "Контент"
+  - "Markdown"
 ---
 
 # Синтаксис Markdown
 
-Посмотрим правде в глаза: написание контента для Интернета утомительно. Редакторы WYSIWYG облегчают эту задачу, но обычно они приводят к ужасному коду или, что ещё хуже, уродливым веб-страницам.
+Скажем честно: писать контент для веба утомительно. Визуальные редакторы (WYSIWYG) немного облегчают задачу, но обычно в результате получается ужасный код или, что ещё хуже, некрасивые веб-страницы.
 
-**Markdown** — лучший способ написать **HTML**, без всех сложностей и уродства, которые обычно сопровождают его.
+**Markdown** — лучший способ писать **HTML**, без всей сложности и уродства, которые обычно его сопровождают.
 
-Некоторые из ключевых преимуществ:
+---
 
-1. Markdown прост в освоении, с минимальным количеством дополнительных символов, поэтому писать контент также быстрее.
-2. Меньше вероятность ошибок при записи.
-3. Создает действительный вывод XHTML.
-4. Содержит контент и визуальный дисплей отдельно, поэтому вы не можете испортить внешний вид вашего сайта.
-5. Пишите в любом текстовом редакторе или приложении Markdown, которое вам нравится.
-6. Использование Markdown — одно удовольствие!
+Некоторые из главных преимуществ:
 
-Джон Грубер, автор Markdown, говорит об этом так:
+1. Markdown легко освоить, дополнительных символов минимум, поэтому контент пишется быстрее.
+2. Меньше вероятность ошибок при написании на Markdown.
+3. Даёт корректный вывод XHTML.
+4. Разделяет контент и визуальное отображение, поэтому вы не испортите внешний вид сайта.
+5. Можно писать в любом текстовом редакторе или Markdown-приложении.
+6. Markdown — одно удовольствие!
 
-> Основная цель разработки синтаксиса форматирования Markdown - сделать его максимально читаемым. Идея состоит в том, что отформатированный с помощью Markdown документ должен быть опубликован как есть, как обычный текст, не выглядя так, как будто он размечен тегами или инструкциями по форматированию. Несмотря на то, что на синтаксис Markdown влияют несколько существующих фильтров преобразования текста в HTML, единственным основным источником вдохновения для синтаксиса Markdown является формат простой текстовой электронной почты.
+Джон Грубер, автор Markdown, описывает это так:
+
+> Главная цель дизайна синтаксиса форматирования Markdown — сделать его максимально читаемым. Идея в том, что документ, отформатированный в Markdown, должен публиковаться как есть, в виде обычного текста, не выглядя при этом размеченным тегами или инструкциями форматирования. Хотя на синтаксис Markdown повлияли несколько существовавших фильтров текст-в-HTML, главный источник вдохновения — формат обычного текстового письма.
 > -- <cite>Джон Грубер</cite>
 
-Grav поставляется со встроенной поддержкой [Markdown](https://daringfireball.net/projects/markdown/) и [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/). Вы должны включить **Markdown Extra** в конфигурационном файле `system.yaml`.
+Grav поставляется со встроенной поддержкой [Markdown](https://daringfireball.net/projects/markdown/) и [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/). Чтобы использовать **Markdown Extra**, включите её в файле конфигурации `system.yaml`.
 
-Давайте рассмотрим основные элементы Markdown и то, как выглядит полученный HTML:
+> [!NOTE] Примечание
+> **Новое в Grav 2.0** — рендеринг Markdown получил более полный набор фич [GitHub Flavored Markdown](https://github.github.com/gfm/), **включённый по умолчанию**: [списки задач](#task-lists), [подсветка](#highlight)/[нижний индекс](#subscript)/[верхний индекс](#superscript), автоматическое [связывание голых адресов `www.` и email](#automatic-links), а также экранирование запрещённых необработанных HTML-тегов. Также доступен набор [расширений для таблиц](#enhanced-tables), включаемых по желанию: объединение ячеек, таблицы без заголовка, подписи, атрибуты и многострочные ячейки. Всё это настраивается; см. [Конфигурация](#configuration).
 
-!!! tip ""
+Не будем откладывать: рассмотрим основные элементы Markdown и то, как выглядит получающийся HTML:
 
-	:material-bookmark: Добавьте эту страницу в закладки для удобства использования в будущем!
+> [!CAUTION] Внимание
+> :fontawesome-solid-bookmark: Сохраните эту страницу в закладки, чтобы легко обращаться к ней в будущем!
 
 ## Заголовки
 
-Заголовки от `h1` до `h6` состоят из символа `#` для каждого уровня:
+Заголовки от `h1` до `h6` создаются с помощью `#` для каждого уровня:
 
 ```markdown
-# Заголовок h1
-## Заголовок h2
-### Заголовок h3
-#### Заголовок h4
-##### Заголовок h5
-###### Заголовок h6
+# h1 Heading
+## h2 Heading
+### h3 Heading
+#### h4 Heading
+##### h5 Heading
+###### h6 Heading
 ```
+
+Рендерится так:
+
+# h1 Heading
+## h2 Heading
+### h3 Heading
+#### h4 Heading
+##### h5 Heading
+###### h6 Heading
 
 HTML:
 
-```
-<h1>Заголовок h1</h1>
-<h2>Заголовок h2</h2>
-<h3>Заголовок h3</h3>
-<h4>Заголовок h4</h4>
-<h5>Заголовок h5</h5>
-<h6>Заголовок h6</h6>
+```html
+<h1>h1 Heading</h1>
+<h2>h2 Heading</h2>
+<h3>h3 Heading</h3>
+<h4>h4 Heading</h4>
+<h5>h5 Heading</h5>
+<h6>h6 Heading</h6>
 ```
 
 ## Комментарии
 
-Комментарии должны быть совместимы с HTML
+Комментарии должны быть совместимы с HTML.
 
-```
+```html
 <!--
-Это комментарий
+This is a comment
 -->
 ```
 
-Комментарий ниже **не должен** быть виден:
+Комментарий ниже **НЕ** должен отображаться:
 
 <!--
-Это комментарий
+This is a comment
 -->
 
 ## Горизонтальные линии
 
-Элемент HTML `<hr>` предназначен для создания «тематического разрыва» между элементами уровня абзаца. В Markdown вы можете создать <hr> любым из способов ниже:
+HTML-элемент `<hr>` создаёт «тематический разрыв» между элементами уровня абзаца. В Markdown `<hr>` можно создать любым из следующих способов:
 
-* `___`: три последовательных подчеркивания
-* `---`: три последовательных тире
-* `***`: три звездочки подряд
+* `___`: три подряд идущих символа подчёркивания
+* `---`: три подряд идущих дефиса
+* `***`: три подряд идущих звёздочки
 
-преобразуется в:
+рендерится так:
 
 ___
 
@@ -86,121 +103,205 @@ ___
 
 ***
 
-## Обычный текст
+## Основной текст
 
-Обычный текст будет заключен в теги `<p> </p>` в обработанном HTML.
+Обычный текст оборачивается тегами `<p></p>` в отрендеренном HTML.
 
-Итак, это обычный текст:
+Например, такой текст:
 
 ```markdown
 Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.
 ```
 
-преобразуется в такой HTML:
+рендерится в такой HTML:
 
-```
+```html
 <p>Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.</p>
 ```
 
-**Разрыв строки** может быть выполнен с 2 пробелами, за которыми следует 1 перенос строки.
+**Перенос строки** делается двумя пробелами и одним переводом строки.
 
 ## Встроенный HTML
 
-Если вам нужен определённый HTML-тег (с классом), вы можете использовать обычный HTML:
+Если нужен определённый HTML-тег (с классом), просто используйте HTML:
 
-```
-Абзац в Markdown.
+```html
+Paragraph in Markdown.
 
 <div class="class">
-    Это <b>HTML</b>
+    This is <b>HTML</b>
 </div>
 
-Абзац в Markdown.
+Paragraph in Markdown.
 ```
 
-## Акцент
+> [!NOTE] Примечание
+> **Grav 2.0** экранирует небольшой список запрещённых тегов «необработанного HTML» в вашем контенте — `title`, `textarea`, `style`, `xmp`, `iframe`, `noembed`, `noframes`, `script` и `plaintext`, — поэтому они выводятся как видимый текст, а не как активная разметка, что соответствует `tagfilter` в GitHub Flavored Markdown. Это удобство, помогающее избежать случайных поломок, а не граница безопасности; широкая очистка HTML остаётся задачей слоя безопасности вашего сайта. Это можно отключить в разделе [Конфигурация](#configuration).
+
+### Разрешение iframe и другого необработанного HTML {: #allowing-iframes-and-other-raw-html }
+
+Если вставка, работавшая в Grav 1.x (YouTube-`<iframe>`, встроенная карта, виджет `<script>`), теперь отображается на странице как обычный текст, причина в GFM `tagfilter`: он экранировал открывающий `<` тега, поэтому браузер печатает тег вместо того, чтобы выполнить его.
+
+Стоит прояснить два момента, потому что их легко перепутать:
+
+- **Список «опасных HTML-тегов»** в разделе *Конфигурация → Безопасность* — другая фича. Он управляет *сканером* безопасности, который предупреждает вас при сохранении контента с рискованной разметкой. Он никогда не управлял тем, рендерится ли тег, поэтому его изменение не влияет на исчезающий iframe.
+- **Список запрещённых тегов `tagfilter` фиксирован** (`title`, `textarea`, `style`, `xmp`, `iframe`, `noembed`, `noframes`, `script`, `plaintext`) и не редактируется. Он соответствует спецификации GitHub Flavored Markdown.
+
+Есть два хороших способа вернуть вставку:
+
+1. **Рекомендуется: добавить её через шорткод или шаблон страницы**, а не вставлять необработанный HTML в Markdown. Так `tagfilter` остаётся включённым везде, а вставку можно разместить осознанно. См. [Создание шорткода](../creating-a-shortcode/index.md) и [подход с шаблоном страницы](../twig-in-content/index.md#use-a-page-template).
+2. **Отключить `tagfilter`**, если вы предпочитаете разрешить необработанные HTML-теги на всём сайте. Это настраивается в разделе *Конфигурация → Система → Markdown* или в `user/config/system.yaml`:
+
+```yaml
+pages:
+  markdown:
+    gfm:
+      tagfilter: false
+```
+
+> [!NOTE] Примечание
+> Отключение `tagfilter` **не** равносильно отключению очистки. Оно лишь перестаёт экранировать этот короткий список запрещённых тегов в выводе Markdown. Настоящая защита вашего сайта от XSS (слой `security.xss_*`, который охватывает опасные протоколы, атрибуты обработчиков событий, встроенные стили и многое другое) в любом случае остаётся полностью активной. Оставлять `tagfilter` выключенным разумно на сайте, где контент пишете вы и другие доверенные авторы; включайте его там, где вы рендерите недоверенный или присланный пользователями Markdown, и используйте в этом случае вариант 1.
+
+## Выделение
 
 ### Жирный
 
-Для выделения фрагмента текста с большим весом шрифта.
+Для выделения фрагмента текста более жирным начертанием.
 
-Следующий фрагмент текста **выделен жирным шрифтом**.
+Следующий фрагмент текста **rendered as bold text**.
 
 ```markdown
-**преобразуется в жирный текст**
+**rendered as bold text**
 ```
 
-преобразуется в:
+рендерится так:
 
-**преобразуется в жирный текст**
+**rendered as bold text**
 
 и такой HTML:
 
-```
-<strong>преобразуется в жирный текст</strong>
+```html
+<strong>rendered as bold text</strong>
 ```
 
 ### Курсив
 
 Для выделения фрагмента текста курсивом.
 
-Следующий фрагмент текста _представлен как курсив_.
+Следующий фрагмент текста _rendered as italicized text_.
 
 ```markdown
-_преобразуется в курсив_
+_rendered as italicized text_
 ```
 
-преобразуется в:
+рендерится так:
 
-_преобразуется в курсив_
+_rendered as italicized text_
 
 и такой HTML:
 
-```
-<em>преобразуется в курсив</em>
+```html
+<em>rendered as italicized text</em>
 ```
 
-### Зачеркнутый
+### Зачёркивание {: #strikethrough }
 
-В GFM (GitHub Flavored Markdown) вы можете делать зачеркивания.
+В GFM (GitHub Flavored Markdown) можно зачёркивать текст.
 
 ```markdown
-~~Зачеркни этот текст.~~
+~~Strike through this text.~~
 ```
 
-Преобразуется в:
+Что рендерится так:
 
-~~Зачеркни этот текст.~~
+~~Strike through this text.~~
 
 HTML:
 
+```html
+<del>Strike through this text.</del>
 ```
-<del>Зачеркни этот текст.</del>
+
+### Подсветка {: #highlight }
+
+> [!NOTE] Примечание
+> Подсветка, нижний и верхний индексы — **новое в Grav 2.0**, включено по умолчанию.
+
+Заключите текст в двойные знаки равенства, чтобы пометить его как подсвеченный; он рендерится как HTML-элемент `<mark>`.
+
+```markdown
+Markdown makes ==certain words stand out==.
+```
+
+Рендерится так:
+
+Markdown makes ==certain words stand out==.
+
+HTML:
+
+```html
+<p>Markdown makes <mark>certain words stand out</mark>.</p>
+```
+
+### Нижний индекс {: #subscript }
+
+Заключите текст в одиночные тильды для нижнего индекса; он рендерится как элемент `<sub>`. Одиночное `~text~` — нижний индекс, а двойное `~~text~~` остаётся [зачёркиванием](#strikethrough), поэтому эти возможности никогда не конфликтуют.
+
+```markdown
+The chemical formula for water is H~2~O.
+```
+
+Рендерится так:
+
+The chemical formula for water is H~2~O.
+
+HTML:
+
+```html
+<p>The chemical formula for water is H<sub>2</sub>O.</p>
+```
+
+### Верхний индекс {: #superscript }
+
+Заключите текст в одиночные символы каретки для верхнего индекса; он рендерится как элемент `<sup>`.
+
+```markdown
+Einstein's famous equation is E = mc^2^.
+```
+
+Рендерится так:
+
+Einstein's famous equation is E = mc^2^.
+
+HTML:
+
+```html
+<p>Einstein's famous equation is E = mc<sup>2</sup>.</p>
 ```
 
 ## Цитаты
 
-Для цитирования блоков контента из другого источника в вашем документе.
+Для цитирования блоков контента из другого источника в документе.
 
-Добавьте `>` перед любым текстом, который вы хотите процитировать.
+Добавьте `>` перед текстом, который хотите процитировать.
 
 ```markdown
 > **Fusion Drive** combines a hard drive with a flash storage (solid-state drive) and presents it as a single logical volume with the space of both drives combined.
 ```
 
-Преобразуется в:
+Рендерится так:
 
 > **Fusion Drive** combines a hard drive with a flash storage (solid-state drive) and presents it as a single logical volume with the space of both drives combined.
 
 и такой HTML:
 
-```
+```html
 <blockquote>
   <p><strong>Fusion Drive</strong> combines a hard drive with a flash storage (solid-state drive) and presents it as a single logical volume with the space of both drives combined.</p>
 </blockquote>
 ```
 
-Цитаты также могут быть вложенными:
+Цитаты можно вкладывать друг в друга:
 
 ```markdown
 > Donec massa lacus, ultricies a ullamcorper in, fermentum sed augue.
@@ -209,7 +310,7 @@ Nunc augue augue, aliquam non hendrerit ac, commodo vel nisi.
 odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac eu diam.
 ```
 
-Преобразуется в:
+Рендерится так:
 
 > Donec massa lacus, ultricies a ullamcorper in, fermentum sed augue.
 Nunc augue augue, aliquam non hendrerit ac, commodo vel nisi.
@@ -218,25 +319,24 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 
 ## Уведомления
 
-!!! info ""
-
-	Старый механизм уведомлений, отменяющий синтаксис блочных кавычек (`>>>`), устарел. Уведомления теперь обрабатываются через специальный плагин под названием [Markdown Notices](https://github.com/getgrav/grav-plugin-markdown-notices)
+> [!WARNING] Предупреждение
+> Старый механизм уведомлений, переопределявший синтаксис цитат (`>>>`), устарел. Теперь уведомления обрабатываются специальным плагином [Markdown Notices](https://github.com/getgrav/grav-plugin-markdown-notices).
 
 ## Списки
 
-### Неупорядоченный
+### Неупорядоченные
 
-Список элементов, в котором порядок явно не имеет значения.
+Список элементов, порядок которых явно не важен.
 
-Вы можете использовать любой из следующих символов для обозначения маркеров для каждого элемента списка:
+Для маркеров каждого элемента можно использовать любой из следующих символов:
 
 ```markdown
-* правильный маркер
-- правильный маркер
-+ правильный маркер
+* valid bullet
+- valid bullet
++ valid bullet
 ```
 
-Пример
+Например:
 
 ```markdown
 + Lorem ipsum dolor sit amet
@@ -253,7 +353,7 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 + Eget porttitor lorem
 ```
 
-Преобразуется в:
+Рендерится так:
 
 + Lorem ipsum dolor sit amet
 + Consectetur adipiscing elit
@@ -268,9 +368,9 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 + Aenean sit amet erat nunc
 + Eget porttitor lorem
 
-И такой HTML
+И такой HTML:
 
-```
+```html
 <ul>
   <li>Lorem ipsum dolor sit amet</li>
   <li>Consectetur adipiscing elit</li>
@@ -290,9 +390,9 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 </ul>
 ```
 
-### Упорядоченный
+### Упорядоченные
 
-Список элементов, в котором порядок элементов явно имеет значение.
+Список элементов, порядок которых явно важен.
 
 ```markdown
 1. Lorem ipsum dolor sit amet
@@ -305,7 +405,7 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 8. Eget porttitor lorem
 ```
 
-Преобразуется в:
+Рендерится так:
 
 1. Lorem ipsum dolor sit amet
 2. Consectetur adipiscing elit
@@ -318,7 +418,7 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 
 И такой HTML:
 
-```
+```html
 <ol>
   <li>Lorem ipsum dolor sit amet</li>
   <li>Consectetur adipiscing elit</li>
@@ -331,9 +431,7 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 </ol>
 ```
 
-!!! tip ""
-
-	Если вы просто используете `1.` для каждого пункта списка, Markdown применит автоматическую нумерацию. Например:
+**Совет**: если использовать `1.` для каждого пункта, Markdown автоматически пронумерует элементы. Например:
 
 ```markdown
 1. Lorem ipsum dolor sit amet
@@ -346,7 +444,7 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 1. Eget porttitor lorem
 ```
 
-Преобразуется в:
+Рендерится так:
 
 1. Lorem ipsum dolor sit amet
 2. Consectetur adipiscing elit
@@ -357,43 +455,72 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 7. Aenean sit amet erat nunc
 8. Eget porttitor lorem
 
+### Списки задач {: #task-lists }
+
+> [!NOTE] Примечание
+> Списки задач — **новое в Grav 2.0**, включены по умолчанию.
+
+Добавьте `[ ]` (не выполнено) или `[x]` (выполнено) сразу после маркера списка, чтобы элемент отобразился как флажок, согласно GitHub Flavored Markdown.
+
+```markdown
+- [x] Write the documentation
+- [x] Review the examples
+- [ ] Ship it
+```
+
+Рендерится так:
+
+- [x] Write the documentation
+- [x] Review the examples
+- [ ] Ship it
+
+HTML:
+
+```html
+<ul>
+  <li class="task-list-item"><input type="checkbox" disabled="" checked="" /> Write the documentation</li>
+  <li class="task-list-item"><input type="checkbox" disabled="" checked="" /> Review the examples</li>
+  <li class="task-list-item"><input type="checkbox" disabled="" /> Ship it</li>
+</ul>
+```
+
+Флажки отображаются только для чтения (`disabled`), а каждый `<li>` получает класс `task-list-item`, чтобы списки задач можно было оформить в теме.
+
 ## Код
 
 ### Встроенный код
 
-Оберните встроенные фрагменты кода в `` ` ``.
+Заключайте встроенные фрагменты кода в обратные кавычки `` ` ``.
 
 ```markdown
-В этом примере блок `<section> </section>` должен быть заключен в **код**.
+In this example, I50 should be wrapped as **code**.
 ```
 
-Преобразуется в:
+Рендерится так:
 
-В этом примере блок `<section> </section>` должен быть заключен в **код**.
+In this example, `<section></section>` should be wrapped with **code**.
 
 HTML:
 
-```
-<p>В этом примере блок <code>&lt;section&gt;&lt;/section&gt;</code> должен быть заключен в <strong>code</strong>.</p>
+```html
+<p>In this example, <code>&lt;section&gt;&lt;/section&gt;</code> should be wrapped with <strong>code</strong>.</p>
 ```
 
 ### Код с отступом
 
-Или сделайте отступ в нескольких строках кода как минимум на четыре пробела, например:
+Либо сделайте отступ в несколько строк кода минимум в четыре пробела, как здесь:
 
-````
-```
-  // Комментарий
+<pre>
+  // Комментарии
   line 1 of code
   line 2 of code
   line 3 of code
-```
-````
+</pre>
 
-Преобразуется в:
+Рендерится так:
 
 ```text
-// Комментарий
+// Комментарии
 line 1 of code
 line 2 of code
 line 3 of code
@@ -401,10 +528,10 @@ line 3 of code
 
 HTML:
 
-```
+```html
 <pre>
   <code>
-    // Комментарий
+    // Комментарии
     line 1 of code
     line 2 of code
     line 3 of code
@@ -412,29 +539,29 @@ HTML:
 </pre>
 ```
 
-### Блок кода с «заборчиками»
+### Блоки кода «fences»
 
-Используйте тройные кавычки ```` ``` ````, чтобы вывести текст в нескольких строках кода с атрибутом языка
+Используйте «fences» ```` ``` ````, чтобы оградить несколько строк кода и указать язык.
 
-````
+<pre>
 ```
-Образец текста...
+Sample text here...
 ```
-````
+</pre>
 
 HTML:
 
-```
+```html
 <pre language-html>
-  <code>Образец текста...</code>
+  <code>Sample text here...</code>
 </pre>
 ```
 
 ### Подсветка синтаксиса
 
-GFM или «GitHub Flavored Markdown» также поддерживает подсветку синтаксиса. Чтобы активировать её, просто добавьте расширение файла на языке, который вы хотите использовать, сразу после открывающего блока с тройными кавычками, ` ```js `, и выделение синтаксиса будет автоматически применяться в выходном HTML. Например, чтобы применить подсветку синтаксиса к коду JavaScript:
+GFM, или «GitHub Flavored Markdown», также поддерживает подсветку синтаксиса. Чтобы включить её, просто добавьте расширение нужного языка сразу после первого «забора» кода — ` ```js `, — и подсветка синтаксиса автоматически применится в отрендеренном HTML. Например, чтобы включить подсветку для JavaScript:
 
-````
+<pre>
 ```js
 grunt.initConfig({
   assemble: {
@@ -455,11 +582,11 @@ grunt.initConfig({
   }
 };
 ```
-````
+</pre>
 
-Преобразуется в:
+Рендерится так:
 
-```js
+```javascript
 grunt.initConfig({
   assemble: {
     options: {
@@ -480,112 +607,221 @@ grunt.initConfig({
 };
 ```
 
-!!! success ""
-
-	Чтобы подсветка синтаксиса работала, нужно установить и включить [плагин Highlight](https://github.com/getgrav/grav-plugin-highlight). Он, в свою очередь, использует плагин jquery, поэтому jquery также должен подключаться в вашем шаблоне.
+> [!NOTE] Примечание
+> Чтобы подсветка синтаксиса работала, нужно установить и включить [плагин Highlight](https://github.com/getgrav/grav-plugin-highlight). Он, в свою очередь, использует jQuery-плагин, поэтому jQuery также должен быть загружен в вашей теме.
 
 ## Таблицы
 
-Таблицы создаются путем добавления вертикальных черточек в качестве разделителей между каждой ячейкой и добавления линий тире (также разделенных полосами) под заголовком. Обратите внимание, что вертикальные черточки не нужно выравнивать по вертикали.
+Таблицы создаются добавлением вертикальных черт как разделителей между ячейками и строки дефисов (тоже разделённых чертами) под заголовком. Обратите внимание: вертикальные черты не нужно выравнивать.
 
 ```markdown
-| Параметр | Описание |
+| Option | Description |
 | ------ | ----------- |
-| data   | путь к файлам данных для предоставления данных, которые будут переданы в шаблоны. |
-| engine | движок, который будет использоваться для обработки шаблонов. Handlebars по умолчанию. |
-| ext    | расширение, которое будет использоваться для файлов назначения. |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
 ```
 
-Преобразуется в:
+Рендерится так:
 
-| Параметр | Описание |
+| Option | Description |
 | ------ | ----------- |
-| data   | путь к файлам данных для предоставления данных, которые будут переданы в шаблоны. |
-| engine | движок, который будет использоваться для обработки шаблонов. Handlebars по умолчанию. |
-| ext    | расширение, которое будет использоваться для файлов назначения. |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
 
 И такой HTML:
 
-```
+```html
 <table>
   <thead>
     <tr>
-      <th>Параметр</th>
-      <th>Описание</th>
+      <th>Option</th>
+      <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>data</td>
-      <td>путь к файлам данных для предоставления данных, которые будут переданы в шаблоны.</td>
+      <td>path to data files to supply the data that will be passed into templates.</td>
     </tr>
     <tr>
       <td>engine</td>
-      <td>движок, который будет использоваться для обработки шаблонов. Handlebars по умолчанию.</td>
+      <td>engine to be used for processing templates. Handlebars is the default.</td>
     </tr>
     <tr>
       <td>ext</td>
-      <td>расширение, которое будет использоваться для файлов назначения.</td>
+      <td>extension to be used for dest files.</td>
     </tr>
   </tbody>
 </table>
 ```
 
-### Текст с выравниванием по правому краю
+### Выравнивание по правому краю
 
-Добавление двоеточия справа от тире под любым заголовком выравнивает текст этого столбца по правому краю.
+Добавление двоеточия справа от дефисов под заголовком выровняет текст в этом столбце по правому краю.
 
 ```markdown
-| Параметр | Описание |
+| Option | Description |
 | ------:| -----------:|
-| data   | путь к файлам данных для предоставления данных, которые будут переданы в шаблоны. |
-| engine | движок, который будет использоваться для обработки шаблонов. Handlebars по умолчанию. |
-| ext    | расширение, которое будет использоваться для файлов назначения. |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
 ```
 
-| Параметр | Описание |
+| Option | Description |
 | ------:| -----------:|
-| data   | путь к файлам данных для предоставления данных, которые будут переданы в шаблоны. |
-| engine | движок, который будет использоваться для обработки шаблонов. Handlebars по умолчанию. |
-| ext    | расширение, которое будет использоваться для файлов назначения. |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
+
+### Расширенные таблицы {: #enhanced-tables }
+
+Grav 2.0 добавляет пять расширений таблиц, **включаемых по желанию**. Все они **по умолчанию выключены**, поэтому стандартная таблица никогда не меняется, пока вы не включите расширение — глобально в разделе [Конфигурация](#configuration) или для отдельной страницы в её метаданных:
+
+```yaml
+markdown:
+  tables:
+    colspan: true
+    headerless: true
+    captions: true
+    attributes: true
+    multiline: true
+```
+
+#### Colspan
+
+Оставьте ячейку пустой, и она объединится с ячейкой слева, увеличив её `colspan` (соглашение MultiMarkdown).
+
+```markdown
+| Item    | Jan | Feb | Mar |
+| :--     | --: | --: | --: |
+| Widgets | 10  | 12  | 9   |
+| Total for the quarter |   |   | 57 |
+```
+
+Метка последней строки занимает первые три столбца:
+
+```html
+<tr>
+  <td style="text-align: left;" colspan="3">Total for the quarter</td>
+  <td style="text-align: right;">57</td>
+</tr>
+```
+
+#### Без заголовка
+
+Начните таблицу сразу со строки-разделителя, чтобы получить таблицу только с `<tbody>` и без заголовка.
+
+```markdown
+| --- | --- |
+| Mercury | Closest to the Sun |
+| Neptune | Furthest from the Sun |
+```
+
+```html
+<table>
+  <tbody>
+    <tr><td>Mercury</td><td>Closest to the Sun</td></tr>
+    <tr><td>Neptune</td><td>Furthest from the Sun</td></tr>
+  </tbody>
+</table>
+```
+
+#### Подписи
+
+Строка `[Caption]` сразу после таблицы становится `<caption>` (рендерится первым дочерним элементом таблицы). Встроенный Markdown внутри подписи обрабатывается.
+
+```markdown
+| Symbol | Element |
+| --- | --- |
+| H | Hydrogen |
+| He | Helium |
+[The first two elements of the periodic table]
+```
+
+```html
+<table>
+  <caption>The first two elements of the periodic table</caption>
+  <thead>...</thead>
+  <tbody>...</tbody>
+</table>
+```
+
+#### Атрибуты
+
+Строка `{.class #id}` сразу после таблицы задаёт `class` и `id` для элемента `<table>` — удобно для CSS-фреймворков, которые оформляют классы вроде `.striped` или `.responsive`. Также принимается форма в стиле kramdown `{:.class}` (с ведущим двоеточием). Распознаются только `class` и `id`; при любом другом токене строка остаётся без изменений.
+
+```markdown
+| Name | Role |
+| --- | --- |
+| Ada | Engineer |
+| Grace | Architect |
+{.striped .responsive #team-table}
+```
+
+```html
+<table class="striped responsive" id="team-table">
+  ...
+</table>
+```
+
+#### Многострочные ячейки
+
+Завершите строку обратной косой чертой (`\`), и следующая строка продолжит её: ячейки следующей строки объединяются по столбцам с предыдущей строкой, каждая через `<br>`. Пустая ячейка продолжения ничего не добавляет, поэтому на следующую строку можно перенести только один столбец.
+
+```markdown
+| Feature | Description |
+| --- | --- |
+| Tables | Alignment, escaped pipes, \
+| | and inline cell content |
+| Lists | Ordered, unordered and task lists |
+```
+
+```html
+<tr>
+  <td>Tables</td>
+  <td>Alignment, escaped pipes,<br>and inline cell content</td>
+</tr>
+```
 
 ## Ссылки
 
-### Обычная ссылка
+### Простая ссылка
 
 ```markdown
 [Assemble](https://assemble.io)
 ```
 
-Рендерится так:
+Рендерится так (наведите на ссылку — подсказки нет):
 
 [Assemble](https://assemble.io)
 
 HTML:
 
-```
+```html
 <a href="https://assemble.io">Assemble</a>
 ```
 
-### Добавление подсказки при наведении
+### Добавление заголовка
 
 ```markdown
 [Upstage](https://github.com/upstage/ "Visit Upstage!")
 ```
 
-Наведите курсор на ссылку, должна появиться подсказка:
+Рендерится так (наведите на ссылку — должна появиться подсказка):
 
 [Upstage](https://github.com/upstage/ "Visit Upstage!")
 
 HTML:
 
-```
+```html
 <a href="https://github.com/upstage/" title="Visit Upstage!">Upstage</a>
 ```
 
 ### Именованные якоря
 
-Именованные привязки позволяют перейти к указанной точке привязки на той же странице. Например, каждая из этих глав:
+Именованные якоря позволяют перейти к указанной точке на той же странице. Например, каждая из этих глав:
 
 ```markdown
 # Table of Contents
@@ -594,7 +830,7 @@ HTML:
   * [Chapter 3](#chapter-3)
 ```
 
-ведёт к соответствующим заголовкам на странице:
+будет вести к этим разделам:
 
 ```markdown
 ## Chapter 1 <a id="chapter-1"></a>
@@ -607,17 +843,37 @@ Content for chapter one.
 Content for chapter one.
 ```
 
-!!! note ""
+**Обратите внимание**, что конкретное расположение тега якоря кажется произвольным. Здесь они размещены в строке, поскольку так они выглядят ненавязчиво, и это работает.
 
-	Конкретное размещение тега привязки кажется произвольным. Они размещены здесь встроенными, так как это кажется ненавязчивым, и это работает.
+### Автоматические ссылки {: #automatic-links }
+
+> [!NOTE] Примечание
+> Автоматическое связывание голых URL `www.` и адресов email — **новое в Grav 2.0** (автоссылки GitHub Flavored Markdown), включено по умолчанию. Голые URL `http(s)://` обрабатываются отдельно параметром **Auto URL Links**, который по умолчанию остаётся выключенным.
+
+Голые URL `www.` и адреса email автоматически превращаются в ссылки без какой-либо разметки:
+
+```markdown
+Visit www.getgrav.org or email hello@getgrav.org.
+```
+
+Рендерится так:
+
+Visit www.getgrav.org or email hello@getgrav.org.
+
+HTML:
+
+```html
+<p>Visit <a href="http://www.getgrav.org">www.getgrav.org</a> or email <a href="mailto:hello@getgrav.org">hello@getgrav.org</a>.</p>
+```
 
 ## Изображения
 
-Изображения имеют синтаксис, аналогичный ссылкам, но содержат предшествующий восклицательный знак.
+Изображения имеют синтаксис, похожий на ссылки, но с восклицательным знаком в начале.
 
 ```markdown
 ![Minion](https://octodex.github.com/images/minion.png)
 ```
+
 ![Minion](https://octodex.github.com/images/minion.png)
 
 или:
@@ -625,18 +881,52 @@ Content for chapter one.
 ```markdown
 ![Alt text](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
 ```
+
 ![Alt text](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
 
-Как и ссылки, изображения также имеют синтаксис стиля сносок:
+Как и у ссылок, у изображений есть синтаксис в стиле сносок:
 
 ```markdown
 ![Alt text][id]
 ```
+
 ![Alt text][id]
 
-Со ссылкой позже в документе, определяющем расположение URL:
+С определением расположения URL позже в документе:
 
 [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
 
-
     [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+
+## Конфигурация {: #configuration }
+
+Рендеринг Markdown настраивается в разделе **Конфигурация → Система → Markdown** админки или в `user/config/system.yaml` по ключу `pages.markdown`. Любой параметр также можно переопределить для отдельной страницы в её метаданных по ключу `markdown:`. Значения по умолчанию:
+
+```yaml
+pages:
+  markdown:
+    extra: false              # Включить Markdown Extra
+    auto_line_breaks: false   # Считать одиночный перевод строки <br>
+    auto_url_links: false     # Автоматически связывать URL http(s)://
+    escape_markup: false      # Экранировать встроенный HTML в сущности
+    gfm:                      # GitHub Flavored Markdown — включён по умолчанию
+      task_lists: true        # флажки - [ ] / - [x]
+      marks: true             # ==подсветка==, ~нижний индекс~, ^верхний индекс^
+      tagfilter: true         # Экранировать запрещённые необработанные HTML-теги
+      autolinks: true         # Автоматически связывать голые URL www. и email
+    tables:                   # Расширения таблиц — по умолчанию выключены
+      colspan: false          # Пустая ячейка объединяется с ячейкой слева
+      headerless: false       # Таблица может начинаться со строки-разделителя
+      captions: false         # Строка [Caption] после таблицы становится <caption>
+      attributes: false       # Строка {.class #id} после таблицы задаёт атрибуты
+      multiline: false        # Строка, оканчивающаяся на \, продолжается на следующей
+```
+
+Параметры `gfm` меняют то, как рендерится существующий контент (флажки, `<mark>`/`<sub>`/`<sup>`, автоссылки URL, экранирование необработанного HTML), поэтому каждый из них можно отключить отдельно, если нужно прежнее поведение. Расширения `tables` все выключены по умолчанию и никогда не влияют на стандартную таблицу, пока вы их не включите.
+
+> [!TIP] Совет
+> Разработчики плагинов могут добавлять собственный синтаксис Markdown — настраиваемые блоки и встроенные метки — через [API расширений Markdown](../../plugins/markdown-extensions/index.md).
+
+## Twig в контенте
+
+**Twig** также можно обрабатывать внутри Markdown-контента страницы. В Grav 2.0 эта фича **по умолчанию выключена** и, когда включена, выполняется в песочнице безопасности — изменение по сравнению с предыдущими версиями, где `process.twig: true` на странице запускал Twig в контенте без ограничений. О том, как это работает, как включить и какие есть рекомендуемые альтернативы ([шаблоны страниц](../twig-in-content/index.md#use-a-page-template) и [шорткоды](../creating-a-shortcode/index.md)), см. [Twig в контенте](../twig-in-content/index.md).
